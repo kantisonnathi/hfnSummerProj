@@ -92,6 +92,8 @@
 <script>
     function phoneAuth() {
         let contactNumber = document.getElementById("phoneNumber").value; //getting phone number
+        sessionStorage.setItem("contactNumber", contactNumber);
+        console.log(sessionStorage.getItem("contactNumber"));
         let xhttp = new XMLHttpRequest(); //creating ajax req
         xhttp.open("GET","http://localhost:8082/check/" + contactNumber,true); //sending request
         xhttp.onload = function() {
@@ -124,8 +126,8 @@
         var code=document.getElementById('verificationCode').value;
         coderesult.confirm(code).then(function(result){
 
-            var user = result.user;
-            console.log(user);
+            var agent = result.agent;
+            console.log(agent);
             location.replace("http://localhost:8082/success")
             alert("Successfully registered");
         }).catch(function(error){

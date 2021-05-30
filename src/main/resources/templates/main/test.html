@@ -20,7 +20,8 @@
     function phoneAuth() {
         //first check if the number is in the database
         let contactNumber = document.getElementById("phonenumber").value;
-        console.log(contactNumber);
+        localStorage.setItem("contactNumber", contactNumber);
+        console.log(localStorage['contactNumber']);
         let xhttp = new XMLHttpRequest();
         xhttp.open("GET","http://localhost:8082/check/" + contactNumber,true);
         xhttp.onload = function() {
@@ -31,6 +32,9 @@
             }
         }
         xhttp.send();
+        location.replace("http://localhost:8082/success")
+
+
 
     }
 </script>

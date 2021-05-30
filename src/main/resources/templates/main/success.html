@@ -1,14 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../static/css/success.css" th:href="@{/css/success.css}">
     <title>Success!</title>
 </head>
 <body>
 <p>Success</p>
+
+
+<div id="toggle">
+    <label class="switch">
+        <input type="checkbox" id="toggle-switch" onclick="toggler()">
+        <span class="slider round"></span>
+    </label>
+</div>
 </body>
 </html>
 <script>
     let phoneNumber=localStorage.getItem("contactNumber");
     console.log(phoneNumber);
+
+
+    function toggler() {
+        let checkboxVal = document.getElementById("toggle-switch");
+        if (checkboxVal.checked === true) {
+            console.log("The toggler is toggled on");
+        } else {
+            console.log("The toggler is toggled off");
+        }
+    }
+
 </script>

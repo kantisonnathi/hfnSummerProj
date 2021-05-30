@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "agent")
-public class Agent {
+public class Agent extends BaseEntity {
 
     @Column(name = "contact_number")
     private String contactNumber; //mandatory
@@ -46,7 +46,7 @@ public class Agent {
         this.certified = certified;
     }
 
-    /*@OneToMany(mappedBy = "agent", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "agent", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Language> languages;
 
     public Set<Language> getLanguages() {
@@ -85,11 +85,7 @@ public class Agent {
 
         }
         skills.add(skill);
-    }*/
-
-
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    }
 
     public String getContactNumber() {
         return contactNumber;
@@ -131,12 +127,4 @@ public class Agent {
         this.altContactNumber = altContactNumber;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Id
-    public Long getId() {
-        return id;
-    }
 }

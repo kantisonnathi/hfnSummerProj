@@ -1,16 +1,9 @@
-/*
 package org.heartfulness.avtc.model;
 
 import javax.persistence.*;
 
 @Entity
-public class Skill {
-
-    private Long id;
-
-    @ManyToOne(fetch = FetchType.EAGER,targetEntity = Agent.class)
-    @JoinColumn(name="agent_id")
-    private Agent agent;
+public class Skill extends BaseEntity {
 
 
     public void setAgent(Agent agent) {
@@ -21,14 +14,10 @@ public class Skill {
         return agent;
     }
 
-    public void setId(Long id) {
-        this.id=id;
-    }
+    @ManyToOne(fetch = FetchType.EAGER,targetEntity = Agent.class)
+    @JoinColumn(name="agent_id")
+    private Agent agent;
 
-    @Id
-    public Long getId() {
-        return id;
-    }
 
 
     @Column(name="skill")
@@ -43,4 +32,3 @@ public class Skill {
         return skill;
     }
 }
-*/

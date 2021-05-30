@@ -1,11 +1,10 @@
-/*
 package org.heartfulness.avtc.model;
 
 import javax.persistence.*;
 
 @Entity
-public class Language {
-    private Long id;
+public class Language extends BaseEntity {
+
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Agent.class)
     @JoinColumn(name = "agent_id")
@@ -19,14 +18,6 @@ public class Language {
         this.agent = agent;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Id
-    public Long getId() {
-        return id;
-    }
 
     @Column(name="language")
     private String language;
@@ -39,4 +30,3 @@ public class Language {
         this.language = language;
     }
 }
-*/

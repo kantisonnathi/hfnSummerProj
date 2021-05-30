@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+</head>
+<body>
+
+
+<div>
+    <input type="text" id="phonenumber">
+    <button type="button" onclick="phoneAuth()">send code</button>
+</div>
+
+</body>
+</html>
+
+
+<script>
+    function phoneAuth() {
+        //first check if the number is in the database
+        let contactNumber = document.getElementById("phonenumber").value;
+        console.log(contactNumber);
+        let xhttp = new XMLHttpRequest();
+        xhttp.open("GET","http://localhost:8082/check/" + contactNumber,true);
+        xhttp.onload = function() {
+            let status = JSON.parse(xhttp.responseText);
+            console.log(status);
+            if (status[0].phoneNumber === "success") {
+                alert("Success!!!");
+            }
+        }
+        xhttp.send();
+
+    }
+</script>

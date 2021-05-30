@@ -8,9 +8,10 @@
 </head>
 <body>
 <center>
-    <h1>Congratulations!</h1>
-    <h2> Your email has been verified!</h2>
-    <h4>There are just a few more steps to complete the process</h4>
+    <br>
+    <br>
+    <h2>Please enter your phone number if you have been certified:</h2>
+    <br>
 </center>
 <div>
 
@@ -21,7 +22,7 @@
                 <centre>
                     <h3>Enter Mobile number </h3>
                     <label for="phoneNumber">Phone Number</label>
-                    <input type="text" th:field="*{phoneNumber}" id="phoneNumber" placeholder="phoneNumber">
+                    <input type="text" th:field="${userEntity.contactNumber}" id="phoneNumber" placeholder="phoneNumber">
                     <br>
                     <br>
 
@@ -37,7 +38,7 @@
                 </centre>
             </td>
         </table>
-
+    </form>
 </div>
 </body>
 
@@ -90,7 +91,22 @@
 </script>
 <script>
     function phoneAuth() {
-        //get the number
+        let contactNumber = document.getElementById("phoneNumber").value; //getting phone number
+        let xhttp = new XMLHttpRequest(); //creating ajax req
+        xhttp.open("GET","http://localhost:8082/check/" + contactNumber,true); //sending request
+        xhttp.onload = function() {
+            let status = JSON.parse(xhttp.responseText);
+            if (status[0].phoneNumber === "success") {
+                phoneAuthSecond()
+            } else {
+                alert("Sorry, your number not there in db man!");
+            }
+        }
+        xhttp.send();
+
+    }
+
+    function phoneAuthSecond() {
         const number = document.getElementById('phoneNumber').value;
         firebase.auth().signInWithPhoneNumber(number, window.recaptchaVerifier).then(function (confirmationResult) {
             window.confirmationResult = confirmationResult;
@@ -110,7 +126,7 @@
 
             var user = result.user;
             console.log(user);
-            location.replace("http://localhost:8080/success")
+            location.replace("http://localhost:8082/success")
             alert("Successfully registered");
         }).catch(function(error){
             alert(error.message);

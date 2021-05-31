@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../../static/css/success.css" th:href="@{/css/success.css}">
@@ -8,6 +9,8 @@
 <body>
 <p>Success</p>
 
+<!--<input type="text" id="id" th:object="${id}">-->
+<input id="id" type="number" name="id" th:field="${agent.id}"/>
 
 <div id="toggle">
     <label class="switch">
@@ -25,9 +28,14 @@
     function toggler() {
         let checkboxVal = document.getElementById("toggle-switch");
         if (checkboxVal.checked === true) {
-            console.log("The toggler is toggled on");
+            let xhttp = new XMLHttpRequest(); //creating ajax req
+            console.log(document.getElementById("id"));
+            xhttp.open("GET","http://localhost:8082/" + document.getElementById("id").value + "/mark/online",true);
+            xhttp.send();
         } else {
-            console.log("The toggler is toggled off");
+            let xhttp = new XMLHttpRequest();
+            xhttp.open("GET","http://localhost:8082/" + document.getElementById("id").value + "/mark/offline",true);
+            xhttp.send();
         }
     }
 

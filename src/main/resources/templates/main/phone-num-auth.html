@@ -34,7 +34,7 @@
                     <h3>Enter verification code</h3>
                     <input type="text" id="verificationCode" placeholder="Enter verification code">
                     <button type="button" onclick="codeverify()">Verify code</button>
-
+                    <button type="submit">next</button>
                 </centre>
             </td>
         </table>
@@ -128,7 +128,7 @@
 
             var agent = result.agent;
             console.log(agent);
-            location.replace("http://localhost:8082/success")
+            //location.replace("http://localhost:8082/success")
             alert("Successfully registered");
         }).catch(function(error){
             alert(error.message);

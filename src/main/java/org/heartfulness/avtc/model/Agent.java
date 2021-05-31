@@ -38,6 +38,17 @@ public class Agent extends BaseEntity {
     @Column(name = "certified")
     private Boolean certified;
 
+    @Column(name = "is_new")
+    private Boolean isNew;
+
+    public Boolean getNew() {
+        return isNew;
+    }
+
+    public void setNew(Boolean aNew) {
+        isNew = aNew;
+    }
+
     public Boolean getCertified() {
         return certified;
     }

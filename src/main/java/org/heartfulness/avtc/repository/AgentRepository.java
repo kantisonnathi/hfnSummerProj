@@ -7,4 +7,7 @@ public interface AgentRepository extends Repository<Agent, Long> {
 
     Agent findByContactNumber(String contactNumber);
 
+    void save(Agent agent);
+
+
 }

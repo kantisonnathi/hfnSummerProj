@@ -57,10 +57,10 @@ public class AgentController {
     public String getMainPage(ModelMap modelMap) {
         Agent agent = new Agent();
         agent.setId(1);
-        modelMap.put("agent",agent);
+        modelMap.put("agent", agent);
         return "main/success";
     }
 
-
+    @GetMapping("/edit-details")
 
 }

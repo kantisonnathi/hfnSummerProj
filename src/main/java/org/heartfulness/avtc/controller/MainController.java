@@ -9,7 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class MainController {
-
+    @GetMapping("/")
+    public String getlogin(ModelMap modelMap)
+    {
+        return "main/mainpage";
+    }
     @GetMapping("/main")
     public String getMain(ModelMap modelMap) {
         Agent agent = new Agent();

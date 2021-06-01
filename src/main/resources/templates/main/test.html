@@ -23,7 +23,7 @@
         localStorage.setItem("contactNumber", contactNumber);
         console.log(localStorage['contactNumber']);
         let xhttp = new XMLHttpRequest();
-        xhttp.open("GET","http://localhost:8082/check/" + contactNumber,true);
+        xhttp.open("GET","http://localhost:8082/test/" + contactNumber,true);
         xhttp.onload = function() {
             let status = JSON.parse(xhttp.responseText);
             console.log(status);

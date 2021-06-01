@@ -10,8 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Controller
@@ -36,7 +38,7 @@ public class AgentController {
 
     @GetMapping(path="/check/{contactNumber}", produces= MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> sayHello(@PathVariable("contactNumber")String contactNumber) {
-        //Get data from service layer into entityList.
+        //Get data from service layer into entityList
         List<JSONObject> entities = new ArrayList<JSONObject>();
         JSONObject entity = new JSONObject();
         Agent agent = this.agentRepository.findByContactNumber(contactNumber);
@@ -53,6 +55,17 @@ public class AgentController {
         return new ResponseEntity<Object>(entities, HttpStatus.OK);
     }
 
+    @GetMapping(path="/test/{contactNumber}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> returnAgentObject(@PathVariable("contactNumber")String contactNumber){
+        List<JSONObject> entities=new ArrayList<JSONObject>();
+        JSONObject entity=new JSONObject();
+        Agent agent=agentRepository.findByContactNumber(contactNumber);
+        entity.put("agent",agent);
+        entities.add(entity);
+        return new ResponseEntity<Object>(entities,HttpStatus.OK);
+
+    }
+
     @GetMapping("/success")
     public String getMainPage(ModelMap modelMap) {
         Agent agent = new Agent();
@@ -61,6 +74,5 @@ public class AgentController {
         return "main/success";
     }
 
-    @GetMapping("/edit-details")
 
 }

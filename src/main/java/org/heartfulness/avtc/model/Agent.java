@@ -38,15 +38,15 @@ public class Agent extends BaseEntity {
     @Column(name = "certified")
     private Boolean certified;
 
-    @Column(name = "is_new")
-    private Boolean isNew;
+    @Column(name = "user")
+    private String user; //for spring sec
 
-    public Boolean getNew() {
-        return isNew;
+    public String getUser() {
+        return user;
     }
 
-    public void setNew(Boolean aNew) {
-        isNew = aNew;
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public Boolean getCertified() {
@@ -75,7 +75,7 @@ public class Agent extends BaseEntity {
         languages.add(language);
     }
 
-    @OneToMany(mappedBy = "agent",fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+   @OneToMany(mappedBy = "agent",fetch=FetchType.EAGER,cascade=CascadeType.ALL)
     private Set<Skill> skills;
 
 
@@ -136,6 +136,14 @@ public class Agent extends BaseEntity {
 
     public void setAltContactNumber(String altContactNumber) {
         this.altContactNumber = altContactNumber;
+    }
+
+    public boolean validate() {
+        if (this.name.length() < 3 || languages.size() < 1 || skills.size() < 1) {
+            return false;
+        }
+        // add any other validations that you want here
+        return true;
     }
 
 }

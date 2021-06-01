@@ -3,6 +3,7 @@ package org.heartfulness.avtc.controller;
 import net.minidev.json.JSONObject;
 import org.heartfulness.avtc.model.Agent;
 import org.heartfulness.avtc.repository.AgentRepository;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,16 +33,20 @@ public class AgentController {
     @GetMapping("/{id}/mark/{status}")
     public String markStatus(@PathVariable("status") String status, @PathVariable("id") Integer id) {
         Agent agent = this.agentRepository.findById(id);
+        LocalDateTime localDateTime = LocalDateTime.now();
+        Timestamp timestamp = Timestamp.valueOf(localDateTime);
         if (status.equals("online")) {
             //mark user online
             agent.setStatus("online");
-            this.agentRepository.save(agent);
             //send api req to my operator
         } else if (status.equals("offline")) {
             //mark user offline
             agent.setStatus("offline");
-            this.agentRepository.save(agent);
         }
+
+        agent.setTimestamp(timestamp);
+        this.agentRepository.save(agent);
+        this.agentRepository.save(agent);
         return "main/error";
     }
 

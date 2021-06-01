@@ -1,7 +1,10 @@
 package org.heartfulness.avtc.model;
 
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,6 +35,17 @@ public class Agent extends BaseEntity {
 
     @Column(name = "status")
     private String status; //online offline busy
+
+    @Column(name = "timestamp")
+    private Timestamp timestamp;
+
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
+    }
 
     public String getStatus() {
         return status;

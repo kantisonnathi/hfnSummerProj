@@ -54,6 +54,7 @@ public class AgentController {
     }
 
     @GetMapping("/success")
+
     public String getMainPage(ModelMap modelMap) {
         Agent agent = new Agent();
         agent.setId(1);
@@ -61,6 +62,6 @@ public class AgentController {
         return "main/success";
     }
 
-    @GetMapping("/edit-details")
+
 
 }

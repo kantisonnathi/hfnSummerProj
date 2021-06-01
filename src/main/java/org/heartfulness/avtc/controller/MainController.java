@@ -41,16 +41,12 @@ public class MainController {
         if (agent1 == null) {
             return "main/error";
         }
-
-        //instead of the below code, call the validator method in agent
-
-        /*if (agent1.getNew()) {
+      /*  if (agent1.getNew()) {
             //redirect to edit detail page. certain things must be filled
         } else {
             //go to success page.
         }*/
-        return "main/error";
-
+    return "main/error";
     }
 
     @GetMapping("/test")

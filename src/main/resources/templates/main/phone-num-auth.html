@@ -15,7 +15,7 @@
 </center>
 <div>
 
-    <form th:action="@{/phonereg}" th:object="${userEntity}" method="post">
+    <form th:object="${userEntity}" method="post" id="phone-form">
 
         <table id="mobreg">
             <td>
@@ -78,6 +78,7 @@
     firebase.initializeApp(firebaseConfig);
     firebase.analytics();
 </script>
+
 <script>
     // To apply the default browser preference instead of explicitly setting it.
     // firebase.auth().useDeviceLanguage();
@@ -91,14 +92,16 @@
 </script>
 <script>
     function phoneAuth() {
+        console.log("function: phone auth");
         let contactNumber = document.getElementById("phoneNumber").value; //getting phone number
         sessionStorage.setItem("contactNumber", contactNumber);
-        console.log(sessionStorage.getItem("contactNumber"));
+        console.log("contact number in session storage is: " + sessionStorage.getItem("contactNumber"));
         let xhttp = new XMLHttpRequest(); //creating ajax req
         xhttp.open("GET","http://localhost:8082/check/" + contactNumber,true); //sending request
         xhttp.onload = function() {
             let status = JSON.parse(xhttp.responseText);
             if (status[0].phoneNumber === "success") {
+                console.log("phone number okay");
                 phoneAuthSecond()
             } else {
                 alert("Sorry, your number not there in db man!");
@@ -136,5 +139,6 @@
     }
 
 </script>
+
 
 </html>

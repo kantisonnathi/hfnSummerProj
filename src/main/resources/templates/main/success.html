@@ -9,9 +9,6 @@
 <body>
 <p>Success</p>
 
-<!--<input type="text" id="id" th:object="${id}">-->
-<input id="id" type="number" name="id" th:field="${agent.id}"/>
-
 <div id="toggle">
     <label class="switch">
         <input type="checkbox" id="toggle-switch" onclick="toggler()">
@@ -21,22 +18,39 @@
 </body>
 </html>
 <script>
-    let phoneNumber=localStorage.getItem("contactNumber");
-    //console.log(phoneNumber);
-
-
     function toggler() {
+        let contactNumber = sessionStorage.getItem("contactNumber")
+        console.log(contactNumber);
+        let id = getID();
         let checkboxVal = document.getElementById("toggle-switch");
         if (checkboxVal.checked === true) {
             let xhttp = new XMLHttpRequest(); //creating ajax req
             //console.log(document.getElementById("id"));
-            xhttp.open("GET","http://localhost:8082/" + document.getElementById("id").value + "/mark/online",true);
+            xhttp.open("GET","http://localhost:8082/" + id + "/mark/online",true);
             xhttp.send();
         } else {
             let xhttp = new XMLHttpRequest();
-            xhttp.open("GET","http://localhost:8082/" + document.getElementById("id").value + "/mark/offline",true);
+            xhttp.open("GET","http://localhost:8082/" + id + "/mark/offline",true);
             xhttp.send();
         }
+    }
+
+    function getID() {
+        let contactNumber = sessionStorage.getItem("contactNumber");
+        let xhttp = new XMLHttpRequest();
+        xhttp.open("GET","http://localhost:8082/test/" + contactNumber,true);
+        let agentObject;
+        xhttp.onload = function() {
+            let responseObject = JSON.parse(xhttp.responseText);
+            agentObject = responseObject[0].agent;
+            sessionStorage.setItem("currentAgent", agentObject);
+            sessionStorage.setItem("agent_id",agentObject["id"]);
+            console.log("The id of the agent is" + agentObject["id"]);
+            console.log("The name of the agent is " + agentObject["name"]);
+        }
+        xhttp.send();
+        return sessionStorage.getItem("agent_id");
+
     }
 
 </script>

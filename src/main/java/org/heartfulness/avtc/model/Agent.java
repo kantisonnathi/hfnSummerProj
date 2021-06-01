@@ -14,7 +14,7 @@ public class Agent extends BaseEntity {
 
     @Column(name = "name")
     private String name; //mandatory
-    
+
     @Column(name = "extension")
     private Integer extension; //mandatory
 
@@ -137,9 +137,10 @@ public class Agent extends BaseEntity {
     }
 
     public boolean validate() {
-        if (this.name.length() < 3 || languages.size() < 1 || skills.size() < 1) {
+        /*if (this.name.length() < 3 || languages.size() < 1 || skills.size() < 1) {
             return false;
-        }
+        }*/
+
         // add any other validations that you want here
         return true;
     }

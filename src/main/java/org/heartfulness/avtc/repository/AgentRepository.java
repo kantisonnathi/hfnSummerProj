@@ -9,5 +9,7 @@ public interface AgentRepository extends Repository<Agent, Long> {
 
     void save(Agent agent);
 
+    Agent findById(Integer id);
+
 
 }

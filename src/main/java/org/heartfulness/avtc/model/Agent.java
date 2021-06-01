@@ -38,15 +38,26 @@ public class Agent extends BaseEntity {
     @Column(name = "certified")
     private Boolean certified;
 
-    @Column(name = "user")
-    private String user; //for spring sec
+    @Column(name = "role")
+    private String role;
 
-    public String getUser() {
-        return user;
+    @Column(name = "status")
+    private String status; //online offline busy
+
+    public String getStatus() {
+        return status;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public Boolean getCertified() {
@@ -89,11 +100,9 @@ public class Agent extends BaseEntity {
     }
 
 
-    public void addSkill(Skill skill){
-        if(this.skills==null)
-        {
-            skills=new HashSet<>();
-
+    public void addSkill(Skill skill) {
+        if (this.skills == null)  {
+            skills = new HashSet<>();
         }
         skills.add(skill);
     }

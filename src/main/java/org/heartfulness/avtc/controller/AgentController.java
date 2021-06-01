@@ -26,12 +26,16 @@ public class AgentController {
 
 
     @GetMapping("/{id}/mark/{status}")
-    public String markStatus(@PathVariable("status") String status, @PathVariable("id") String phno) {
+    public String markStatus(@PathVariable("status") String status, @PathVariable("id") Integer id) {
+        Agent agent = this.agentRepository.findById(id);
         if (status.equals("online")) {
             //mark user online
-            System.out.println("user has been marked online");
+            agent.setStatus("online");
+            this.agentRepository.save(agent);
         } else if (status.equals("offline")) {
-            System.out.println("user has been marked offline");
+            //mark user offline
+            agent.setStatus("offline");
+            this.agentRepository.save(agent);
         }
         return "main/error";
     }

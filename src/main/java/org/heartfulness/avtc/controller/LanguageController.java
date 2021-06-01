@@ -9,6 +9,7 @@ import org.heartfulness.avtc.repository.SkillsRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
@@ -30,26 +31,28 @@ public class LanguageController {
     @GetMapping("/addDetails")
     public String getDetails(ModelMap modelMap)
     {
-        HashSet<Language> languages=new HashSet<>();
+        List<Language> l=new ArrayList<>();
         List<String> skills=new ArrayList<>();
         Agent agent= agentRepository.findByContactNumber("+919550563765");
-        languages=languageRepository.findByAgentId(agent.getId());
+        l=languageRepository.findByAgentId(agent.getId());
         modelMap.put("agent",agent);
-        modelMap.put("languages",languages);
+        modelMap.put("l",l);
         return "main/NewDetails";
     }
     @PostMapping("/addDetails")
-    public String getSuccessPage(List<String> languages,List<String> skills )
+    public String getSuccessPage(@ModelAttribute("agent") Agent agen)
     {
         Agent agent=agentRepository.findByContactNumber("+919550563765"); //for testing
+
         Language language=new Language();
         language.setAgent(agent);
         language.setId(agent.getId());
-        for (String s:languages) {
-              language.setLanguage(s);
-              languageRepository.save(language);
+        for ( Language l: agen.getLanguages()) {
+           l.setId(agent.getId());
+            languageRepository.save(l); //Test saving the language prefernce
+
         }
-    /*    Skill skill=new Skill();
+    /*    Skill skill=new Skill();    //Write similar code for Skill
         skill.setId(agent.getId());
         skill.setAgent(agent);
         for(String s: skills)

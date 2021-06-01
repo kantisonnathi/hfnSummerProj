@@ -1,21 +1,44 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nxz/thymeleaf/layout" layout:decorate="~{core-layout}">
 <head>
-    <meta charset="UTF-8">
-    <title>Enter Details</title>
+    <title>Insert title here</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<form  th:object="${agent}" method="post">
-    <p>
-        <label>Languages:
-            <input type="checkbox" name="languages"
-                   th:each="lang : ${languages}"
-                   th:text="${lang.language}"
-                   th:value="${lang.id}"
-            />
-        </label>
-    </p>
-</form>
+<div layout:fragment="content" class="ui attached segment">
+    <h2 th:text="|Add drinks for :{agent.contactNumber}|"></h2>
+    <form class="ui form" th:action="@{/addDetails}" method="post" th:object="${agent}">
+        <u1>
+            <li th:each=" lang : ${l}">
+                <div class="ui checkbox">
+                    <input type="checkbox" th:field="*{languages}" th:value="${lang.id}">
+                    <label th:text="${lang.language}"></label>
+                </div>
+            </li>
+        </u1>
+        <div class="ui checkbox">
+            <button class="ui-button" type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+<!--<form action="#" th:action="@{/addDetails}" th:object="${agent}" method="post">
+
+    <table border="1">
+
+        <th:block th:each="lang : ${l}">
+            <tr>
+                <td th:text="${lang.language}">A Test'</td>
+                    <td><input type="checkbox" th:field="*{languages}" th:value="${lang.id}" /></td>
+
+
+            </tr>
+        </th:block>
+
+    </table>
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>-->
 
 </body>
 </html>

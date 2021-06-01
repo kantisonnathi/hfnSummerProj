@@ -74,7 +74,7 @@ public class AgentController {
     @GetMapping("/success")
     public String getMainPage(ModelMap modelMap) {
         Agent agent = new Agent();
-        agent.setId(1);
+        //agent.setId(1);
         modelMap.put("agent", agent);
         return "main/success";
     }

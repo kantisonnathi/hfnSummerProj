@@ -41,12 +41,12 @@ public class MainController {
         if (agent1 == null) {
             return "main/error";
         }
-      /*  if (agent1.getNew()) {
-            //redirect to edit detail page. certain things must be filled
-        } else {
-            //go to success page.
-        }*/
-    return "main/error";
+        if (agent1.validate()) {
+            //agent is validated. navigate to success page
+            return "redirect:/success";
+        }
+        //return redirected url for editing details
+        return "main/error";
     }
 
     @GetMapping("/test")

@@ -32,6 +32,7 @@ public class AgentController {
             //mark user online
             agent.setStatus("online");
             this.agentRepository.save(agent);
+            //send api req to my operator
         } else if (status.equals("offline")) {
             //mark user offline
             agent.setStatus("offline");

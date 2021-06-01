@@ -22,14 +22,14 @@
 </html>
 <script>
     let phoneNumber=localStorage.getItem("contactNumber");
-    console.log(phoneNumber);
+    //console.log(phoneNumber);
 
 
     function toggler() {
         let checkboxVal = document.getElementById("toggle-switch");
         if (checkboxVal.checked === true) {
             let xhttp = new XMLHttpRequest(); //creating ajax req
-            console.log(document.getElementById("id"));
+            //console.log(document.getElementById("id"));
             xhttp.open("GET","http://localhost:8082/" + document.getElementById("id").value + "/mark/online",true);
             xhttp.send();
         } else {

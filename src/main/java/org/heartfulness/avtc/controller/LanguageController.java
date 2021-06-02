@@ -3,6 +3,8 @@ package org.heartfulness.avtc.controller;
 import org.heartfulness.avtc.model.Agent;
 import org.heartfulness.avtc.model.Language;
 //import org.heartfulness.avtc.model.Skill;
+import org.heartfulness.avtc.model.Other;
+import org.heartfulness.avtc.model.Skill;
 import org.heartfulness.avtc.repository.AgentRepository;
 import org.heartfulness.avtc.repository.LanguageRepository;
 import org.heartfulness.avtc.repository.SkillsRepository;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class LanguageController {
@@ -32,34 +35,48 @@ public class LanguageController {
     public String getDetails(ModelMap modelMap)
     {
         List<Language> l=new ArrayList<>();
-        List<String> skills=new ArrayList<>();
+        List<Skill> skills=new ArrayList<>();
+        Other other=new Other();
+        String lang= "";
         Agent agent= agentRepository.findByContactNumber("+919550563765");
         l=languageRepository.findByAgentId(agent.getId());
+        skills=skillsRepository.findAll();
         modelMap.put("agent",agent);
         modelMap.put("l",l);
+        modelMap.put("other",other);
+        modelMap.put("skills",skills);
         return "main/NewDetails";
     }
     @PostMapping("/addDetails")
-    public String getSuccessPage(@ModelAttribute("agent") Agent agen)
+    public String getSuccessPage(@ModelAttribute("agent") Agent agen,@ModelAttribute("other") Other other)
     {
-        Agent agent=agentRepository.findByContactNumber("+919550563765"); //for testing
+        Agent agent=agentRepository.findByContactNumber("+9676684424"); //for testing
 
         Language language=new Language();
         language.setAgent(agent);
-        language.setId(agent.getId());
+        String others[]=other.getLan().split(",");
         for ( Language l: agen.getLanguages()) {
-           l.setId(agent.getId());
-            languageRepository.save(l); //Test saving the language prefernce
-
+            language.setLanguage(l.getLanguage());
+        Language catchh= this.languageRepository.save(language); //Test saving the language preference
         }
-    /*    Skill skill=new Skill();    //Write similar code for Skill
-        skill.setId(agent.getId());
+        for(String s: others)
+        {
+            language.setLanguage(s);
+            Language catchh=this.languageRepository.save(language);
+        }
+       Skill skill=new Skill();
+        String otherskills[]=other.getSkills1().split(",");
         skill.setAgent(agent);
-        for(String s: skills)
+        for(Skill s: agen.getSkills())
+        {
+            skill.setSkill(s.getSkill());
+            this.skillsRepository.save(skill);
+        }
+        for(String s: otherskills)
         {
             skill.setSkill(s);
-            skillsRepository.save(skill);
-        }*/
+            this.skillsRepository.save(skill);
+        }
         return "main/success";
     }
 }

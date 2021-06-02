@@ -15,8 +15,21 @@
                 <div class="ui checkbox">
                     <input type="checkbox" th:field="*{languages}" th:value="${lang.id}">
                     <label th:text="${lang.language}"></label>
+
+
+                 </div>
+            </li>
+            <label>Please enter Other Languages:</label>
+            <input type="text" th:object="${other}" th:field="*{lan}" name="languages">
+        </u1>
+        <u1>
+            <li th:each="s : ${skills}">
+                <div class="ui checkbox">
+                    <input type="checkbox" th:field="*{skills}" th:value="${s.id}">
+                    <label th:text="${s.skill}"></label>
                 </div>
             </li>
+            <input type="text" th:object="${other}" th:field="*{skills1}" name="skills">
         </u1>
         <div class="ui checkbox">
             <button class="ui-button" type="submit">Submit</button>

@@ -32,7 +32,7 @@ public class MainController {
     public String getMain(ModelMap modelMap) {
         Agent agent = new Agent();
         modelMap.put("userEntity", agent);
-        return "main/phone-num-auth";
+        return "NOphone-num-auth";
     }
 
     @PostMapping("/main")

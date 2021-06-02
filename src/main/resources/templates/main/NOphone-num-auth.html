@@ -94,14 +94,14 @@
     function phoneAuth() {
         console.log("function: phone auth");
         let contactNumber = document.getElementById("phoneNumber").value; //getting phone number
-        sessionStorage.setItem("contactNumber", contactNumber);
-        console.log("contact number in session storage is: " + sessionStorage.getItem("contactNumber"));
         let xhttp = new XMLHttpRequest(); //creating ajax req
         xhttp.open("GET","http://localhost:8082/check/" + contactNumber,true); //sending request
         xhttp.onload = function() {
             let status = JSON.parse(xhttp.responseText);
             if (status[0].phoneNumber === "success") {
                 console.log("phone number okay");
+                sessionStorage.setItem("contactNumber", contactNumber);
+                console.log("contact number in session storage is: " + sessionStorage.getItem("contactNumber"));
                 phoneAuthSecond()
             } else {
                 alert("Sorry, your number not there in db man!");

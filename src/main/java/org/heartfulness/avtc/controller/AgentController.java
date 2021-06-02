@@ -31,19 +31,17 @@ public class AgentController {
 
 
     @GetMapping("/{id}/mark/{status}")
-    public String markStatus(@PathVariable("status") String status, @PathVariable("id") Integer id) {
+    public String markStatus(@PathVariable("status") String status, @PathVariable("id") Long id) {
         Agent agent = this.agentRepository.findById(id);
         LocalDateTime localDateTime = LocalDateTime.now();
         Timestamp timestamp = Timestamp.valueOf(localDateTime);
         if (status.equals("online")) {
             //mark user online
             agent.setStatus("online");
-            //send api req to my operator
         } else if (status.equals("offline")) {
             //mark user offline
             agent.setStatus("offline");
         }
-
         agent.setTimestamp(timestamp);
         this.agentRepository.save(agent);
         this.agentRepository.save(agent);
@@ -88,5 +86,11 @@ public class AgentController {
         return "main/success";
     }
 
+    @GetMapping("/m/display")
+    public String getManagerPage(ModelMap modelMap) {
+        List<Agent> listOfAllAgents = this.agentRepository.findAll();
+        modelMap.put("agents", listOfAllAgents);
+        return "main/m-only";
+    }
 
 }

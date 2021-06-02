@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../static/css/success.css" th:href="@{/css/success.css}">
+    <title>Success!</title>
+</head>
+<body>
+<p>Success</p>
+
+<div id="managers-only">
+    <table>
+        <thead>
+            <tr>
+                <th>Agent name</th>
+                <th>Agent phone number</th>
+                <th>Agent role</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="agent : ${agents}">
+                <td th:text="${agent.name}"></td>
+                <td th:text="${agent.contactNumber}"></td>
+                <td th:text="${agent.role}"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

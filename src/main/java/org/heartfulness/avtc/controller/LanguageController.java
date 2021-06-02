@@ -52,28 +52,35 @@ public class LanguageController {
     {
         Agent agent=agentRepository.findByContactNumber("+9676684424"); //for testing
 
-        Language language=new Language();
-        language.setAgent(agent);
+
         String others[]=other.getLan().split(",");
         for ( Language l: agen.getLanguages()) {
+            Language language=new Language();
+            language.setAgent(agent);
             language.setLanguage(l.getLanguage());
         Language catchh= this.languageRepository.save(language); //Test saving the language preference
         }
         for(String s: others)
         {
+            Language language=new Language();
+            language.setAgent(agent);
             language.setLanguage(s);
             Language catchh=this.languageRepository.save(language);
         }
-       Skill skill=new Skill();
+
         String otherskills[]=other.getSkills1().split(",");
-        skill.setAgent(agent);
+
         for(Skill s: agen.getSkills())
         {
+            Skill skill=new Skill();
+            skill.setAgent(agent);
             skill.setSkill(s.getSkill());
             this.skillsRepository.save(skill);
         }
         for(String s: otherskills)
         {
+            Skill skill=new Skill();
+            skill.setAgent(agent);
             skill.setSkill(s);
             this.skillsRepository.save(skill);
         }

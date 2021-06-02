@@ -1,5 +1,7 @@
 package org.heartfulness.avtc.controller;
 
+import com.google.firebase.auth.FirebaseAuth;
+import org.heartfulness.avtc.Firebase.FirebaseInitializer;
 import org.heartfulness.avtc.model.Agent;
 import org.heartfulness.avtc.model.Language;
 //import org.heartfulness.avtc.model.Skill;
@@ -8,6 +10,7 @@ import org.heartfulness.avtc.model.Skill;
 import org.heartfulness.avtc.repository.AgentRepository;
 import org.heartfulness.avtc.repository.LanguageRepository;
 import org.heartfulness.avtc.repository.SkillsRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,9 +24,13 @@ import java.util.Set;
 
 @Controller
 public class LanguageController {
+
+
     private final AgentRepository agentRepository;
     private final LanguageRepository languageRepository;
     private final SkillsRepository skillsRepository;
+    @Autowired
+    FirebaseInitializer fbi;
 
     public LanguageController(AgentRepository agentRepository, LanguageRepository languageRepository, SkillsRepository skillsRepository) {
         this.agentRepository = agentRepository;
@@ -45,6 +52,8 @@ public class LanguageController {
         modelMap.put("l",l);
         modelMap.put("other",other);
         modelMap.put("skills",skills);
+        FirebaseAuth fba=fbi.getClient();
+        System.out.println(fba);
         return "main/NewDetails";
     }
     @PostMapping("/addDetails")

@@ -19,7 +19,7 @@ public class SkillFormat implements Converter<String,Skill> {
 
     @Override
     public Skill convert(String s) {
-        System.out.println("Skill");
+        //System.out.println("Skill");
         int id=Integer.parseInt(s);
         List<Skill> skills=skillsRepository.findAll();
         int index=id-1;

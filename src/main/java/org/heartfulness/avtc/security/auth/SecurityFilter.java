@@ -1,13 +1,15 @@
-/*
-package org.heartfulness.avtc.security;
+package org.heartfulness.avtc.security.auth;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
 
 import lombok.extern.slf4j.Slf4j;
+import org.heartfulness.avtc.security.auth.models.Credentials;
+import org.heartfulness.avtc.security.auth.models.SecurityProperties;
+import org.heartfulness.avtc.security.auth.models.User;
+import org.heartfulness.avtc.security.utils.CookieUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -91,4 +93,4 @@ public class SecurityFilter extends OncePerRequestFilter {
         return user;
     }
 
-}*/
+}

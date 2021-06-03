@@ -7,7 +7,6 @@ public class Language extends BaseEntity {
 
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Agent.class)
-
     @JoinColumn(name = "agent_id")
     private Agent agent;
 

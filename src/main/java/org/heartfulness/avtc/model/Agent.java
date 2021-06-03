@@ -89,7 +89,7 @@ public class Agent extends BaseEntity {
         languages.add(language);
     }
 
-   @OneToMany(mappedBy = "agent",fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "agent",fetch=FetchType.EAGER,cascade=CascadeType.ALL)
     private Set<Skill> skills;
 
 

@@ -1,7 +1,9 @@
 package org.heartfulness.avtc.controller;
 
 import com.google.firebase.auth.FirebaseAuth;
-import org.heartfulness.avtc.Firebase.FirebaseInitializer;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.UserRecord;
+import org.heartfulness.avtc.firebase.FirebaseInitializer;
 import org.heartfulness.avtc.model.Agent;
 import org.heartfulness.avtc.model.Language;
 //import org.heartfulness.avtc.model.Skill;
@@ -18,9 +20,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 public class LanguageController {
@@ -29,6 +29,7 @@ public class LanguageController {
     private final AgentRepository agentRepository;
     private final LanguageRepository languageRepository;
     private final SkillsRepository skillsRepository;
+
     @Autowired
     FirebaseInitializer fbi;
 
@@ -39,8 +40,7 @@ public class LanguageController {
     }
 
     @GetMapping("/addDetails")
-    public String getDetails(ModelMap modelMap)
-    {
+    public String getDetails(ModelMap modelMap) throws FirebaseAuthException {
         List<Language> l=new ArrayList<>();
         List<Skill> skills=new ArrayList<>();
         Other other=new Other();
@@ -52,14 +52,14 @@ public class LanguageController {
         modelMap.put("l",l);
         modelMap.put("other",other);
         modelMap.put("skills",skills);
-        FirebaseAuth fba=fbi.getClient();
-        System.out.println(fba);
+        UserRecord.CreateRequest newUser = new UserRecord.CreateRequest();
+        UserRecord user = FirebaseAuth.getInstance().createUser(newUser);
         return "main/NewDetails";
     }
     @PostMapping("/addDetails")
     public String getSuccessPage(@ModelAttribute("agent") Agent agen,@ModelAttribute("other") Other other)
     {
-        Agent agent=agentRepository.findByContactNumber("+9676684424"); //for testing
+        Agent agent=agentRepository.findByContactNumber("+9676684424"   ); //for testing
 
 
         String others[]=other.getLan().split(",");

@@ -4,7 +4,7 @@ package org.heartfulness.avtc.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "call")
+@Table(name = "calls")
 public class Call extends BaseEntity {
 
 

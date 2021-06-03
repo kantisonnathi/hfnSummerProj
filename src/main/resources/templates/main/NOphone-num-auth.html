@@ -110,6 +110,23 @@
 
     }
 
+    function phoneAuthTester() {
+        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
+
+        firebase.auth().signInWithPhoneNumber(document.getElementById('phoneNumber').value).then(user => {
+            return user.getIdToken().then(idToken => {
+
+                //const csrfToken = getCookie('csrfToken');
+                let xtthp
+                return postIdTokenToSessionLogin('/sessionLogin', idToken);
+            });
+        }).then(() => {
+            return firebase.auth().signOut();
+        }).then(() => {
+            window.location.assign('/profile');
+        });
+    }
+
     function phoneAuthSecond() {
         const number = document.getElementById('phoneNumber').value;
         firebase.auth().signInWithPhoneNumber(number, window.recaptchaVerifier).then(function (confirmationResult) {
@@ -128,7 +145,7 @@
         var code=document.getElementById('verificationCode').value;
         coderesult.confirm(code).then(function(result){
 
-            var agent = result.user.;
+            var agent = result.agent;
             console.log("agent: " + agent);
             //location.replace("http://localhost:8082/success")
             alert("Successfully registered");

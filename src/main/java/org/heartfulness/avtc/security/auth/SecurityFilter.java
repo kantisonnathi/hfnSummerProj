@@ -73,6 +73,8 @@ public class SecurityFilter extends OncePerRequestFilter {
         }
         User user = firebaseTokenToUserDto(decodedToken);
         if (user != null) {
+            //make this phone Number authentication
+
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user,
                     new Credentials(type, decodedToken, token, session), null);
             authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

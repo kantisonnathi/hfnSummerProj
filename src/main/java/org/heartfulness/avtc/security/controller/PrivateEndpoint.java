@@ -4,11 +4,16 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.SessionCookieOptions;
 import org.heartfulness.avtc.security.auth.models.User;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 import java.util.concurrent.TimeUnit;
@@ -26,18 +31,24 @@ public class PrivateEndpoint {
 
     @PostMapping("/sessionLogin")
     @ResponseBody
-    public Response createSessionCookie(@RequestBody String idToken) {
+    @Produces(MediaType.TEXT_PLAIN)
+    public ResponseEntity<?> createSessionCookie(@RequestBody String idToken, HttpServletResponse response) {
         long expiresIn = TimeUnit.DAYS.toMillis(5);
         SessionCookieOptions options = SessionCookieOptions.builder()
                 .setExpiresIn(expiresIn)
                 .build();
         try {
             String sessionCookie = FirebaseAuth.getInstance().createSessionCookie(idToken, options);
-            NewCookie cookie = new NewCookie("session", sessionCookie);
-            return Response.ok().cookie(cookie).build();
+            Cookie cookie = new Cookie("session", sessionCookie);
+            cookie.setSecure(false);
+            cookie.setHttpOnly(true);
+            cookie.setPath("/");
+            response.addCookie(cookie);
+            return new ResponseEntity<>("logged in", HttpStatus.OK);
         } catch (FirebaseAuthException e) {
-            return Response.status(Response.Status.UNAUTHORIZED).entity("Failed to create a session cookie")
-                    .build();
+            return new ResponseEntity<>("failed to create session cookie", HttpStatus.UNAUTHORIZED);
+            /*return Response.status(Response.Status.UNAUTHORIZED).entity("Failed to create a session cookie")
+                    .build();*/
         } 
     }
 }

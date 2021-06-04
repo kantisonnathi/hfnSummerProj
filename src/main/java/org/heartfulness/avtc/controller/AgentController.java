@@ -3,6 +3,9 @@ package org.heartfulness.avtc.controller;
 import net.minidev.json.JSONObject;
 import org.heartfulness.avtc.model.Agent;
 import org.heartfulness.avtc.repository.AgentRepository;
+import org.heartfulness.avtc.security.auth.SecurityService;
+import org.heartfulness.avtc.security.auth.models.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,6 +26,11 @@ import java.util.List;
 
 @Controller
 public class AgentController {
+
+    @Autowired
+    SecurityService securityService;
+
+
     private final AgentRepository agentRepository;
 
     public AgentController(AgentRepository agentRepository) {
@@ -69,8 +77,8 @@ public class AgentController {
 
     @GetMapping(path="/test/{contactNumber}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> returnAgentObject(@PathVariable("contactNumber")String contactNumber){
-        List<JSONObject> entities=new ArrayList<JSONObject>();
-        JSONObject entity=new JSONObject();
+        List<JSONObject> entities = new ArrayList<JSONObject>();
+        JSONObject entity = new JSONObject();
         Agent agent=agentRepository.findByContactNumber(contactNumber);
         entity.put("agent",agent);
         entities.add(entity);
@@ -81,6 +89,8 @@ public class AgentController {
     @GetMapping("/success")
     public String getMainPage(ModelMap modelMap) {
         Agent agent = new Agent();
+        User user = securityService.getUser();
+        System.out.println(user);
         //agent.setId(1);
         modelMap.put("agent", agent);
         return "main/success";

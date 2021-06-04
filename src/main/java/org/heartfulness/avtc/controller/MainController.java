@@ -39,7 +39,7 @@ public class MainController {
 
     @PostMapping("/main")
     public String postMain(Agent agent, Principal principal) {
-        String phoneNumber = principal.getName();
+        //String phoneNumber = principal.getName();
         Agent agent1 = this.agentRepository.findByContactNumber(agent.getContactNumber());
         if (agent1 == null) {
             return "main/error";

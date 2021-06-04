@@ -110,7 +110,7 @@
 
     }
 
-    function phoneAuthTester() {
+    /*function phoneAuthTester() {
         firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
 
         firebase.auth().signInWithPhoneNumber(document.getElementById('phoneNumber').value).then(user => {
@@ -125,7 +125,7 @@
         }).then(() => {
             window.location.assign('/profile');
         });
-    }
+    }*/
 
     function phoneAuthSecond() {
         const number = document.getElementById('phoneNumber').value;
@@ -151,7 +151,7 @@
                 xhttp.onload = function() {
                     console.log("done");
                 }
-                xhttp.open("POST","/private/sessionLogin");
+                xhttp.open("POST","/private/sessionLogin");  //here is where the cookie is sset
                 console.log(idToken);
                 xhttp.setRequestHeader("Content-type", "application/json");
                 xhttp.send(idToken);

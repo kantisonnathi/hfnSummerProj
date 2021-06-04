@@ -9,6 +9,7 @@ import org.heartfulness.avtc.security.auth.models.Credentials;
 import org.heartfulness.avtc.security.auth.models.SecurityProperties;
 import org.heartfulness.avtc.security.auth.models.User;
 import org.heartfulness.avtc.security.utils.CookieUtils;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -40,7 +41,7 @@ public class SecurityFilter extends OncePerRequestFilter {
     SecurityProperties securityProps;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+    protected void doFilterInternal(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         verifyToken(request);
         filterChain.doFilter(request, response);

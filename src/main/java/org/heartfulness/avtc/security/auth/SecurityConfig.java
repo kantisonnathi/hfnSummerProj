@@ -70,7 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().configurationSource(corsConfigurationSource()).and().csrf().disable().formLogin().disable()
                 .httpBasic().disable().exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint())
-                .and().authorizeRequests().antMatchers("/main").permitAll();
+                .and().authorizeRequests().antMatchers("/main").permitAll().antMatchers("/css/**").permitAll();
 //                .antMatchers(restSecProps.getAllowedPublicApis().toArray(String[]::new)).permitAll();
              //   .antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest().authenticated().and()
                // .addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

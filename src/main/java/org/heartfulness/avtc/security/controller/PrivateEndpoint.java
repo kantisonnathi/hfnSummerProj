@@ -6,10 +6,7 @@ import com.google.firebase.auth.SessionCookieOptions;
 import org.heartfulness.avtc.security.auth.models.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.core.NewCookie;
@@ -28,9 +25,8 @@ public class PrivateEndpoint {
 
 
     @PostMapping("/sessionLogin")
-    @Consumes("application/json")
-    public Response createSessionCookie(LoginRequest request) {
-        String idToken = request.getIdToken();
+    @ResponseBody
+    public Response createSessionCookie(@RequestBody String idToken) {
         long expiresIn = TimeUnit.DAYS.toMillis(5);
         SessionCookieOptions options = SessionCookieOptions.builder()
                 .setExpiresIn(expiresIn)
@@ -42,6 +38,6 @@ public class PrivateEndpoint {
         } catch (FirebaseAuthException e) {
             return Response.status(Response.Status.UNAUTHORIZED).entity("Failed to create a session cookie")
                     .build();
-        }
+        } 
     }
 }

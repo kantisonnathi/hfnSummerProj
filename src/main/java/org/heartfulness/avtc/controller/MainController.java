@@ -8,6 +8,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.security.Principal;
+
 
 @Controller
 public class MainController {
@@ -36,7 +38,8 @@ public class MainController {
     }
 
     @PostMapping("/main")
-    public String postMain(Agent agent) {
+    public String postMain(Agent agent, Principal principal) {
+        String phoneNumber = principal.getName();
         Agent agent1 = this.agentRepository.findByContactNumber(agent.getContactNumber());
         if (agent1 == null) {
             return "main/error";

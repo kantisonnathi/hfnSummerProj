@@ -65,13 +65,14 @@
     // Your web app's Firebase configuration
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
     var firebaseConfig = {
-        apiKey: "AIzaSyDgSbNGggaPUj-Nosw9CwOVFCAnA1FbxxE",
-        authDomain: "avtc-5ad96.firebaseapp.com",
-        projectId: "avtc-5ad96",
-        storageBucket: "avtc-5ad96.appspot.com",
-        messagingSenderId: "18741820181",
-        appId: "1:18741820181:web:27ee919508b9980d2a071c",
-        measurementId: "G-ZL50HEW1ZR"
+        apiKey: "AIzaSyDM52NzMtY6h9ZL3P_XpqHOMlPTufdB0SI",
+        authDomain: "avtc-hfn.firebaseapp.com",
+        databaseURL: "https://avtc-hfn.firebaseio.com",
+        projectId: "avtc-hfn",
+        storageBucket: "avtc-hfn.appspot.com",
+        messagingSenderId: "792429164181",
+        appId: "1:792429164181:web:df326d796542b56eee0d9c",
+        measurementId: "G-76XMRKRE3N"
     };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
@@ -99,8 +100,7 @@
             let status = JSON.parse(xhttp.responseText);
             if (status[0].phoneNumber === "success") {
                 console.log("phone number okay");
-                sessionStorage.setItem("contactNumber", contactNumber);
-                console.log("contact number in session storage is: " + sessionStorage.getItem("contactNumber"));
+                //sessionStorage.setItem("contactNumber", contactNumber);
                 phoneAuthSecond()
             } else {
                 alert("Sorry, your number not there in db man!");
@@ -118,7 +118,7 @@
 
                 //const csrfToken = getCookie('csrfToken');
                 let xtthp
-                return postIdTokenToSessionLogin('/sessionLogin', idToken);
+                return postIdTokenToSessionLogin('/private/sessionLogin', idToken);
             });
         }).then(() => {
             return firebase.auth().signOut();
@@ -135,6 +135,7 @@
             console.log("code result:" + coderesult);
             alert("Message sent");
 
+
         }).catch(function (error) {
             alert(error.message)
         });
@@ -145,10 +146,32 @@
         var code=document.getElementById('verificationCode').value;
         coderesult.confirm(code).then(function(result){
 
-            var agent = result.agent;
-            console.log("agent: " + agent);
+            firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+                let xhttp = new XMLHttpRequest();
+                xhttp.onload = function() {
+                    console.log("done");
+                }
+                xhttp.open("POST","/private/sessionLogin");
+                console.log(idToken);
+                xhttp.setRequestHeader("Content-type", "application/json");
+                xhttp.send(idToken);
+                //
+            }).catch(function(error) {
+                console.log("error");
+            })
+            /*let idToken = result.user.getIdToken();
+            let xhttp = new XMLHttpRequest();
+            xhttp.onload = function() {
+                console.log("done");
+            }
+            xhttp.open("POST","/private/sessionLogin");
+            //xhttp.setRequestHeader("Content-type", "application/json");
+            console.log("sending request to sessionLogin, id token = " + idToken['i']);
+            console.log(idToken);
+            console.log(idToken[i]);
+            xhttp.send("idToken=" + idToken['i']);
             //location.replace("http://localhost:8082/success")
-            alert("Successfully registered");
+            alert("Successfully registered");*/
         }).catch(function(error){
             alert(error.message);
         });

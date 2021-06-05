@@ -90,7 +90,7 @@ public class AgentController {
     public String getMainPage(ModelMap modelMap) {
         Agent agent = new Agent();
         User user = securityService.getUser();
-        System.out.println(user);
+
         //agent.setId(1);
         modelMap.put("agent", agent);
         return "main/success";

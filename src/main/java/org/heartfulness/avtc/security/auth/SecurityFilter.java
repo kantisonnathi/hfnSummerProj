@@ -4,7 +4,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
 
+import com.google.firebase.auth.UserRecord;
 import lombok.extern.slf4j.Slf4j;
+import org.heartfulness.avtc.firebase.FirebaseInitializer;
 import org.heartfulness.avtc.security.auth.models.Credentials;
 import org.heartfulness.avtc.security.auth.models.SecurityProperties;
 import org.heartfulness.avtc.security.auth.models.User;
@@ -27,6 +29,9 @@ import java.io.IOException;
 @Component
 @Slf4j
 public class SecurityFilter extends OncePerRequestFilter {
+
+    @Autowired
+    FirebaseInitializer fbi;
 
     @Autowired
     SecurityService securityService;
@@ -82,16 +87,23 @@ public class SecurityFilter extends OncePerRequestFilter {
         }
     }
 
-    private User firebaseTokenToUserDto(FirebaseToken decodedToken) {
+    private User firebaseTokenToUserDto(FirebaseToken decodedToken)  {
         User user = null;
         if (decodedToken != null) {
             user = new User();
             user.setUid(decodedToken.getUid());
-            user.setName(decodedToken.getName());
+            UserRecord tempUser;
+            try {
+                tempUser = FirebaseAuth.getInstance().getUser(user.getUid());
+                user.setPhoneNumber(tempUser.getPhoneNumber());
+            } catch (FirebaseAuthException exception) {
+                System.out.println("error");
+            }
+            /*user.setName(decodedToken.getName());
             user.setEmail(decodedToken.getEmail());
             user.setPicture(decodedToken.getPicture());
             user.setIssuer(decodedToken.getIssuer());
-            user.setEmailVerified(decodedToken.isEmailVerified());
+            user.setEmailVerified(decodedToken.isEmailVerified());*/
         }
         return user;
     }

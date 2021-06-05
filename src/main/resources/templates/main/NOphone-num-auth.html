@@ -94,7 +94,12 @@
     function phoneAuth() {
         console.log("function: phone auth");
         let contactNumber = document.getElementById("phoneNumber").value; //getting phone number
-        let xhttp = new XMLHttpRequest(); //creating ajax req
+        let xhttp = new XMLHttpRequest();
+        xhttp.open("POST","http://localhost:8082/check")
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.send(contactNumber);
+
+        /*let xhttp = new XMLHttpRequest(); //creating ajax req
         xhttp.open("GET","http://localhost:8082/check/" + contactNumber,true); //sending request
         xhttp.onload = function() {
             let status = JSON.parse(xhttp.responseText);
@@ -106,7 +111,7 @@
                 alert("Sorry, your number not there in db man!");
             }
         }
-        xhttp.send();
+        xhttp.send();*/
 
     }
 

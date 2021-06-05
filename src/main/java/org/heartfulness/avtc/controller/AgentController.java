@@ -1,5 +1,8 @@
 package org.heartfulness.avtc.controller;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.SessionCookieOptions;
 import net.minidev.json.JSONObject;
 import org.heartfulness.avtc.model.Agent;
 import org.heartfulness.avtc.repository.AgentRepository;
@@ -12,10 +15,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.Produces;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -23,6 +27,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Controller
 public class AgentController {
@@ -56,9 +61,12 @@ public class AgentController {
         return "main/error";
     }
 
-    @GetMapping(path="/check/{contactNumber}", produces= MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> sayHello(@PathVariable("contactNumber")String contactNumber) {
-        //Get data from service layer into entityList
+
+
+    @PostMapping("/check")
+    @ResponseBody
+    @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+    public ResponseEntity<?> createSessionCookie(@RequestBody String contactNumber) {
         List<JSONObject> entities = new ArrayList<JSONObject>();
         JSONObject entity = new JSONObject();
         Agent agent = this.agentRepository.findByContactNumber(contactNumber);

@@ -81,7 +81,7 @@ public class LanguageController {
         }
         for(String s: others)
         {
-            if(s==null)
+            if(s=="")
             {
                 continue;
             }
@@ -102,6 +102,10 @@ public class LanguageController {
         }
         for(String s: otherskills)
         {
+            if(s=="")
+            {
+                continue;
+            }
             Skill skill=new Skill();
             skill.setAgent(agent);
             skill.setSkill(s);

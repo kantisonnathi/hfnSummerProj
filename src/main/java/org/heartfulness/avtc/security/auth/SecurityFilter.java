@@ -91,14 +91,8 @@ public class SecurityFilter extends OncePerRequestFilter {
         User user = null;
         if (decodedToken != null) {
             user = new User();
+            user.setPhoneNumber(decodedToken.getClaims().get("phone_number").toString());
             user.setUid(decodedToken.getUid());
-            UserRecord tempUser;
-            try {
-                tempUser = FirebaseAuth.getInstance().getUser(user.getUid());
-                user.setPhoneNumber(tempUser.getPhoneNumber());
-            } catch (FirebaseAuthException exception) {
-                System.out.println("error");
-            }
             /*user.setName(decodedToken.getName());
             user.setEmail(decodedToken.getEmail());
             user.setPicture(decodedToken.getPicture());

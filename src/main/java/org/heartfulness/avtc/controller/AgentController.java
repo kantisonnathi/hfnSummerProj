@@ -90,10 +90,17 @@ public class AgentController {
     public String getMainPage(ModelMap modelMap) {
         Agent agent = new Agent();
         User user = securityService.getUser();
-
+       String number=user.getPhoneNumber();
+       agent=agentRepository.findByContactNumber(number);
         //agent.setId(1);
         modelMap.put("agent", agent);
-        return "main/success";
+        if(agent.validate()) {
+            return "main/success";
+        }
+        else
+        {
+            return "main/replace";
+        }
     }
 
     @GetMapping("/m/display")

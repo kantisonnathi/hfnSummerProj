@@ -12,12 +12,15 @@ import org.heartfulness.avtc.model.Skill;
 import org.heartfulness.avtc.repository.AgentRepository;
 import org.heartfulness.avtc.repository.LanguageRepository;
 import org.heartfulness.avtc.repository.SkillsRepository;
+import org.heartfulness.avtc.security.auth.SecurityService;
+import org.heartfulness.avtc.security.auth.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -33,6 +36,9 @@ public class LanguageController {
 
     @Autowired
     FirebaseInitializer fbi;
+
+    @Autowired
+    SecurityService securityService;
 
     public LanguageController(AgentRepository agentRepository, LanguageRepository languageRepository, SkillsRepository skillsRepository) {
         this.agentRepository = agentRepository;
@@ -61,7 +67,9 @@ public class LanguageController {
     @PostMapping("/addDetails")
     public String getSuccessPage(@ModelAttribute("agent") Agent agen,@ModelAttribute("other") Other other)
     {
-        Agent agent=agentRepository.findByContactNumber("+9676684424"   ); //for testing
+        User user = securityService.getUser();
+        String number=user.getPhoneNumber();
+        Agent agent=agentRepository.findByContactNumber(number); //for testing
 
 
         String others[]=other.getLan().split(",");
@@ -73,6 +81,10 @@ public class LanguageController {
         }
         for(String s: others)
         {
+            if(s==null)
+            {
+                continue;
+            }
             Language language=new Language();
             language.setAgent(agent);
             language.setLanguage(s);

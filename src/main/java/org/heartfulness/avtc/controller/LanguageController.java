@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Controller
@@ -41,19 +42,20 @@ public class LanguageController {
 
     @GetMapping("/addDetails")
     public String getDetails(ModelMap modelMap) throws FirebaseAuthException {
-        List<Language> l=new ArrayList<>();
+        List<Language> l1=languageRepository.findAll();
+        HashSet<Language> temp1=new HashSet<>(l1);
+        List<Language> l=new ArrayList<>(temp1);
         List<Skill> skills=new ArrayList<>();
         Other other=new Other();
         String lang= "";
         Agent agent= agentRepository.findByContactNumber("+919550563765");
-        l=languageRepository.findByAgentId(agent.getId());
         skills=skillsRepository.findAll();
         modelMap.put("agent",agent);
         modelMap.put("l",l);
         modelMap.put("other",other);
         modelMap.put("skills",skills);
-        UserRecord.CreateRequest newUser = new UserRecord.CreateRequest();
-        UserRecord user = FirebaseAuth.getInstance().createUser(newUser);
+      //UserRecord.CreateRequest newUser = new UserRecord.CreateRequest();
+        //UserRecord user = FirebaseAuth.getInstance().createUser(newUser);
         return "main/NewDetails";
     }
     @PostMapping("/addDetails")

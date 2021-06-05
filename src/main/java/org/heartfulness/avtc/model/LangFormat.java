@@ -6,6 +6,9 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 
+import javax.print.attribute.HashAttributeSet;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Component
@@ -23,9 +26,12 @@ public class LangFormat implements Converter<String,Language> {
         //System.out.println("Trying to convert "+ id+ "into a lang");
         int parsedId=Integer.parseInt(id);
         Agent agent=agentRepository.findByContactNumber("+919550563765");
-        List<Language> languages =languageRepository.findAll();
+        List<Language> l1=languageRepository.findAll();
+        HashSet<Language> temp1=new HashSet<>(l1);
+        List<Language> l=new ArrayList<>(temp1);
         int index=parsedId-1;
-        return languages.get(index);
+
+        return l.get(index);
 
     }
 }

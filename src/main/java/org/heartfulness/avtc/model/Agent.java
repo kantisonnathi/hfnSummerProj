@@ -12,7 +12,7 @@ import java.util.Set;
 @Table(name = "agent")
 public class Agent extends BaseEntity {
 
-    @Column(name = "contact_number")
+    @Column(name = "contact_number",unique = true,nullable = false)
     private String contactNumber; //mandatory
 
     @Column(name = "name")

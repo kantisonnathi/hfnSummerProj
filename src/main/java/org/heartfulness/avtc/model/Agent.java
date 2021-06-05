@@ -12,7 +12,7 @@ import java.util.Set;
 @Table(name = "agent")
 public class Agent extends BaseEntity {
 
-    @Column(name = "contact_number")
+    @Column(name = "contact_number",unique = true,nullable = false)
     private String contactNumber; //mandatory
 
     @Column(name = "name")
@@ -151,9 +151,9 @@ public class Agent extends BaseEntity {
     }
 
     public boolean validate() {
-        /*if (this.name.length() < 3 || languages.size() < 1 || skills.size() < 1) {
+        if (languages.size() < 1 || skills.size() < 1) {
             return false;
-        }*/
+        }
 
         // add any other validations that you want here
         return true;

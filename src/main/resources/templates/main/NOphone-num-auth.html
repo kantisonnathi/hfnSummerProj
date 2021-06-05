@@ -118,7 +118,7 @@
     /*function phoneAuthTester() {
         firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
 
-        firebase.auth().signInWithPhoneNumber(document.getElementById('phoneNumber').value).then(user => {
+        firebase.auth().signInWithPhoneNumber(document.getElementById('phoneNumbe-r').value).then(user => {
             return user.getIdToken().then(idToken => {
 
                 //const csrfToken = getCookie('csrfToken');
@@ -160,6 +160,8 @@
                 console.log(idToken);
                 xhttp.setRequestHeader("Content-type", "application/json");
                 xhttp.send(idToken);
+                location.replace("http://localhost:8082/success");
+                alert("Registered");
                 //
             }).catch(function(error) {
                 console.log("error");

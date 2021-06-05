@@ -12,14 +12,18 @@ import org.heartfulness.avtc.model.Skill;
 import org.heartfulness.avtc.repository.AgentRepository;
 import org.heartfulness.avtc.repository.LanguageRepository;
 import org.heartfulness.avtc.repository.SkillsRepository;
+import org.heartfulness.avtc.security.auth.SecurityService;
+import org.heartfulness.avtc.security.auth.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Controller
@@ -33,6 +37,9 @@ public class LanguageController {
     @Autowired
     FirebaseInitializer fbi;
 
+    @Autowired
+    SecurityService securityService;
+
     public LanguageController(AgentRepository agentRepository, LanguageRepository languageRepository, SkillsRepository skillsRepository) {
         this.agentRepository = agentRepository;
         this.languageRepository = languageRepository;
@@ -41,25 +48,28 @@ public class LanguageController {
 
     @GetMapping("/addDetails")
     public String getDetails(ModelMap modelMap) throws FirebaseAuthException {
-        List<Language> l=new ArrayList<>();
+        List<Language> l1=languageRepository.findAll();
+        HashSet<Language> temp1=new HashSet<>(l1);
+        List<Language> l=new ArrayList<>(temp1);
         List<Skill> skills=new ArrayList<>();
         Other other=new Other();
         String lang= "";
         Agent agent= agentRepository.findByContactNumber("+919550563765");
-        l=languageRepository.findByAgentId(agent.getId());
         skills=skillsRepository.findAll();
         modelMap.put("agent",agent);
         modelMap.put("l",l);
         modelMap.put("other",other);
         modelMap.put("skills",skills);
-        UserRecord.CreateRequest newUser = new UserRecord.CreateRequest();
-        UserRecord user = FirebaseAuth.getInstance().createUser(newUser);
+      //UserRecord.CreateRequest newUser = new UserRecord.CreateRequest();
+        //UserRecord user = FirebaseAuth.getInstance().createUser(newUser);
         return "main/NewDetails";
     }
     @PostMapping("/addDetails")
     public String getSuccessPage(@ModelAttribute("agent") Agent agen,@ModelAttribute("other") Other other)
     {
-        Agent agent=agentRepository.findByContactNumber("+9676684424"   ); //for testing
+        User user = securityService.getUser();
+        String number=user.getPhoneNumber();
+        Agent agent=agentRepository.findByContactNumber(number); //for testing
 
 
         String others[]=other.getLan().split(",");
@@ -71,6 +81,10 @@ public class LanguageController {
         }
         for(String s: others)
         {
+            if(s=="")
+            {
+                continue;
+            }
             Language language=new Language();
             language.setAgent(agent);
             language.setLanguage(s);
@@ -88,6 +102,10 @@ public class LanguageController {
         }
         for(String s: otherskills)
         {
+            if(s=="")
+            {
+                continue;
+            }
             Skill skill=new Skill();
             skill.setAgent(agent);
             skill.setSkill(s);

@@ -61,7 +61,6 @@ public class AgentController {
         }
         agent.setTimestamp(timestamp);
         this.agentRepository.save(agent);
-        this.agentRepository.save(agent);
         return "main/error";
     }
 

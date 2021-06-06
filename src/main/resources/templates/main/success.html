@@ -15,8 +15,34 @@
         <span class="slider round"></span>
     </label>
 
-    <div id="manager-only">
-        <p>Managers only</p>
+    <div th:if="${agent.role} == 'manager'">
+        <p>Managers only 1</p>
+    </div>
+
+    <div th:switch="${agent.role}" id="manager-only">
+        <p th:case="'manager'">Managers only 2</p>
+    </div>
+
+
+    <div name="calls_display">
+        <table>
+            <thead>
+            <tr>
+                <th>Call ID</th>
+                <th>Call description</th>
+                <th>Call Agent name</th>
+                <th>Caller name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="call : ${calls}">
+                <td th:text="${call.id}"></td>
+                <td th:text="${call.description}"></td>
+                <td th:text="${call.agent}"></td>
+                <td th:text="${call.caller}"></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 </body>
@@ -28,29 +54,6 @@
     if (contactNumber === null) {
 
     }
-    /*let xhttp = new XMLHttpRequest();
-    xhttp.open("GET","http://localhost:8082/test/" + contactNumber,false);
-    xhttp.onload = function() {
-        let responseObject = JSON.parse(xhttp.responseText);
-        let agentObject = responseObject[0].agent;
-        sessionStorage.setItem("currentAgent", agentObject);
-        sessionStorage.setItem("agent_id",agentObject["id"]);
-        sessionStorage.setItem("role",agentObject["role"]);
-        console.log("The id of the agent is" + agentObject["id"]);
-        console.log("The name of the agent is " + agentObject["name"]);
-        console.log("The role of the agent is " + agentObject["role"]);
-    }
-    xhttp.send();
-
-
-    if (sessionStorage.getItem("role").localeCompare("manager"))     {
-        document.getElementById("manager-only").style.visibility = "hidden";
-    } else {
-        document.getElementById("manager-only").style.visibility = "visible";
-    }*/
-
-
-
     function toggler() {
         let contactNumber = sessionStorage.getItem("contactNumber")
         console.log(contactNumber);

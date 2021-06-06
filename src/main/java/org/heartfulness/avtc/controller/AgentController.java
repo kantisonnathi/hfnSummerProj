@@ -5,7 +5,9 @@ import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.SessionCookieOptions;
 import net.minidev.json.JSONObject;
 import org.heartfulness.avtc.model.Agent;
+import org.heartfulness.avtc.model.Call;
 import org.heartfulness.avtc.repository.AgentRepository;
+import org.heartfulness.avtc.repository.CallRepository;
 import org.heartfulness.avtc.security.auth.SecurityService;
 import org.heartfulness.avtc.security.auth.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,9 +39,11 @@ public class AgentController {
 
 
     private final AgentRepository agentRepository;
+    private final CallRepository callRepository;
 
-    public AgentController(AgentRepository agentRepository) {
+    public AgentController(AgentRepository agentRepository, CallRepository callRepository) {
         this.agentRepository = agentRepository;
+        this.callRepository = callRepository;
     }
 
 
@@ -96,25 +100,26 @@ public class AgentController {
 
     @GetMapping("/success")
     public String getMainPage(ModelMap modelMap) {
-        Agent agent = new Agent();
-        User user = securityService.getUser();
-       String number=user.getPhoneNumber();
-       agent=agentRepository.findByContactNumber(number);
-        //agent.setId(1);
+        Agent agent = agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber());
         modelMap.put("agent", agent);
-        if(agent.validate()) {
+        if (agent.validate()) {
+            //agent is validated
+            List<Call> calls = this.callRepository.findAllByAgent(agent);
+            modelMap.put("calls",calls);
             return "main/success";
         }
-        else
-        {
-            return "main/replace";
+        else {
+            return "redirect:/addDetails";
+            //return "redirect:/addDetails";
         }
     }
 
     @GetMapping("/m/display")
     public String getManagerPage(ModelMap modelMap) {
+        Agent managerAgent =  this.agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber());
         List<Agent> listOfAllAgents = this.agentRepository.findAll();
         modelMap.put("agents", listOfAllAgents);
+        modelMap.put("agent", managerAgent);
         return "main/m-only";
     }
 

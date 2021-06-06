@@ -26,6 +26,10 @@
             </tr>
         </tbody>
     </table>
+
+    <div th:if="${agent.role == 'manager'}">
+        <p>Managers only 1</p>
+    </div>
 </div>
 </body>
 </html>

@@ -3,7 +3,8 @@
 <head>
     <title>Congratulations!</title>
     <link rel="stylesheet" href="../../static/css/accountVerified.css" th:href="@{/css/accountVerified.css}">
-    <link rel="shortcut icon" href="../images/LogoSingle.png" type="image/png">
+    <link rel="script" href="../../static/js/success.js" th:href="@{/js/success/js}">
+    <script src="success.js"></script>
     <meta charset="UTF-8">
 </head>
 <body>
@@ -42,16 +43,7 @@
 </div>
 </body>
 
-<!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
 
-<!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
-<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
-
-<!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
-<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-analytics.js"></script>
-
-<!-- Add Firebase products that you want to use -->
-<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
 <!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
@@ -96,12 +88,7 @@
         let contactNumber = document.getElementById("phoneNumber").value; //getting phone number
         let xhttp = new XMLHttpRequest();
         xhttp.open("POST","http://localhost:8082/check")
-        xhttp.setRequestHeader("Content-type", "application/json");
-        xhttp.send(contactNumber);
-
-        /*let xhttp = new XMLHttpRequest(); //creating ajax req
-        xhttp.open("GET","http://localhost:8082/check/" + contactNumber,true); //sending request
-        xhttp.onload = function() {
+        xhttp.setRequestHeader("Content-type", "application/json");xhttp.onload = function() {
             let status = JSON.parse(xhttp.responseText);
             if (status[0].phoneNumber === "success") {
                 console.log("phone number okay");
@@ -111,26 +98,7 @@
                 alert("Sorry, your number not there in db man!");
             }
         }
-        xhttp.send();*/
-
-    }
-
-    /*function phoneAuthTester() {
-        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
-
-        firebase.auth().signInWithPhoneNumber(document.getElementById('phoneNumbe-r').value).then(user => {
-            return user.getIdToken().then(idToken => {
-
-                //const csrfToken = getCookie('csrfToken');
-                let xtthp
-                return postIdTokenToSessionLogin('/private/sessionLogin', idToken);
-            });
-        }).then(() => {
-            return firebase.auth().signOut();
-        }).then(() => {
-            window.location.assign('/profile');
-        });
-    }*/
+        xhttp.send(contactNumber);
 
     function phoneAuthSecond() {
         const number = document.getElementById('phoneNumber').value;
@@ -154,31 +122,19 @@
             firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
                 let xhttp = new XMLHttpRequest();
                 xhttp.onload = function() {
-                    console.log("done");
+                    //console.log("done");
                 }
                 xhttp.open("POST","/private/sessionLogin");  //here is where the cookie is sset
-                console.log(idToken);
+                //console.log(idToken);
                 xhttp.setRequestHeader("Content-type", "application/json");
                 xhttp.send(idToken);
-                location.replace("http://localhost:8082/success");
+                //location.replace("http://localhost:8082/success");
                 alert("Registered");
                 //
             }).catch(function(error) {
                 console.log("error");
             })
-            /*let idToken = result.user.getIdToken();
-            let xhttp = new XMLHttpRequest();
-            xhttp.onload = function() {
-                console.log("done");
-            }
-            xhttp.open("POST","/private/sessionLogin");
-            //xhttp.setRequestHeader("Content-type", "application/json");
-            console.log("sending request to sessionLogin, id token = " + idToken['i']);
-            console.log(idToken);
-            console.log(idToken[i]);
-            xhttp.send("idToken=" + idToken['i']);
-            //location.replace("http://localhost:8082/success")
-            alert("Successfully registered");*/
+
         }).catch(function(error){
             alert(error.message);
         });

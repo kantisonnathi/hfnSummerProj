@@ -113,6 +113,7 @@ public class AgentController {
             return "main/success";
         }
         else {
+           // return "main/replace";
             return "redirect:/addDetails";
             //return "redirect:/addDetails";
         }

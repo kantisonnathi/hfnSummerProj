@@ -26,9 +26,7 @@ public class LangFormat implements Converter<String,Language> {
         //System.out.println("Trying to convert "+ id+ "into a lang");
         int parsedId=Integer.parseInt(id);
         Agent agent=agentRepository.findByContactNumber("+919550563765");
-        List<Language> l1=languageRepository.findAll();
-        HashSet<Language> temp1=new HashSet<>(l1);
-        List<Language> l=new ArrayList<>(temp1);
+        List<Language> l=languageRepository.findAll();
         int index=parsedId-1;
 
         return l.get(index);

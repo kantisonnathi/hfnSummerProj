@@ -1,13 +1,13 @@
 #top-banner {
     background-color: #303481;
     width: available;
-    height: 450px;
+    height: 400px;
     text-align: center;
 }
 
 #top-banner-text {
-    /*font-family: Ebrima;*/
-    font-family: "Segoe UI";
+/*    font-family: "Segoe UI";*/
+    font-family: "Sitka Text";
     font-size: 50px;
     color: #d6e6f2;
 }

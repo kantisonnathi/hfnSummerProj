@@ -17,7 +17,7 @@
 
 <!--insert banner?-->
 <div id="top-banner">
-    <br><br>
+    <br>
     <div>
     <img src="../../static/images/hfn-logo-meditating.png" th:src="@{/images/hfn-logo-meditating.png}" style="height: 300px; text-align: center">
     </div>
@@ -66,6 +66,17 @@
 </body>
 </html>
 <script>
+
+    let agentStatus = /*[[${agent.role}]]*/ null
+
+
+    if ( agent != null && agentStatus == 'online') {
+        document.getElementById("toggle-switch").checked = true;
+        document.getElementById("status").innerHTML = "Status: Online";
+    } else {
+        document.getElementById("toggle-switch").checked = false;
+        document.getElementById("status").innerHTML = "Status: Offline";
+    }
 
     //let managersOnly = document.getElementById("manager-only");
     let contactNumber = sessionStorage.getItem("contactNumber");

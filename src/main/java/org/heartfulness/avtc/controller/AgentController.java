@@ -4,6 +4,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.SessionCookieOptions;
 import net.minidev.json.JSONObject;
+import org.heartfulness.avtc.config.NodeConfiguration;
 import org.heartfulness.avtc.model.Agent;
 import org.heartfulness.avtc.model.Call;
 import org.heartfulness.avtc.repository.AgentRepository;
@@ -36,6 +37,9 @@ public class AgentController {
 
     @Autowired
     SecurityService securityService;
+
+    @Autowired
+    NodeConfiguration nodeConfiguration;
 
 
     private final AgentRepository agentRepository;
@@ -101,6 +105,7 @@ public class AgentController {
     public String getMainPage(ModelMap modelMap) {
         Agent agent = agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber());
         modelMap.put("agent", agent);
+        System.out.println(nodeConfiguration.getDepartmentNode());
         if (agent.validate()) {
             //agent is validated
             List<Call> calls = this.callRepository.findAllByAgent(agent);

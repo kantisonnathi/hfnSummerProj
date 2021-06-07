@@ -87,8 +87,9 @@
         console.log("function: phone auth");
         let contactNumber = document.getElementById("phoneNumber").value; //getting phone number
         let xhttp = new XMLHttpRequest();
-        xhttp.open("POST","http://localhost:8082/check")
-        xhttp.setRequestHeader("Content-type", "application/json");xhttp.onload = function() {
+        xhttp.open("POST", "http://localhost:8082/check")
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.onload = function () {
             let status = JSON.parse(xhttp.responseText);
             if (status[0].phoneNumber === "success") {
                 console.log("phone number okay");
@@ -100,18 +101,19 @@
         }
         xhttp.send(contactNumber);
 
-    function phoneAuthSecond() {
-        const number = document.getElementById('phoneNumber').value;
-        firebase.auth().signInWithPhoneNumber(number, window.recaptchaVerifier).then(function (confirmationResult) {
-            window.confirmationResult = confirmationResult;
-            coderesult = confirmationResult;
-            console.log("code result:" + coderesult);
-            alert("Message sent");
+        function phoneAuthSecond() {
+            const number = document.getElementById('phoneNumber').value;
+            firebase.auth().signInWithPhoneNumber(number, window.recaptchaVerifier).then(function (confirmationResult) {
+                window.confirmationResult = confirmationResult;
+                coderesult = confirmationResult;
+                console.log("code result:" + coderesult);
+                alert("Message sent");
 
 
-        }).catch(function (error) {
-            alert(error.message)
-        });
+            }).catch(function (error) {
+                alert(error.message)
+            });
+        }
     }
 </script>
 <script>

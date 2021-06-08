@@ -5,8 +5,9 @@ import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
 import org.heartfulness.avtc.firebase.FirebaseInitializer;
 import org.heartfulness.avtc.model.Agent;
-import org.heartfulness.avtc.model.Language;
+
 //import org.heartfulness.avtc.model.Skill;
+import org.heartfulness.avtc.model.Language;
 import org.heartfulness.avtc.model.Other;
 import org.heartfulness.avtc.model.Skill;
 import org.heartfulness.avtc.repository.AgentRepository;

@@ -18,15 +18,6 @@ public class Agent extends BaseEntity {
     @Column(name = "name")
     private String name; //mandatory
 
-    @Column(name = "extension")
-    private Integer extension; //mandatory
-
-    @Column(name = "email")
-    private String email;
-
-    @Column(name = "alt_contact_number")
-    private String altContactNumber;
-
     @Column(name = "certified")
     private Boolean certified;
 
@@ -124,30 +115,6 @@ public class Agent extends BaseEntity {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Integer getExtension() {
-        return extension;
-    }
-
-    public void setExtension(Integer extension) {
-        this.extension = extension;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getAltContactNumber() {
-        return altContactNumber;
-    }
-
-    public void setAltContactNumber(String altContactNumber) {
-        this.altContactNumber = altContactNumber;
     }
 
     public boolean validate() {

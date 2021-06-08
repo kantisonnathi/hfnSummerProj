@@ -7,6 +7,26 @@ import javax.persistence.*;
 @Table(name = "calls")
 public class Call extends BaseEntity {
 
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Agent.class)
+    @JoinColumn(name = "agent_id")
+    private Agent agent;
+
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "category")
+    private String category;
+
+    /*
+    *
+    * Adjustment Disorders (Occasional Anxiety)
+    * Depressive Disorders
+    * Substance abuse disorder
+    * Anxiety disorder
+    * OCD disorder (Obsessive-Compulsive Disorder)
+    * Serious Mental Illness
+    *
+    * */
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Caller.class)
     @JoinColumn(name = "caller_id")
@@ -36,20 +56,4 @@ public class Call extends BaseEntity {
         this.description = description;
     }
 
-    public String getTags() {
-        return tags;
-    }
-
-    public void setTags(String tags) {
-        this.tags = tags;
-    }
-
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Agent.class)
-    @JoinColumn(name = "agent_id")
-    private Agent agent;
-
-    @Column(name = "description")
-    private String description;
-
-    private String tags; //check this out later
 }

@@ -51,9 +51,9 @@ public class AgentController {
     }
 
 
-    @GetMapping("/{id}/mark/{status}")
-    public String markStatus(@PathVariable("status") String status, @PathVariable("id") Long id) {
-        Agent agent = this.agentRepository.findById(id);
+    @GetMapping("/mark/{status}")
+    public String markStatus(@PathVariable("status") String status) {
+        Agent agent = this.agentRepository.findByContactNumber(this.securityService.getUser().getPhoneNumber());
         LocalDateTime localDateTime = LocalDateTime.now();
         Timestamp timestamp = Timestamp.valueOf(localDateTime);
         if (status.equals("online")) {
@@ -80,7 +80,7 @@ public class AgentController {
         if (agent == null) {
             entity.put("phoneNumber", "failure");
         } else {
-            if (agent.getCertified()) {
+            if (agent.validate()) {
                 entity.put("phoneNumber", "success");
             } else {
                 entity.put("phoneNumber", "failure");
@@ -105,8 +105,10 @@ public class AgentController {
     public String getMainPage(ModelMap modelMap) {
         Agent agent = agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber());
         modelMap.put("agent", agent);
-        System.out.println(nodeConfiguration.getDepartmentNode());
-        if (agent.validate()) {
+        System.out.println(nodeConfiguration.getEnglishNode());
+        List<Call> calls = this.callRepository.findAllByAgent(agent);
+        modelMap.put("calls",calls);
+        /*if (agent.validate()) {
             //agent is validated
             List<Call> calls = this.callRepository.findAllByAgent(agent);
             modelMap.put("calls",calls);
@@ -115,7 +117,8 @@ public class AgentController {
         else {
             return "redirect:/addDetails";
             //return "redirect:/addDetails";
-        }
+        }*/
+        return "main/success";
     }
 
     @GetMapping("/m/display")

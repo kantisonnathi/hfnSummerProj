@@ -89,7 +89,9 @@ public class LanguageController {
        // List<Skill> skills=new ArrayList<>();
         Other other=new Other();
         User user=securityService.getUser();
-        Agent agent= agentRepository.findByContactNumber(user.getPhoneNumber());
+        Agent agent= agentRepository.findByContactNumber("+919550563765");//testion
+         //agentRepository.findByContactNumber(user.getPhoneNumber());
+
        // skills=skillsRepository.findAll();
         modelMap.put("agent",agent);
         modelMap.put("l",l);
@@ -103,17 +105,21 @@ public class LanguageController {
     public String getSuccessPage(@ModelAttribute("agent") Agent agen,@ModelAttribute("other") Other other)
     {
         User user = securityService.getUser();
-        String number=user.getPhoneNumber();
-        Agent agent=agentRepository.findByContactNumber(number); //for testing
+       // String number=user.getPhoneNumber();
+        Agent agent=agentRepository.findByContactNumber("+919550563765");
+               // agentRepository.findByContactNumber(number); //for testing
 
 
         String others[]=other.getLan().split(",");
-        for ( Language l: agen.getLanguages()) {
-            Language language=new Language();
-            language.setAgent(agent);
-            language.setLanguage(l.getLanguage());
-        Language catchh= this.languageRepository.save(language); //Test saving the language preference
+        if(agen.getLanguages()!=null) {
+            for (Language l : agen.getLanguages()) {
+                Language language = new Language();
+                language.setAgent(agent);
+                language.setLanguage(l.getLanguage());
+                Language catchh = this.languageRepository.save(language); //Test saving the language preference
+            }
         }
+
         for(String s: others)
         {
             if(s=="")
@@ -127,14 +133,14 @@ public class LanguageController {
         }
 
         String otherskills[]=other.getSkills1().split(",");
-
-        for(Skill s: agen.getSkills())
-        {
-            Skill skill=new Skill();
-            skill.setAgent(agent);
-            skill.setSkill(s.getSkill());
-            this.skillsRepository.save(skill);
-        }
+if(agen.getSkills()!=null) {
+    for (Skill s : agen.getSkills()) {
+        Skill skill = new Skill();
+        skill.setAgent(agent);
+        skill.setSkill(s.getSkill());
+        this.skillsRepository.save(skill);
+    }
+}
         for(String s: otherskills)
         {
             if(s=="")
@@ -146,6 +152,9 @@ public class LanguageController {
             skill.setSkill(s);
             this.skillsRepository.save(skill);
         }
+     agent.setGender(agen.getGender());
+        agent.setName(agen.getName());
+        agentRepository.save(agent);
         return "main/success";
     }
 }

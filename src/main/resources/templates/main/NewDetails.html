@@ -8,17 +8,24 @@
 </head>
 <body>
 <div layout:fragment="content" class="ui attached segment">
-    <h2 th:text="|Add drinks for :{agent.contactNumber}|"></h2>
+
     <form class="ui form" th:action="@{/addDetails}" method="post" th:object="${agent}">
+        <h2 th:text="|Add Details for :*{contactNumber}|"></h2>
+        <label>Name</label>
+        <input type="text" name="name" th:field="*{name}">
+        <br>
+        <label>Gender</label>
+        <input type="text" name="gender" th:field="*{gender}">
+        <br>
         <u1>
             <li th:each=" lang : ${l}">
                 <div class="ui checkbox">
                     <input type="checkbox" th:field="*{languages}" th:value="${lang.id}">
                     <label th:text="${lang.language}"></label>
 
-
                  </div>
             </li>
+            <br>
             <label>Please enter Other Languages:</label>
             <input type="text" th:object="${other}" th:field="*{lan}" name="languages">
         </u1>
@@ -29,6 +36,8 @@
                     <label th:text="${s.skill}"></label>
                 </div>
             </li>
+            <br>
+            <label>Please enter other skills</label>
             <input type="text" th:object="${other}" th:field="*{skills1}" name="skills">
         </u1>
         <div class="ui checkbox">

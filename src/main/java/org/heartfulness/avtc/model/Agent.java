@@ -141,7 +141,6 @@ public class Agent extends BaseEntity {
         if (languages.size() < 1 || skills.size() < 1) {
             return false;
         }
-
         // add any other validations that you want here
         return true;
     }
@@ -156,4 +155,7 @@ public class Agent extends BaseEntity {
     public void setDepartment(Department department) {
         this.department = department;
     }
+
+    @ManyToMany(mappedBy = "agents")
+    Set<Logger> logs;
 }

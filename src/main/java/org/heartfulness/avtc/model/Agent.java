@@ -29,6 +29,26 @@ public class Agent extends BaseEntity {
 
     @Column(name = "timestamp")
     private Timestamp timestamp;
+    @Column(name="gender")
+    private char gender;
+    @Column(name="level",length =1)
+    private int level;
+
+    public char getGender() {
+        return gender;
+    }
+
+    public void setGender(char gender) {
+        this.gender = gender;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     public Timestamp getTimestamp() {
         return timestamp;

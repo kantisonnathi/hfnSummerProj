@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class LanguageController {
@@ -49,14 +50,47 @@ public class LanguageController {
 
     @GetMapping("/addDetails")
     public String getDetails(ModelMap modelMap) throws FirebaseAuthException {
-        List<Language> l1=languageRepository.findAll();
-        HashSet<Language> temp1=new HashSet<>(l1);
-        List<Language> l=new ArrayList<>(temp1);
-        List<Skill> skills=new ArrayList<>();
+        List<String> l1=languageRepository.findDistinctLanguage();
+
+     List<Language> l=new ArrayList<Language>();
+     List<Language> all=languageRepository.findAll();
+        for(String s: l1)
+        {
+            for(Language l2: all)
+            {
+                if(s.equals(l2.getLanguage()))
+                {
+                    Language lang=new Language();
+                    lang.setLanguage(s);
+                    lang.setId(l2.getId());
+                    l.add(lang);
+                    break;
+                }
+            }
+        }
+        List<String> s1=skillsRepository.getDistinctSkill();
+
+        List<Skill> skills=new ArrayList<Skill>();
+        List<Skill> total=skillsRepository.findAll();
+        for(String s: s1)
+        {
+            for(Skill s2: total)
+            {
+                if(s.equals(s2.getSkill()))
+                {
+                    Skill skill=new Skill();
+                    skill.setSkill(s);
+                    skill.setId(s2.getId());
+                    skills.add(skill);
+                    break;
+                }
+            }
+        }
+       // List<Skill> skills=new ArrayList<>();
         Other other=new Other();
-        String lang= "";
-        Agent agent= agentRepository.findByContactNumber("+919550563765");
-        skills=skillsRepository.findAll();
+        User user=securityService.getUser();
+        Agent agent= agentRepository.findByContactNumber(user.getPhoneNumber());
+       // skills=skillsRepository.findAll();
         modelMap.put("agent",agent);
         modelMap.put("l",l);
         modelMap.put("other",other);

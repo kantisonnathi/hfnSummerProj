@@ -126,4 +126,14 @@ public class Agent extends BaseEntity {
         return true;
     }
 
+    @ManyToOne(fetch = FetchType.EAGER,targetEntity = Department.class)
+    private Department department;
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
 }

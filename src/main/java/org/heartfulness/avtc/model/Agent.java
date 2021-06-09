@@ -82,24 +82,6 @@ public class Agent extends BaseEntity {
         this.certified = certified;
     }
 
-    @OneToMany(mappedBy = "agent", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<Language> languages;
-
-    public Set<Language> getLanguages() {
-        return languages;
-    }
-
-    public void setLanguages(Set<Language> languages) {
-        this.languages = languages;
-    }
-
-    public void addLanguage(Language language) {
-        if (this.languages == null) {
-            languages = new HashSet<>();
-        }
-        languages.add(language);
-    }
-
     @OneToMany(mappedBy = "agent",fetch=FetchType.EAGER,cascade=CascadeType.ALL)
     private Set<Skill> skills;
 
@@ -138,7 +120,7 @@ public class Agent extends BaseEntity {
     }
 
     public boolean validate() {
-        if (languages.size() < 1 || skills.size() < 1) {
+        if ( skills.size() < 1) {
             return false;
         }
         // add any other validations that you want here

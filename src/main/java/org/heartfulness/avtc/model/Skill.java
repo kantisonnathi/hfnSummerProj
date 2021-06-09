@@ -7,25 +7,24 @@ public class Skill extends BaseEntity {
 
 
     public void setAgent(Agent agent) {
-        this.agent=agent;
+        this.agent = agent;
     }
 
     public Agent getAgent() {
         return agent;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER,targetEntity = Agent.class)
-    @JoinColumn(name="agent_id")
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Agent.class)
+    @JoinColumn(name = "agent_id")
     private Agent agent;
 
 
-
-    @Column(name="skill")
+    @Column(name = "skill")
     private String skill;
 
 
     public void setSkill(String skill) {
-        this.skill=skill;
+        this.skill = skill;
     }
 
     public String getSkill() {

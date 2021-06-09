@@ -5,10 +5,15 @@ import java.util.Set;
 
 @Entity
 public class Language extends BaseEntity {
-    @OneToMany(mappedBy = "service",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "language",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<Department> Departments;
+
     @Column(name="name")
     private String language;
+
+    @ManyToMany(mappedBy = "languages")
+    private Set<Caller> callers;
 
     public Set<Department> getDepartments() {
         return Departments;

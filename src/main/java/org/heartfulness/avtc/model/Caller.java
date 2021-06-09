@@ -23,9 +23,6 @@ public class Caller extends BaseEntity {
     @Column(name = "location")
     private String location;
 
-    @OneToMany(mappedBy = "caller", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<Language1> languages;
-
     @Column(name = "age_group")
     private Integer ageGroup;
     /*
@@ -53,6 +50,13 @@ public class Caller extends BaseEntity {
     * Survivors  of Trauma
     Individuals with Suicidal tendencies
     */
+
+    @ManyToMany
+    @JoinTable(
+            name = "caller_language",
+            joinColumns = @JoinColumn(name = "language_id"),
+            inverseJoinColumns = @JoinColumn(name = "caller_id"))
+    private Set<Language> languages;
 
     public String getName() {
         return name;

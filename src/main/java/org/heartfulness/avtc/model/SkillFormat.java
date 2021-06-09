@@ -1,3 +1,4 @@
+/*
 package org.heartfulness.avtc.model;
 
 import org.heartfulness.avtc.repository.AgentRepository;
@@ -26,3 +27,4 @@ public class SkillFormat implements Converter<String,Skill> {
         return skills.get(index);
     }
 }
+*/

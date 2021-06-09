@@ -1,3 +1,4 @@
+/*
 package org.heartfulness.avtc.controller;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -50,7 +51,8 @@ public class LanguageController {
 
     @GetMapping("/addDetails")
     public String getDetails(ModelMap modelMap) throws FirebaseAuthException {
-      /*  List<String> l1=languageRepository.findDistinctLanguage();
+      */
+/*  List<String> l1=languageRepository.findDistinctLanguage();
 
      List<Language> l=new ArrayList<Language>();
      List<Language> all=languageRepository.findAll();
@@ -98,13 +100,15 @@ public class LanguageController {
         modelMap.put("other",other);
         modelMap.put("skills",skills);
       //UserRecord.CreateRequest newUser = new UserRecord.CreateRequest();
-        //UserRecord user = FirebaseAuth.getInstance().createUser(newUser);*/
+        //UserRecord user = FirebaseAuth.getInstance().createUser(newUser);*//*
+
         return "main/NewDetails";
     }
     @PostMapping("/addDetails")
     public String getSuccessPage(@ModelAttribute("agent") Agent agen,@ModelAttribute("other") Other other)
     {
-     /*   User user = securityService.getUser();
+     */
+/*   User user = securityService.getUser();
        // String number=user.getPhoneNumber();
         Agent agent=agentRepository.findByContactNumber("+919550563765");
                // agentRepository.findByContactNumber(number); //for testing
@@ -154,7 +158,8 @@ if(agen.getSkills()!=null) {
         }
      agent.setGender(agen.getGender());
         agent.setName(agen.getName());
-        agentRepository.save(agent);*/
+        agentRepository.save(agent);*//*
+
         return "main/success";
     }
-}
+}*/

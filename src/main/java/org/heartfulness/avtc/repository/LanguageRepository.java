@@ -12,6 +12,7 @@ public interface LanguageRepository extends CrudRepository<Language,Long> {
    //Language save(Language language);
   // List<Language> findByAgentId(Long agentId);
    List<Language> findAll();
+
    @Query("select distinct l.language from Language l")
    List<String> findDistinctLanguage();
 

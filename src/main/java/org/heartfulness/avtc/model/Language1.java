@@ -1,3 +1,4 @@
+/*
 package org.heartfulness.avtc.model;
 
 import javax.persistence.*;
@@ -21,3 +22,4 @@ public class Language1 extends BaseEntity {
     }
 
 }
+*/

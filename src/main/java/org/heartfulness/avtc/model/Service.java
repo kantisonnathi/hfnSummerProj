@@ -5,8 +5,10 @@ import java.util.Set;
 
 @Entity
 public class Service extends BaseEntity {
+
     @OneToMany(mappedBy = "service",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<Department> Departments;
+
     @Column(name="name")
     private String name;
 

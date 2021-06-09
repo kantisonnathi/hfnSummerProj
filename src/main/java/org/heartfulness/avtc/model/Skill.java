@@ -1,3 +1,4 @@
+/*
 package org.heartfulness.avtc.model;
 
 import javax.persistence.*;
@@ -31,3 +32,4 @@ public class Skill extends BaseEntity {
         return skill;
     }
 }
+*/

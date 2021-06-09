@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@Table(name = "agent_activity_log")
 public class Logger extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Agent.class)

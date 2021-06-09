@@ -82,7 +82,7 @@ public class Agent extends BaseEntity {
         this.certified = certified;
     }
 
-    @OneToMany(mappedBy = "agent",fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+    /*@OneToMany(mappedBy = "agent",fetch=FetchType.EAGER,cascade=CascadeType.ALL)
     private Set<Skill> skills;
 
 
@@ -101,7 +101,7 @@ public class Agent extends BaseEntity {
             skills = new HashSet<>();
         }
         skills.add(skill);
-    }
+    }*/
 
     public String getContactNumber() {
         return contactNumber;
@@ -120,9 +120,6 @@ public class Agent extends BaseEntity {
     }
 
     public boolean validate() {
-        if ( skills.size() < 1) {
-            return false;
-        }
         // add any other validations that you want here
         return true;
     }

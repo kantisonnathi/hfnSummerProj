@@ -8,6 +8,9 @@ import java.util.Set;
 @Table(name = "caller")
 public class Caller extends BaseEntity {
 
+    @Column(name = "level")
+    private Integer level;
+
     @Column(name = "name")
     private String name;
 
@@ -32,7 +35,7 @@ public class Caller extends BaseEntity {
     * 64+ -> 4
     * */
 
-    @Column(name = "employement_status")
+    @Column(name = "employment_status")
     private Boolean employmentStatus;
 
     @Column(name = "marital_status")

@@ -148,6 +148,9 @@ public class Agent extends BaseEntity {
     @ManyToOne(fetch = FetchType.EAGER,targetEntity = Department.class)
     private Department department;
 
+    @OneToMany(mappedBy = "agent",fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+    private Set<Logger> loggerSet;
+
     public Department getDepartment() {
         return department;
     }
@@ -156,6 +159,4 @@ public class Agent extends BaseEntity {
         this.department = department;
     }
 
-    @ManyToMany(mappedBy = "agents")
-    Set<Logger> logs;
 }

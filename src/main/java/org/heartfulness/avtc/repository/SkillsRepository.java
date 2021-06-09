@@ -9,6 +9,8 @@ import java.util.List;
 public interface SkillsRepository extends CrudRepository<Skill,Long> {
     //void save(Skill skill);
     List<Skill> findAll();
+
     @Query("select distinct s.skill from Skill s")
     List<String> getDistinctSkill();
+
 }

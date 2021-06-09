@@ -6,12 +6,9 @@ import java.util.Set;
 @Entity
 public class Logger extends BaseEntity {
 
-    @ManyToMany
-    @JoinTable(
-            name = "agent_log",
-            joinColumns = @JoinColumn(name = "agent_id"),
-            inverseJoinColumns = @JoinColumn(name = "log_id"))
-    private Set<Agent> agents;
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Agent.class)
+    @JoinColumn(name = "agent_id")
+    private Agent agent;
 
     @Column(name = "status")
     private String status;

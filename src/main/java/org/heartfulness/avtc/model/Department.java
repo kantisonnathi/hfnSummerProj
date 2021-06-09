@@ -6,29 +6,12 @@ import java.util.Set;
 @Entity
 @Table(name="department")
 public class Department extends BaseEntity{
-    @Column(name="language")
-    private String Language;
-    @Column(name="service")
-    private String Service;
     @OneToMany(mappedBy = "department",fetch= FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<Agent> agents;
-
-    public String getLanguage() {
-        return Language;
-    }
-
-    public void setLanguage(String language) {
-        Language = language;
-    }
-
-    public String getService() {
-        return Service;
-    }
-
-    public void setService(String service) {
-        Service = service;
-    }
-
+    @ManyToOne(fetch = FetchType.EAGER,targetEntity = Service.class)
+    private Service service;
+    @ManyToOne(fetch = FetchType.EAGER,targetEntity = Language.class)
+    private Language language;
     public Set<Agent> getAgents() {
         return agents;
     }

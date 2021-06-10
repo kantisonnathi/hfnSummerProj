@@ -90,7 +90,7 @@ public class AgentController {
         return new ResponseEntity<Object>(entities, HttpStatus.OK);
     }
 
-    @GetMapping(path="/test/{contactNumber}", produces = MediaType.APPLICATION_JSON_VALUE)
+    /*@GetMapping(path="/test/{contactNumber}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> returnAgentObject(@PathVariable("contactNumber")String contactNumber){
         List<JSONObject> entities = new ArrayList<JSONObject>();
         JSONObject entity = new JSONObject();
@@ -99,13 +99,12 @@ public class AgentController {
         entities.add(entity);
         return new ResponseEntity<Object>(entities,HttpStatus.OK);
 
-    }
+    }*/
 
     @GetMapping("/success")
     public String getMainPage(ModelMap modelMap) {
         Agent agent = agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber());
         modelMap.put("agent", agent);
-        modelMap.put("status", agent.getStatus());
         System.out.println(nodeConfiguration.getEnglishNode());
         List<Call> calls = this.callRepository.findAllByAgent(agent);
         modelMap.put("calls",calls);

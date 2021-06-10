@@ -15,18 +15,8 @@ public class Call extends BaseEntity {
     private String description;
 
     @Column(name = "category")
-    private String category;
-
-    /*
-    *
-    * Adjustment Disorders (Occasional Anxiety)
-    * Depressive Disorders
-    * Substance abuse disorder
-    * Anxiety disorder
-    * OCD disorder (Obsessive-Compulsive Disorder)
-    * Serious Mental Illness
-    *
-    * */
+    @Enumerated(EnumType.STRING)
+    private CallCategory category;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Caller.class)
     @JoinColumn(name = "caller_id")

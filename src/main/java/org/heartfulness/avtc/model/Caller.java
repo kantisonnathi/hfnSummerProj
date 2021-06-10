@@ -24,7 +24,8 @@ public class Caller extends BaseEntity {
     private String location;
 
     @Column(name = "age_group")
-    private Integer ageGroup;
+    @Enumerated(EnumType.STRING)
+    private CallerAgeGroup ageGroup;
     /*
     * 0-14 -> 1
     * 15-47 -> 2
@@ -42,7 +43,8 @@ public class Caller extends BaseEntity {
     private String educationalStatus;
 
     @Column(name = "category")
-    private String category;
+    @Enumerated(EnumType.STRING)
+    private CallerCategory category;
     /*
     *Individuals from COVID affected families
     *Caregivers/Front line workers

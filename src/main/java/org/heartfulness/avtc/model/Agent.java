@@ -29,8 +29,10 @@ public class Agent extends BaseEntity {
 
     @Column(name = "timestamp")
     private Timestamp timestamp;
+
     @Column(name="gender")
     private char gender;
+
     @Column(name="level",length =1)
     private int level;
 
@@ -82,27 +84,6 @@ public class Agent extends BaseEntity {
         this.certified = certified;
     }
 
-    /*@OneToMany(mappedBy = "agent",fetch=FetchType.EAGER,cascade=CascadeType.ALL)
-    private Set<Skill> skills;
-
-
-    public Set<Skill> getSkills(){
-        return skills;
-    }
-
-
-    public void setSkills(Set<Skill> skills){
-        this.skills=skills;
-    }
-
-
-    public void addSkill(Skill skill) {
-        if (this.skills == null)  {
-            skills = new HashSet<>();
-        }
-        skills.add(skill);
-    }*/
-
     public String getContactNumber() {
         return contactNumber;
     }
@@ -124,18 +105,31 @@ public class Agent extends BaseEntity {
         return true;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER,targetEntity = Department.class)
-    private Department department;
+    public Set<Department> getDepartments() {
+        return departments;
+    }
+
+    public void setDepartments(Set<Department> departments) {
+        this.departments = departments;
+    }
+
+    public Set<Logger> getLoggerSet() {
+        return loggerSet;
+    }
+
+    public void setLoggerSet(Set<Logger> loggerSet) {
+        this.loggerSet = loggerSet;
+    }
+
+    @ManyToMany
+    @JoinTable(
+            name = "agent_department",
+            joinColumns = @JoinColumn(name = "department_id"),
+            inverseJoinColumns = @JoinColumn(name = "caller_id"))
+    private Set<Department> departments;
 
     @OneToMany(mappedBy = "agent",fetch=FetchType.EAGER,cascade=CascadeType.ALL)
     private Set<Logger> loggerSet;
 
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
 
 }

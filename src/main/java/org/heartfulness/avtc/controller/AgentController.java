@@ -105,6 +105,7 @@ public class AgentController {
     public String getMainPage(ModelMap modelMap) {
         Agent agent = agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber());
         modelMap.put("agent", agent);
+        modelMap.put("status", agent.getStatus());
         System.out.println(nodeConfiguration.getEnglishNode());
         List<Call> calls = this.callRepository.findAllByAgent(agent);
         modelMap.put("calls",calls);

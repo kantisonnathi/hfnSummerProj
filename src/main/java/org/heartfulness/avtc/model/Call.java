@@ -32,6 +32,9 @@ public class Call extends BaseEntity {
     @JoinColumn(name = "caller_id")
     private Caller caller;
 
+    @Column(name = "location")
+    private String location;
+
     public Caller getCaller() {
         return caller;
     }

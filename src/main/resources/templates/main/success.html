@@ -65,12 +65,13 @@
 </div>
 </body>
 </html>
-<script>
+<script th:inline="javascript">
 
-    let agentStatus = /*[[${agent.role}]]*/ null
+    let agentStatus = /*[[${status}]]*/ null
+    console.log(agentStatus);
 
 
-    if ( agent != null && agentStatus == 'online') {
+    if (agentStatus === 'online') {
         document.getElementById("toggle-switch").checked = true;
         document.getElementById("status").innerHTML = "Status: Online";
     } else {
@@ -78,15 +79,7 @@
         document.getElementById("status").innerHTML = "Status: Offline";
     }
 
-    //let managersOnly = document.getElementById("manager-only");
-    let contactNumber = sessionStorage.getItem("contactNumber");
-    if (contactNumber === null) {
-
-    }
     function toggler() {
-        let contactNumber = sessionStorage.getItem("contactNumber")
-        console.log(contactNumber);
-        let id = sessionStorage.getItem("agent_id");
         let checkboxVal = document.getElementById("toggle-switch");
         if (checkboxVal.checked === true) {
             document.getElementById("status").innerHTML = "Status: Online";

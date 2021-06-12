@@ -11,8 +11,8 @@ public class Logger extends BaseEntity {
     @JoinColumn(name = "agent_id")
     private Agent agent;
 
-    @Column(name = "status")
-    private String status;
+    @Enumerated(EnumType.ORDINAL)
+    private LogEvent logEvent;
 
     @Column(name = "timestamp")
     private String timestamp;

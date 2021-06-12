@@ -1,11 +1,9 @@
 package org.heartfulness.avtc.model;
 
 
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -130,6 +128,9 @@ public class Agent extends BaseEntity {
 
     @OneToMany(mappedBy = "agent",fetch=FetchType.EAGER,cascade=CascadeType.ALL)
     private Set<Logger> loggerSet;
+
+    @OneToMany(mappedBy = "agent", fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+    private Set<Schedule> schedules;
 
 
 }

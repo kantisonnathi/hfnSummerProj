@@ -8,6 +8,89 @@ import java.util.Set;
 @Table(name = "caller")
 public class Caller extends BaseEntity {
 
+    @Column(name = "allottedID")
+    private String allottedID;
+
+    public String getAllottedID() {
+        return allottedID;
+    }
+
+    public void setAllottedID(String allottedID) {
+        this.allottedID = allottedID;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
+    public Character getGender() {
+        return gender;
+    }
+
+    public void setGender(Character gender) {
+        this.gender = gender;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public CallerAgeGroup getAgeGroup() {
+        return ageGroup;
+    }
+
+    public void setAgeGroup(CallerAgeGroup ageGroup) {
+        this.ageGroup = ageGroup;
+    }
+
+    public Boolean getEmploymentStatus() {
+        return employmentStatus;
+    }
+
+    public void setEmploymentStatus(Boolean employmentStatus) {
+        this.employmentStatus = employmentStatus;
+    }
+
+    public String getMaritalStatus() {
+        return maritalStatus;
+    }
+
+    public void setMaritalStatus(String maritalStatus) {
+        this.maritalStatus = maritalStatus;
+    }
+
+    public String getEducationalStatus() {
+        return educationalStatus;
+    }
+
+    public void setEducationalStatus(String educationalStatus) {
+        this.educationalStatus = educationalStatus;
+    }
+
+    public CallerCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(CallerCategory category) {
+        this.category = category;
+    }
+
+    public Set<Language> getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(Set<Language> languages) {
+        this.languages = languages;
+    }
+
     @Column(name = "level")
     private Integer level;
 

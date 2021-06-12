@@ -4,13 +4,13 @@ public class InputNode {
 
     private String uid; //unique ID of the call
 
-    private String node_id; //??
+    private String node_id; //language
 
     private Integer timestamp; //timestamp of the call
 
     private String clid; //caller id
 
-    private Integer input; //??
+    private Integer input; //input given by user
 
 
     public String getUid() {

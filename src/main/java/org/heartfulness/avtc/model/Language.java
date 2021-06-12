@@ -10,7 +10,7 @@ public class Language extends BaseEntity {
     private Set<Department> Departments;
 
     @Column(name="name")
-    private String language;
+    private String name;
 
     @ManyToMany(mappedBy = "languages")
     private Set<Caller> callers;
@@ -24,10 +24,10 @@ public class Language extends BaseEntity {
     }
 
     public String getLanguage() {
-        return language;
+        return name;
     }
 
     public void setLanguage(String language) {
-        this.language = language;
+        this.name = language;
     }
 }

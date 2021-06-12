@@ -2,6 +2,7 @@ package org.heartfulness.avtc.repository;
 
 import org.heartfulness.avtc.model.Agent;
 import org.heartfulness.avtc.model.Department;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 
 import java.util.List;
@@ -17,7 +18,8 @@ public interface AgentRepository extends Repository<Agent, Long> {
 
     List<Agent> findAll();
 
-    List<Agent> findAllByDepartmentsOrderByTimestamp(Set<Department> list);
+    @Query("select agent from Agent agent join AgentDepartment join Department department where department.id=:id")
+    List<Agent> findAgentsByDepartmentsDepartment(Long id);
 
 
 }

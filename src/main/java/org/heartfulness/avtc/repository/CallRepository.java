@@ -10,4 +10,6 @@ public interface CallRepository extends Repository<Call, Long> {
 
     List<Call> findAllByAgent(Agent agent);
 
+    void save(Call call);
+
 }

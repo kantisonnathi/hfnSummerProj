@@ -22,6 +22,48 @@ public class Call extends BaseEntity {
     @JoinColumn(name = "caller_id")
     private Caller caller;
 
+    @Column(name = "start_time")
+    private String startTime;
+
+    @Column(name = "end_time")
+    private String endTime;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.ORDINAL)
+    private Status status;
+
+    public CallCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(CallCategory category) {
+        this.category = category;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
     @Column(name = "location")
     private String location;
 
@@ -30,6 +72,7 @@ public class Call extends BaseEntity {
     }
 
     public void setCaller(Caller caller) {
+        caller.addCall(this);
         this.caller = caller;
     }
 
@@ -49,4 +92,11 @@ public class Call extends BaseEntity {
         this.description = description;
     }
 
+}
+
+enum Status {
+    CONNECTED_TO_IVR,
+    AWAITING_CONNECTION_TO_AGENT,
+    CONNECTED_TO_AGENT,
+    DISCONNECTED_FROM_AGENT
 }

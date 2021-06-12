@@ -22,21 +22,25 @@ public class NodeController {
     @Autowired
     NodeConfiguration nodeConfiguration;
 
-    private AgentRepository agentRepository;
+    private final AgentRepository agentRepository;
 
-    private CallerRepository callerRepository;
+    private final CallerRepository callerRepository;
 
-    private LanguageRepository languageRepository;
+    private final LanguageRepository languageRepository;
 
-    private ServiceRepository serviceRepository;
+    private final ServiceRepository serviceRepository;
 
-    private DepartmentRepository departmentRepository;
+    private final CallRepository callRepository;
 
-    public NodeController(AgentRepository agentRepository,CallerRepository callerRepository, LanguageRepository languageRepository,
-                          DepartmentRepository departmentRepository) {
+    private final DepartmentRepository departmentRepository;
+
+    public NodeController(AgentRepository agentRepository, CallerRepository callerRepository, LanguageRepository languageRepository,
+                          ServiceRepository serviceRepository, CallRepository callRepository, DepartmentRepository departmentRepository) {
         this.agentRepository = agentRepository;
         this.callerRepository = callerRepository;
         this.languageRepository = languageRepository;
+        this.serviceRepository = serviceRepository;
+        this.callRepository = callRepository;
         this.departmentRepository = departmentRepository;
     }
 
@@ -49,7 +53,7 @@ public class NodeController {
         Caller caller = this.callerRepository.findByAllottedID(input.getClid());
         if (caller == null) {
             caller = new Caller();
-            caller.setAllottedID(input.getClid());
+            caller.setContactNumber(input.getClid());
             this.callerRepository.save(caller);
         }
         // queried/created caller.
@@ -64,9 +68,7 @@ public class NodeController {
         }
         Service currService = this.serviceRepository.findById(input.getInput());
         Department currentDepartment = this.departmentRepository.findByServiceAndLanguage(currService, currLanguage);
-        HashSet<Department> set = new HashSet<>();
-        set.add(currentDepartment);
-        List<Agent> agents = this.agentRepository.findAllByDepartmentsOrderByTimestamp(set); //list of all possible agents.
+        List<Agent> agents = this.agentRepository.findAgentsByDepartmentsDepartment(currentDepartment.getId()); //list of all possible agents.
         List<String> number = new ArrayList<>();
         if (agents.size() > 3) {
             for (int i = 0; i < 3; i++) {
@@ -107,8 +109,9 @@ public class NodeController {
 
 
     @GetMapping("/in-call")
+    @ResponseBody
     @Produces(MediaType.APPLICATION_JSON)
-    public ResponseEntity<?> inCallGet() {
+    public ResponseEntity<?> inCallGet(@RequestBody InCallNode inCallNode) {
         List<JSONObject> entities = new ArrayList<>();
         entities.add(new JSONObject());
         return new ResponseEntity<Object>(entities,HttpStatus.OK);
@@ -118,8 +121,52 @@ public class NodeController {
 
     @PostMapping("/in-call")
     @ResponseBody
-    @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-    public ResponseEntity<?> inCallWebHook(@RequestBody InputNode input) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public ResponseEntity<?> inCallWebHook(@RequestBody InCallNode inCallNode) {
+
+        switch (inCallNode.getCall_state()) {
+            case 1:
+                //this means incoming call to server.
+                //which means we need to create a caller object and store it.
+                Caller caller = new Caller();
+                caller.setContactNumber(inCallNode.getClid());
+                Call call = new Call();
+                call.setCaller(caller);
+                this.callerRepository.save(caller);
+                this.callRepository.save(call);
+                break;
+            case 2:
+                //call finished
+                break;
+            case 3:
+                //call initiated from agent to caller
+                break;
+            case 4:
+                //first party no answer
+                break;
+            case 5:
+                //dialing agents
+                break;
+            case 6:
+                // agent picked up
+                break;
+            case 7:
+                // caller hung up
+                break;
+            case 9:
+                // no one picked up
+                break;
+            default:
+                System.out.println("rip");
+        }
+
+
+
+
+
+
+
+
         List<JSONObject> entities = new ArrayList<JSONObject>();
         JSONObject entity = new JSONObject();
         //add whatever parameters you want to add.

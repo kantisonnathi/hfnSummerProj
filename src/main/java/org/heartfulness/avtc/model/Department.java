@@ -14,14 +14,6 @@ public class Department extends BaseEntity{
     @ManyToOne(fetch = FetchType.EAGER,targetEntity = Language.class)
     private Language language;
 
-    public Set<Agent> getAgents() {
-        return agents;
-    }
-
-    @ManyToMany(mappedBy = "departments")
-    private Set<Agent> agents;
-
-    public void setAgents(Set<Agent> agents) {
-        this.agents = agents;
-    }
+    @OneToMany(mappedBy = "department")
+    Set<AgentDepartment> agents;
 }

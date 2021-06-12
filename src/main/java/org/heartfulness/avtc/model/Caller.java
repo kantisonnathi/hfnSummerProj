@@ -119,6 +119,17 @@ public class Caller extends BaseEntity {
     @Column(name = "employment_status")
     private Boolean employmentStatus;
 
+    @Column(name = "contact_number")
+    private String contactNumber;
+
+    public String getContactNumber() {
+        return contactNumber;
+    }
+
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
+    }
+
     @Column(name = "marital_status")
     private String maritalStatus;
 

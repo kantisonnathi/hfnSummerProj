@@ -111,8 +111,28 @@ public class Agent extends BaseEntity {
         this.loggerSet = loggerSet;
     }
 
-    @OneToMany
-    private Set<AgentDepartment> departments;
+    public Set<Department> getDepartments() {
+        return departments;
+    }
+
+    public void setDepartments(Set<Department> departments) {
+        this.departments = departments;
+    }
+
+    public Set<Schedule> getSchedules() {
+        return schedules;
+    }
+
+    public void setSchedules(Set<Schedule> schedules) {
+        this.schedules = schedules;
+    }
+
+    @ManyToMany
+    @JoinTable(
+            name = "agent_department",
+            joinColumns = @JoinColumn(name = "department_id"),
+            inverseJoinColumns = @JoinColumn(name = "agent_id"))
+    private Set<Department> departments;
 
     @OneToMany(mappedBy = "agent",fetch=FetchType.EAGER,cascade=CascadeType.ALL)
     private Set<Logger> loggerSet;

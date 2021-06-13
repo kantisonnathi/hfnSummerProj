@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @CrossOrigin
 @RestController
@@ -68,7 +69,9 @@ public class NodeController {
         }
         Service currService = this.serviceRepository.findById(input.getInput());
         Department currentDepartment = this.departmentRepository.findByServiceAndLanguage(currService, currLanguage);
-        List<Agent> agents = this.agentRepository.findAgentsByDepartmentsDepartment(currentDepartment.getId()); //list of all possible agents.
+        Set<Department> departments = new HashSet<Department>();
+        departments.add(currentDepartment);
+        List<Agent> agents = this.agentRepository.findAgentsByDepartmentsIn(departments); //list of all possible agents.
         List<String> number = new ArrayList<>();
         if (agents.size() > 3) {
             for (int i = 0; i < 3; i++) {

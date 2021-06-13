@@ -18,8 +18,10 @@ public interface AgentRepository extends Repository<Agent, Long> {
 
     List<Agent> findAll();
 
-    @Query("select agent from Agent agent join AgentDepartment join Department department where department.id=:id")
-    List<Agent> findAgentsByDepartmentsDepartment(Long id);
+    /*@Query("select agent from Agent agent join AgentDepartment join Department department where department.id=:id")
+    List<Agent> findAgentsByDepartmentsDepartment(Long id);*/
+
+    List<Agent> findAgentsByDepartmentsIn(Set<Department> departments);
 
 
 }

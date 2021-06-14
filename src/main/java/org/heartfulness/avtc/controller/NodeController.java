@@ -143,6 +143,7 @@ public class NodeController {
                 break;
             case 3:
                 //call initiated from agent to caller
+                //this doesn't happen
                 break;
             case 4:
                 //first party no answer

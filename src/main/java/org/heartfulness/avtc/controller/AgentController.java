@@ -80,7 +80,7 @@ public class AgentController {
         if (agent == null) {
             entity.put("phoneNumber", "failure");
         } else {
-            if (agent.validate()) {
+            if (agent.getCertified()) {
                 entity.put("phoneNumber", "success");
             } else {
                 entity.put("phoneNumber", "failure");
@@ -108,18 +108,18 @@ public class AgentController {
         System.out.println(nodeConfiguration.getEnglishNode());
         List<Call> calls = this.callRepository.findAllByAgent(agent);
         modelMap.put("calls",calls);
-        /*if (agent.validate()) {
+        if (agent.validate()) {
             //agent is validated
-            List<Call> calls = this.callRepository.findAllByAgent(agent);
-            modelMap.put("calls",calls);
+        //    List<Call> calls = this.callRepository.findAllByAgent(agent);
+          //  modelMap.put("calls",calls);
             return "main/success";
         }
         else {
            // return "main/replace";
             return "redirect:/addDetails";
             //return "redirect:/addDetails";
-        }*/
-        return "main/success";
+        }
+       // return "main/success";
     }
 
     @GetMapping("/m/display")

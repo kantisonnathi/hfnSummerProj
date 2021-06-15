@@ -1,22 +1,24 @@
 package org.heartfulness.avtc.model;
 
+import java.util.List;
+
 public class Other {
-   private  String lan;
-    private String skills1;
+    private List<Language> languages;
+    private List<Service> services;
 
-    public String getLan() {
-        return lan;
+    public List<Language> getLanguages() {
+        return languages;
     }
 
-    public void setLan(String lan) {
-        this.lan = lan;
+    public void setLanguages(List<Language> languages) {
+        this.languages = languages;
     }
 
-    public String getSkills1() {
-        return skills1;
+    public List<Service> getServices() {
+        return services;
     }
 
-    public void setSkills1(String skills1) {
-        this.skills1 = skills1;
+    public void setServices(List<Service> services) {
+        this.services = services;
     }
 }

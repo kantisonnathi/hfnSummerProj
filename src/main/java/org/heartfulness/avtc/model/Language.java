@@ -15,6 +15,22 @@ public class Language extends BaseEntity {
     @ManyToMany(mappedBy = "languages")
     private Set<Caller> callers;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<Caller> getCallers() {
+        return callers;
+    }
+
+    public void setCallers(Set<Caller> callers) {
+        this.callers = callers;
+    }
+
     public Set<Department> getDepartments() {
         return Departments;
     }
@@ -23,11 +39,5 @@ public class Language extends BaseEntity {
         Departments = departments;
     }
 
-    public String getLanguage() {
-        return name;
-    }
 
-    public void setLanguage(String language) {
-        this.name = language;
-    }
 }

@@ -1,36 +1,31 @@
 package org.heartfulness.avtc.model;
 
 import org.heartfulness.avtc.repository.AgentRepository;
-import org.heartfulness.avtc.repository.LanguageRepository;
+import org.heartfulness.avtc.repository.ServiceRepository;
 import org.heartfulness.avtc.security.auth.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
-
-import javax.print.attribute.HashAttributeSet;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-
-@Component
-public class LangFormat implements Converter<String,Language> {
+@Controller
+public class ServiceFormat implements Converter<String,Service> {
     @Autowired
     SecurityService securityService;
-    private LanguageRepository languageRepository;
+    private ServiceRepository serviceRepository;
     private AgentRepository agentRepository;
 
-    public LangFormat(LanguageRepository languageRepository, AgentRepository agentRepository) {
-        this.languageRepository = languageRepository;
+    public ServiceFormat(ServiceRepository serviceRepository, AgentRepository agentRepository) {
+        this.serviceRepository = serviceRepository;
         this.agentRepository = agentRepository;
     }
 
     @Override
-    public Language convert(String id) {
+    public Service convert(String id) {
         //System.out.println("Trying to convert "+ id+ "into a lang");
         int parsedId=Integer.parseInt(id);
         Agent agent=agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber());
-        List<Language> l=languageRepository.findAll();
+        List<Service> l=serviceRepository.findAll();
         int index=parsedId-1;
         return l.get(index);
 

@@ -4,6 +4,7 @@ package org.heartfulness.avtc.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -100,7 +101,8 @@ public class Agent extends BaseEntity {
 
     public boolean validate() {
         // add any other validations that you want here
-        return true;
+
+        return false;
     }
 
     public Set<Logger> getLoggerSet() {

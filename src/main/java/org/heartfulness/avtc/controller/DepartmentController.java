@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 @Controller
@@ -39,28 +40,38 @@ public class DepartmentController {
     {
         List<Language> languages=languageRepository.findAll();
         List<Service> services=serviceRepository.findAll();
-        Department department=new Department();
+       List<Department> departments=departmentRepository.findAll();
+       List<Other> others=new ArrayList<>();
+       for(Department d: departments)
+       {
+           Language lang=d.getLanguage();
+           Service service=d.getService();
+           Other other=new Other();
+           other.setLanguages(lang.getName());
+           other.setServices(service.getName());
+           other.setId(d.getId());
+           others.add(other);
+       }
         List<Language> entered=new ArrayList<>();
-       Other other=new Other();
         Agent agent=agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber());
+
         modelMap.put("agent",agent);
-        modelMap.put("languages",languages);
-        modelMap.put("services",services);
-        modelMap.put("other",other);
+        modelMap.put("others",others);
         return "main/NewDetails";
-    }
+    } //GetMapping working for dept
     @PostMapping("/addDetails")
-    public String afterDetails(@ModelAttribute("agent") Agent agent,@ModelAttribute("other") Other other)
+    public String afterDetails(@ModelAttribute("agent") Agent agent)
     {
          Agent newAgent=agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber());
          newAgent.setGender(agent.getGender());
          newAgent.setName(agent.getName());
+         newAgent.setDepartments(agent.getDepartments());
          Department department=new Department();
-         for(Language language: other.getLanguages())
+       /*  for(Language language: other.getLanguages())
          {
              department=departmentRepository.findByServiceAndLanguage(other.getServices().get(0),language);
              //Write code to save the agent id and dept id ti agent_department table
-         }
+         }*/
          agentRepository.save(newAgent);
         // return "redirect:/success"; not working?
         return "main/success";

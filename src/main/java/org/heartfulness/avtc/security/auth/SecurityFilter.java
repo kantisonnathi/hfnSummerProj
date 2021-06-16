@@ -49,6 +49,8 @@ public class SecurityFilter extends OncePerRequestFilter {
     protected void doFilterInternal(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         verifyToken(request);
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         filterChain.doFilter(request, response);
     }
 

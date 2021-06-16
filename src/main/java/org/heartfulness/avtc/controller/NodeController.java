@@ -11,12 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
-@CrossOrigin
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class NodeController {
 
@@ -67,22 +64,25 @@ public class NodeController {
         } else if (currNodeID.equals(nodeConfiguration.getHindiNode())) {
             currLanguage = this.languageRepository.findByName("Hindi");
         }
-        Service currService = this.serviceRepository.findById(input.getInput());
-        Department currentDepartment = this.departmentRepository.findByServiceAndLanguage(currService, currLanguage);
-        Set<Department> departments = new HashSet<Department>();
+        //Long id = Long.valueOf(input.getInput());
+        Optional<Service> currService = this.serviceRepository.findById(Long.valueOf(input.getInput()));
+        Department currentDepartment = this.departmentRepository.findByServiceAndLanguage(currService.get(), currLanguage);
+        Set<Department> departments = new HashSet<>();
+        Collection<Set<Department>> set = new HashSet<>();
+        set.add(departments);
         departments.add(currentDepartment);
-        List<Agent> agents = this.agentRepository.findAgentsByDepartmentsIn(departments); //list of all possible agents.
+        List<Agent> agents = this.agentRepository.findAgentsByDepartmentsInAndStatusEquals(set, AgentStatus.ONLINE); //list of all possible agents.
         List<String> number = new ArrayList<>();
         if (agents.size() > 3) {
             for (int i = 0; i < 3; i++) {
                 number.add(agents.get(i).getContactNumber());
-                agents.get(i).setStatus("Queued"); //set this particular agent to queued
+                agents.get(i).setStatus(AgentStatus.QUEUED); //set this particular agent to queued
                 this.agentRepository.save(agents.get(i));
             }
         } else if (agents.size() > 0) {
             for (Agent agent : agents) {
                 number.add(agent.getContactNumber());
-                agent.setStatus("Queued"); //set this particular agent to queued
+                agent.setStatus(AgentStatus.QUEUED); //set this particular agent to queued
                 this.agentRepository.save(agent);
             }
         } else {
@@ -163,12 +163,6 @@ public class NodeController {
             default:
                 System.out.println("rip");
         }
-
-
-
-
-
-
 
 
         List<JSONObject> entities = new ArrayList<JSONObject>();

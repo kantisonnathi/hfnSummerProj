@@ -3,8 +3,11 @@ package org.heartfulness.avtc.controller;
 
 import org.heartfulness.avtc.model.Agent;
 import org.heartfulness.avtc.repository.AgentRepository;
+import org.heartfulness.avtc.security.auth.SecurityService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -12,8 +15,11 @@ import java.security.Principal;
 
 
 @Controller
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class MainController {
 
+    @Autowired
+    private SecurityService securityService;
 
     private final AgentRepository agentRepository;
 
@@ -36,9 +42,9 @@ public class MainController {
     }
 
     @PostMapping("/main")
-    public String postMain(Agent agent, Principal principal) {
+    public String postMain(Agent agent) {
         //String phoneNumber = principal.getName();
-        Agent agent1 = this.agentRepository.findByContactNumber(agent.getContactNumber());
+        Agent agent1 = this.agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber());
         if (agent1 == null) {
             return "main/error";
         }

@@ -85,9 +85,9 @@
 <script>
     function phoneAuth() {
         console.log("function: phone auth");
-        let contactNumber = document.getElementById("phoneNumber").value; //getting phone number
+        /*let contactNumber = document.getElementById("phoneNumber").value; //getting phone number
         let xhttp = new XMLHttpRequest();
-        xhttp.open("POST", "http://localhost:8082/check")
+        xhttp.open("POST", "/check")
         xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.onload = function () {
             let status = JSON.parse(xhttp.responseText);
@@ -99,7 +99,9 @@
                 alert("Sorry, your number not there in db man!");
             }
         }
-        xhttp.send(contactNumber);
+        xhttp.send(contactNumber);*/
+        phoneAuthSecond();
+    }
 
         function phoneAuthSecond() {
             const number = document.getElementById('phoneNumber').value;
@@ -108,13 +110,11 @@
                 coderesult = confirmationResult;
                 console.log("code result:" + coderesult);
                 alert("Message sent");
-
-
             }).catch(function (error) {
                 alert(error.message)
             });
         }
-    }
+
 </script>
 <script>
     function codeverify(){
@@ -126,7 +126,7 @@
                 xhttp.onload = function() {
                     //console.log("done");
                 }
-                xhttp.open("POST","/private/sessionLogin");  //here is where the cookie is sset
+                xhttp.open("POST","/private/sessionLogin");  //here is where the cookie is set
                 //console.log(idToken);
                 xhttp.setRequestHeader("Content-type", "application/json");
                 xhttp.send(idToken);

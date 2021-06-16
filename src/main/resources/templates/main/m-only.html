@@ -24,17 +24,20 @@
         </thead>
         <tbody>
             <tr th:each="agent : ${agents}">
-                <td><input th:field="${agent.name}" th:placeholder="${agent.name}"></td>
+                <td th:field="${agent.name}"></td>
+                <td th:field="${agent.contactNumber}"></td>
+                <td th:field="${agent.role}"></td>
+                <!--<td><input th:field="${agent.name}" th:placeholder="${agent.name}"></td>
                 <td><input th:field="${agent.contactNumber}" th:placeholder="${agent.contactNumber}"></td>
                 <td><input th:field="${agent.role}" th:placeholder="${agent.role}"></td>
-                <td th:text="${agent.role}"></td>
+                <td th:text="${agent.role}"></td>-->
             </tr>
         </tbody>
     </table>
 
-    <div th:if="${agent.role == 'manager'}">
+    <!--<div th:if="${agent.role == 'manager'}">
         <p>Managers only 1</p>
-    </div>
+    </div>-->
 </div>
 </body>
 </html>

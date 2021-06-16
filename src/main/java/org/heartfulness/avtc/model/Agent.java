@@ -23,17 +23,53 @@ public class Agent extends BaseEntity {
     @Column(name = "role")
     private String role;
 
+    public AgentStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(AgentStatus status) {
+        this.status = status;
+    }
+
+    public void setGender(Character gender) {
+        this.gender = gender;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
     @Column(name = "status")
-    private String status; //online offline busy
+    private AgentStatus status; //online offline busy
 
     @Column(name = "timestamp")
     private Timestamp timestamp;
 
     @Column(name="gender")
-    private char gender;
+    private Character gender;
 
     @Column(name="level",length =1)
-    private int level;
+    private Integer level;
+
+    @ManyToMany
+    @JoinTable(
+            name = "agent_department",
+            joinColumns = @JoinColumn(name = "department_id"),
+            inverseJoinColumns = @JoinColumn(name = "agent_id"))
+    private Set<Department> departments;
+
+    @OneToMany(mappedBy = "agent",fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+    private Set<Logger> loggerSet;
+
+    @OneToMany(mappedBy = "agent", fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+    private Set<Schedule> schedules;
+
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Team.class)
+    @JoinColumn(name = "team_id")
+    private Team team;
+
+    @OneToOne(mappedBy = "manager")
+    private Team teamManaged;
 
     public char getGender() {
         return gender;
@@ -57,14 +93,6 @@ public class Agent extends BaseEntity {
 
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public String getRole() {
@@ -121,6 +149,11 @@ public class Agent extends BaseEntity {
         this.departments = departments;
     }
 
+    public void addDepartment(Department department) {
+        department.addAgent(this);
+        this.departments.add(department);
+    }
+
     public Set<Schedule> getSchedules() {
         return schedules;
     }
@@ -129,18 +162,7 @@ public class Agent extends BaseEntity {
         this.schedules = schedules;
     }
 
-    @ManyToMany
-    @JoinTable(
-            name = "agent_department",
-            joinColumns = @JoinColumn(name = "department_id"),
-            inverseJoinColumns = @JoinColumn(name = "agent_id"))
-    private Set<Department> departments;
 
-    @OneToMany(mappedBy = "agent",fetch=FetchType.EAGER,cascade=CascadeType.ALL)
-    private Set<Logger> loggerSet;
-
-    @OneToMany(mappedBy = "agent", fetch=FetchType.EAGER,cascade=CascadeType.ALL)
-    private Set<Schedule> schedules;
 
 
 }

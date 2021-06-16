@@ -6,6 +6,7 @@ import com.google.firebase.auth.SessionCookieOptions;
 import net.minidev.json.JSONObject;
 import org.heartfulness.avtc.config.NodeConfiguration;
 import org.heartfulness.avtc.model.Agent;
+import org.heartfulness.avtc.model.AgentStatus;
 import org.heartfulness.avtc.model.Call;
 import org.heartfulness.avtc.repository.AgentRepository;
 import org.heartfulness.avtc.repository.CallRepository;
@@ -33,6 +34,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Controller
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class AgentController {
 
     @Autowired
@@ -58,10 +60,10 @@ public class AgentController {
         Timestamp timestamp = Timestamp.valueOf(localDateTime);
         if (status.equals("online")) {
             //mark user online
-            agent.setStatus("online");
+            agent.setStatus(AgentStatus.ONLINE);
         } else if (status.equals("offline")) {
             //mark user offline
-            agent.setStatus("offline");
+            agent.setStatus(AgentStatus.OFFLINE);
         }
         agent.setTimestamp(timestamp);
         this.agentRepository.save(agent);

@@ -23,7 +23,7 @@ public interface AgentRepository extends Repository<Agent, Long> {
     /*@Query("select agent from Agent agent join AgentDepartment join Department department where department.id=:id")
     List<Agent> findAgentsByDepartmentsDepartment(Long id);*/
 
-    List<Agent> findAgentsByDepartmentsInAndStatusEquals(Collection<Set<Department>> departments, AgentStatus status);
+    List<Agent> findAgentsByDepartmentsInAndStatusEquals(Set<Department> departments, AgentStatus status);
 
 
 }

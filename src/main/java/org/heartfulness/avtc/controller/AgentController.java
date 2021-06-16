@@ -124,13 +124,6 @@ public class AgentController {
        // return "main/success";
     }
 
-    @GetMapping("/m/display")
-    public String getManagerPage(ModelMap modelMap) {
-        Agent managerAgent =  this.agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber());
-        List<Agent> listOfAllAgents = this.agentRepository.findAll();
-        modelMap.put("agents", listOfAllAgents);
-        modelMap.put("agent", managerAgent);
-        return "main/m-only";
-    }
+
 
 }

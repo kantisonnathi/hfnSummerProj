@@ -52,4 +52,10 @@ public class InputNode {
     public void setInput(Integer input) {
         this.input = input;
     }
+
+    @Override
+    public String toString() {
+        return "uid: " + uid + ", node id: " + node_id + ", timestamp: " + timestamp +
+                ", caller id: " + clid + ", input: " + input;
+    }
 }

@@ -48,12 +48,14 @@ public class NodeController {
     @ResponseBody
     @Produces(MediaType.APPLICATION_JSON)
     public ResponseEntity<?> inputNodeRequest(@RequestBody InputNode input) {
+        System.out.println("Data from my operator: " + input.toString());
         Caller caller = this.callerRepository.findByAllottedID(input.getClid());
         if (caller == null) {
             caller = new Caller();
             caller.setContactNumber(input.getClid());
             this.callerRepository.save(caller);
         }
+        System.out.println("the caller is " + caller.toString());
         // queried/created caller.
         // will create the call object later.
         // finding the language object from node_id
@@ -64,16 +66,21 @@ public class NodeController {
         } else if (currNodeID.equals(nodeConfiguration.getHindiNode())) {
             currLanguage = this.languageRepository.findByName("Hindi");
         }
+        System.out.println("the current language is " + currLanguage.getName());
         //Long id = Long.valueOf(input.getInput());
         Optional<Service> currService = this.serviceRepository.findById(Long.valueOf(input.getInput()));
         Department currentDepartment = this.departmentRepository.findByServiceAndLanguage(currService.get(), currLanguage);
+        System.out.println("the current service is " + currService.get().getName());
         Set<Department> departments = new HashSet<>();
         Collection<Set<Department>> set = new HashSet<>();
         set.add(departments);
         departments.add(currentDepartment);
-        List<Agent> agents = this.agentRepository.findAgentsByDepartmentsInAndStatusEquals(set, AgentStatus.ONLINE); //list of all possible agents.
+        List<Agent> agents = this.agentRepository.findAgentsByDepartmentsInAndStatusEquals(departments, AgentStatus.ONLINE); //list of all possible agents.
         List<String> number = new ArrayList<>();
-        if (agents.size() > 3) {
+        number.add("9900213110");
+        System.out.println(agents);
+
+        /*if (agents.size() > 3) {
             for (int i = 0; i < 3; i++) {
                 number.add(agents.get(i).getContactNumber());
                 agents.get(i).setStatus(AgentStatus.QUEUED); //set this particular agent to queued
@@ -93,25 +100,29 @@ public class NodeController {
             entity.put("value", "no available community level workers, please try again shortly. we are " +
                     "sorry for the convenience caused");
             entities.add(entity);
+            System.out.println("NO CLWS");
             return new ResponseEntity<Object>(entities, HttpStatus.OK);
-        }
+        }*/
 
         List<JSONObject> entities = new ArrayList<JSONObject>();
         JSONObject entity = new JSONObject();
-        entity.put("action", "tts");
-        entity.put("value", "you are being connected to a community level worker");
+        /*entity.put("action", "tts");
+        entity.put("value", "you are being connected to a community level worker");*/
         entity.put("operation", "dial_numbers");
         JSONObject operationData = new JSONObject();
         operationData.put("data",number);
+        operationData.put("dial_method", "serial");
         entity.put("operation_data",operationData);
 
         //add whatever parameters you want to add.
         entities.add(entity);
+
+        System.out.println("sending response");
         return new ResponseEntity<Object>(entities, HttpStatus.OK);
     }
 
 
-    @GetMapping("/in-call")
+    @GetMapping("/inCall")
     @ResponseBody
     @Produces(MediaType.APPLICATION_JSON)
     public ResponseEntity<?> inCallGet(@RequestBody InCallNode inCallNode) {
@@ -122,7 +133,7 @@ public class NodeController {
 
 
 
-    @PostMapping("/in-call")
+    @PostMapping("/inCall")
     @ResponseBody
     @Produces(MediaType.APPLICATION_JSON)
     public ResponseEntity<?> inCallWebHook(@RequestBody InCallNode inCallNode) {
@@ -171,4 +182,22 @@ public class NodeController {
         entities.add(entity);
         return new ResponseEntity<Object>(entities, HttpStatus.OK);
     }
+
+    @GetMapping("/afterCall")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ResponseEntity<?> afterCallGet(@RequestBody AfterCallNode afterCallNode) {
+        List<JSONObject> entities = new ArrayList<>();
+        entities.add(new JSONObject());
+        return new ResponseEntity<Object>(entities,HttpStatus.OK);
+    }
+
+    @PostMapping("/afterCall")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ResponseEntity<?> afterCallPost(@RequestBody AfterCallNode afterCallNode) {
+        List<JSONObject> entities = new ArrayList<>();
+        entities.add(new JSONObject());
+        return new ResponseEntity<Object>(entities,HttpStatus.OK);
+    }
+
+
 }

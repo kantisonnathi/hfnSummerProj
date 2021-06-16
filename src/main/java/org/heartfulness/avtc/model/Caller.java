@@ -163,4 +163,9 @@ public class Caller extends BaseEntity {
         }
         calls.add(call);
     }
+
+    @Override
+    public String toString() {
+        return "contact number: " + contactNumber;
+    }
 }

@@ -46,12 +46,12 @@ public class Agent extends BaseEntity {
     private Timestamp timestamp;
 
     @Column(name="gender")
-    private Character gender;
+    private char gender;
 
     @Column(name="level",length =1)
-    private Integer level;
+    private int level;
 
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinTable(
             name = "agent_department",
             joinColumns = @JoinColumn(name = "department_id"),

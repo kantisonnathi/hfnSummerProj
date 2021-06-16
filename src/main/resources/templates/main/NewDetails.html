@@ -18,24 +18,24 @@
         <input type="text" name="gender" th:field="*{gender}">
         <br>
         <u1>
-            <li th:each=" lang : ${languages}">
+            <li th:each=" other : ${others}">
                 <div class="ui checkbox">
-                    <input type="checkbox" th:object="${other}" th:field="*{languages}" th:value="${lang.id}">
-                    <label th:text="${lang.name}"></label>
+                    <input type="checkbox" th:field="*{departments}" th:value="${other.id}">
+                    <label th:text="${other.languages}"></label>
+                    <label th:text="${other.services}"></label>
 
                  </div>
             </li>
             <br>
         </u1>
        <u1>
-            <li th:each="s : ${services}">
+         <!--   <li th:each="s : ${services}">
                 <div class="ui checkbox">
                     <input type="checkbox" th:object="${other}" th:field="*{services}" th:value="${s.id}">
                     <label th:text="${s.name}"></label>
                 </div>
-            </li>
+            </li>*/-->
             <br>
-            <label>Please enter other skills</label>
         </u1>
         <div class="ui checkbox">
             <button class="ui-button" type="submit">Submit</button>

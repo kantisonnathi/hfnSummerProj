@@ -21,25 +21,11 @@ public class Agent extends BaseEntity {
     private Boolean certified;
 
     @Column(name = "role")
-    private String role;
-
-    public AgentStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(AgentStatus status) {
-        this.status = status;
-    }
-
-    public void setGender(Character gender) {
-        this.gender = gender;
-    }
-
-    public void setLevel(Integer level) {
-        this.level = level;
-    }
+    @Enumerated(EnumType.ORDINAL)
+    private AgentRole role;
 
     @Column(name = "status")
+    @Enumerated(EnumType.ORDINAL)
     private AgentStatus status; //online offline busy
 
     @Column(name = "timestamp")
@@ -71,6 +57,22 @@ public class Agent extends BaseEntity {
     @OneToOne(mappedBy = "manager")
     private Team teamManaged;
 
+    public AgentStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(AgentStatus status) {
+        this.status = status;
+    }
+
+    public void setGender(Character gender) {
+        this.gender = gender;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
     public char getGender() {
         return gender;
     }
@@ -95,12 +97,28 @@ public class Agent extends BaseEntity {
         this.timestamp = timestamp;
     }
 
-    public String getRole() {
+    public AgentRole getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(AgentRole role) {
         this.role = role;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
+    public Team getTeamManaged() {
+        return teamManaged;
+    }
+
+    public void setTeamManaged(Team teamManaged) {
+        this.teamManaged = teamManaged;
     }
 
     public Boolean getCertified() {
@@ -162,7 +180,5 @@ public class Agent extends BaseEntity {
         this.schedules = schedules;
     }
 
-
-
-
 }
+

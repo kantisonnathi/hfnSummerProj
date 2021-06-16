@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View All Teams</title>
+</head>
+<body>
+<div>
+  <table>
+    <thead>
+    <tr>
+      <th>Team ID</th>
+      <th>Team manager</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="team : ${teams}">
+      <td th:text="${team.id}"></td>
+      <td th:text="${team.manager.name}"></td>
+    </tr>
+  </table>
+</div>
+</body>
+</html>

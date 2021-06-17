@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div>
+    <p>Manager name: <span th:text="${team.manager.name}"></span></p>
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th>Agent ID</th>
+        <th>Agent Name</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="agent : ${team.agents}">
+        <td th:text="${agent.id}"></td>
+        <td th:text="${agent.name}"></td>
+        <td><a th:href="@{/admin/team/__${team.id}__/remove/__${agent.id}__}">Remove this agent</a> </td>
+    </tr>
+</table>
+
+<div>
+    <a th:href="@{/admin/team/__${team.id}__/addAgent}">Add more agents to this team</a>
+</div>
+
+</body>
+</html>

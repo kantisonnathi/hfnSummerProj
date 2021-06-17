@@ -3,6 +3,7 @@ package org.heartfulness.avtc.repository;
 import org.heartfulness.avtc.model.Agent;
 import org.heartfulness.avtc.model.AgentStatus;
 import org.heartfulness.avtc.model.Department;
+import org.heartfulness.avtc.model.Team;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 
@@ -25,5 +26,6 @@ public interface AgentRepository extends Repository<Agent, Long> {
 
     List<Agent> findAgentsByDepartmentsInAndStatusEquals(Set<Department> departments, AgentStatus status);
 
+    List<Agent> findAgentsByTeamEquals(Team team);
 
 }

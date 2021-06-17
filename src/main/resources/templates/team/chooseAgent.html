@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Agent</title>
+</head>
+<body>
+
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th>Agent ID</th>
+            <th>Agent Name</th>
+            <th>Add</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="agent : ${unassignedAgents}">
+            <td th:text="${agent.id}"></td>
+            <td th:text="${agent.name}"></td>
+            <td><a th:href="@{/admin/team/__${team.id}__/add/__${agent.id}__}">Add this agent</a> </td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

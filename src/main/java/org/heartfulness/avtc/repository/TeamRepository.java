@@ -9,4 +9,8 @@ public interface TeamRepository extends Repository<Team, Long> {
 
     List<Team> findAll();
 
+    Team findById(Long id);
+
+    void save(Team team);
+
 }

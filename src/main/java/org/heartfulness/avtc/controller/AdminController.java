@@ -46,13 +46,18 @@ public class AdminController {
     
     @GetMapping("/team/{id}")
     public String showIndividualTeam(@PathVariable("id") Long teamID, ModelMap modelMap) {
+
+        Team team = this.teamRepository.findById(teamID);
+
         Agent loggedAgent = this.agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber());
+        if (loggedAgent.getRole().equals(AgentRole.TEAM_LEAD) && loggedAgent.getTeam().equals(team)){
+                modelMap.put("team", team);
+                return "team/viewSingle";
+        }
         if (!loggedAgent.getRole().equals(AgentRole.ADMIN)) {
             //not authorized
             return "main/error";
         }
-
-        Team team = this.teamRepository.findById(teamID);
         modelMap.put("team", team);
         return "team/viewSingle";
     }

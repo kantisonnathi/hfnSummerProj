@@ -29,7 +29,7 @@ public class Call extends BaseEntity {
     private String endTime;
 
     @Column(name = "status")
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     public CallCategory getCategory() {

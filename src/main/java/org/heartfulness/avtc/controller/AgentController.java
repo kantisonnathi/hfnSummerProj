@@ -10,6 +10,7 @@ import org.heartfulness.avtc.model.AgentStatus;
 import org.heartfulness.avtc.model.Call;
 import org.heartfulness.avtc.repository.AgentRepository;
 import org.heartfulness.avtc.repository.CallRepository;
+import org.heartfulness.avtc.repository.TeamRepository;
 import org.heartfulness.avtc.security.auth.SecurityService;
 import org.heartfulness.avtc.security.auth.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,10 +47,12 @@ public class AgentController {
 
     private final AgentRepository agentRepository;
     private final CallRepository callRepository;
+    private final TeamRepository teamRepository;
 
-    public AgentController(AgentRepository agentRepository, CallRepository callRepository) {
+    public AgentController(AgentRepository agentRepository, CallRepository callRepository, TeamRepository teamRepository) {
         this.agentRepository = agentRepository;
         this.callRepository = callRepository;
+        this.teamRepository = teamRepository;
     }
 
 
@@ -122,6 +125,12 @@ public class AgentController {
             //return "redirect:/addDetails";
         }
        // return "main/success";
+    }
+
+    @GetMapping("/team/view")
+    public String viewTeam(ModelMap modelMap) {
+        Agent loggedInAgent = this.agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber()) ;
+
     }
 
 

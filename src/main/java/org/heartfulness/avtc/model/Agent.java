@@ -148,7 +148,7 @@ public class Agent extends BaseEntity {
 
     public boolean validate() {
         // add any other validations that you want here
-       if(name==null)
+       if(name.equals(""))
        {
            return false;
        }

@@ -48,10 +48,10 @@ public class MainController {
         if (agent1 == null) {
             return "main/error";
         }
-      /*  if (agent1.validate()) {
+       if (agent1.validate()) {
             //agent is validated. navigate to success page
             return "redirect:/success";
-        }*/
+        }
         //return redirected url for editing details
         return "redirect:/addDetails";
     }

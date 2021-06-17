@@ -110,17 +110,11 @@ public class AgentController {
         System.out.println(nodeConfiguration.getEnglishNode());
         List<Call> calls = this.callRepository.findAllByAgent(agent);
         modelMap.put("calls",calls);
-        if (agent.validate()) {
             //agent is validated
         //    List<Call> calls = this.callRepository.findAllByAgent(agent);
           //  modelMap.put("calls",calls);
             return "main/success";
-        }
-        else {
-           // return "main/replace";
-            return "redirect:/addDetails";
-            //return "redirect:/addDetails";
-        }
+
        // return "main/success";
     }
 

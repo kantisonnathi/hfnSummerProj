@@ -59,6 +59,8 @@ public class DepartmentController {
         modelMap.put("others",others);
         return "main/NewDetails";
     } //GetMapping working for dept
+
+
     @PostMapping("/addDetails")
     public String afterDetails(@ModelAttribute("agent") Agent agent)
     {
@@ -76,6 +78,8 @@ public class DepartmentController {
         // return "redirect:/success"; not working?
         return "main/success";
     }
+
+
     @GetMapping("/addLangandServ")
     public String addLanguage(ModelMap modelMap)
     {
@@ -83,6 +87,8 @@ public class DepartmentController {
         modelMap.put("department",department);
         return "main/addLang";
     }
+
+
     @PostMapping("/addLangandServ")
     public String newDept(@ModelAttribute("department") Department department)
     {

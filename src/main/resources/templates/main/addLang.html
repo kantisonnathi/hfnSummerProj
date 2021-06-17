@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="post">
+    <label>Enter new Language</label>
+    <input type="text" name="language" th:field="${department.language.name}">
+    <br><br>
+   <label>Enter New Service</label>
+    <input type="text" name="service" th:field="${department.service.name}">
+    <br><br>
+    <button type="submit">Add Language and service </button>
+</form>
+
+</body>
+</html>

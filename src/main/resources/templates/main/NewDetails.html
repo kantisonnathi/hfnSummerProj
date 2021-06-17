@@ -15,7 +15,12 @@
         <input type="text" name="name" th:field="*{name}">
         <br>
         <label>Gender</label>
-        <input type="text" name="gender" th:field="*{gender}">
+        <input type="radio" name="gender" th:field="*{gender}" value="F">
+        <label>Female</label>
+        <input type="radio"  name="gender" th:field="*{gender}" value="M">
+        <label>Male</label>
+        <input type="radio" name="gender" th:field="*{gender}" value="O">
+        <label>Other</label>
         <br>
         <u1>
             <li th:each=" other : ${others}">

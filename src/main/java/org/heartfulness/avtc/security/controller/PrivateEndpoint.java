@@ -51,4 +51,14 @@ public class PrivateEndpoint {
                     .build();*/
         } 
     }
+
+    @GetMapping("/sessionLogout")
+    public ResponseEntity<?> deleteSessionCookie(HttpServletResponse response) {
+        String cookieContent = "";
+        Cookie cookie = new Cookie("session", cookieContent);
+        cookie.setSecure(false);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+        return new ResponseEntity<>("logged out", HttpStatus.OK);
+    }
 }

@@ -21,7 +21,7 @@ public class Agent extends BaseEntity {
     private Boolean certified;
 
     @Column(name = "role")
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private AgentRole role;
 
     @Column(name = "status")

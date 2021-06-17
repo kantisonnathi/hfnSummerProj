@@ -1,37 +1,24 @@
 package org.heartfulness.avtc.controller;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthException;
-import com.google.firebase.auth.SessionCookieOptions;
 import net.minidev.json.JSONObject;
 import org.heartfulness.avtc.config.NodeConfiguration;
-import org.heartfulness.avtc.model.Agent;
-import org.heartfulness.avtc.model.AgentStatus;
-import org.heartfulness.avtc.model.Call;
+import org.heartfulness.avtc.model.*;
 import org.heartfulness.avtc.repository.AgentRepository;
 import org.heartfulness.avtc.repository.CallRepository;
+import org.heartfulness.avtc.repository.LoggerRepository;
 import org.heartfulness.avtc.security.auth.SecurityService;
-import org.heartfulness.avtc.security.auth.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Produces;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 @Controller
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -46,10 +33,11 @@ public class AgentController {
 
     private final AgentRepository agentRepository;
     private final CallRepository callRepository;
-
-    public AgentController(AgentRepository agentRepository, CallRepository callRepository) {
+    private final LoggerRepository loggerRepository;
+    public AgentController(AgentRepository agentRepository, CallRepository callRepository, LoggerRepository loggerRepository) {
         this.agentRepository = agentRepository;
         this.callRepository = callRepository;
+        this.loggerRepository = loggerRepository;
     }
 
 
@@ -58,15 +46,21 @@ public class AgentController {
         Agent agent = this.agentRepository.findByContactNumber(this.securityService.getUser().getPhoneNumber());
         LocalDateTime localDateTime = LocalDateTime.now();
         Timestamp timestamp = Timestamp.valueOf(localDateTime);
+        Logger logger=new Logger();
+        logger.setAgent(agent);
+        logger.setTimestamp(timestamp);
         if (status.equals("online")) {
             //mark user online
             agent.setStatus(AgentStatus.ONLINE);
+            logger.setLogEvent(LogEvent.TURNED_ONLINE);
         } else if (status.equals("offline")) {
             //mark user offline
             agent.setStatus(AgentStatus.OFFLINE);
+            logger.setLogEvent(LogEvent.MANUAL_OFFLINE);
         }
         agent.setTimestamp(timestamp);
         this.agentRepository.save(agent);
+        this.loggerRepository.save(logger);
         return "main/error";
     }
 

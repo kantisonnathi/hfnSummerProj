@@ -1,6 +1,7 @@
 package org.heartfulness.avtc.model;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Set;
 
 @Entity
@@ -14,6 +15,31 @@ public class Logger extends BaseEntity {
     @Enumerated(EnumType.ORDINAL)
     private LogEvent logEvent;
 
+    public Agent getAgent() {
+        return agent;
+    }
+
+    public void setAgent(Agent agent) {
+        this.agent = agent;
+    }
+
+    public LogEvent getLogEvent() {
+        return logEvent;
+    }
+
+    public void setLogEvent(LogEvent logEvent) {
+        this.logEvent = logEvent;
+    }
+
+
     @Column(name = "timestamp")
-    private String timestamp;
+    private Timestamp timestamp;
+
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
+    }
 }

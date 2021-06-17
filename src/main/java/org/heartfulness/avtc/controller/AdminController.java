@@ -50,7 +50,7 @@ public class AdminController {
         Team team = this.teamRepository.findById(teamID);
 
         Agent loggedAgent = this.agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber());
-        if (loggedAgent.getRole().equals(AgentRole.TEAM_LEAD) && loggedAgent.getTeam().equals(team)){
+        if (loggedAgent.getRole().equals(AgentRole.TEAM_LEAD) && loggedAgent.getTeam().getId().equals(team.getId())){
                 modelMap.put("team", team);
                 return "team/viewSingle";
         }

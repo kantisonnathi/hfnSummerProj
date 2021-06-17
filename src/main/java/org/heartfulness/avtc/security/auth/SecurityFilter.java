@@ -63,7 +63,7 @@ public class SecurityFilter extends OncePerRequestFilter {
         String token = securityService.getBearerToken(request);
         logger.info(token);
         try {
-            if (sessionCookie != null) {
+            if (sessionCookie != null && !sessionCookie.getValue().equals("")) {
                 session = sessionCookie.getValue();
                 decodedToken = FirebaseAuth.getInstance().verifySessionCookie(session,
                         securityProps.getFirebaseProps().isEnableCheckSessionRevoked());

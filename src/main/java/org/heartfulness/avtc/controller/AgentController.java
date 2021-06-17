@@ -8,6 +8,7 @@ import org.heartfulness.avtc.config.NodeConfiguration;
 import org.heartfulness.avtc.model.Agent;
 import org.heartfulness.avtc.model.AgentStatus;
 import org.heartfulness.avtc.model.Call;
+import org.heartfulness.avtc.model.Team;
 import org.heartfulness.avtc.repository.AgentRepository;
 import org.heartfulness.avtc.repository.CallRepository;
 import org.heartfulness.avtc.repository.TeamRepository;
@@ -124,7 +125,11 @@ public class AgentController {
     @GetMapping("/team/view")
     public String viewTeam(ModelMap modelMap) {
         Agent loggedInAgent = this.agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber()) ;
-
+        List<Agent> agents = new ArrayList<>();
+        agents.add(loggedInAgent);
+        Team team = this.teamRepository.findTeamByAgentsIn(agents);
+        modelMap.put("team", team);
+        return "main/viewTeam";
     }
 
 

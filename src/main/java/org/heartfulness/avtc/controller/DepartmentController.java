@@ -76,4 +76,41 @@ public class DepartmentController {
         // return "redirect:/success"; not working?
         return "main/success";
     }
+    @GetMapping("/addLangandServ")
+    public String addLanguage(ModelMap modelMap)
+    {
+        Department department=new Department();
+        modelMap.put("department",department);
+        return "main/addLang";
+    }
+    @PostMapping("/addLangandServ")
+    public String newDept(@ModelAttribute("department") Department department)
+    {
+        if(!department.getService().getName().equals(""))
+        {
+            serviceRepository.save(department.getService());
+        }
+        if(!department.getLanguage().getName().equals("")) {
+            languageRepository.save(department.getLanguage());
+            List<Service> services = serviceRepository.findAll();
+            for (Service s : services) {
+                Department d = new Department();
+                d.setLanguage(department.getLanguage());
+                d.setService(s);
+                departmentRepository.save(d);
+            }
+        }
+        if(!department.getService().getName().equals(""))
+        {
+            List<Language> languages=languageRepository.findAll();
+            for(Language l: languages)
+            {
+                Department d=new Department();
+                d.setLanguage(l);
+                d.setService(department.getService());
+                departmentRepository.save(d);
+            }
+        }
+        return "main/mainpage";// change mappings
+    }
 }

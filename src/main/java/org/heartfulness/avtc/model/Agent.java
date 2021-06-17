@@ -32,6 +32,7 @@ public class Agent extends BaseEntity {
     private Timestamp timestamp;
 
     @Column(name="gender")
+
     private char gender;
 
     @Column(name="level",length =1)
@@ -147,8 +148,11 @@ public class Agent extends BaseEntity {
 
     public boolean validate() {
         // add any other validations that you want here
-
-        return false;
+       if(name==null)
+       {
+           return false;
+       }
+        return true;
     }
 
     public Set<Logger> getLoggerSet() {

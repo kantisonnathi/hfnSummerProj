@@ -1,38 +1,25 @@
 package org.heartfulness.avtc.controller;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthException;
-import com.google.firebase.auth.SessionCookieOptions;
-import java.sql.Time;
 import net.minidev.json.JSONObject;
 import org.heartfulness.avtc.config.NodeConfiguration;
 import org.heartfulness.avtc.model.*;
 import org.heartfulness.avtc.repository.AgentRepository;
 import org.heartfulness.avtc.repository.CallRepository;
-import org.heartfulness.avtc.repository.ScheduleRepository;
+import org.heartfulness.avtc.repository.LoggerRepository;
 import org.heartfulness.avtc.repository.TeamRepository;
 import org.heartfulness.avtc.security.auth.SecurityService;
-import org.heartfulness.avtc.security.auth.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Produces;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 @Controller
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -48,13 +35,13 @@ public class AgentController {
     private final AgentRepository agentRepository;
     private final CallRepository callRepository;
     private final TeamRepository teamRepository;
-    private final ScheduleRepository scheduleRepository;
+    private final LoggerRepository loggerRepository;
 
-    public AgentController(AgentRepository agentRepository, CallRepository callRepository, TeamRepository teamRepository, ScheduleRepository scheduleRepository) {
+    public AgentController(AgentRepository agentRepository, CallRepository callRepository, TeamRepository teamRepository, LoggerRepository loggerRepository) {
         this.agentRepository = agentRepository;
         this.callRepository = callRepository;
         this.teamRepository = teamRepository;
-        this.scheduleRepository = scheduleRepository;
+        this.loggerRepository = loggerRepository;
     }
 
 
@@ -62,15 +49,22 @@ public class AgentController {
     public String markStatus(@PathVariable("status") String status) {
         Agent agent = this.agentRepository.findByContactNumber(this.securityService.getUser().getPhoneNumber());
         LocalDateTime localDateTime = LocalDateTime.now();
+        Logger logger=new Logger();
+        logger.setAgent(agent);
+
         Timestamp timestamp = Timestamp.valueOf(localDateTime);
+        logger.setTimestamp(timestamp);
         if (status.equals("online")) {
             //mark user online
+            logger.setLogEvent(LogEvent.TURNED_ONLINE);
             agent.setStatus(AgentStatus.ONLINE);
         } else if (status.equals("offline")) {
             //mark user offline
+            logger.setLogEvent(LogEvent.MANUAL_OFFLINE);
             agent.setStatus(AgentStatus.OFFLINE);
         }
         agent.setTimestamp(timestamp);
+        this.loggerRepository.save(logger);
         this.agentRepository.save(agent);
         return "main/error";
     }
@@ -115,25 +109,12 @@ public class AgentController {
         System.out.println(nodeConfiguration.getEnglishNode());
         List<Call> calls = this.callRepository.findAllByAgent(agent);
         modelMap.put("calls",calls);
-        Schedule schedule = new Schedule();
-        schedule.setAgent(agent);
-        schedule.setStartTime(LocalTime.now());
-        modelMap.put("schedule", schedule);
             //agent is validated
         //    List<Call> calls = this.callRepository.findAllByAgent(agent);
           //  modelMap.put("calls",calls);
             return "main/success";
 
        // return "main/success";
-    }
-
-    @PostMapping("/schedule")
-    public String setSchedule(Schedule schedule) {
-        Agent agent = this.agentRepository.findByContactNumber(this.securityService.getUser().getPhoneNumber());
-        agent.addSchedule(schedule);
-        this.scheduleRepository.save(schedule);
-        this.agentRepository.save(agent);
-        return "redirect:/success";
     }
 
     @GetMapping("/team/view")

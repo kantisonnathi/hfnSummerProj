@@ -4,6 +4,7 @@ package org.heartfulness.avtc.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -153,6 +154,13 @@ public class Agent extends BaseEntity {
            return false;
        }
         return true;
+    }
+
+    public void addSchedule(Schedule schedule) {
+        if (schedules == null) {
+            schedules = new HashSet<>();
+        }
+        this.schedules.add(schedule);
     }
 
     public Set<Logger> getLoggerSet() {

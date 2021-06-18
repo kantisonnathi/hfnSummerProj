@@ -36,6 +36,16 @@
     <p id="status">Status: Offline</p>
 </div>
 
+<div>
+    <form method="post" action="/schedule">
+    <input type="hidden" th:field="${schedule.id}">
+    <input type="hidden" th:field="${schedule.agent}">
+    <input type="hidden" th:field="${schedule.startTime}">
+    <input type="datetime-local" th:field="${schedule.endTime}">
+        <button type="submit"></button>
+    </form>
+</div>
+
 
 
 <div style="text-align: center;">

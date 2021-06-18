@@ -2,64 +2,22 @@
     perspective: 600px;
     width:100%;
 }
-head {
-    font-family: Verdana;
+
+img {
+    width: 200px;
+    height: 200px;
 }
+
+#auth-content {
+    text-align: center;
+}
+
 body {
-    font-family: Verdana;
     background-size: cover;
     background-position: center;
-    text-align: center;
-}
-h1, h2, h4{
-    font-family: Verdana;
-    color: #D8BFD8;
-}
-#mobreg th h1 {
-    font-weight: bold;
-    font-size: 1em;
-    text-align: center;
-    color: #D8BFD8;
-}
-#mobreg td {
-    font-weight: normal;
-    font-size: 1em;
-    -webkit-box-shadow: 0 2px 2px -2px #D8BFD8;
-    -moz-box-shadow: 0 2px 2px -2px #D8BFD8;
-    box-shadow: 0 2px 2px -2px #D8BFD8;
 }
 
 #mobreg {
-    text-align: center;
-    overflow: hidden;
-    width: 50%;
-    margin: 0 auto;
-    display: table;
-    padding: 0 0 8em 0;
-}
-
-#mobreg td,
-#mobreg th {
-    padding-bottom: 2%;
-    padding-top: 2%;
-    padding-left: 2%;
-}
-
-/* Background-color of the odd rows */
-#mobreg tr:nth-child(odd) {
-    background-color: #D8BFD8;
-}
-
-/* Background-color of the even rows */
-#mobreg tr:nth-child(even) {
-    background-color: #2c3446;
-}
-
-#mobreg th {
-    background-color: #D8BFD8;
-}
-
-#mobreg td:first-child {
-    color: #590059;
+    border: 10px black;
 }
 

@@ -78,11 +78,16 @@ public class NodeController {
         departments.add(currentDepartment);
         List<Agent> agents = this.agentRepository.findAgentsByDepartmentsInAndStatusEquals(departments, AgentStatus.ONLINE); //list of all possible agents.*/
         List<String> number = new ArrayList<>();
-        number.add("9900213110");
         Long x=currentDepartment.getId();
-        List<Agent> agents=this.agentRepository.getByStatusandDepartment(x);
+        List<Agent> agents=new ArrayList<>();
+        int i=1;
+        while(agents.isEmpty()&&i<=3) {
+             agents = this.agentRepository.getByStatusandDepartment(x, i);
+             i++;
+        }
+        number.add(agents.get(0).getContactNumber());
         System.out.println(agents.get(0).getContactNumber());
-
+//Todo: Write logic for picking agent
         /*if (agents.size() > 3) {
             for (int i = 0; i < 3; i++) {
                 number.add(agents.get(i).getContactNumber());

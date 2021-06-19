@@ -28,7 +28,7 @@ public interface AgentRepository extends Repository<Agent, Long> {
     List<Agent> findAgentsByDepartmentsInAndStatusEquals(Set<Department> departments, AgentStatus status);
     List<Agent> findAgentByDepartments(Department departments);
     Set<Agent> findAgentsByTeamEquals(Team team);
-   @Query(value="select * from Agent a where a.id in(select d.agents_id from agent_departments d where d.departments_id=?) and a.status=0",nativeQuery = true)
-    List<Agent> getByStatusandDepartment(Long deptid);
+   @Query(value="select * from Agent a where a.id in(select d.agents_id from agent_departments d where d.departments_id=?) and a.status=0 and a.level=?",nativeQuery = true)
+    List<Agent> getByStatusandDepartment(Long deptid,int level);
 
 }

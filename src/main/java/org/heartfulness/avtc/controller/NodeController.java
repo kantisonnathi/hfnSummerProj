@@ -109,10 +109,11 @@ public class NodeController {
         JSONObject entity = new JSONObject();
         /*entity.put("action", "tts");
         entity.put("value", "you are being connected to a community level worker");*/
-        entity.put("operation", "dial_numbers");
+        entity.put("operation", "dial-numbers");
         JSONObject operationData = new JSONObject();
         operationData.put("data",number);
         operationData.put("dial_method", "serial");
+        operationData.put("anon_uuid","60cd93e244d59476");
         entity.put("operation_data",operationData);
 
         //add whatever parameters you want to add.

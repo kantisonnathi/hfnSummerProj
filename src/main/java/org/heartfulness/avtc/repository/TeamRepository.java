@@ -12,7 +12,7 @@ public interface TeamRepository extends Repository<Team, Long> {
 
     Team findById(Long id);
 
-    void save(Team team);
+    Team save(Team team);
 
     Team findTeamByAgentsIn(List<Agent> agents);
 

@@ -54,9 +54,26 @@ public class AdminController {
             return "main/error";
         }
         Set<Agent> agents = this.agentRepository.findAgentsByTeamEquals(null);
-        modelMap.put("agents", agents);
+        modelMap.put("unassignedAgents", agents);
         return "team/unassignedAgents";
 
+    }
+    
+    @GetMapping("/newTeam/{agentID}")
+    public String makeNewTeam(@PathVariable("agentID") Long agentID) {
+        Agent loggedInAgent = this.agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber());
+        if (!loggedInAgent.getRole().equals(AgentRole.ADMIN)) {
+            //not authorized to view this page.
+            return "main/error";
+        }
+        Agent currAgent = this.agentRepository.findById(agentID);
+        Team team = new Team();
+        team.setManager(currAgent);
+        currAgent.setTeam(team);
+        currAgent.setRole(AgentRole.TEAM_LEAD);
+        team = this.teamRepository.save(team);
+        this.agentRepository.save(currAgent);
+        return "redirect:/admin/team/" + team.getId();
     }
     
     @GetMapping("/team/{id}")

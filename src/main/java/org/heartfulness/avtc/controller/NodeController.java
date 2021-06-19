@@ -105,7 +105,7 @@ public class NodeController {
             return new ResponseEntity<Object>(entities, HttpStatus.OK);
         }*/
 
-        List<JSONObject> entities = new ArrayList<JSONObject>();
+        //List<JSONObject> entities = new ArrayList<JSONObject>();
         JSONObject entity = new JSONObject();
         /*entity.put("action", "tts");
         entity.put("value", "you are being connected to a community level worker");*/
@@ -116,10 +116,10 @@ public class NodeController {
         entity.put("operation_data",operationData);
 
         //add whatever parameters you want to add.
-        entities.add(entity);
+        //entities.add(entity);
 
         System.out.println("sending response");
-        return new ResponseEntity<Object>(entities, HttpStatus.OK);
+        return new ResponseEntity<Object>(entity, HttpStatus.OK);
     }
 
 

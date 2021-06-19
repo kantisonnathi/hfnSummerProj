@@ -26,6 +26,6 @@ public interface AgentRepository extends Repository<Agent, Long> {
 
     List<Agent> findAgentsByDepartmentsInAndStatusEquals(Set<Department> departments, AgentStatus status);
 
-    List<Agent> findAgentsByTeamEquals(Team team);
+    Set<Agent> findAgentsByTeamEquals(Team team);
 
 }

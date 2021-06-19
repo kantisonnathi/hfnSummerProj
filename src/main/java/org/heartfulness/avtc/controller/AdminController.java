@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/admin")
@@ -62,6 +64,28 @@ public class AdminController {
         return "team/viewSingle";
     }
 
+    @GetMapping("/team/{teamid}/makeLead/{agentId}")
+    public String makeAdmin(@PathVariable("teamid") Long teamid, @PathVariable("agentId") Long agentID) {
+        Agent loggedAgent = this.agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber());
+        if (!loggedAgent.getRole().equals(AgentRole.ADMIN)) {
+            //not authorized
+            return "main/error";
+        }
+        Team currentTeam = this.teamRepository.findById(teamid);
+        Agent newManager = this.agentRepository.findById(agentID);
+        newManager.setRole(AgentRole.TEAM_LEAD);
+        Agent oldManager = currentTeam.getManager();
+        oldManager.setRole(AgentRole.AGENT);
+        currentTeam.setManager(newManager);
+        this.teamRepository.save(currentTeam);
+        this.agentRepository.save(oldManager);
+        this.agentRepository.save(newManager);
+        if (loggedAgent.getRole() == AgentRole.AGENT) {
+            return "redirect:/team/view";
+        }
+        return "redirect:/admin/team/" + teamid;
+    }
+
     @GetMapping("/team/{teamid}/remove/{agentID}")
     public String removeAgentFromTeam(@PathVariable("teamid") Long teamid, @PathVariable("agentID") Long agentid) {
         Agent loggedAgent = this.agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber());
@@ -85,7 +109,7 @@ public class AdminController {
             //not authorized
             return "main/error";
         }
-        List<Agent> unassignedAgents = this.agentRepository.findAgentsByTeamEquals(null);
+        Set<Agent> unassignedAgents = this.agentRepository.findAgentsByTeamEquals(null);
         modelMap.put("team", this.teamRepository.findById(teamID));
         modelMap.put("unassignedAgents", unassignedAgents);
         return "team/chooseAgent";

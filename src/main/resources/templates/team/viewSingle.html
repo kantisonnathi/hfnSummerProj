@@ -25,6 +25,7 @@
             <th>Agent ID</th>
             <th>Agent Name</th>
             <th>Action</th>
+            <th>Action</th>
         </tr>
         </thead>
         <tbody>
@@ -32,6 +33,7 @@
             <td th:text="${agent.id}"></td>
             <td th:text="${agent.name}"></td>
             <td><a th:href="@{/admin/team/__${team.id}__/remove/__${agent.id}__}">Remove this agent</a> </td>
+            <td><span th:if="${agent.id} != ${team.manager.id}"><a th:href="@{/admin/team/__${team.id}__/makeLead/__${agent.id}__}">Make team lead</a></span></td>
         </tr>
     </table>
 </div>

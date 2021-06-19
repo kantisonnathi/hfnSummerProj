@@ -69,17 +69,19 @@ public class NodeController {
         }
         System.out.println("the current language is " + currLanguage.getName());
         //Long id = Long.valueOf(input.getInput());
-        Optional<Service> currService = this.serviceRepository.findById(Long.valueOf(input.getInput()));
+      Optional<Service> currService = this.serviceRepository.findById(Long.valueOf(input.getInput()));
         Department currentDepartment = this.departmentRepository.findByServiceAndLanguage(currService.get(), currLanguage);
         System.out.println("the current service is " + currService.get().getName());
-        Set<Department> departments = new HashSet<>();
+   /*     Set<Department> departments = new HashSet<>();
         Collection<Set<Department>> set = new HashSet<>();
         set.add(departments);
         departments.add(currentDepartment);
-        List<Agent> agents = this.agentRepository.findAgentsByDepartmentsInAndStatusEquals(departments, AgentStatus.ONLINE); //list of all possible agents.
+        List<Agent> agents = this.agentRepository.findAgentsByDepartmentsInAndStatusEquals(departments, AgentStatus.ONLINE); //list of all possible agents.*/
         List<String> number = new ArrayList<>();
         number.add("9900213110");
-        System.out.println(agents);
+        Long x=currentDepartment.getId();
+        List<Agent> agents=this.agentRepository.getByStatusandDepartment(x);
+        System.out.println(agents.get(0).getContactNumber());
 
         /*if (agents.size() > 3) {
             for (int i = 0; i < 3; i++) {

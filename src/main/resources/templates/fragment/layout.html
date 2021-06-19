@@ -2,12 +2,20 @@
 <html xmlns:th="https://www.thymeleaf.org">
 
 
-<nav th:fragment="top-nav-bar">
-  <ul>
-    <li><a th:href="@{/private/sessionLogout}">Click here to log out</a></li>
-  </ul>
+<nav th:fragment="top-nav-bar-agent">
+  <div class="nav">
+    <a th:href="@{/team/view}">View My Team</a>
+    <a th:href="@{/addDetails}">Edit my details</a>
+    <a th:href="@{/private/sessionLogout}">Log Out</a>
+  </div>
 </nav>
 
-<nav>
+<nav th:fragment="top-nav-bar-admin">
+  <div class="nav">
+    <a th:href="@{/admin/teams/all}">View all teams</a>
+    <a th:href="@{/admin/unassignedAgents}">View Unassigned Agents</a>
+    <a th:href="@{/addDetails}">Edit my details</a>
+    <a th:href="@{/private/sessionLogout}">Log Out</a>
+  </div>
 
 </nav>

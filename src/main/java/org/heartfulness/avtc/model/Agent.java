@@ -40,10 +40,6 @@ public class Agent extends BaseEntity {
     private int level;
 
     @ManyToMany(fetch=FetchType.EAGER,cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "agent_department",
-            joinColumns = @JoinColumn(name = "department_id"),
-            inverseJoinColumns = @JoinColumn(name = "agent_id"))
     private Set<Department> departments;
 
     @OneToMany(mappedBy = "agent",fetch=FetchType.EAGER,cascade=CascadeType.ALL)

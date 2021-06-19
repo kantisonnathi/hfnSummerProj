@@ -45,6 +45,19 @@ public class AdminController {
         modelMap.put("teams", teams);
         return "team/viewTeams";
     }
+
+    @GetMapping("/unassignedAgents")
+    public String showAllUnassignedAgents(ModelMap modelMap) {
+        Agent loggedInAgent = this.agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber());
+        if (!loggedInAgent.getRole().equals(AgentRole.ADMIN)) {
+            //not authorized to view this page.
+            return "main/error";
+        }
+        Set<Agent> agents = this.agentRepository.findAgentsByTeamEquals(null);
+        modelMap.put("agents", agents);
+        return "team/unassignedAgents";
+
+    }
     
     @GetMapping("/team/{id}")
     public String showIndividualTeam(@PathVariable("id") Long teamID, ModelMap modelMap) {

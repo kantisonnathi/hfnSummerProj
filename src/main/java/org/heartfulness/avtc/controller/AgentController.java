@@ -3,10 +3,7 @@ package org.heartfulness.avtc.controller;
 import net.minidev.json.JSONObject;
 import org.heartfulness.avtc.config.NodeConfiguration;
 import org.heartfulness.avtc.model.*;
-import org.heartfulness.avtc.repository.AgentRepository;
-import org.heartfulness.avtc.repository.CallRepository;
-import org.heartfulness.avtc.repository.LoggerRepository;
-import org.heartfulness.avtc.repository.TeamRepository;
+import org.heartfulness.avtc.repository.*;
 import org.heartfulness.avtc.security.auth.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,8 +13,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.Produces;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,12 +35,14 @@ public class AgentController {
     private final CallRepository callRepository;
     private final TeamRepository teamRepository;
     private final LoggerRepository loggerRepository;
+    private final ScheduleRepository scheduleRepository;
 
-    public AgentController(AgentRepository agentRepository, CallRepository callRepository, TeamRepository teamRepository, LoggerRepository loggerRepository) {
+    public AgentController(AgentRepository agentRepository, CallRepository callRepository, TeamRepository teamRepository, LoggerRepository loggerRepository, ScheduleRepository scheduleRepository) {
         this.agentRepository = agentRepository;
         this.callRepository = callRepository;
         this.teamRepository = teamRepository;
         this.loggerRepository = loggerRepository;
+        this.scheduleRepository = scheduleRepository;
     }
 
 
@@ -91,6 +92,19 @@ public class AgentController {
         return new ResponseEntity<Object>(entities, HttpStatus.OK);
     }
 
+    @PostMapping("/schedule")
+    public String setSchedule(Schedule schedule) {
+        Agent agent = this.agentRepository.findByContactNumber(this.securityService.getUser().getPhoneNumber());
+        /*Time time = Time.valueOf(end);
+        LocalTime timeNow = LocalTime.now();
+        Time time1 = Time.valueOf(timeNow);
+        schedule.setStartTime(time1);*/
+        agent.addSchedule(schedule);
+        this.scheduleRepository.save(schedule);
+        this.agentRepository.save(agent);
+        return "redirect:/success";
+    }
+
     /*@GetMapping(path="/test/{contactNumber}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> returnAgentObject(@PathVariable("contactNumber")String contactNumber){
         List<JSONObject> entities = new ArrayList<JSONObject>();
@@ -108,6 +122,11 @@ public class AgentController {
         modelMap.put("agent", agent);
         System.out.println(nodeConfiguration.getEnglishNode());
         List<Call> calls = this.callRepository.findAllByAgent(agent);
+        Schedule schedule = new Schedule();
+        schedule.setAgent(agent);
+        String endTime = "";
+        modelMap.put("end", endTime);
+        modelMap.put("schedule", schedule);
         modelMap.put("calls",calls);
             //agent is validated
         //    List<Call> calls = this.callRepository.findAllByAgent(agent);

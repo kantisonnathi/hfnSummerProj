@@ -4,32 +4,33 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.sql.Time;
 import java.time.LocalTime;
 
 @Entity
 public class Schedule extends BaseEntity {
 
-    private LocalTime startTime;
+    private Time startTime;
 
-    private LocalTime endTime;
+    private Time endTime;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Agent.class)
     @JoinColumn(name = "agent_id")
     private Agent agent;
 
-    public LocalTime getStartTime() {
+    public Time getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalTime startTime) {
+    public void setStartTime(Time startTime) {
         this.startTime = startTime;
     }
 
-    public LocalTime getEndTime() {
+    public Time getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(LocalTime endTime) {
+    public void setEndTime(Time endTime) {
         this.endTime = endTime;
     }
 

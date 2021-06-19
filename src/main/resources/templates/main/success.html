@@ -37,11 +37,10 @@
 </div>
 
 <div>
-    <form method="post" action="/schedule">
-    <input type="hidden" th:field="${schedule.id}">
-    <input type="hidden" th:field="${schedule.agent}">
-    <input type="hidden" th:field="${schedule.startTime}">
-    <input type="datetime-local" th:field="${schedule.endTime}">
+    <form method="post" action="/schedule" th:object="${schedule}">
+        <input type="hidden" th:value="${schedule.id}">
+        <input type="hidden" th:value="${schedule.agent}">
+        <input type="time" th:value="${schedule.endTime}">
         <button type="submit"></button>
     </form>
 </div>

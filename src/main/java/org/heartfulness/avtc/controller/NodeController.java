@@ -1,5 +1,6 @@
 package org.heartfulness.avtc.controller;
 
+import com.google.gson.Gson;
 import net.minidev.json.JSONObject;
 import org.heartfulness.avtc.config.NodeConfiguration;
 import org.heartfulness.avtc.model.*;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.sql.Timestamp;
 import java.util.*;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -69,97 +71,53 @@ public class NodeController {
         }
         System.out.println("the current language is " + currLanguage.getName());
         //Long id = Long.valueOf(input.getInput());
-      Optional<Service> currService = this.serviceRepository.findById(Long.valueOf(input.getInput()));
+        Optional<Service> currService = this.serviceRepository.findById(Long.valueOf(input.getInput()));
         Department currentDepartment = this.departmentRepository.findByServiceAndLanguage(currService.get(), currLanguage);
         System.out.println("the current service is " + currService.get().getName());
-   /*     Set<Department> departments = new HashSet<>();
-        Collection<Set<Department>> set = new HashSet<>();
-        set.add(departments);
-        departments.add(currentDepartment);
-        List<Agent> agents = this.agentRepository.findAgentsByDepartmentsInAndStatusEquals(departments, AgentStatus.ONLINE); //list of all possible agents.*/
         List<String> number = new ArrayList<>();
         Long x=currentDepartment.getId();
         List<Agent> agents=new ArrayList<>();
-        int i=1;
-        while(agents.isEmpty()&&i<=3) {
+        int i = 1;
+        while(agents.isEmpty() && i <= 3) {
              agents = this.agentRepository.getByStatusandDepartment(x, i);
              i++;
         }
         number.add(agents.get(0).getContactNumber());
-        System.out.println(agents.get(0).getContactNumber());
-//Todo: Write logic for picking agent
-        /*if (agents.size() > 3) {
-            for (int i = 0; i < 3; i++) {
-                number.add(agents.get(i).getContactNumber());
-                agents.get(i).setStatus(AgentStatus.QUEUED); //set this particular agent to queued
-                this.agentRepository.save(agents.get(i));
-            }
-        } else if (agents.size() > 0) {
-            for (Agent agent : agents) {
-                number.add(agent.getContactNumber());
-                agent.setStatus(AgentStatus.QUEUED); //set this particular agent to queued
-                this.agentRepository.save(agent);
-            }
-        } else {
-            // what to do here ?
-            List<JSONObject> entities = new ArrayList<JSONObject>();
-            JSONObject entity = new JSONObject();
-            entity.put("action", "tts");
-            entity.put("value", "no available community level workers, please try again shortly. we are " +
-                    "sorry for the convenience caused");
-            entities.add(entity);
-            System.out.println("NO CLWS");
-            return new ResponseEntity<Object>(entities, HttpStatus.OK);
-        }*/
-
-        //List<JSONObject> entities = new ArrayList<JSONObject>();
         JSONObject entity = new JSONObject();
-        /*entity.put("action", "tts");
-        entity.put("value", "you are being connected to a community level worker");*/
         entity.put("operation", "dial-numbers");
         JSONObject operationData = new JSONObject();
         operationData.put("data",number);
         operationData.put("dial_method", "serial");
         operationData.put("anon_uuid","60cd93e244d59476");
         entity.put("operation_data",operationData);
-
-        //add whatever parameters you want to add.
-        //entities.add(entity);
-
-        System.out.println("sending response");
         return new ResponseEntity<Object>(entity, HttpStatus.OK);
     }
 
-
-    @GetMapping("/inCall")
+    @PostMapping(value = "/inCall", consumes = {"multipart/form-data"})
     @ResponseBody
     @Produces(MediaType.APPLICATION_JSON)
-    public ResponseEntity<?> inCallGet(@RequestBody InCallNode inCallNode) {
-        List<JSONObject> entities = new ArrayList<>();
-        entities.add(new JSONObject());
-        return new ResponseEntity<Object>(entities,HttpStatus.OK);
-    }
-
-
-
-    @PostMapping("/inCall")
-    @ResponseBody
-    @Produces(MediaType.APPLICATION_JSON)
-    public ResponseEntity<?> inCallWebHook(@RequestBody InCallNode inCallNode) {
-
+    public ResponseEntity<?> inCallWebHook(@RequestParam("myoperator") String jsonString) {
+        Gson gson = new Gson();
+        InCallNode inCallNode = gson.fromJson(jsonString, InCallNode.class);
+        Caller caller = this.callerRepository.findByContactNumber("+91" + inCallNode.getClid());
+        if (caller == null) {
+            caller = new Caller();
+            caller.setContactNumber("+91" + inCallNode.getClid());
+        }
         switch (inCallNode.getCall_state()) {
             case 1:
                 //this means incoming call to server.
                 //which means we need to create a caller object and store it.
-                Caller caller = new Caller();
-                caller.setContactNumber(inCallNode.getClid());
                 Call call = new Call();
                 call.setCaller(caller);
+                caller.addCall(call);
+                call.setStartTime(inCallNode.getCall_time());
                 this.callerRepository.save(caller);
                 this.callRepository.save(call);
                 break;
             case 2:
                 //call finished
+
                 break;
             case 3:
                 //call initiated from agent to caller
@@ -167,6 +125,7 @@ public class NodeController {
                 break;
             case 4:
                 //first party no answer
+                //also doesn't happen
                 break;
             case 5:
                 //dialing agents
@@ -188,7 +147,7 @@ public class NodeController {
         List<JSONObject> entities = new ArrayList<JSONObject>();
         JSONObject entity = new JSONObject();
         //add whatever parameters you want to add.
-        entities.add(entity);
+        //entities.add(entity);
         return new ResponseEntity<Object>(entities, HttpStatus.OK);
     }
 

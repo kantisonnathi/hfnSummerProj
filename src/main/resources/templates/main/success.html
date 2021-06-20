@@ -42,9 +42,9 @@
 
 <div>
     <form method="post" action="/schedule" th:object="${schedule}">
-        <input type="hidden" th:value="${schedule.id}">
-        <input type="hidden" th:value="${schedule.agent}">
-        <input type="time" th:value="${schedule.endTime}">
+        <input type="hidden" th:value="*{id}">
+        <input type="hidden" th:value="*{agent}">
+        <input type="time" th:value="*{endTime}">
         <button type="submit"></button>
     </form>
 </div>

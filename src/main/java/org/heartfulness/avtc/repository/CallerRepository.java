@@ -9,4 +9,6 @@ public interface CallerRepository extends Repository<Caller, Long> {
 
     Caller findByAllottedID(String callerID);
 
+    Caller findByContactNumber(String contactNumber);
+
 }

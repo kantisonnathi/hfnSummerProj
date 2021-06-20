@@ -95,26 +95,13 @@ public class AgentController {
     @PostMapping("/schedule")
     public String setSchedule(Schedule schedule) {
         Agent agent = this.agentRepository.findByContactNumber(this.securityService.getUser().getPhoneNumber());
-        /*Time time = Time.valueOf(end);
-        LocalTime timeNow = LocalTime.now();
-        Time time1 = Time.valueOf(timeNow);
-        schedule.setStartTime(time1);*/
         agent.addSchedule(schedule);
+        Time time = Time.valueOf(LocalTime.now());
+        schedule.setStartTime(time);
         this.scheduleRepository.save(schedule);
         this.agentRepository.save(agent);
         return "redirect:/success";
     }
-
-    /*@GetMapping(path="/test/{contactNumber}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> returnAgentObject(@PathVariable("contactNumber")String contactNumber){
-        List<JSONObject> entities = new ArrayList<JSONObject>();
-        JSONObject entity = new JSONObject();
-        Agent agent=agentRepository.findByContactNumber(contactNumber);
-        entity.put("agent",agent);
-        entities.add(entity);
-        return new ResponseEntity<Object>(entities,HttpStatus.OK);
-
-    }*/
 
     @GetMapping("/success")
     public String getMainPage(ModelMap modelMap) {
@@ -126,6 +113,7 @@ public class AgentController {
         schedule.setAgent(agent);
         String endTime = "";
         modelMap.put("end", endTime);
+        schedule.setId(1L);
         modelMap.put("schedule", schedule);
         modelMap.put("calls",calls);
             //agent is validated

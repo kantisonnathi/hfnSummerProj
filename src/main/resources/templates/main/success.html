@@ -39,17 +39,11 @@
     </label>
     <p id="status">Status: Offline</p>
 </div>
-
-<div>
-    <form method="post" action="/schedule" th:object="${schedule}">
-        <input type="hidden" th:value="*{id}">
-        <input type="hidden" th:value="*{agent}">
-        <input type="time" th:value="*{endTime}">
-        <button type="submit"></button>
-    </form>
-</div>
-
-
+<form method="post" th:action="@{/schedule}">
+    <label>Enter time to toggle off</label>
+    <input type="time" name="time" th:object="${other}" th:field="*{endtime}">
+    <button type="submit">Set</button>
+</form>
 
 <div style="text-align: center;">
     <div id="calls_display" style="text-align: center;">

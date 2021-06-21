@@ -6,6 +6,7 @@ import org.heartfulness.avtc.model.*;
 import org.heartfulness.avtc.repository.*;
 import org.heartfulness.avtc.security.auth.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -15,9 +16,14 @@ import org.springframework.web.bind.annotation.*;
 import javax.ws.rs.Produces;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -92,17 +98,6 @@ public class AgentController {
         return new ResponseEntity<Object>(entities, HttpStatus.OK);
     }
 
-    @PostMapping("/schedule")
-    public String setSchedule(Schedule schedule) {
-        Agent agent = this.agentRepository.findByContactNumber(this.securityService.getUser().getPhoneNumber());
-        agent.addSchedule(schedule);
-        Time time = Time.valueOf(LocalTime.now());
-        schedule.setStartTime(time);
-        this.scheduleRepository.save(schedule);
-        this.agentRepository.save(agent);
-        return "redirect:/success";
-    }
-
     @GetMapping("/success")
     public String getMainPage(ModelMap modelMap) {
         Agent agent = agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber());
@@ -110,9 +105,11 @@ public class AgentController {
         System.out.println(nodeConfiguration.getEnglishNode());
         List<Call> calls = this.callRepository.findAllByAgent(agent);
         Schedule schedule = new Schedule();
+        Other other=new Other();
         schedule.setAgent(agent);
         String endTime = "";
         modelMap.put("end", endTime);
+        modelMap.put("other",other);
         schedule.setId(1L);
         modelMap.put("schedule", schedule);
         modelMap.put("calls",calls);
@@ -123,7 +120,24 @@ public class AgentController {
 
        // return "main/success";
     }
+    @PostMapping("/schedule")
+    public String getTime(@ModelAttribute("other") Other other) throws ParseException {
+        LocalTime t= LocalTime.now();
+        Time time=Time.valueOf(t);
+        Schedule schedule=new Schedule();
+        schedule.setStartTime(time);
+        String x=other.getEndtime();
+        Agent agent=agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber());
+        schedule.setAgent(agent);
+        System.out.println(x);
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        LocalTime endtime = LocalTime.parse(x, formatter);
+        Time end=Time.valueOf(endtime);
+        schedule.setEndTime(end);
+        scheduleRepository.save(schedule);
+        return "redirect:/success";
+    }
     @GetMapping("/team/view")
     public String viewTeam(ModelMap modelMap) {
         Agent loggedInAgent = this.agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber()) ;

@@ -3,7 +3,12 @@ package org.heartfulness.avtc.security.controller;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.SessionCookieOptions;
+import org.heartfulness.avtc.security.auth.SecurityService;
+import org.heartfulness.avtc.security.auth.models.Credentials;
+import org.heartfulness.avtc.security.auth.models.SecurityProperties;
 import org.heartfulness.avtc.security.auth.models.User;
+import org.heartfulness.avtc.security.utils.CookieUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -19,6 +24,16 @@ import java.util.concurrent.TimeUnit;
 @RestController
 @RequestMapping("private")
 public class PrivateEndpoint {
+
+    @Autowired
+    SecurityService securityService;
+
+    @Autowired
+    SecurityProperties secProps;
+
+    @Autowired
+    CookieUtils cookieUtils;
+
 
     @GetMapping("user-details")
     public ResponseEntity<User> getUserInfo(@AuthenticationPrincipal User user) {
@@ -46,16 +61,7 @@ public class PrivateEndpoint {
             return new ResponseEntity<>("failed to create session cookie", HttpStatus.UNAUTHORIZED);
             /*return Response.status(Response.Status.UNAUTHORIZED).entity("Failed to create a session cookie")
                     .build();*/
-        } 
+        }
     }
 
-    @GetMapping("/sessionLogout")
-    public String deleteSessionCookie(HttpServletResponse response) {
-        String cookieContent = "";
-        Cookie cookie = new Cookie("session", cookieContent);
-        cookie.setSecure(false);
-        cookie.setPath("/");
-        response.addCookie(cookie);
-        return "redirect:/main";
-    }
 }

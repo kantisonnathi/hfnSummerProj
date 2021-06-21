@@ -12,10 +12,10 @@ private String _cl;
 private String _cy;
 private String _se;//state of the caller
 private Integer _ts;
-private String _st;//Start time
+private Integer _st;//Start time
 private Integer _ms;
 private Integer _ss;
-private String _et;//End time
+private Integer _et;//End time
 private String _dr;//complete call duration
 private double _drm;
 private Integer _ty;
@@ -100,21 +100,12 @@ private List<pm> _pm;
         this._ts = _ts;
     }
 
-
-    public String get_st() {
+    public Integer get_st() {
         return _st;
     }
 
-    public void set_st(String _st) {
+    public void set_st(Integer _st) {
         this._st = _st;
-    }
-
-    public String get_et() {
-        return _et;
-    }
-
-    public void set_et(String _et) {
-        this._et = _et;
     }
 
     public Integer get_ms() {
@@ -133,6 +124,13 @@ private List<pm> _pm;
         this._ss = _ss;
     }
 
+    public String get_et() {
+        return _et;
+    }
+
+    public void set_et(Integer _et) {
+        this._et = _et;
+    }
 
     public String get_dr() {
         return _dr;

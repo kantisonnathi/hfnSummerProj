@@ -6,6 +6,7 @@ import org.heartfulness.avtc.repository.LoggerRepository;
 import org.heartfulness.avtc.repository.ScheduleRepository;
 import org.heartfulness.avtc.security.auth.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
@@ -17,7 +18,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
-
+@Configuration
 @EnableScheduling
 public class TurnOffline {
     @Autowired
@@ -32,8 +33,7 @@ public class TurnOffline {
         this.scheduleRepository = scheduleRepository;
         this.loggerRepository = loggerRepository;
     }
-
-    @Scheduled(fixedDelay = 100000)
+    @Scheduled(fixedDelay = 10000)
     public void turnoffline() throws ParseException {
      // Agent agent=agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber());
       List<Schedule> schedules=scheduleRepository.findAll();

@@ -48,12 +48,27 @@ public class Agent extends BaseEntity {
     @OneToMany(mappedBy = "agent", fetch=FetchType.EAGER,cascade=CascadeType.ALL)
     private Set<Schedule> schedules;
 
+    @OneToMany(mappedBy = "agent", fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Call> calls;
+
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Team.class)
     @JoinColumn(name = "team_id")
     private Team team;
 
     @OneToOne(mappedBy = "manager")
     private Team teamManaged;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "leased_by")
+    private Call leasedBy;
+
+    public Call getLeasedBy() {
+        return leasedBy;
+    }
+
+    public void setLeasedBy(Call leasedBy) {
+        this.leasedBy = leasedBy;
+    }
 
     public AgentStatus getStatus() {
         return status;
@@ -182,6 +197,21 @@ public class Agent extends BaseEntity {
 
     public Set<Schedule> getSchedules() {
         return schedules;
+    }
+
+    public Set<Call> getCalls() {
+        return calls;
+    }
+
+    public void setCalls(Set<Call> calls) {
+        this.calls = calls;
+    }
+
+    public void addCall(Call call) {
+        if (this.calls == null) {
+            calls = new HashSet<>();
+        }
+        calls.add(call);
     }
 
     public void setSchedules(Set<Schedule> schedules) {

@@ -61,7 +61,6 @@ public class NodeController {
             caller.setContactNumber(input.getClid());
             this.callerRepository.save(caller);
         }
-        System.out.println("the caller is " + caller.toString());
         // queried/created caller.
         // will create the call object later.
         // finding the language object from node_id
@@ -78,15 +77,38 @@ public class NodeController {
         Department currentDepartment = this.departmentRepository.findByServiceAndLanguage(currService.get(), currLanguage);
         System.out.println("the current service is " + currService.get().getName());
         List<String> number = new ArrayList<>();
-        Long x=currentDepartment.getId();
-        List<Agent> agents=new ArrayList<>();
+        Long x = currentDepartment.getId();
+        List<Agent> agents = new ArrayList<>();
         int i = 1;
         while(agents.isEmpty() && i <= 3) {
-             agents = this.agentRepository.getByStatusandDepartment(x, i);
+             agents = this.agentRepository.getByStatusandDepartment(x, i); //i is level
              i++;
         }
 
-        number.add(agents.get(0).getContactNumber());
+        if (agents.isEmpty()) {
+            JSONObject entity = new JSONObject();
+            entity.put("action", "tts");
+            entity.put("value", "Sorry, there are no community level workers available at this time, please try again " +
+                    "later");
+            return new ResponseEntity<>(entity, HttpStatus.OK);
+        }
+
+        if (agents.size() >= 3) {
+            for (int j = 0; j < 3; j++) {
+                Agent tempAgent = agents.get(j);
+                tempAgent.setStatus(AgentStatus.QUEUED);
+                this.agentRepository.save(tempAgent);
+                number.add(agents.get(j).getContactNumber());
+            }
+        } else if (agents.size() < 3) {
+            for (int j = 0; j < agents.size(); j++) {
+                Agent tempAgent = agents.get(j);
+                tempAgent.setStatus(AgentStatus.QUEUED);
+                this.agentRepository.save(tempAgent);
+                number.add(agents.get(j).getContactNumber());
+            }
+        }
+
         JSONObject entity = new JSONObject();
         entity.put("operation", "dial-numbers");
         JSONObject operationData = new JSONObject();
@@ -107,58 +129,61 @@ public class NodeController {
         if (caller == null) {
             caller = new Caller();
             caller.setContactNumber("+91" + inCallNode.getClid());
+            this.callerRepository.save(caller);
         }
+        Call call = this.callRepository.findByCallerAndStartTime(caller, inCallNode.getCreated());
+        if (call == null) {
+            call = new Call();
+            call.setCaller(caller);
+            caller.addCall(call);
+            call.setStartTime(inCallNode.getCreated());
+        }
+        Agent agent;
         switch (inCallNode.getCall_state()) {
             case 1:
                 //this means incoming call to server.
                 //which means we need to create a caller object and store it.
-                Call call = new Call();
-                call.setCaller(caller);
-                caller.addCall(call);
-                call.setStartTime(inCallNode.getCall_time());
                 this.callerRepository.save(caller);
                 this.callRepository.save(call);
                 break;
             case 2:
                 //call finished
-
-                break;
-            case 3:
-                //call initiated from agent to caller
-                //this doesn't happen
-                break;
-            case 4:
-                //first party no answer
-                //also doesn't happen
+                agent = call.getAgent();
+                agent.setStatus(AgentStatus.ONLINE); //the logger should not be updated here
+                call.setEndTime(inCallNode.getCall_time());
+                this.agentRepository.save(agent);
+                this.callRepository.save(call);
                 break;
             case 5:
                 //dialing agents
                 break;
             case 6:
                 // agent picked up
-                break;
-            case 7:
-                // caller hung up
-                break;
-            case 9:
-                // no one picked up
+                String phoneNumber = inCallNode.getUsers().get(0);
+                agent = this.agentRepository.findByContactNumber(phoneNumber);
+                call.setAgent(agent);
+                agent.addCall(call);
+                agent.setStatus(AgentStatus.IN_CALL);
+                Set<Agent> leasedAgents = call.getLeasing();
+                call.setLeasing(null);
+                for (Agent currAgent : leasedAgents) {
+                    currAgent.setLeasedBy(null);
+                    currAgent.setStatus(AgentStatus.ONLINE);
+                    this.agentRepository.save(currAgent);
+                }
+                this.agentRepository.save(agent);
+                this.callRepository.save(call);
                 break;
             default:
                 System.out.println("rip");
+
         }
-
-
-        List<JSONObject> entities = new ArrayList<JSONObject>();
-        JSONObject entity = new JSONObject();
-        //add whatever parameters you want to add.
-        //entities.add(entity);
-        return new ResponseEntity<Object>(entities, HttpStatus.OK);
+        return new ResponseEntity<Object>("OK", HttpStatus.OK);
     }
 
     @GetMapping("/afterCall")
     @Produces(MediaType.APPLICATION_JSON)
     public ResponseEntity<?> afterCallGet(@RequestBody AfterCallNode afterCallNode) {
-
         List<JSONObject> entities = new ArrayList<>();
         entities.add(new JSONObject());
         return new ResponseEntity<Object>(entities,HttpStatus.OK);

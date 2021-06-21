@@ -45,7 +45,7 @@ public class Agent extends BaseEntity {
     @OneToMany(mappedBy = "agent",fetch=FetchType.EAGER,cascade=CascadeType.ALL)
     private Set<Logger> loggerSet;
 
-    @OneToMany(mappedBy = "agent", fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "agent", fetch=FetchType.EAGER)
     private Set<Schedule> schedules;
 
     @OneToMany(mappedBy = "agent", fetch=FetchType.EAGER, cascade = CascadeType.ALL)

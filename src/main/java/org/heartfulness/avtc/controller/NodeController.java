@@ -83,6 +83,7 @@ public class NodeController {
              agents = this.agentRepository.getByStatusandDepartment(x, i);
              i++;
         }
+
         number.add(agents.get(0).getContactNumber());
         JSONObject entity = new JSONObject();
         entity.put("operation", "dial-numbers");
@@ -155,6 +156,7 @@ public class NodeController {
     @GetMapping("/afterCall")
     @Produces(MediaType.APPLICATION_JSON)
     public ResponseEntity<?> afterCallGet(@RequestBody AfterCallNode afterCallNode) {
+
         List<JSONObject> entities = new ArrayList<>();
         entities.add(new JSONObject());
         return new ResponseEntity<Object>(entities,HttpStatus.OK);
@@ -164,7 +166,15 @@ public class NodeController {
     @Produces(MediaType.APPLICATION_JSON)
     public ResponseEntity<?> afterCallPost(@RequestBody AfterCallNode afterCallNode) {
         List<JSONObject> entities = new ArrayList<>();
-        entities.add(new JSONObject());
+      /*  Call call=new Call();
+        Caller caller=callerRepository.findByContactNumber(afterCallNode.get_cr());
+        call.setCaller(caller);
+        call.setEndTime(afterCallNode.get_et());
+        call.setStartTime(afterCallNode.get_st());
+        Agent agent=agentRepository.findByContactNumber(afterCallNode.get_ld().get(0).getRr().get(0).get_ct());
+        call.setAgent(agent);
+        callRepository.save(call);
+        entities.add(new JSONObject());*/
         return new ResponseEntity<Object>(entities,HttpStatus.OK);
     }
 

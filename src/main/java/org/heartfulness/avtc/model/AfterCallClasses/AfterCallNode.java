@@ -124,7 +124,7 @@ private List<pm> _pm;
         this._ss = _ss;
     }
 
-    public String get_et() {
+    public Integer get_et() {
         return _et;
     }
 

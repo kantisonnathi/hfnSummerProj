@@ -11,11 +11,13 @@
 </nav>
 
 <nav th:fragment="top-nav-bar-admin">
-  <div class="nav">
+  <div class="nav" th:switch="${agent.role}">
+    <p th:case="'ADMIN'">
     <a th:href="@{/admin/teams/all}">View all teams</a>
     <a th:href="@{/admin/unassignedAgents}">View Unassigned Agents</a>
     <a th:href="@{/addDetails}">Edit my details</a>
+    <a th:href="@{/addLangandServ}">Add Languages and Services</a>
     <a th:href="@{/private/sessionLogout}">Log Out</a>
+    </p>
   </div>
-
 </nav>

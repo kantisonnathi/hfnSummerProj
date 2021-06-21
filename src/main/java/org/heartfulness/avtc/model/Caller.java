@@ -41,6 +41,16 @@ public class Caller extends BaseEntity {
 
     @Column(name = "educational_status")
     private String educationalStatus;
+    @Column(name="saved")
+    private String saved;
+
+    public String getSaved() {
+        return saved;
+    }
+
+    public void setSaved(String saved) {
+        this.saved = saved;
+    }
 
     @Column(name = "category")
     @Enumerated(EnumType.STRING)

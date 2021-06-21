@@ -54,7 +54,7 @@ public class NodeController {
     @Produces(MediaType.APPLICATION_JSON)
     public ResponseEntity<?> inputNodeRequest(@RequestBody InputNode input) {
         System.out.println("Data from my operator: " + input.toString());
-        Caller caller = this.callerRepository.findByAllottedID(input.getClid());
+        Caller caller = this.callerRepository.findByContactNumber("+91" + input.getClid());
         if (caller == null) {
             caller = new Caller();
             input.setClid("+91" + input.getClid());
@@ -93,10 +93,19 @@ public class NodeController {
             return new ResponseEntity<>(entity, HttpStatus.OK);
         }
 
+        Set<Call> calls = this.callRepository.findAllByCallerAndAgent(caller, null);
+        Call call = new Call();
+        for (Call tempCall : calls) {
+            call = tempCall;
+        }
+
+
+
         if (agents.size() >= 3) {
             for (int j = 0; j < 3; j++) {
                 Agent tempAgent = agents.get(j);
                 tempAgent.setStatus(AgentStatus.QUEUED);
+                tempAgent.setLeasedBy(call);
                 this.agentRepository.save(tempAgent);
                 number.add(agents.get(j).getContactNumber());
             }
@@ -104,6 +113,7 @@ public class NodeController {
             for (int j = 0; j < agents.size(); j++) {
                 Agent tempAgent = agents.get(j);
                 tempAgent.setStatus(AgentStatus.QUEUED);
+                tempAgent.setLeasedBy(call);
                 this.agentRepository.save(tempAgent);
                 number.add(agents.get(j).getContactNumber());
             }
@@ -125,7 +135,7 @@ public class NodeController {
     public ResponseEntity<?> inCallWebHook(@RequestParam("myoperator") String jsonString) {
         Gson gson = new Gson();
         InCallNode inCallNode = gson.fromJson(jsonString, InCallNode.class);
-        Caller caller = this.callerRepository.findByContactNumber("+91" + inCallNode.getClid());
+        Caller caller = this.callerRepository.findByContactNumber("+91" + inCallNode.getClid().strip());
         if (caller == null) {
             caller = new Caller();
             caller.setContactNumber("+91" + inCallNode.getClid());

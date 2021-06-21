@@ -2,6 +2,7 @@ package org.heartfulness.avtc.model;
 
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "calls")
@@ -32,12 +33,31 @@ public class Call extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @OneToMany(mappedBy = "leasedBy", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Agent> leasing;
+
     public CallCategory getCategory() {
         return category;
     }
 
     public void setCategory(CallCategory category) {
         this.category = category;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public Set<Agent> getLeasing() {
+        return leasing;
+    }
+
+    public void setLeasing(Set<Agent> leasing) {
+        this.leasing = leasing;
     }
 
     public String getStartTime() {

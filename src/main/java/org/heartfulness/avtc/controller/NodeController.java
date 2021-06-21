@@ -2,11 +2,13 @@ package org.heartfulness.avtc.controller;
 
 import com.google.gson.Gson;
 import net.minidev.json.JSONObject;
+import org.aspectj.lang.annotation.After;
 import org.heartfulness.avtc.config.NodeConfiguration;
 import org.heartfulness.avtc.model.*;
 import org.heartfulness.avtc.model.AfterCallClasses.AfterCallNode;
 import org.heartfulness.avtc.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -164,11 +166,13 @@ public class NodeController {
 
     @PostMapping("/afterCall")
     @Produces(MediaType.APPLICATION_JSON)
-    public ResponseEntity<?> afterCallPost(@RequestBody AfterCallNode afterCallNode) {
+    public ResponseEntity<?> afterCallPost(@RequestParam("myoperator") String jsonString) {
         List<JSONObject> entities = new ArrayList<>();
-      /*  Call call=new Call();
+        Gson gson=new Gson();
+        AfterCallNode afterCallNode=gson.fromJson(jsonString,AfterCallNode.class);
+       Call call=new Call();
         Caller caller=callerRepository.findByContactNumber(afterCallNode.get_cr());
-        call.setCaller(caller);
+      /*  call.setCaller(caller);
         call.setEndTime(afterCallNode.get_et());
         call.setStartTime(afterCallNode.get_st());
         Agent agent=agentRepository.findByContactNumber(afterCallNode.get_ld().get(0).getRr().get(0).get_ct());

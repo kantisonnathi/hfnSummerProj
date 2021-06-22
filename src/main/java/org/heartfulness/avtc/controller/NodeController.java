@@ -71,14 +71,12 @@ public class NodeController {
         } else if (currNodeID.equals(nodeConfiguration.getHindiNode())) {
             currLanguage = this.languageRepository.findByName("Hindi");
         }
-        System.out.println("the current language is " + currLanguage.getName());
-        //Long id = Long.valueOf(input.getInput());
         Optional<Service> currService = this.serviceRepository.findById(Long.valueOf(input.getInput()));
         Department currentDepartment = this.departmentRepository.findByServiceAndLanguage(currService.get(), currLanguage);
-        System.out.println("the current service is " + currService.get().getName());
         List<String> number = new ArrayList<>();
         Long x = currentDepartment.getId();
         List<Agent> agents = new ArrayList<>();
+        Call call = this.callRepository.findByCallerAndStatus(caller, CallStatus.CONNECTED_TO_IVR);
         int i = 1;
         while(agents.isEmpty() && i <= 3) {
              agents = this.agentRepository.getByStatusandDepartment(x, i); //i is level
@@ -87,17 +85,13 @@ public class NodeController {
 
         if (agents.isEmpty()) {
             JSONObject entity = new JSONObject();
+            call.setStatus(CallStatus.DISCONNECTED);
             entity.put("action", "tts");
             entity.put("value", "Sorry, there are no community level workers available at this time, please try again " +
                     "later");
             return new ResponseEntity<>(entity, HttpStatus.OK);
         }
 
-        Set<Call> calls = this.callRepository.findAllByCallerAndAgent(caller, null);
-        Call call = new Call();
-        for (Call tempCall : calls) {
-            call = tempCall;
-        }
 
 
 
@@ -118,7 +112,7 @@ public class NodeController {
                 number.add(agents.get(j).getContactNumber());
             }
         }
-
+        call.setStatus(CallStatus.AWAITING_CONNECTION_TO_AGENT);
         JSONObject entity = new JSONObject();
         entity.put("operation", "dial-numbers");
         JSONObject operationData = new JSONObject();
@@ -153,11 +147,13 @@ public class NodeController {
             case 1:
                 //this means incoming call to server.
                 //which means we need to create a caller object and store it.
+                call.setStatus(CallStatus.CONNECTED_TO_IVR);
                 this.callerRepository.save(caller);
                 this.callRepository.save(call);
                 break;
             case 2:
                 //call finished
+                call.setStatus(CallStatus.DISCONNECTED);
                 agent = call.getAgent();
                 agent.setStatus(AgentStatus.ONLINE); //the logger should not be updated here
                 call.setEndTime(inCallNode.getCall_time());
@@ -165,10 +161,14 @@ public class NodeController {
                 this.callRepository.save(call);
                 break;
             case 5:
+                if (inCallNode.getStatus() == 1) {
+                    //missed call, agent didn't pick up
+                }
                 //dialing agents
                 break;
             case 6:
                 // agent picked up
+                call.setStatus(CallStatus.CONNECTED_TO_AGENT);
                 String phoneNumber = inCallNode.getUsers().get(0);
                 agent = this.agentRepository.findByContactNumber(phoneNumber);
                 call.setAgent(agent);

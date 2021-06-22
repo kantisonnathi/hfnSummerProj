@@ -37,7 +37,7 @@
         <input type="checkbox" id="toggle-switch" onclick="toggler()">
         <span class="slider round"></span>
     </label>
-    <p id="status">Status: Offline</p>
+    <p id="callStatus">Status: Offline</p>
 </div>
 <form method="post" th:action="@{/schedule}">
     <label>Enter time to toggle off</label>
@@ -74,28 +74,28 @@
 </html>
 <script th:inline="javascript">
 
-    let agentStatus = /*[[${agent.status}]]*/ null
+    let agentStatus = /*[[${agent.callStatus}]]*/ null
     console.log(agentStatus);
 
 
     if (agentStatus === 'online') {
         document.getElementById("toggle-switch").checked = true;
-        document.getElementById("status").innerHTML = "Status: Online";
+        document.getElementById("callStatus").innerHTML = "Status: Online";
     } else {
         document.getElementById("toggle-switch").checked = false;
-        document.getElementById("status").innerHTML = "Status: Offline";
+        document.getElementById("callStatus").innerHTML = "Status: Offline";
     }
 
     function toggler() {
         let checkboxVal = document.getElementById("toggle-switch");
         if (checkboxVal.checked === true) {
-            document.getElementById("status").innerHTML = "Status: Online";
+            document.getElementById("callStatus").innerHTML = "Status: Online";
             let xhttp = new XMLHttpRequest(); //creating ajax req
             //console.log(document.getElementById("id"));
             xhttp.open("GET","http://localhost:8082/mark/online", true);
             xhttp.send();
         } else {
-            document.getElementById("status").innerHTML = "Status: Offline";
+            document.getElementById("callStatus").innerHTML = "Status: Offline";
             let xhttp = new XMLHttpRequest();
             xhttp.open("GET","http://localhost:8082/mark/offline",true);
             xhttp.send();

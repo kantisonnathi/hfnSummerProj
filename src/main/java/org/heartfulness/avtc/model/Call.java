@@ -31,7 +31,7 @@ public class Call extends BaseEntity {
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private CallStatus callStatus;
 
     @OneToMany(mappedBy = "leasedBy", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Agent> leasing;
@@ -44,12 +44,12 @@ public class Call extends BaseEntity {
         this.category = category;
     }
 
-    public Status getStatus() {
-        return status;
+    public CallStatus getStatus() {
+        return callStatus;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setStatus(CallStatus callStatus) {
+        this.callStatus = callStatus;
     }
 
     public Set<Agent> getLeasing() {
@@ -114,9 +114,4 @@ public class Call extends BaseEntity {
 
 }
 
-enum Status {
-    CONNECTED_TO_IVR,
-    AWAITING_CONNECTION_TO_AGENT,
-    CONNECTED_TO_AGENT,
-    DISCONNECTED_FROM_AGENT
-}
+

@@ -2,6 +2,7 @@ package org.heartfulness.avtc.repository;
 
 import org.heartfulness.avtc.model.Agent;
 import org.heartfulness.avtc.model.Call;
+import org.heartfulness.avtc.model.CallStatus;
 import org.heartfulness.avtc.model.Caller;
 import org.springframework.data.repository.Repository;
 
@@ -17,5 +18,7 @@ public interface CallRepository extends Repository<Call, Long> {
     Call findByCallerAndStartTime(Caller caller, String startTime);
 
     Set<Call> findAllByCallerAndAgent(Caller caller, Agent agent);
+
+    Call findByCallerAndStatus(Caller caller, CallStatus callStatus);
 
 }

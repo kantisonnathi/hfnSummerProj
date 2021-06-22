@@ -11,9 +11,9 @@ INSERT INTO hfn.department (id, language_id, service_id) VALUES (4, 2, 2);
 
 
 
-INSERT INTO hfn.agent (id, certified, contact_number, gender, level, name, role, status, timestamp, team_id) VALUES (1, true, '+919900213110', 'M', 3, 'Venkat Sonnathi', 'ADMIN', 1, null, null);
-INSERT INTO hfn.agent (id, certified, contact_number, gender, level, name, role, status, timestamp, team_id) VALUES (2, true, '+917338897712', 'F', 3, 'Kanti Sonnathi', 'TEAM_LEAD', 1, '2021-06-17 19:44:16', null);
-INSERT INTO hfn.agent (id, certified, contact_number, gender, level, name, role, status, timestamp, team_id) VALUES (3, true, '+917338897713', 'F', 2, 'Varam Sonnathi', 'AGENT', 1, null, null);
+INSERT INTO hfn.agent (id, certified, contact_number, gender, level, name, role, callStatus, timestamp, team_id) VALUES (1, true, '+919900213110', 'M', 3, 'Venkat Sonnathi', 'ADMIN', 1, null, null);
+INSERT INTO hfn.agent (id, certified, contact_number, gender, level, name, role, callStatus, timestamp, team_id) VALUES (2, true, '+917338897712', 'F', 3, 'Kanti Sonnathi', 'TEAM_LEAD', 1, '2021-06-17 19:44:16', null);
+INSERT INTO hfn.agent (id, certified, contact_number, gender, level, name, role, callStatus, timestamp, team_id) VALUES (3, true, '+917338897713', 'F', 2, 'Varam Sonnathi', 'AGENT', 1, null, null);
 
 
 INSERT INTO hfn.team (id, manager_id) VALUES (1, 2);

@@ -86,6 +86,26 @@ public class Call extends BaseEntity {
 
     @Column(name = "location")
     private String location;
+    @Column(name="URL")
+    private String url;
+    @Column(name="saved")
+    boolean saved;
+
+    public boolean isSaved() {
+        return saved;
+    }
+
+    public void setSaved(boolean saved) {
+        this.saved = saved;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public Caller getCaller() {
         return caller;

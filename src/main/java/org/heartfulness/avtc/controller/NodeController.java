@@ -176,14 +176,11 @@ public class NodeController {
                 break;
             case 6:
                 // agent picked up
+                String fullUser = inCallNode.getUsers().get(0);
+                String phoneNumber = fullUser.substring(fullUser.length() - 10, fullUser.length());
                 call = this.callRepository.findByCallerAndCallStatus(caller, CallStatus.AWAITING_CONNECTION_TO_AGENT);
-                if (call == null) {
-                        System.out.println("call state 6, call is null\n\n\n");
-                        break;
-                }
                 call.setStatus(CallStatus.CONNECTED_TO_AGENT);
-                String phoneNumber = inCallNode.getUsers().get(0);
-                agent = this.agentRepository.findByContactNumber(phoneNumber);
+                agent = this.agentRepository.findByContactNumber("+91" + phoneNumber);
                 if (agent == null) {
                     System.out.println("Agent is null, state 6\n\n\n\n");
                     break;
@@ -197,8 +194,7 @@ public class NodeController {
                     currAgent.setStatus(AgentStatus.ONLINE);
                     this.agentRepository.save(currAgent);
                 }
-                this.agentRepository.save(agent);
-                call = this.callRepository.save(call);
+                this.callRepository.save(call);
                 break;
             default:
                 System.out.println("rip");

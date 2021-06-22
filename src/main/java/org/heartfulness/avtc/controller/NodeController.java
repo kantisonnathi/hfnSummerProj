@@ -53,6 +53,8 @@ public class NodeController {
     @ResponseBody
     @Produces(MediaType.APPLICATION_JSON)
     public ResponseEntity<?> inputNodeRequest(@RequestBody InputNode input) {
+        Queue<Integer> queue = new PriorityQueue<>();
+        queue.
         System.out.println("Data from my operator: " + input.toString());
         Caller caller = this.callerRepository.findByContactNumber("+91" + input.getClid());
         if (caller == null) {

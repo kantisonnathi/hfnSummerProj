@@ -13,12 +13,12 @@ public interface CallRepository extends Repository<Call, Long> {
 
     List<Call> findAllByAgent(Agent agent);
 
-    void save(Call call);
+    Call save(Call call);
 
     Call findByCallerAndStartTime(Caller caller, String startTime);
 
     Set<Call> findAllByCallerAndAgent(Caller caller, Agent agent);
 
-    Call findByCallerAndStatus(Caller caller, CallStatus callStatus);
+    Call findByCallerAndCallStatus(Caller caller, CallStatus callStatus);
 
 }

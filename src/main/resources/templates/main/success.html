@@ -78,7 +78,7 @@
     console.log(agentStatus);
 
 
-    if (agentStatus === 'online') {
+    if (agentStatus !== 2) {
         document.getElementById("toggle-switch").checked = true;
         document.getElementById("callStatus").innerHTML = "Status: Online";
     } else {

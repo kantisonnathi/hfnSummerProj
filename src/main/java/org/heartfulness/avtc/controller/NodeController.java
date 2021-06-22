@@ -61,9 +61,6 @@ public class NodeController {
             caller.setContactNumber(input.getClid());
             this.callerRepository.save(caller);
         }
-        // queried/created caller.
-        // will create the call object later.
-        // finding the language object from node_id
         String currNodeID = input.getNode_id();
         Language currLanguage = null;
         if (currNodeID.equals(nodeConfiguration.getEnglishNode())) {
@@ -76,13 +73,12 @@ public class NodeController {
         List<String> number = new ArrayList<>();
         Long x = currentDepartment.getId();
         List<Agent> agents = new ArrayList<>();
-        Call call = this.callRepository.findByCallerAndStatus(caller, CallStatus.CONNECTED_TO_IVR);
+        Call call = this.callRepository.findByCallerAndCallStatus(caller, CallStatus.CONNECTED_TO_IVR);
         int i = 1;
         while(agents.isEmpty() && i <= 3) {
              agents = this.agentRepository.getByStatusandDepartment(x, i); //i is level
              i++;
         }
-
         if (agents.isEmpty()) {
             JSONObject entity = new JSONObject();
             call.setStatus(CallStatus.DISCONNECTED);
@@ -91,10 +87,6 @@ public class NodeController {
                     "later");
             return new ResponseEntity<>(entity, HttpStatus.OK);
         }
-
-
-
-
         if (agents.size() >= 3) {
             for (int j = 0; j < 3; j++) {
                 Agent tempAgent = agents.get(j);
@@ -113,6 +105,7 @@ public class NodeController {
             }
         }
         call.setStatus(CallStatus.AWAITING_CONNECTION_TO_AGENT);
+        this.callRepository.save(call);
         JSONObject entity = new JSONObject();
         entity.put("operation", "dial-numbers");
         JSONObject operationData = new JSONObject();
@@ -127,52 +120,59 @@ public class NodeController {
     @ResponseBody
     @Produces(MediaType.APPLICATION_JSON)
     public ResponseEntity<?> inCallWebHook(@RequestParam("myoperator") String jsonString) {
+        for (int i = 0; i < jsonString.length(); i++) {
+            if (jsonString.charAt(i) == '[' && jsonString.charAt(i-1) == '\"') {
+                jsonString = jsonString.substring(0,i-1) + jsonString.substring(i);
+            }
+            if (jsonString.charAt(i) == ']' && jsonString.charAt(i+1) == '\"') {
+                jsonString = jsonString.substring(0,i+1) + jsonString.substring(i+2);
+            }
+            if (jsonString.charAt(i) == '\\') {
+                jsonString = jsonString.substring(0,i) + jsonString.substring(i+1);
+            }
+        }
         Gson gson = new Gson();
         InCallNode inCallNode = gson.fromJson(jsonString, InCallNode.class);
         Caller caller = this.callerRepository.findByContactNumber("+91" + inCallNode.getClid().strip());
         if (caller == null) {
             caller = new Caller();
             caller.setContactNumber("+91" + inCallNode.getClid());
-            this.callerRepository.save(caller);
+            caller = this.callerRepository.save(caller);
         }
-        Call call = this.callRepository.findByCallerAndStartTime(caller, inCallNode.getCreated());
-        if (call == null) {
-            call = new Call();
-            call.setCaller(caller);
-            caller.addCall(call);
-            call.setStartTime(inCallNode.getCreated());
-        }
+        Call call;
         Agent agent;
         switch (inCallNode.getCall_state()) {
             case 1:
                 //this means incoming call to server.
-                //which means we need to create a caller object and store it.
+                //which means we need to create a call object and store it.
+                call = new Call();
+                call.setCaller(caller);
+                caller.addCall(call);
                 call.setStatus(CallStatus.CONNECTED_TO_IVR);
                 this.callerRepository.save(caller);
-                this.callRepository.save(call);
+                /*call = this.callRepository.save(call);*/
                 break;
             case 2:
                 //call finished
+                call = this.callRepository.findByCallerAndCallStatus(caller, CallStatus.CONNECTED_TO_AGENT);
                 call.setStatus(CallStatus.DISCONNECTED);
                 agent = call.getAgent();
                 agent.setStatus(AgentStatus.ONLINE); //the logger should not be updated here
                 call.setEndTime(inCallNode.getCall_time());
                 this.agentRepository.save(agent);
-                this.callRepository.save(call);
+                call = this.callRepository.save(call);
                 break;
             case 5:
-                if (inCallNode.getStatus() == 1) {
-                    //missed call, agent didn't pick up
-                }
                 //dialing agents
+                //what do i do here.
                 break;
             case 6:
                 // agent picked up
+                call = this.callRepository.findByCallerAndCallStatus(caller, CallStatus.AWAITING_CONNECTION_TO_AGENT);
                 call.setStatus(CallStatus.CONNECTED_TO_AGENT);
                 String phoneNumber = inCallNode.getUsers().get(0);
                 agent = this.agentRepository.findByContactNumber(phoneNumber);
                 call.setAgent(agent);
-                agent.addCall(call);
                 agent.setStatus(AgentStatus.IN_CALL);
                 Set<Agent> leasedAgents = call.getLeasing();
                 call.setLeasing(null);
@@ -182,7 +182,7 @@ public class NodeController {
                     this.agentRepository.save(currAgent);
                 }
                 this.agentRepository.save(agent);
-                this.callRepository.save(call);
+                call = this.callRepository.save(call);
                 break;
             default:
                 System.out.println("rip");

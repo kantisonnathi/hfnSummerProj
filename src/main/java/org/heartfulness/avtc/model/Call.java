@@ -19,6 +19,15 @@ public class Call extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private CallCategory category;
 
+    @Column(name = "location")
+    private String location;
+
+    @Column(name="URL")
+    private String url;
+
+    @Column(name="saved")
+    boolean saved;
+
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Caller.class)
     @JoinColumn(name = "caller_id")
     private Caller caller;
@@ -84,13 +93,6 @@ public class Call extends BaseEntity {
         this.location = location;
     }
 
-    @Column(name = "location")
-    private String location;
-    @Column(name="URL")
-    private String url;
-    @Column(name="saved")
-    boolean saved;
-
     public boolean isSaved() {
         return saved;
     }
@@ -122,6 +124,7 @@ public class Call extends BaseEntity {
 
     public void setAgent(Agent agent) {
         this.agent = agent;
+        agent.addCall(this);
     }
 
     public String getDescription() {

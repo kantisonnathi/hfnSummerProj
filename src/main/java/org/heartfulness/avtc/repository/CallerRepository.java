@@ -5,7 +5,7 @@ import org.springframework.data.repository.Repository;
 
 public interface CallerRepository extends Repository<Caller, Long> {
 
-    void save(Caller caller);
+    Caller save(Caller caller);
 
     Caller findByAllottedID(String callerID);
 

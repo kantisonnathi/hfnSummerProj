@@ -33,7 +33,7 @@ public class TurnOffline {
         this.scheduleRepository = scheduleRepository;
         this.loggerRepository = loggerRepository;
     }
-    @Scheduled(fixedDelay = 10000)
+    @Scheduled(fixedDelay = 100000)
     public void turnoffline() throws ParseException {
      // Agent agent=agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber());
       List<Schedule> schedules=scheduleRepository.findAll();

@@ -53,8 +53,6 @@ public class NodeController {
     @ResponseBody
     @Produces(MediaType.APPLICATION_JSON)
     public ResponseEntity<?> inputNodeRequest(@RequestBody InputNode input) {
-        Queue<Integer> queue = new PriorityQueue<>();
-        queue.
         System.out.println("Data from my operator: " + input.toString());
         Caller caller = this.callerRepository.findByContactNumber("+91" + input.getClid());
         if (caller == null) {
@@ -209,15 +207,17 @@ public class NodeController {
         AfterCallNode afterCallNode=gson.fromJson(jsonString,AfterCallNode.class);
        Call call=new Call();
         Caller caller=callerRepository.findByContactNumber(afterCallNode.get_cr());
-      /*  call.setCaller(caller);
-        call.setEndTime(afterCallNode.get_et());
-        call.setStartTime(afterCallNode.get_st());
+        call.setCaller(caller);
+        call.setLocation(afterCallNode.get_se());
+        call.setUrl(afterCallNode.get_fu());
+        call.setDuration(afterCallNode.get_dr());
+        call.setStatus(CallStatus.DISCONNECTED);
         Agent agent=agentRepository.findByContactNumber(afterCallNode.get_ld().get(0).getRr().get(0).get_ct());
         call.setAgent(agent);
         callRepository.save(call);
-        entities.add(new JSONObject());*/
+        entities.add(new JSONObject());
         return new ResponseEntity<Object>(entities,HttpStatus.OK);
-    }
+    }//Need to test
 
 
 }

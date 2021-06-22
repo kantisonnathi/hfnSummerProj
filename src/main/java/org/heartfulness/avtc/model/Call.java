@@ -25,9 +25,26 @@ public class Call extends BaseEntity {
     @Column(name="URL")
     private String url;
 
-    @Column(name="saved")
-    boolean saved;
+    public String getDuration() {
+        return duration;
+    }
 
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public CallStatus getCallStatus() {
+        return callStatus;
+    }
+
+    public void setCallStatus(CallStatus callStatus) {
+        this.callStatus = callStatus;
+    }
+
+    @Column(name="saved")
+     private boolean saved;
+    @Column(name="duration")
+    private String duration;
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Caller.class)
     @JoinColumn(name = "caller_id")
     private Caller caller;

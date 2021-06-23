@@ -109,24 +109,23 @@
             }
         }
         xhttp.send(contactNumber);
-        phoneAuthSecond();
     }
 
-        function phoneAuthSecond() {
-            const number = document.getElementById('phoneNumber').value;
-            firebase.auth().signInWithPhoneNumber(number, window.recaptchaVerifier).then(function (confirmationResult) {
-                window.confirmationResult = confirmationResult;
-                coderesult = confirmationResult;
-                console.log("code result:" + coderesult);
-                alert("Message sent");
-            }).catch(function (error) {
-                alert(error.message)
-            });
-        }
+    function phoneAuthSecond() {
+        const number = document.getElementById('phoneNumber').value;
+        firebase.auth().signInWithPhoneNumber(number, window.recaptchaVerifier).then(function (confirmationResult) {
+            window.confirmationResult = confirmationResult;
+            coderesult = confirmationResult;
+            console.log("code result:" + coderesult);
+            alert("Message sent");
+        }).catch(function (error) {
+            alert(error.message)
+        });
+    }
 
 </script>
 <script>
-    function codeverify(){
+    function codeverify() {
         var code=document.getElementById('verificationCode').value;
         coderesult.confirm(code).then(function(result){
 

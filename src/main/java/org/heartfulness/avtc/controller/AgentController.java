@@ -58,15 +58,12 @@ public class AgentController {
         LocalDateTime localDateTime = LocalDateTime.now();
         Logger logger=new Logger();
         logger.setAgent(agent);
-
         Timestamp timestamp = Timestamp.valueOf(localDateTime);
         logger.setTimestamp(timestamp);
         if (status.equals("online")) {
-            //mark user online
             logger.setLogEvent(LogEvent.TURNED_ONLINE);
             agent.setStatus(AgentStatus.ONLINE);
         } else if (status.equals("offline")) {
-            //mark user offline
             logger.setLogEvent(LogEvent.MANUAL_OFFLINE);
             agent.setStatus(AgentStatus.OFFLINE);
         }

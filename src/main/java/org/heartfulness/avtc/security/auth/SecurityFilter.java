@@ -95,11 +95,6 @@ public class SecurityFilter extends OncePerRequestFilter {
             user = new User();
             user.setPhoneNumber(decodedToken.getClaims().get("phone_number").toString());
             user.setUid(decodedToken.getUid());
-            /*user.setName(decodedToken.getName());
-            user.setEmail(decodedToken.getEmail());
-            user.setPicture(decodedToken.getPicture());
-            user.setIssuer(decodedToken.getIssuer());
-            user.setEmailVerified(decodedToken.isEmailVerified());*/
         }
         return user;
     }

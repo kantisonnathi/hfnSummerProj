@@ -72,7 +72,7 @@ public class MainController {
     }
 
     @GetMapping("/private/sessionLogout")
-    public String deleteSessionCookie(HttpServletResponse response) {
+    public String deleteSessionCookie() {
         if (securityService.getCredentials().getType() == Credentials.CredentialType.SESSION
                 && secProps.getFirebaseProps().isEnableLogoutEverywhere()) {
             try {

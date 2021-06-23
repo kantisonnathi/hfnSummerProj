@@ -82,6 +82,7 @@ public class NodeController {
         if (agents.isEmpty()) {
             JSONObject entity = new JSONObject();
             call.setStatus(CallStatus.DISCONNECTED);
+            this.callRepository.save(call);
             entity.put("action", "tts");
             entity.put("value", "Sorry, there are no community level workers available at this time, please try again " +
                     "later");
@@ -120,6 +121,9 @@ public class NodeController {
     @ResponseBody
     @Produces(MediaType.APPLICATION_JSON)
     public ResponseEntity<?> inCallWebHook(@RequestParam("myoperator") String jsonString) {
+
+        System.out.println("\n\n\n" + jsonString + "\n\n\n");
+
         for (int i = 0; i < jsonString.length(); i++) {
             if (jsonString.charAt(i) == '[' && jsonString.charAt(i-1) == '\"') {
                 jsonString = jsonString.substring(0,i-1) + jsonString.substring(i);
@@ -155,6 +159,10 @@ public class NodeController {
             case 2:
                 //call finished
                 call = this.callRepository.findByCallerAndCallStatus(caller, CallStatus.CONNECTED_TO_AGENT);
+                if (call == null) {
+                    System.out.println("call state 2, call is null\n\n\n");
+                    break;
+                }
                 call.setStatus(CallStatus.DISCONNECTED);
                 agent = call.getAgent();
                 agent.setStatus(AgentStatus.ONLINE); //the logger should not be updated here
@@ -168,10 +176,15 @@ public class NodeController {
                 break;
             case 6:
                 // agent picked up
+                String fullUser = inCallNode.getUsers().get(0);
+                String phoneNumber = fullUser.substring(fullUser.length() - 10, fullUser.length());
                 call = this.callRepository.findByCallerAndCallStatus(caller, CallStatus.AWAITING_CONNECTION_TO_AGENT);
                 call.setStatus(CallStatus.CONNECTED_TO_AGENT);
-                String phoneNumber = inCallNode.getUsers().get(0);
-                agent = this.agentRepository.findByContactNumber(phoneNumber);
+                agent = this.agentRepository.findByContactNumber("+91" + phoneNumber);
+                if (agent == null) {
+                    System.out.println("Agent is null, state 6\n\n\n\n");
+                    break;
+                }
                 call.setAgent(agent);
                 agent.setStatus(AgentStatus.IN_CALL);
                 Set<Agent> leasedAgents = call.getLeasing();
@@ -181,8 +194,7 @@ public class NodeController {
                     currAgent.setStatus(AgentStatus.ONLINE);
                     this.agentRepository.save(currAgent);
                 }
-                this.agentRepository.save(agent);
-                call = this.callRepository.save(call);
+                this.callRepository.save(call);
                 break;
             default:
                 System.out.println("rip");
@@ -205,7 +217,7 @@ public class NodeController {
         List<JSONObject> entities = new ArrayList<>();
         Gson gson=new Gson();
         AfterCallNode afterCallNode=gson.fromJson(jsonString,AfterCallNode.class);
-       Call call=new Call();
+        Call call=new Call();
         Caller caller=callerRepository.findByContactNumber(afterCallNode.get_cr());
         call.setCaller(caller);
         call.setLocation(afterCallNode.get_se());

@@ -3,6 +3,10 @@ package org.heartfulness.avtc.security.controller;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.SessionCookieOptions;
+import org.heartfulness.avtc.model.LogEvent;
+import org.heartfulness.avtc.model.Logger;
+import org.heartfulness.avtc.repository.AgentRepository;
+import org.heartfulness.avtc.repository.LoggerRepository;
 import org.heartfulness.avtc.security.auth.SecurityService;
 import org.heartfulness.avtc.security.auth.models.Credentials;
 import org.heartfulness.avtc.security.auth.models.SecurityProperties;
@@ -34,17 +38,19 @@ public class PrivateEndpoint {
     @Autowired
     CookieUtils cookieUtils;
 
+    private final LoggerRepository loggerRepository;
 
-    @GetMapping("user-details")
-    public ResponseEntity<User> getUserInfo(@AuthenticationPrincipal User user) {
-        return ResponseEntity.ok(user);
+    private final AgentRepository agentRepository;
+
+    public PrivateEndpoint(LoggerRepository loggerRepository, AgentRepository agentRepository) {
+        this.loggerRepository = loggerRepository;
+        this.agentRepository = agentRepository;
     }
-
 
     @PostMapping("/sessionLogin")
     @ResponseBody
     @Produces(MediaType.TEXT_PLAIN)
-    public ResponseEntity<?> createSessionCookie(@RequestBody String idToken, HttpServletResponse response) {
+    public ResponseEntity<?> createSessionCookie(@RequestBody String idToken, @AuthenticationPrincipal User user,HttpServletResponse response) {
         long expiresIn = TimeUnit.DAYS.toMillis(5);
         SessionCookieOptions options = SessionCookieOptions.builder()
                 .setExpiresIn(expiresIn)
@@ -56,6 +62,10 @@ public class PrivateEndpoint {
             cookie.setHttpOnly(true);
             cookie.setPath("/");
             response.addCookie(cookie);
+            Logger log = new Logger();
+            log.setLogEvent(LogEvent.LOGIN);
+            log.setAgent(this.agentRepository.findByContactNumber(user.getPhoneNumber()));
+            this.loggerRepository.save(log);
             return new ResponseEntity<>("logged in", HttpStatus.OK);
         } catch (FirebaseAuthException e) {
             return new ResponseEntity<>("failed to create session cookie", HttpStatus.UNAUTHORIZED);

@@ -52,6 +52,7 @@
             <tr>
                 <th>Call ID</th>
                 <th>Call description</th>
+                <th>Call category</th>
                 <th>Call Agent name</th>
                 <th>Caller name</th>
             </tr>
@@ -59,7 +60,16 @@
             <tbody>
             <tr th:each="call : ${calls}">
                 <td th:text="${call.id}"></td>
-                <td th:text="${call.description}"></td>
+                <form method="post" th:action="@{/description}">
+                <td> <input type="text" th:object="${call}" th:value="${call.description}"/></td>
+                    <label for="category">Choose category of the call:</label>
+                 <td> <select name="category" id="category">
+                        <option value="INDIVIDUALS_WITH_COVID_AFFECTED_FAMILIES">Family affected</option>
+                        <option value=" CAREGIVERS_AND_FRONT_LINE_WORKERS">Front line workers</option>
+                        <option value="WELL_WISHERS_WHO_WISH_TO_HELP_COVID_AFFECTED_FAMILIES">Want to help covid affected families</option>
+                        <option value="SURVIVORS_OF_TRAUMA">survivors of trauma</option>
+                       <option value="INDIVIDUALS_WITH_SUICIDAL_TENDENCIES">Suicidal tendencies</option>
+                    </select><button type="submit"></button></form> </td>
                 <td th:text="${call.agent.name}"></td>
                 <td th:text="${call.caller.name}"></td>
             </tr>

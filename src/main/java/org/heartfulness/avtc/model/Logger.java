@@ -15,6 +15,9 @@ public class Logger extends BaseEntity {
     @Enumerated(EnumType.ORDINAL)
     private LogEvent logEvent;
 
+    @Column(name = "timestamp")
+    private Timestamp timestamp;
+
     public Agent getAgent() {
         return agent;
     }
@@ -30,10 +33,6 @@ public class Logger extends BaseEntity {
     public void setLogEvent(LogEvent logEvent) {
         this.logEvent = logEvent;
     }
-
-
-    @Column(name = "timestamp")
-    private Timestamp timestamp;
 
     public Timestamp getTimestamp() {
         return timestamp;

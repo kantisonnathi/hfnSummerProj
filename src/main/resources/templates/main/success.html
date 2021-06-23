@@ -49,11 +49,14 @@
     <div id="calls_display" style="text-align: center;">
        <form action="#" method="post" th:action="@{/editCall}" th:object="${calls}">
            <fieldset>
-               <button type="submit"></button>
+               <p align="right">
+               <button type="submit" >Save changes</button>
+               </p>
         <table style="text-align: center" class="table">
             <thead>
             <tr>
                 <th>Call ID</th>
+                <th></th>
                 <th>Call description</th>
                 <th>Call category</th>
                 <th>Call Agent name</th>
@@ -65,7 +68,6 @@
                 <td th:text="*{callList[__${itemstat.index}__].id}"></td>
                 <td> <input type="hidden" th:field="*{callList[__${itemstat.index}__].id}"> </td>
                 <td> <input type="text" th:field="*{callList[__${itemstat.index}__].description}"/></td>
-                    <label for="category">Choose category of the call:</label>
                  <td> <select th:field="*{callList[__${itemstat.index}__].category}"  name="category" id="category">
                         <option  value="ADJUSTMENT_DISORDERS">Adjustment disorder</option>
                         <option  value="DEPRESSIVE_DISORDERS">depressive disorders</option>

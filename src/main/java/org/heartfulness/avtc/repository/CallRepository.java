@@ -16,6 +16,7 @@ public interface CallRepository extends Repository<Call, Long> {
     Call save(Call call);
 
     Call findByCallerAndStartTime(Caller caller, String startTime);
+    Call findById(Long id);
 
     Set<Call> findAllByCallerAndAgent(Caller caller, Agent agent);
 

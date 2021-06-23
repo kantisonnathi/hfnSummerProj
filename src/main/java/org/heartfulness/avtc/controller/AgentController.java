@@ -3,6 +3,7 @@ package org.heartfulness.avtc.controller;
 import net.minidev.json.JSONObject;
 import org.heartfulness.avtc.config.NodeConfiguration;
 import org.heartfulness.avtc.model.*;
+import org.heartfulness.avtc.model.AfterCallClasses.CategoryCreationDTO;
 import org.heartfulness.avtc.repository.*;
 import org.heartfulness.avtc.security.auth.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,16 +101,22 @@ public class AgentController {
         Agent agent = agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber());
         modelMap.put("agent", agent);
         System.out.println(nodeConfiguration.getEnglishNode());
+        CategoryCreationDTO categoryCreationDTO=new CategoryCreationDTO();
         List<Call> calls = this.callRepository.findAllByAgent(agent);
         Schedule schedule = new Schedule();
         Other other=new Other();
         schedule.setAgent(agent);
+       for(int i=0;i<calls.size();i++)
+        {
+            calls.get(i).setCategory(CallCategory.ADJUSTMENT_DISORDERS);
+            categoryCreationDTO.addCall(calls.get(i));
+        }
         String endTime = "";
         modelMap.put("end", endTime);
         modelMap.put("other",other);
         schedule.setId(1L);
         modelMap.put("schedule", schedule);
-        modelMap.put("calls",calls);
+        modelMap.put("calls",categoryCreationDTO);
             //agent is validated
         //    List<Call> calls = this.callRepository.findAllByAgent(agent);
           //  modelMap.put("calls",calls);
@@ -145,12 +152,17 @@ public class AgentController {
         return "main/viewTeam";
     }
 
-   @PostMapping("/description")
-    public String addDescription(@ModelAttribute("call") Call  call)
+   @PostMapping("/editCall")
+    public String addDescription(@ModelAttribute("calls") CategoryCreationDTO categoryCreationDTO)
    {
 
-           callRepository.save(call);
-
+       List<Call> calls=categoryCreationDTO.getCallList();
+       for(Call call:calls) {
+           Call add=callRepository.findById(call.getId());
+           add.setDescription(call.getDescription());
+           add.setCategory(call.getCategory());
+           callRepository.save(add);
+       }
        return "redirect:/success";
    }
 

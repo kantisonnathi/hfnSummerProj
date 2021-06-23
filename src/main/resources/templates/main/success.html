@@ -47,6 +47,9 @@
 
 <div style="text-align: center;">
     <div id="calls_display" style="text-align: center;">
+       <form action="#" method="post" th:action="@{/editCall}" th:object="${calls}">
+           <fieldset>
+               <button type="submit"></button>
         <table style="text-align: center" class="table">
             <thead>
             <tr>
@@ -58,23 +61,27 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="call : ${calls}">
-                <td th:text="${call.id}"></td>
-                <form method="post" th:action="@{/description}">
-                <td> <input type="text" th:object="${call}" th:value="${call.description}"/></td>
+            <tr th:each="call,itemstat : *{callList}">
+                <td th:text="*{callList[__${itemstat.index}__].id}"></td>
+                <td> <input type="hidden" th:field="*{callList[__${itemstat.index}__].id}"> </td>
+                <td> <input type="text" th:field="*{callList[__${itemstat.index}__].description}"/></td>
                     <label for="category">Choose category of the call:</label>
-                 <td> <select name="category" id="category">
-                        <option value="INDIVIDUALS_WITH_COVID_AFFECTED_FAMILIES">Family affected</option>
-                        <option value=" CAREGIVERS_AND_FRONT_LINE_WORKERS">Front line workers</option>
-                        <option value="WELL_WISHERS_WHO_WISH_TO_HELP_COVID_AFFECTED_FAMILIES">Want to help covid affected families</option>
-                        <option value="SURVIVORS_OF_TRAUMA">survivors of trauma</option>
-                       <option value="INDIVIDUALS_WITH_SUICIDAL_TENDENCIES">Suicidal tendencies</option>
-                    </select><button type="submit"></button></form> </td>
-                <td th:text="${call.agent.name}"></td>
-                <td th:text="${call.caller.name}"></td>
+                 <td> <select th:field="*{callList[__${itemstat.index}__].category}"  name="category" id="category">
+                        <option  value="ADJUSTMENT_DISORDERS">Adjustment disorder</option>
+                        <option  value="DEPRESSIVE_DISORDERS">depressive disorders</option>
+                        <option  value="SUBSTANCE_ABUSE_DISORDER">Substance abuse</option>
+                        <option  value="ANXIETY_DISORDER">anxiety</option>
+                        <option  value="OCD">OCD</option>
+                     <option th:value="SERIOUS_MENTAL_ILLNESS"> Serious mental illness</option>
+
+                    </select> </td>
+               <td th:text="*{callList[__${itemstat.index}__].agent.name}"></td>
+                <td th:text="*{callList[__${itemstat.index}__].caller.name}"></td>
             </tr>
             </tbody>
         </table>
+           </fieldset>
+       </form>
     </div>
     <div th:if="${agent.role} == 'manager'">
         <a href="/m/display">View All Agent Details</a>

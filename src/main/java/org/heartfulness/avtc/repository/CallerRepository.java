@@ -7,7 +7,7 @@ public interface CallerRepository extends Repository<Caller, Long> {
 
     Caller save(Caller caller);
 
-    Caller findByAllottedID(String callerID);
+    Caller findById(Long id);
 
     Caller findByContactNumber(String contactNumber);
 

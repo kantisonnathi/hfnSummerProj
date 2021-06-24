@@ -82,6 +82,7 @@ public class MainController {
             }
         }
         //cookieUtils.deleteSecureCookie("session");
+
         cookieUtils.deleteCookie("session");
         cookieUtils.deleteCookie("authenticated");
         return "redirect:/main";

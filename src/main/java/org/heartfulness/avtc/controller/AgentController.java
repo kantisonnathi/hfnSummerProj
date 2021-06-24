@@ -100,14 +100,12 @@ public class AgentController {
     public String getMainPage(ModelMap modelMap) {
         Agent agent = agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber());
         modelMap.put("agent", agent);
-        System.out.println(nodeConfiguration.getEnglishNode());
         CategoryCreationDTO categoryCreationDTO=new CategoryCreationDTO();
         List<Call> calls = this.callRepository.findAllByAgent(agent);
         Schedule schedule = new Schedule();
         Other other=new Other();
         schedule.setAgent(agent);
-       for(int i=0;i<calls.size();i++)
-        {
+       for(int i = 0; i < calls.size(); i++) {
             calls.get(i).setCategory(CallCategory.ADJUSTMENT_DISORDERS);
             categoryCreationDTO.addCall(calls.get(i));
         }

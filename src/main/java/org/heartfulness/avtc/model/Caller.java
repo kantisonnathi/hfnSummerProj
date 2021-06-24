@@ -31,7 +31,7 @@ public class Caller extends BaseEntity {
     private CallerAgeGroup ageGroup;
 
     @Column(name = "employment_status")
-    private Boolean employmentStatus;
+    private String employmentStatus;
 
     @Column(name = "contact_number")
     private String contactNumber;
@@ -41,16 +41,9 @@ public class Caller extends BaseEntity {
 
     @Column(name = "educational_status")
     private String educationalStatus;
+
     @Column(name="saved")
-    private String saved;
-
-    public String getSaved() {
-        return saved;
-    }
-
-    public void setSaved(String saved) {
-        this.saved = saved;
-    }
+    private boolean saved;
 
     @Column(name = "category")
     @Enumerated(EnumType.STRING)
@@ -103,11 +96,11 @@ public class Caller extends BaseEntity {
         this.ageGroup = ageGroup;
     }
 
-    public Boolean getEmploymentStatus() {
+    public String getEmploymentStatus() {
         return employmentStatus;
     }
 
-    public void setEmploymentStatus(Boolean employmentStatus) {
+    public void setEmploymentStatus(String employmentStatus) {
         this.employmentStatus = employmentStatus;
     }
 
@@ -172,6 +165,14 @@ public class Caller extends BaseEntity {
             calls = new HashSet<>();
         }
         calls.add(call);
+    }
+
+    public boolean isSaved() {
+        return saved;
+    }
+
+    public void setSaved(boolean saved) {
+        this.saved = saved;
     }
 
     @Override

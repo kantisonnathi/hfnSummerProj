@@ -73,7 +73,8 @@ public class NodeController {
         List<String> number = new ArrayList<>();
         Long x = currentDepartment.getId();
         List<Agent> agents = new ArrayList<>();
-        Call call = this.callRepository.findByCallerAndCallStatus(caller, CallStatus.CONNECTED_TO_IVR);
+        List<Call> calls = this.callRepository.findAllByCallerAndCallStatus(caller, CallStatus.CONNECTED_TO_IVR);
+        Call call = calls.get(calls.size()-1);
         int i = 1;
         while(agents.isEmpty() && i <= 3) {
              agents = this.agentRepository.getByStatusandDepartment(x, i); //i is level
@@ -166,6 +167,7 @@ public class NodeController {
                 call.setStatus(CallStatus.DISCONNECTED);
                 agent = call.getAgent();
                 agent.setStatus(AgentStatus.ONLINE); //the logger should not be updated here
+                //set timestamp.
                 call.setEndTime(inCallNode.getCall_time());
                 this.agentRepository.save(agent);
                 call = this.callRepository.save(call);

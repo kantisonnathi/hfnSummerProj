@@ -22,4 +22,6 @@ public interface CallRepository extends Repository<Call, Long> {
 
     Call findByCallerAndCallStatus(Caller caller, CallStatus callStatus);
 
+    List<Call> findAllByCallerAndCallStatus(Caller caller, CallStatus callStatus);
+
 }

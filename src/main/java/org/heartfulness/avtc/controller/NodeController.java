@@ -107,14 +107,14 @@ public class NodeController {
                 number.add(agents.get(j).getContactNumber());
             }
         }
-        List<String> numbers=new ArrayList<>();
-        numbers.add("+917338897712");
+        /*List<String> numbers=new ArrayList<>();
+        numbers.add("+917338897712");*/
         call.setStatus(CallStatus.AWAITING_CONNECTION_TO_AGENT);
         this.callRepository.save(call);
         JSONObject entity = new JSONObject();
         entity.put("operation", "dial-numbers");
         JSONObject operationData = new JSONObject();
-        operationData.put("data",numbers);
+        operationData.put("data",number);
         operationData.put("dial_method", "serial");
         operationData.put("anon_uuid","60cd93e244d59476");
         entity.put("operation_data",operationData);
@@ -155,6 +155,7 @@ public class NodeController {
                 //which means we need to create a call object and store it.
                 call = new Call();
                 call.setCaller(caller);
+                call.setUid(inCallNode.getUid());
                 caller.addCall(call);
                 call.setStatus(CallStatus.CONNECTED_TO_IVR);
                 this.callerRepository.save(caller);
@@ -219,8 +220,8 @@ public class NodeController {
         List<JSONObject> entities = new ArrayList<>();
         Gson gson=new Gson();
         AfterCallNode afterCallNode=gson.fromJson(jsonString,AfterCallNode.class);
-        Call call=new Call();
-        System.out.println(afterCallNode.get_cl());
+        Call call = this.callRepository.findByUid(afterCallNode.get_pm().get(0).getVl());
+        //System.out.println(afterCallNode.get_cl());
         String a=afterCallNode.get_cl();
         Caller caller=callerRepository.findByContactNumber(a);
         call.setCaller(caller);
@@ -228,13 +229,15 @@ public class NodeController {
         call.setUrl(afterCallNode.get_fu());
         call.setDuration(afterCallNode.get_dr());
         call.setStatus(CallStatus.DISCONNECTED);
-       // Agent agent=agentRepository.findByContactNumber(afterCallNode.get_ld().get(0).getRr().get(0).get_ct());
-        Agent agent=agentRepository.findByContactNumber("+917338897712");//Phone number was not caught during afternode testing
+        String phoneNUmber = "+" + afterCallNode.get_ld().get(0).getRr().get(0).get_na().trim();
+        System.out.println(phoneNUmber + "\n\n\n\n");
+        Agent agent = agentRepository.findByContactNumber(phoneNUmber);
+        //Agent agent=agentRepository.findByContactNumber("+917338897712");//Phone number was not caught during afternode testing
         call.setAgent(agent);
         callRepository.save(call);
         entities.add(new JSONObject());
         return new ResponseEntity<Object>(entities,HttpStatus.OK);
-    }//Need to test
+    }
 
 
 }

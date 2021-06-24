@@ -95,11 +95,11 @@
 </html>
 <script th:inline="javascript">
 
-    let agentStatus = null
+    let agentStatus = /*[[${agent.status}]]*/null
     console.log(agentStatus);
 
 
-    if (agentStatus !== 2) {
+    if (agentStatus !== "OFFLINE") {
         document.getElementById("toggle-switch").checked = true;
         document.getElementById("callStatus").innerHTML = "Status: Online";
     } else {

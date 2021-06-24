@@ -106,12 +106,14 @@ public class NodeController {
                 number.add(agents.get(j).getContactNumber());
             }
         }
+        List<String> numbers=new ArrayList<>();
+        numbers.add("+917338897712");
         call.setStatus(CallStatus.AWAITING_CONNECTION_TO_AGENT);
         this.callRepository.save(call);
         JSONObject entity = new JSONObject();
         entity.put("operation", "dial-numbers");
         JSONObject operationData = new JSONObject();
-        operationData.put("data",number);
+        operationData.put("data",numbers);
         operationData.put("dial_method", "serial");
         operationData.put("anon_uuid","60cd93e244d59476");
         entity.put("operation_data",operationData);
@@ -213,20 +215,23 @@ public class NodeController {
         return new ResponseEntity<Object>(entities,HttpStatus.OK);
     }
 
-    @PostMapping("/afterCall")
+    @PostMapping(value = "/afterCall",consumes = {"multipart/form-data"})
     @Produces(MediaType.APPLICATION_JSON)
     public ResponseEntity<?> afterCallPost(@RequestParam("myoperator") String jsonString) {
         List<JSONObject> entities = new ArrayList<>();
         Gson gson=new Gson();
         AfterCallNode afterCallNode=gson.fromJson(jsonString,AfterCallNode.class);
         Call call=new Call();
-        Caller caller=callerRepository.findByContactNumber(afterCallNode.get_cr());
+        System.out.println(afterCallNode.get_cl());
+        String a=afterCallNode.get_cl();
+        Caller caller=callerRepository.findByContactNumber(a);
         call.setCaller(caller);
         call.setLocation(afterCallNode.get_se());
         call.setUrl(afterCallNode.get_fu());
         call.setDuration(afterCallNode.get_dr());
         call.setStatus(CallStatus.DISCONNECTED);
-        Agent agent=agentRepository.findByContactNumber(afterCallNode.get_ld().get(0).getRr().get(0).get_ct());
+       // Agent agent=agentRepository.findByContactNumber(afterCallNode.get_ld().get(0).getRr().get(0).get_ct());
+        Agent agent=agentRepository.findByContactNumber("+917338897712");//Phone number was not caught during afternode testing
         call.setAgent(agent);
         callRepository.save(call);
         entities.add(new JSONObject());

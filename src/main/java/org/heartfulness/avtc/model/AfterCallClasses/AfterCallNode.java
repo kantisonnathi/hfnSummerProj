@@ -13,7 +13,7 @@ private String _cy;
 private String _se;//state of the caller
 private Integer _ts;
 private Integer _st;//Start time
-private Integer _ms;
+private Long _ms;
 private Integer _ss;
 private Integer _et;//End time
 private String _dr;//complete call duration
@@ -108,11 +108,11 @@ private List<pm> _pm;
         this._st = _st;
     }
 
-    public Integer get_ms() {
+    public Long get_ms() {
         return _ms;
     }
 
-    public void set_ms(Integer _ms) {
+    public void set_ms(Long _ms) {
         this._ms = _ms;
     }
 

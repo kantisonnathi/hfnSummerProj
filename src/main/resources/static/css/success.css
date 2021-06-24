@@ -1,19 +1,9 @@
 #top-banner {
-    background-color: #303481;
+    background-color: white;
     width: available;
-    height: 400px;
+    height: 215px;
     text-align: center;
 }
-
-#top-banner-text {
-/*    font-family: "Segoe UI";*/
-    font-family: "Sitka Text";
-    font-size: 50px;
-    color: #d6e6f2;
-}
-
-
-
 
 /* The switch - the box around the slider */
 .switch {
@@ -56,11 +46,11 @@
 }
 
 input:checked + .slider {
-    background-color: #303481;
+    background-color: #7a4d4b;
 }
 
 input:focus + .slider {
-    box-shadow: 0 0 1px #303481;
+    box-shadow: 0 0 1px #7a4d4b;
 }
 
 input:checked + .slider:before {
@@ -76,4 +66,27 @@ input:checked + .slider:before {
 
 .slider.round:before {
     border-radius: 50%;
+}
+
+.topnav {
+    /*background-color: #577149;*/
+    background-color: white;
+    overflow: hidden;
+
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+    font-weight: bold;
+    float: left;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+    background-color: rosybrown;
 }

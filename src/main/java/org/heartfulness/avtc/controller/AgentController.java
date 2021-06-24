@@ -126,6 +126,7 @@ public class AgentController {
         }*/
         String endTime = "";
         modelMap.put("end", endTime);
+        modelMap.put("role", agent.getRole().toString());
         modelMap.put("other",other);
         schedule.setId(1L);
         modelMap.put("schedule", schedule);

@@ -38,8 +38,11 @@ public class Call extends BaseEntity {
 
     @Column(name="saved")
      private boolean saved;
+
+
     @Column(name="duration")
     private String duration;
+
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Caller.class)
     @JoinColumn(name = "caller_id")
     private Caller caller;

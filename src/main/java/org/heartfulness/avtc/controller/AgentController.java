@@ -23,9 +23,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -102,25 +100,42 @@ public class AgentController {
         modelMap.put("agent", agent);
         CategoryCreationDTO categoryCreationDTO=new CategoryCreationDTO();
         List<Call> calls = this.callRepository.findAllByAgent(agent);
+        // parse through calls and keep unsaved ones at the top
+        List<Call> unsavedCalls = new ArrayList<>();
+        List<Call> saved = new ArrayList<>();
+        for (Call call : calls) {
+            if (call.isSaved()) {
+                saved.add(call);
+            } else {
+                unsavedCalls.add(call);
+            }
+            call.setCategory(CallCategory.ADJUSTMENT_DISORDERS);
+        }
+        Collections.reverse(unsavedCalls);
+        Collections.reverse(saved);
+        calls.clear();
+        calls.addAll(unsavedCalls);
+        calls.addAll(saved);
+        categoryCreationDTO.setCallList(calls);
         Schedule schedule = new Schedule();
-        Other other=new Other();
+        Other other = new Other();
         schedule.setAgent(agent);
-       for(int i = 0; i < calls.size(); i++) {
+        /*for(int i = 0; i < calls.size(); i++) {
             calls.get(i).setCategory(CallCategory.ADJUSTMENT_DISORDERS);
             categoryCreationDTO.addCall(calls.get(i));
-        }
+        }*/
         String endTime = "";
         modelMap.put("end", endTime);
         modelMap.put("other",other);
         schedule.setId(1L);
         modelMap.put("schedule", schedule);
         modelMap.put("calls",categoryCreationDTO);
-            //agent is validated
+        //agent is validated
         //    List<Call> calls = this.callRepository.findAllByAgent(agent);
-          //  modelMap.put("calls",calls);
-            return "main/success";
+        //  modelMap.put("calls",calls);
+        return "main/success";
 
-       // return "main/success";
+        // return "main/success";
     }
     @PostMapping("/schedule")
     public String getTime(@ModelAttribute("other") Other other) throws ParseException {
@@ -150,18 +165,18 @@ public class AgentController {
         return "main/viewTeam";
     }
 
-   @PostMapping("/editCall")
+    @PostMapping("/editCall")
     public String addDescription(@ModelAttribute("calls") CategoryCreationDTO categoryCreationDTO)
-   {
+    {
 
-       List<Call> calls=categoryCreationDTO.getCallList();
-       for(Call call:calls) {
-           Call add=callRepository.findById(call.getId());
-           add.setDescription(call.getDescription());
-           add.setCategory(call.getCategory());
-           callRepository.save(add);
-       }
-       return "redirect:/success";
-   }
+        List<Call> calls=categoryCreationDTO.getCallList();
+        for(Call call:calls) {
+            Call add=callRepository.findById(call.getId());
+            add.setDescription(call.getDescription());
+            add.setCategory(call.getCategory());
+            callRepository.save(add);
+        }
+        return "redirect:/success";
+    }
 
 }

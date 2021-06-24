@@ -1,9 +1,6 @@
 package org.heartfulness.avtc.repository;
 
-import org.heartfulness.avtc.model.Agent;
-import org.heartfulness.avtc.model.AgentStatus;
-import org.heartfulness.avtc.model.Department;
-import org.heartfulness.avtc.model.Team;
+import org.heartfulness.avtc.model.*;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
@@ -30,5 +27,7 @@ public interface AgentRepository extends Repository<Agent, Long> {
     Set<Agent> findAgentsByTeamEquals(Team team);
    @Query(value="select * from Agent a where a.id in(select d.agents_id from agent_departments d where d.departments_id=?) and a.status=0 and a.level=?",nativeQuery = true)
     List<Agent> getByStatusandDepartment(Long deptid, int level);
+
+   List<Agent> findAllByLeasedByAndStatus(Call call, AgentStatus status);
 
 }

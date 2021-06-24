@@ -18,6 +18,25 @@ public class Agent extends BaseEntity {
     @Column(name = "name")
     private String name; //mandatory
 
+    @Column(name = "missed")
+    private Integer missed;
+
+    public Integer getMissed() {
+        return missed;
+    }
+
+    public void setMissed(Integer missed) {
+        this.missed = missed;
+    }
+
+    public void addMissed() {
+        if (this.missed == null) {
+            missed = 1;
+        } else {
+            missed++;
+        }
+    }
+
     @Column(name = "certified")
     private Boolean certified;
 

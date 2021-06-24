@@ -2,13 +2,11 @@ package org.heartfulness.avtc.controller;
 
 import com.google.gson.Gson;
 import net.minidev.json.JSONObject;
-import org.aspectj.lang.annotation.After;
 import org.heartfulness.avtc.config.NodeConfiguration;
 import org.heartfulness.avtc.model.*;
 import org.heartfulness.avtc.model.AfterCallClasses.AfterCallNode;
 import org.heartfulness.avtc.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -35,15 +34,18 @@ public class NodeController {
 
     private final CallRepository callRepository;
 
+    private final LoggerRepository loggerRepository;
+
     private final DepartmentRepository departmentRepository;
 
     public NodeController(AgentRepository agentRepository, CallerRepository callerRepository, LanguageRepository languageRepository,
-                          ServiceRepository serviceRepository, CallRepository callRepository, DepartmentRepository departmentRepository) {
+                          ServiceRepository serviceRepository, CallRepository callRepository, LoggerRepository loggerRepository, DepartmentRepository departmentRepository) {
         this.agentRepository = agentRepository;
         this.callerRepository = callerRepository;
         this.languageRepository = languageRepository;
         this.serviceRepository = serviceRepository;
         this.callRepository = callRepository;
+        this.loggerRepository = loggerRepository;
         this.departmentRepository = departmentRepository;
     }
 
@@ -149,6 +151,7 @@ public class NodeController {
         }
         Call call = this.callRepository.findByUid(inCallNode.getUid());
         Agent agent;
+        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
         switch (inCallNode.getCall_state()) {
             case 1:
                 //this means incoming call to server.
@@ -166,14 +169,17 @@ public class NodeController {
                 call.setStatus(CallStatus.DISCONNECTED);
                 agent = call.getAgent();
                 agent.setStatus(AgentStatus.ONLINE); //the logger should not be updated here
-                //set timestamp.
+                agent.setTimestamp(timestamp);
                 call.setEndTime(inCallNode.getCall_time());
                 this.agentRepository.save(agent);
                 call = this.callRepository.save(call);
                 break;
             case 5:
                 //dialing agents
-                //what do i do here.
+                agent = call.getAgent();
+                agent.setStatus(AgentStatus.DIALING);
+                agent.setLeasedBy(call);
+                this.agentRepository.save(agent);
                 break;
             case 6:
                 // agent picked up
@@ -193,6 +199,23 @@ public class NodeController {
                     currAgent.setLeasedBy(null);
                     currAgent.setStatus(AgentStatus.ONLINE);
                     this.agentRepository.save(currAgent);
+                }
+                List<Agent> missedAgents = this.agentRepository.findAllByLeasedByAndStatus(call, AgentStatus.DIALING);
+                for (Agent currAgent : missedAgents) {
+                    currAgent.setLeasedBy(null);
+                    currAgent.addMissed();
+                    if (currAgent.getMissed() >= 3) {
+                        currAgent.setLeasedBy(null);
+                        currAgent.setStatus(AgentStatus.OFFLINE);
+                        currAgent.setTimestamp(timestamp);
+                        Logger log = new Logger();
+                        log.setAgent(currAgent);
+                        log.setLogEvent(LogEvent.FORCED_OFFLINE);
+                    } else {
+                        currAgent.setStatus(AgentStatus.ONLINE);
+                        currAgent.setTimestamp(timestamp);
+                    }
+                    this.agentRepository.save(agent);
                 }
                 this.callRepository.save(call);
                 break;

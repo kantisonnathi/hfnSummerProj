@@ -3,9 +3,10 @@ package org.heartfulness.avtc.model.AfterCallClasses;
 import java.util.List;
 
 public class Ld {
-    private List<Rr> rr;
+
     private String _rst;
     private String _did;
+    private List<Rr> rr;
     private String _ds;
     private List<Object> _tt;
 

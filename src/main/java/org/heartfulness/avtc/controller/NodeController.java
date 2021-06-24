@@ -229,9 +229,7 @@ public class NodeController {
         call.setUrl(afterCallNode.get_fu());
         call.setDuration(afterCallNode.get_dr());
         call.setStatus(CallStatus.DISCONNECTED);
-        String phoneNUmber = "+" + afterCallNode.get_ld().get(0).getRr().get(0).get_na().trim();
-        System.out.println(phoneNUmber + "\n\n\n\n");
-        Agent agent = agentRepository.findByContactNumber(phoneNUmber);
+        Agent agent=agentRepository.findById(call.getAgent().getId());
         //Agent agent=agentRepository.findByContactNumber("+917338897712");//Phone number was not caught during afternode testing
         call.setAgent(agent);
         callRepository.save(call);

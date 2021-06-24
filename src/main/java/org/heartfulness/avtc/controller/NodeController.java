@@ -73,8 +73,9 @@ public class NodeController {
         List<String> number = new ArrayList<>();
         Long x = currentDepartment.getId();
         List<Agent> agents = new ArrayList<>();
-        List<Call> calls = this.callRepository.findAllByCallerAndCallStatus(caller, CallStatus.CONNECTED_TO_IVR);
-        Call call = calls.get(calls.size()-1);
+        /*List<Call> calls = this.callRepository.findAllByCallerAndCallStatus(caller, CallStatus.CONNECTED_TO_IVR);
+        Call call = calls.get(calls.size()-1);*/
+        Call call = this.callRepository.findByUid(input.getUid());
         int i = 1;
         while(agents.isEmpty() && i <= 3) {
              agents = this.agentRepository.getByStatusandDepartment(x, i); //i is level
@@ -146,7 +147,7 @@ public class NodeController {
             caller.setContactNumber("+91" + inCallNode.getClid());
             caller = this.callerRepository.save(caller);
         }
-        Call call;
+        Call call = this.callRepository.findByUid(inCallNode.getUid());
         Agent agent;
         switch (inCallNode.getCall_state()) {
             case 1:
@@ -161,11 +162,6 @@ public class NodeController {
                 break;
             case 2:
                 //call finished
-                call = this.callRepository.findByCallerAndCallStatus(caller, CallStatus.CONNECTED_TO_AGENT);
-                if (call == null) {
-                    System.out.println("call state 2, call is null\n\n\n");
-                    break;
-                }
                 call.setStatus(CallStatus.DISCONNECTED);
                 agent = call.getAgent();
                 agent.setStatus(AgentStatus.ONLINE); //the logger should not be updated here
@@ -182,7 +178,6 @@ public class NodeController {
                 // agent picked up
                 String fullUser = inCallNode.getUsers().get(0);
                 String phoneNumber = fullUser.substring(fullUser.length() - 10, fullUser.length());
-                call = this.callRepository.findByCallerAndCallStatus(caller, CallStatus.AWAITING_CONNECTION_TO_AGENT);
                 call.setStatus(CallStatus.CONNECTED_TO_AGENT);
                 agent = this.agentRepository.findByContactNumber("+91" + phoneNumber);
                 if (agent == null) {
@@ -218,6 +213,9 @@ public class NodeController {
     @PostMapping(value = "/afterCall",consumes = {"multipart/form-data"})
     @Produces(MediaType.APPLICATION_JSON)
     public ResponseEntity<?> afterCallPost(@RequestParam("myoperator") String jsonString) {
+
+        System.out.println("\n\n\n" + jsonString + "\n\n\n");
+
         List<JSONObject> entities = new ArrayList<>();
         Gson gson=new Gson();
         AfterCallNode afterCallNode=gson.fromJson(jsonString,AfterCallNode.class);

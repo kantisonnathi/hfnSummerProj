@@ -25,20 +25,15 @@ public class Call extends BaseEntity {
     @Column(name="URL")
     private String url;
 
-    public String getDuration() {
-        return duration;
+    @Column(name="uid")
+    private String uid;
+
+    public String getUid() {
+        return uid;
     }
 
-    public void setDuration(String duration) {
-        this.duration = duration;
-    }
-
-    public CallStatus getCallStatus() {
-        return callStatus;
-    }
-
-    public void setCallStatus(CallStatus callStatus) {
-        this.callStatus = callStatus;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     @Column(name="saved")
@@ -150,6 +145,22 @@ public class Call extends BaseEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public CallStatus getCallStatus() {
+        return callStatus;
+    }
+
+    public void setCallStatus(CallStatus callStatus) {
+        this.callStatus = callStatus;
     }
 
 }

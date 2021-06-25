@@ -59,7 +59,7 @@ public class MainController {
     @PostMapping("/main")
     public String postMain(Agent agent) {
         //String phoneNumber = principal.getName();
-        Agent agent1 = this.agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber());
+        Agent agent1 = this.agentRepository.findByContactNumber("+917338897712");
         if (agent1 == null) {
             return "main/error";
         }

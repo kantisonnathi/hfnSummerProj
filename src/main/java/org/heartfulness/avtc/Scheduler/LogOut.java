@@ -34,18 +34,20 @@ public class LogOut {
     {
         List<Agent> agents=agentRepository.findAll();
         for(Agent agent:agents) {
-            List<Logger> loggerList = loggerRepository.getByLogEvent(LogEvent.LOGIN,agent);
+            List<Logger> loggerList = loggerRepository.getByLogEventAndAgent(LogEvent.LOGIN,agent);
             Collections.sort(loggerList, new sortByLog());
             LocalDateTime localDateTime = LocalDateTime.now();
             Timestamp timestamp = Timestamp.valueOf(localDateTime);
 
-                if (timestamp.compareTo(loggerList.get(loggerList.size()-1).getTimestamp()) + 5 >= 0) {
+            if(!loggerList.isEmpty()) {
+                if (timestamp.compareTo(loggerList.get(loggerList.size() - 1).getTimestamp()) + 5 >= 0) {
                     Logger add = new Logger();
                     add.setLogEvent(LogEvent.AUTOMATIC_LOGOUT);
                     add.setAgent(agent);
                     add.setTimestamp(timestamp);
                     loggerRepository.save(add);
                 }
+            }
 
         }
     }

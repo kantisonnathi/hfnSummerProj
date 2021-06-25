@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface LoggerRepository extends Repository<Logger,Long> {
     public void save(Logger logger);
-    List<Logger> getByLogEvent(LogEvent logEvent,Agent agent);
+   List<Logger> getByLogEventAndAgent(LogEvent logEvent,Agent agent);
 }

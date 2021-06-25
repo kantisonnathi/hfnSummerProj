@@ -73,6 +73,7 @@
                 <p align="right">
                     <button type="submit" >Save changes</button>
                 </p>
+                <span th:object="${other}" th:text="${other.endtime != null} ? ${someObject.someProperty} : 'Please enter a time to be toggled off'">someValue</span>
                 <table style="text-align: center" class="table">
                     <thead>
                     <tr>

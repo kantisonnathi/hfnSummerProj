@@ -21,8 +21,7 @@ import java.util.List;
 @Configuration
 @EnableScheduling
 public class TurnOffline {
-    @Autowired
-    SecurityService securityService;
+
 
     private AgentRepository agentRepository;
     private ScheduleRepository scheduleRepository;

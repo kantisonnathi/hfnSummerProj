@@ -72,7 +72,9 @@
             <fieldset>
                 <p align="right">
                     <button type="submit" >Save changes</button>
-                </p>
+
+                    <p>You will automatically be toggled off at:</p>
+                <span th:object="${schedule}" th:text="${schedule.endTime != null} ?  ${schedule.endTime} : 'Please enter a time to be toggled off'">someValue</span>
                 <table style="text-align: center" class="table">
                     <thead>
                     <tr>

@@ -12,4 +12,5 @@ public interface ScheduleRepository extends Repository<Schedule, Long> {
     void save(Schedule schedule);
     List<Schedule> findAll();
     void delete(Schedule schedule);
+    List<Schedule> findByAgent(Agent agent);
 }

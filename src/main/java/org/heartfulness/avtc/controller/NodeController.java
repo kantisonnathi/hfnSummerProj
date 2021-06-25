@@ -2,6 +2,7 @@ package org.heartfulness.avtc.controller;
 
 import com.google.gson.Gson;
 import net.minidev.json.JSONObject;
+import org.heartfulness.avtc.Comparator.SortByTimeStamp;
 import org.heartfulness.avtc.config.NodeConfiguration;
 import org.heartfulness.avtc.model.*;
 import org.heartfulness.avtc.model.AfterCallClasses.AfterCallNode;
@@ -78,10 +79,30 @@ public class NodeController {
         /*List<Call> calls = this.callRepository.findAllByCallerAndCallStatus(caller, CallStatus.CONNECTED_TO_IVR);
         Call call = calls.get(calls.size()-1);*/
         Call call = this.callRepository.findByUid(input.getUid());
-        int i = 1;
-        while(agents.isEmpty() && i <= 3) {
-             agents = this.agentRepository.getByStatusandDepartment(x, i); //i is level
-             i++;
+        int i =caller.getLevel();
+        agents=agentRepository.getByStatusandDepartment(x,i);
+        Collections.sort(agents,new SortByTimeStamp());
+
+            for (int j = 0; j < 3&& j<agents.size(); j++) {
+                Agent tempAgent = agents.get(j);
+                tempAgent.setStatus(AgentStatus.QUEUED);
+                tempAgent.setLeasedBy(call);
+                this.agentRepository.save(tempAgent);
+                number.add(agents.get(j).getContactNumber());
+            }
+
+        while (number.size()<3&&i<3)//i represents level
+        {
+            List<Agent> agentsnext=agentRepository.getByStatusandDepartment(x,++i);
+            Collections.sort(agentsnext,new SortByTimeStamp());
+            for(int j=0;j<3-number.size()&&j<agentsnext.size();j++)
+            {
+                Agent tempAgent = agents.get(j);
+                tempAgent.setStatus(AgentStatus.QUEUED);
+                tempAgent.setLeasedBy(call);
+                this.agentRepository.save(tempAgent);
+                number.add(agentsnext.get(j).getContactNumber());
+            }
         }
         if (agents.isEmpty()) {
             JSONObject entity = new JSONObject();
@@ -92,15 +113,7 @@ public class NodeController {
                     "later");
             return new ResponseEntity<>(entity, HttpStatus.OK);
         }
-        if (agents.size() >= 3) {
-            for (int j = 0; j < 3; j++) {
-                Agent tempAgent = agents.get(j);
-                tempAgent.setStatus(AgentStatus.QUEUED);
-                tempAgent.setLeasedBy(call);
-                this.agentRepository.save(tempAgent);
-                number.add(agents.get(j).getContactNumber());
-            }
-        } else if (agents.size() < 3) {
+   /* if (agents.size() < 3) {
             for (int j = 0; j < agents.size(); j++) {
                 Agent tempAgent = agents.get(j);
                 tempAgent.setStatus(AgentStatus.QUEUED);
@@ -108,7 +121,7 @@ public class NodeController {
                 this.agentRepository.save(tempAgent);
                 number.add(agents.get(j).getContactNumber());
             }
-        }
+        }*/
         /*List<String> numbers=new ArrayList<>();
         numbers.add("+917338897712");*/
         call.setStatus(CallStatus.AWAITING_CONNECTION_TO_AGENT);

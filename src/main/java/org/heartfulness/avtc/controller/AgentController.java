@@ -56,6 +56,7 @@ public class AgentController {
         Agent agent = this.agentRepository.findByContactNumber(this.securityService.getUser().getPhoneNumber());
         LocalDateTime localDateTime = LocalDateTime.now();
         Logger logger=new Logger();
+        HashMap<Integer, Character> m = new HashMap<>();
         logger.setAgent(agent);
         Timestamp timestamp = Timestamp.valueOf(localDateTime);
         logger.setTimestamp(timestamp);
@@ -175,7 +176,7 @@ public class AgentController {
 
         List<Call> calls=categoryCreationDTO.getCallList();
         for(Call call:calls) {
-            Call add=callRepository.findById(call.getId());
+            Call add = callRepository.findById(call.getId());
             add.setDescription(call.getDescription());
             add.setCategory(call.getCategory());
             callRepository.save(add);

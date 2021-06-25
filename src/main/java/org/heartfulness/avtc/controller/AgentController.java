@@ -117,9 +117,9 @@ public class AgentController {
         calls.addAll(unsavedCalls);
         calls.addAll(saved);
         categoryCreationDTO.setCallList(calls);
-        Schedule schedule = new Schedule();
+        List<Schedule> schedule=new ArrayList<>();
         Other other = new Other();
-        schedule.setAgent(agent);
+        schedule=scheduleRepository.findByAgent(agent);
         /*for(int i = 0; i < calls.size(); i++) {
             calls.get(i).setCategory(CallCategory.ADJUSTMENT_DISORDERS);
             categoryCreationDTO.addCall(calls.get(i));
@@ -128,8 +128,8 @@ public class AgentController {
         modelMap.put("end", endTime);
         modelMap.put("role", agent.getRole().toString());
         modelMap.put("other",other);
-        schedule.setId(1L);
-        modelMap.put("schedule", schedule);
+       // schedule.get(0).setId(1L);
+        modelMap.put("schedule", schedule.get(0));
         modelMap.put("calls",categoryCreationDTO);
         //agent is validated
         //    List<Call> calls = this.callRepository.findAllByAgent(agent);
@@ -143,9 +143,15 @@ public class AgentController {
         LocalTime t= LocalTime.now();
         Time time=Time.valueOf(t);
         Schedule schedule=new Schedule();
+
         schedule.setStartTime(time);
         String x=other.getEndtime();
         Agent agent=agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber());
+        List<Schedule> old=scheduleRepository.findByAgent(agent);
+        if(old!=null)
+        {
+            scheduleRepository.delete(old.get(0));
+        }
         schedule.setAgent(agent);
         System.out.println(x);
 

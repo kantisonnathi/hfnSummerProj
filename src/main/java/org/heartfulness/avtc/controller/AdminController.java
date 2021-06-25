@@ -34,6 +34,16 @@ public class AdminController {
         this.teamRepository = teamRepository;
     }
 
+    @GetMapping("/lead/team/view")
+    public String teamLeadView() {
+        Agent loggedInAgent = this.agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber());
+        if (!loggedInAgent.getRole().equals(AgentRole.TEAM_LEAD)) {
+            //not authorized to view this page.
+            return "main/error";
+        }
+        return "main/error";
+    }
+
     @GetMapping("/teams/all")
     public String showAllTeams(ModelMap modelMap) {
         Agent loggedInAgent = this.agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber());

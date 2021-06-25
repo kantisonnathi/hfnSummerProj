@@ -162,6 +162,9 @@ public class AgentController {
         List<Agent> agents = new ArrayList<>();
         agents.add(loggedInAgent);
         Team team = this.teamRepository.findTeamByAgentsIn(agents);
+        if (team == null) {
+            return "redirect:/success";
+        }
         modelMap.put("team", team);
         return "main/viewTeam";
     }

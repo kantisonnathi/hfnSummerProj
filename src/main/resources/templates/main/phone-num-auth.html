@@ -30,11 +30,9 @@
                 <td>
                     <div style="text-align: center" id="mobreg">
                         <h3>Enter Mobile number </h3>
-                        <label for="phoneNumber">Phone Number</label>
-                        <input type="text" th:field="${userEntity.contactNumber}" id="phoneNumber" placeholder="phoneNumber">
-                        <br>
-                        <br>
-
+                        <label for="phoneNumber">Phone Number:</label>
+                        <input type="text" th:field="${userEntity.contactNumber}" id="phoneNumber" placeholder="+91**********">
+                        <p>Please ensure the city code is included, without any spaces.</p>
                         <center><div class ="recaptcha" id="recaptcha-container"></div></center>
                         <button type="button" onclick="phoneAuth()">send code</button>
                         <br>

@@ -88,5 +88,5 @@ input:checked + .slider:before {
 
 /* Change the color of links on hover */
 .topnav a:hover {
-    background-color: rosybrown;
+    background-color: #7a4d4b;
 }

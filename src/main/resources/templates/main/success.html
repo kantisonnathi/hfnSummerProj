@@ -17,7 +17,7 @@
 <div id="top-banner">
     <br>
     <div>
-        <img src="../../static/images/vtc-logo-text.jpeg" th:src="@{/images/vtc-trans-bg.png}" style="height: 200px;">
+        <img src="../../static/images/vtc-logo-text.jpeg" th:src="@{/images/vtc-logo-text.jpeg}" style="height: 200px;">
         <br>
     </div>
 </div>
@@ -35,7 +35,7 @@
 <div th:if="${role == 'TEAM_LEAD'}">
     <nav>
         <div class="topnav">
-            <a th:href="@{}">View My Team</a> <!-- make this -->
+            <a th:href="@{/lead/team/view}">View My Team</a> <!-- make this -->
             <a th:href="@{/addDetails}">Edit My Details</a>
             <a th:href="@{/private/sessionLogout}">Log Out</a>
         </div>

@@ -85,7 +85,7 @@ public class MainController {
 
         cookieUtils.deleteCookie("session");
         cookieUtils.deleteCookie("authenticated");
-        return "redirect:/main";
+        return "main/login-redirect";
     }
 
 

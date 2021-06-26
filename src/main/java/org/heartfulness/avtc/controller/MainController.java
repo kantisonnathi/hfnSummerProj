@@ -4,23 +4,22 @@ package org.heartfulness.avtc.controller;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import org.heartfulness.avtc.model.Agent;
-import org.heartfulness.avtc.model.Schedule;
+import org.heartfulness.avtc.model.LogEvent;
+import org.heartfulness.avtc.model.Logger;
 import org.heartfulness.avtc.repository.AgentRepository;
+import org.heartfulness.avtc.repository.LoggerRepository;
 import org.heartfulness.avtc.security.auth.SecurityService;
 import org.heartfulness.avtc.security.auth.models.Credentials;
 import org.heartfulness.avtc.security.auth.models.SecurityProperties;
+import org.heartfulness.avtc.security.auth.models.User;
 import org.heartfulness.avtc.security.utils.CookieUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import javax.servlet.http.HttpServletResponse;
-import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Stack;
 
 
 @Controller
@@ -38,8 +37,11 @@ public class MainController {
 
     private final AgentRepository agentRepository;
 
-    public MainController(AgentRepository agentRepository) {
+    private final LoggerRepository loggerRepository;
+
+    public MainController(AgentRepository agentRepository, LoggerRepository loggerRepository) {
         this.agentRepository = agentRepository;
+        this.loggerRepository = loggerRepository;
     }
 
 
@@ -72,7 +74,7 @@ public class MainController {
     }
 
     @GetMapping("/private/sessionLogout")
-    public String deleteSessionCookie() {
+    public String deleteSessionCookie(@AuthenticationPrincipal User user) {
         if (securityService.getCredentials().getType() == Credentials.CredentialType.SESSION
                 && secProps.getFirebaseProps().isEnableLogoutEverywhere()) {
             try {
@@ -82,7 +84,10 @@ public class MainController {
             }
         }
         //cookieUtils.deleteSecureCookie("session");
-
+        Logger logger = new Logger();
+        logger.setAgent(this.agentRepository.findByContactNumber(user.getPhoneNumber()));
+        logger.setLogEvent(LogEvent.MANUAL_LOGOUT);
+        this.loggerRepository.save(logger);
         cookieUtils.deleteCookie("session");
         cookieUtils.deleteCookie("authenticated");
         return "main/login-redirect";

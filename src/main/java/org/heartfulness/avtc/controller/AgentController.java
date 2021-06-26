@@ -130,7 +130,14 @@ public class AgentController {
         modelMap.put("role", agent.getRole().toString());
         modelMap.put("other",other);
        // schedule.get(0).setId(1L);
-        modelMap.put("schedule", schedule.get(0));
+        if(!schedule.isEmpty()) {
+            modelMap.put("schedule", schedule.get(0));
+        }
+        else
+        {
+            Schedule schedule1=new Schedule();
+            modelMap.put("schedule",schedule1);
+        }
         modelMap.put("calls",categoryCreationDTO);
         //agent is validated
         //    List<Call> calls = this.callRepository.findAllByAgent(agent);
@@ -149,7 +156,7 @@ public class AgentController {
         String x=other.getEndtime();
         Agent agent=agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber());
         List<Schedule> old=scheduleRepository.findByAgent(agent);
-        if(old!=null)
+        if(!old.isEmpty())
         {
             scheduleRepository.delete(old.get(0));
         }

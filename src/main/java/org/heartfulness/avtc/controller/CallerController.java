@@ -1,17 +1,26 @@
 package org.heartfulness.avtc.controller;
 
+import org.heartfulness.avtc.model.Call;
 import org.heartfulness.avtc.model.Caller;
 import org.heartfulness.avtc.repository.CallerRepository;
+import org.heartfulness.avtc.service.CallService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.ws.rs.Path;
+import java.util.List;
 
 @Controller
 public class CallerController {
+
+    @Autowired
+    private CallService callService;
 
     private final CallerRepository callerRepository;
 
@@ -33,4 +42,8 @@ public class CallerController {
         this.callerRepository.save(caller);
         return "redirect:/success";
     }
+
+
+
+
 }

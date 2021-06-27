@@ -6,7 +6,11 @@ import org.heartfulness.avtc.model.*;
 import org.heartfulness.avtc.model.AfterCallClasses.CategoryCreationDTO;
 import org.heartfulness.avtc.repository.*;
 import org.heartfulness.avtc.security.auth.SecurityService;
+import org.heartfulness.avtc.service.CallService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +38,9 @@ public class AgentController {
 
     @Autowired
     NodeConfiguration nodeConfiguration;
+
+    @Autowired
+    private CallService callService;
 
 
     private final AgentRepository agentRepository;
@@ -100,7 +107,7 @@ public class AgentController {
         Agent agent = agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber());
         modelMap.put("agent", agent);
         CategoryCreationDTO categoryCreationDTO=new CategoryCreationDTO();
-        List<Call> calls = this.callRepository.findAllByAgent(agent);
+        List<Call> calls = this.callService.getAllCalls();
         // parse through calls and keep unsaved ones at the top
         List<Call> unsavedCalls = new ArrayList<>();
         List<Call> saved = new ArrayList<>();
@@ -146,6 +153,7 @@ public class AgentController {
 
         // return "main/success";
     }
+
     @PostMapping("/schedule")
     public String getTime(@ModelAttribute("other") Other other) throws ParseException {
         LocalTime t= LocalTime.now();
@@ -170,6 +178,7 @@ public class AgentController {
         scheduleRepository.save(schedule);
         return "redirect:/success";
     }
+
     @GetMapping("/team/view")
     public String viewTeam(ModelMap modelMap) {
         Agent loggedInAgent = this.agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber()) ;
@@ -184,17 +193,43 @@ public class AgentController {
     }
 
     @PostMapping("/editCall")
-    public String addDescription(@ModelAttribute("calls") CategoryCreationDTO categoryCreationDTO)
-    {
+    public String addDescription(@ModelAttribute("calls") CategoryCreationDTO categoryCreationDTO) {
 
-        List<Call> calls=categoryCreationDTO.getCallList();
-        for(Call call:calls) {
-            Call add = callRepository.findById(call.getId());
+        List<Call> calls = categoryCreationDTO.getCallList();
+        for (Call call : calls) {
+            Call add = callRepository.findById(call.getId()).get();
             add.setDescription(call.getDescription());
             add.setCategory(call.getCategory());
             callRepository.save(add);
         }
         return "redirect:/success";
+    }
+
+    @GetMapping("/agent/{agentid}/viewAllCalls")
+    public String viewAllAgentCalls(@PathVariable("agentid") Long agentId, ModelMap modelMap) {
+        Agent agent = this.agentRepository.findById(agentId);
+        return findPaginatedByAgent(1, "id", "asc", agent, modelMap);
+    }
+
+    @GetMapping("/pageAgent/{pageNo}")
+    public String findPaginatedByAgent(@PathVariable("pageNo") Integer pageNo,
+                                @RequestParam("sortField") String sortField,
+                                @RequestParam("sortDir") String sortDir, Agent agent, ModelMap modelMap) {
+        int pageSize = 10;
+
+        Page<Call> page = callService.findAllByAgent(agent, pageNo, pageSize, sortField, sortDir);
+        List<Call> listCalls = page.getContent();
+
+        modelMap.put("currentPage", pageNo);
+        modelMap.put("totalPages", page.getTotalPages());
+        modelMap.put("totalItems", page.getTotalElements());
+
+        modelMap.put("sortField", sortField);
+        modelMap.put("sortDir", sortDir);
+        modelMap.put("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
+        modelMap.put("listCalls", listCalls);
+        return "calls/viewCallsAgent";
     }
 
 }

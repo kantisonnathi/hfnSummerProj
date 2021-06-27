@@ -7,6 +7,7 @@ import org.heartfulness.avtc.config.NodeConfiguration;
 import org.heartfulness.avtc.model.*;
 import org.heartfulness.avtc.model.AfterCallClasses.AfterCallNode;
 import org.heartfulness.avtc.repository.*;
+import org.heartfulness.avtc.service.CallService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +39,9 @@ public class NodeController {
     private final LoggerRepository loggerRepository;
 
     private final DepartmentRepository departmentRepository;
+
+    @Autowired
+    private CallService callService;
 
     public NodeController(AgentRepository agentRepository, CallerRepository callerRepository, LanguageRepository languageRepository,
                           ServiceRepository serviceRepository, CallRepository callRepository, LoggerRepository loggerRepository, DepartmentRepository departmentRepository) {
@@ -78,7 +82,7 @@ public class NodeController {
         List<Agent> agents = new ArrayList<>();
         /*List<Call> calls = this.callRepository.findAllByCallerAndCallStatus(caller, CallStatus.CONNECTED_TO_IVR);
         Call call = calls.get(calls.size()-1);*/
-        Call call = this.callRepository.findByUid(input.getUid());
+        Call call = this.callService.findByUid(input.getUid());
         int i =caller.getLevel();
         agents=agentRepository.getByStatusandDepartment(x,i);
         Collections.sort(agents,new SortByTimeStamp());
@@ -162,7 +166,7 @@ public class NodeController {
             caller.setContactNumber("+91" + inCallNode.getClid());
             caller = this.callerRepository.save(caller);
         }
-        Call call = this.callRepository.findByUid(inCallNode.getUid());
+        Call call = this.callService.findByUid(inCallNode.getUid());
         Agent agent;
         Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
         switch (inCallNode.getCall_state()) {
@@ -256,7 +260,7 @@ public class NodeController {
         List<JSONObject> entities = new ArrayList<>();
         Gson gson=new Gson();
         AfterCallNode afterCallNode=gson.fromJson(jsonString,AfterCallNode.class);
-        Call call = this.callRepository.findByUid(afterCallNode.get_pm().get(0).getVl());
+        Call call = this.callService.findByUid(afterCallNode.get_pm().get(0).getVl());
         //System.out.println(afterCallNode.get_cl());
         String a=afterCallNode.get_cl();
         Caller caller=callerRepository.findByContactNumber(a);

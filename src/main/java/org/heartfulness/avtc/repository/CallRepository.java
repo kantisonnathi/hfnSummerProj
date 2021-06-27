@@ -2,28 +2,21 @@ package org.heartfulness.avtc.repository;
 
 import org.heartfulness.avtc.model.Agent;
 import org.heartfulness.avtc.model.Call;
-import org.heartfulness.avtc.model.CallStatus;
-import org.heartfulness.avtc.model.Caller;
-import org.springframework.data.repository.Repository;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
-import java.util.Set;
+import java.util.Optional;
 
-public interface CallRepository extends Repository<Call, Long> {
+public interface CallRepository extends JpaRepository<Call, Long> {
 
-    List<Call> findAllByAgent(Agent agent);
+    Page<Call> findAllByAgent(Agent agent, Pageable pageable);
 
-    Call save(Call call);
+    @NotNull
+    Optional<Call> findById(@NotNull Long id);
 
-    Call findByCallerAndStartTime(Caller caller, String startTime);
-    Call findById(Long id);
-    Call findByCaller(Caller caller);
+    Optional<Call> findByUid(String uid);
 
-    Set<Call> findAllByCallerAndAgent(Caller caller, Agent agent);
-
-    Call findByCallerAndCallStatus(Caller caller, CallStatus callStatus);
-
-    List<Call> findAllByCallerAndCallStatus(Caller caller, CallStatus callStatus);
-
-    Call findByUid(String uid);
 }

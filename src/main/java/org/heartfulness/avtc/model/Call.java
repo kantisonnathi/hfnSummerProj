@@ -39,7 +39,6 @@ public class Call extends BaseEntity {
     @Column(name="saved")
      private boolean saved;
 
-
     @Column(name="duration")
     private String duration;
 

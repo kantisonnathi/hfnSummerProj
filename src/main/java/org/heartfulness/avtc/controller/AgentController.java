@@ -125,9 +125,8 @@ public class AgentController {
         calls.addAll(unsavedCalls);
         calls.addAll(saved);
         categoryCreationDTO.setCallList(calls);
-        List<Schedule> schedule=new ArrayList<>();
+
         Other other = new Other();
-        schedule=scheduleRepository.findByAgent(agent);
         /*for(int i = 0; i < calls.size(); i++) {
             calls.get(i).setCategory(CallCategory.ADJUSTMENT_DISORDERS);
             categoryCreationDTO.addCall(calls.get(i));
@@ -137,14 +136,6 @@ public class AgentController {
         modelMap.put("role", agent.getRole().toString());
         modelMap.put("other",other);
        // schedule.get(0).setId(1L);
-        if(!schedule.isEmpty()) {
-            modelMap.put("schedule", schedule.get(0));
-        }
-        else
-        {
-            Schedule schedule1=new Schedule();
-            modelMap.put("schedule",schedule1);
-        }
         modelMap.put("calls",categoryCreationDTO);
         //agent is validated
         //    List<Call> calls = this.callRepository.findAllByAgent(agent);
@@ -157,25 +148,17 @@ public class AgentController {
     @PostMapping("/schedule")
     public String getTime(@ModelAttribute("other") Other other) throws ParseException {
         LocalTime t= LocalTime.now();
-        Time time=Time.valueOf(t);
-        Schedule schedule=new Schedule();
-
-        schedule.setStartTime(time);
+       // Time time=Time.valueOf(t);
         String x=other.getEndtime();
         Agent agent=agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber());
-        List<Schedule> old=scheduleRepository.findByAgent(agent);
-        if(!old.isEmpty())
-        {
-            scheduleRepository.delete(old.get(0));
-        }
-        schedule.setAgent(agent);
+
         System.out.println(x);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         LocalTime endtime = LocalTime.parse(x, formatter);
         Time end=Time.valueOf(endtime);
-        schedule.setEndTime(end);
-        scheduleRepository.save(schedule);
+        agent.setTime(end);
+        agentRepository.save(agent);
         return "redirect:/success";
     }
 

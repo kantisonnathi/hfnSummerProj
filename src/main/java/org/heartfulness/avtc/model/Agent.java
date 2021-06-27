@@ -2,11 +2,15 @@ package org.heartfulness.avtc.model;
 
 
 
+import com.google.api.client.util.DateTime;
+
 import javax.persistence.*;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.sql.Time;
 
 @Entity
 @Table(name = "agent")
@@ -57,6 +61,16 @@ public class Agent extends BaseEntity {
 
     @Column(name="level",length =1)
     private int level;
+    @Column(name = "endTime")
+    private Time Time;
+
+    public java.sql.Time getTime() {
+        return Time;
+    }
+
+    public void setTime(java.sql.Time time) {
+        Time = time;
+    }
 
     @ManyToMany(fetch=FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<Department> departments;

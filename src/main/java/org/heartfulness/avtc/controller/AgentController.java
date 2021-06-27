@@ -131,8 +131,6 @@ public class AgentController {
             calls.get(i).setCategory(CallCategory.ADJUSTMENT_DISORDERS);
             categoryCreationDTO.addCall(calls.get(i));
         }*/
-        String endTime = "";
-        modelMap.put("end", endTime);
         modelMap.put("role", agent.getRole().toString());
         modelMap.put("other",other);
        // schedule.get(0).setId(1L);

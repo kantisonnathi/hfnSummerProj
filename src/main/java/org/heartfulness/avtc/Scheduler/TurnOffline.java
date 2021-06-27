@@ -35,21 +35,21 @@ public class TurnOffline {
     @Scheduled(fixedDelay = 100000)
     public void turnoffline() throws ParseException {
      // Agent agent=agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber());
-      List<Schedule> schedules=scheduleRepository.findAll();
+      List<Agent> agents=agentRepository.findAllByTimeNotNull();
       LocalTime time=java.time.LocalTime.now();
       Time t=Time.valueOf(time);
       String Currtime=String.valueOf(time);
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         Date d1 = sdf.parse(Currtime);
 
-        for(Schedule s: schedules)
+        for(Agent agent: agents)
       {
-          Date d2 = sdf.parse(String.valueOf(s.getEndTime()));
+          Date d2 = sdf.parse(String.valueOf(agent.getTime()));
           long elapsed = d2.getTime() - d1.getTime();
           if(elapsed<=0)
           {
-                  Agent agent=s.getAgent();
                   agent.setStatus(AgentStatus.OFFLINE);
+                  agent.setTime(null);
                   agentRepository.save(agent);
                   Logger logger=new Logger();
                   LocalDateTime localDateTime=LocalDateTime.now();
@@ -58,7 +58,6 @@ public class TurnOffline {
                   logger.setAgent(agent);
                   logger.setLogEvent(LogEvent.SCHEDULED_OFFLINE);
                   loggerRepository.save(logger);
-                  scheduleRepository.delete(s);
           }
       }
 

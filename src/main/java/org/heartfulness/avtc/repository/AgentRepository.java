@@ -29,5 +29,6 @@ public interface AgentRepository extends Repository<Agent, Long> {
     List<Agent> getByStatusandDepartment(Long deptid, int level);
 
    List<Agent> findAllByLeasedByAndStatus(Call call, AgentStatus status);
-
+   @Query(value = "select * from Agent a  where a.end_time is not null",nativeQuery = true)
+  List<Agent> findAllByTimeNotNull();
 }

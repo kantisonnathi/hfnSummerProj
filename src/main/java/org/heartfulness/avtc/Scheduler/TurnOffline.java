@@ -48,16 +48,18 @@ public class TurnOffline {
           long elapsed = d2.getTime() - d1.getTime();
           if(elapsed<=0)
           {
-                  agent.setStatus(AgentStatus.OFFLINE);
-                  agent.setTime(null);
-                  agentRepository.save(agent);
-                  Logger logger=new Logger();
-                  LocalDateTime localDateTime=LocalDateTime.now();
-                  Timestamp timestamp=Timestamp.valueOf(localDateTime);
-                  logger.setTimestamp(timestamp);
-                  logger.setAgent(agent);
-                  logger.setLogEvent(LogEvent.SCHEDULED_OFFLINE);
-                  loggerRepository.save(logger);
+                 if(agent.getStatus()==AgentStatus.ONLINE) {
+                     agent.setStatus(AgentStatus.OFFLINE);
+                     agent.setTime(null);
+                     agentRepository.save(agent);
+                     Logger logger = new Logger();
+                     LocalDateTime localDateTime = LocalDateTime.now();
+                     Timestamp timestamp = Timestamp.valueOf(localDateTime);
+                     logger.setTimestamp(timestamp);
+                     logger.setAgent(agent);
+                     logger.setLogEvent(LogEvent.SCHEDULED_OFFLINE);
+                     loggerRepository.save(logger);
+                 }
           }
       }
 

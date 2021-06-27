@@ -1,5 +1,7 @@
 package org.heartfulness.avtc.model;
 
+import com.google.api.client.util.DateTime;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -10,27 +12,27 @@ import java.time.LocalTime;
 @Entity
 public class Schedule extends BaseEntity {
 
-    private Time startTime;
+    private DateTime startTime;
 
-    private Time endTime;
+    private DateTime endTime;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Agent.class)
     @JoinColumn(name = "agent_id")
     private Agent agent;
 
-    public Time getStartTime() {
+    public DateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Time startTime) {
+    public void setStartTime(DateTime startTime) {
         this.startTime = startTime;
     }
 
-    public Time getEndTime() {
+    public DateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Time endTime) {
+    public void setEndTime(DateTime endTime) {
         this.endTime = endTime;
     }
 

@@ -7,6 +7,7 @@ import org.heartfulness.avtc.config.NodeConfiguration;
 import org.heartfulness.avtc.model.*;
 import org.heartfulness.avtc.model.AfterCallClasses.AfterCallNode;
 import org.heartfulness.avtc.repository.*;
+import org.heartfulness.avtc.service.AgentService;
 import org.heartfulness.avtc.service.CallService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,6 +43,8 @@ public class NodeController {
 
     @Autowired
     private CallService callService;
+    @Autowired
+    private AgentService agentService;
 
     public NodeController(AgentRepository agentRepository, CallerRepository callerRepository, LanguageRepository languageRepository,
                           ServiceRepository serviceRepository, CallRepository callRepository, LoggerRepository loggerRepository, DepartmentRepository departmentRepository) {
@@ -203,7 +206,7 @@ public class NodeController {
                 String fullUser = inCallNode.getUsers().get(0);
                 String phoneNumber = fullUser.substring(fullUser.length() - 10, fullUser.length());
                 call.setStatus(CallStatus.CONNECTED_TO_AGENT);
-                agent = this.agentRepository.findByContactNumber("+91" + phoneNumber);
+                agent = this.agentService.findBycontactNumber("+91" + phoneNumber);
                 if (agent == null) {
                     System.out.println("Agent is null, state 6\n\n\n\n");
                     break;
@@ -269,7 +272,7 @@ public class NodeController {
         call.setUrl(afterCallNode.get_fu());
         call.setDuration(afterCallNode.get_dr());
         call.setStatus(CallStatus.DISCONNECTED);
-        Agent agent=agentRepository.findById(call.getAgent().getId());
+        Agent agent=agentService.findById(call.getAgent().getId());
         //Agent agent=agentRepository.findByContactNumber("+917338897712");//Phone number was not caught during afternode testing
         call.setAgent(agent);
         callRepository.save(call);

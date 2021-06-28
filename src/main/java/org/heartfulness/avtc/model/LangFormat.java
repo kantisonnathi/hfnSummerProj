@@ -3,6 +3,7 @@ package org.heartfulness.avtc.model;
 import org.heartfulness.avtc.repository.AgentRepository;
 import org.heartfulness.avtc.repository.LanguageRepository;
 import org.heartfulness.avtc.security.auth.SecurityService;
+import org.heartfulness.avtc.service.AgentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,8 @@ import java.util.List;
 public class LangFormat implements Converter<String,Language> {
     @Autowired
     SecurityService securityService;
+    @Autowired
+    AgentService agentService;
     private LanguageRepository languageRepository;
     private AgentRepository agentRepository;
 
@@ -29,7 +32,7 @@ public class LangFormat implements Converter<String,Language> {
     public Language convert(String id) {
         //System.out.println("Trying to convert "+ id+ "into a lang");
         int parsedId=Integer.parseInt(id);
-        Agent agent=agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber());
+        Agent agent= agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
         List<Language> l=languageRepository.findAll();
         int index=parsedId-1;
         return l.get(index);

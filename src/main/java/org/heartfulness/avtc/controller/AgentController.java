@@ -6,6 +6,8 @@ import org.heartfulness.avtc.model.*;
 import org.heartfulness.avtc.model.AfterCallClasses.CategoryCreationDTO;
 import org.heartfulness.avtc.repository.*;
 import org.heartfulness.avtc.security.auth.SecurityService;
+import org.heartfulness.avtc.service.AgentService;
+import org.heartfulness.avtc.service.AgentServiceImpl;
 import org.heartfulness.avtc.service.CallService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,6 +17,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,7 +44,8 @@ public class AgentController {
 
     @Autowired
     private CallService callService;
-
+   @Autowired
+   private AgentService agentService;
 
     private final AgentRepository agentRepository;
     private final CallRepository callRepository;
@@ -60,7 +64,7 @@ public class AgentController {
 
     @GetMapping("/mark/{status}")
     public String markStatus(@PathVariable("status") String status) {
-        Agent agent = this.agentRepository.findByContactNumber(this.securityService.getUser().getPhoneNumber());
+        Agent agent = agentService.findBycontactNumber(this.securityService.getUser().getPhoneNumber());
         LocalDateTime localDateTime = LocalDateTime.now();
         Logger logger=new Logger();
         HashMap<Integer, Character> m = new HashMap<>();
@@ -88,7 +92,7 @@ public class AgentController {
     public ResponseEntity<?> createSessionCookie(@RequestBody String contactNumber) {
         List<JSONObject> entities = new ArrayList<JSONObject>();
         JSONObject entity = new JSONObject();
-        Agent agent = this.agentRepository.findByContactNumber(contactNumber);
+        Agent agent = this.agentService.findBycontactNumber(contactNumber);
         if (agent == null) {
             entity.put("phoneNumber", "failure");
         } else {
@@ -104,7 +108,7 @@ public class AgentController {
 
     @GetMapping("/success")
     public String getMainPage(ModelMap modelMap) {
-        Agent agent = agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber());
+        Agent agent = agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
         modelMap.put("agent", agent);
         CategoryCreationDTO categoryCreationDTO=new CategoryCreationDTO();
         List<Call> calls = this.callService.getAllCalls();
@@ -148,7 +152,7 @@ public class AgentController {
         LocalTime t= LocalTime.now();
        // Time time=Time.valueOf(t);
         String x=other.getEndtime();
-        Agent agent=agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber());
+        Agent agent=agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
 
         System.out.println(x);
 
@@ -162,7 +166,7 @@ public class AgentController {
 
     @GetMapping("/team/view")
     public String viewTeam(ModelMap modelMap) {
-        Agent loggedInAgent = this.agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber()) ;
+        Agent loggedInAgent =agentService.findBycontactNumber(securityService.getUser().getPhoneNumber()) ;
         List<Agent> agents = new ArrayList<>();
         agents.add(loggedInAgent);
         Team team = this.teamRepository.findTeamByAgentsIn(agents);
@@ -188,10 +192,25 @@ public class AgentController {
 
     @GetMapping("/agent/{agentid}/viewAllCalls")
     public String viewAllAgentCalls(@PathVariable("agentid") Long agentId, ModelMap modelMap) {
-        Agent agent = this.agentRepository.findById(agentId);
+        Agent agent = this.agentService.findById(agentId);
         return findPaginatedByAgent(1, "id", "asc", agent, modelMap);
     }
-
+    @GetMapping("/Agentpage/{pageNo}")
+    public String findPaginated(@PathVariable(value = "pageNo") int pageNo, Model model){
+        int pageSize=10;
+        Page<Agent> page= agentService.findPaginated(pageNo,pageSize);
+       List<Agent> agentList=page.getContent();
+       model.addAttribute("currentPage",pageNo);
+       model.addAttribute("totalPages",page.getTotalPages());
+       model.addAttribute("totalItems",page.getTotalElements());
+       model.addAttribute("listAgent",agentList);
+       return "agents/viewAgents";
+    }
+   @GetMapping("/viewAllAgents")
+   public String viewAllagents(Model model)
+   {
+       return findPaginated(1,model);
+   }
     @GetMapping("/pageAgent/{pageNo}")
     public String findPaginatedByAgent(@PathVariable("pageNo") Integer pageNo,
                                 @RequestParam("sortField") String sortField,

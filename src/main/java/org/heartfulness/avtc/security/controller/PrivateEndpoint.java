@@ -12,6 +12,7 @@ import org.heartfulness.avtc.security.auth.models.Credentials;
 import org.heartfulness.avtc.security.auth.models.SecurityProperties;
 import org.heartfulness.avtc.security.auth.models.User;
 import org.heartfulness.avtc.security.utils.CookieUtils;
+import org.heartfulness.avtc.service.AgentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +38,8 @@ public class PrivateEndpoint {
 
     @Autowired
     CookieUtils cookieUtils;
+    @Autowired
+    AgentService agentService;
 
     private final LoggerRepository loggerRepository;
 
@@ -64,7 +67,7 @@ public class PrivateEndpoint {
             response.addCookie(cookie);
             Logger log = new Logger();
             log.setLogEvent(LogEvent.LOGIN);
-            log.setAgent(this.agentRepository.findByContactNumber(user.getPhoneNumber()));
+            log.setAgent(this.agentService.findBycontactNumber(user.getPhoneNumber()));
             this.loggerRepository.save(log);
             return new ResponseEntity<>("logged in", HttpStatus.OK);
         } catch (FirebaseAuthException e) {

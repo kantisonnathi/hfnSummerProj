@@ -6,6 +6,7 @@ import org.heartfulness.avtc.repository.DepartmentRepository;
 import org.heartfulness.avtc.repository.LanguageRepository;
 import org.heartfulness.avtc.repository.ServiceRepository;
 import org.heartfulness.avtc.security.auth.SecurityService;
+import org.heartfulness.avtc.service.AgentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -22,6 +23,8 @@ import java.util.Set;
 public class DepartmentController {
     @Autowired
     SecurityService securityService;
+    @Autowired
+    AgentService agentService;
 
     private final LanguageRepository languageRepository;
     private final ServiceRepository serviceRepository;
@@ -53,7 +56,7 @@ public class DepartmentController {
            others.add(other);
        }
         List<Language> entered=new ArrayList<>();
-        Agent agent=agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber());
+        Agent agent=agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
 
         modelMap.put("agent",agent);
         modelMap.put("others",others);
@@ -64,7 +67,7 @@ public class DepartmentController {
     @PostMapping("/addDetails")
     public String afterDetails(@ModelAttribute("agent") Agent agent)
     {
-         Agent newAgent=agentRepository.findByContactNumber(securityService.getUser().getPhoneNumber());
+         Agent newAgent= agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
          newAgent.setGender(agent.getGender());
          newAgent.setName(agent.getName());
          newAgent.setDepartments(agent.getDepartments());

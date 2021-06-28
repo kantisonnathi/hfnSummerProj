@@ -13,6 +13,7 @@ import org.heartfulness.avtc.security.auth.models.Credentials;
 import org.heartfulness.avtc.security.auth.models.SecurityProperties;
 import org.heartfulness.avtc.security.auth.models.User;
 import org.heartfulness.avtc.security.utils.CookieUtils;
+import org.heartfulness.avtc.service.AgentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -34,6 +35,8 @@ public class MainController {
 
     @Autowired
     CookieUtils cookieUtils;
+    @Autowired
+    AgentService agentService;
 
     private final AgentRepository agentRepository;
 
@@ -61,7 +64,7 @@ public class MainController {
     @PostMapping("/main")
     public String postMain(Agent agent) {
         //String phoneNumber = principal.getName();
-        Agent agent1 = this.agentRepository.findByContactNumber("+917338897712");
+        Agent agent1 = this.agentService.findBycontactNumber("+919550563765");
         if (agent1 == null) {
             return "main/error";
         }
@@ -85,7 +88,7 @@ public class MainController {
         }
         //cookieUtils.deleteSecureCookie("session");
         Logger logger = new Logger();
-        logger.setAgent(this.agentRepository.findByContactNumber(user.getPhoneNumber()));
+        logger.setAgent(this.agentService.findBycontactNumber(user.getPhoneNumber()));
         logger.setLogEvent(LogEvent.MANUAL_LOGOUT);
         this.loggerRepository.save(logger);
         cookieUtils.deleteCookie("session");

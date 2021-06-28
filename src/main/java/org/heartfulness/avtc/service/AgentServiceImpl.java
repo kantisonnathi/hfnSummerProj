@@ -78,8 +78,9 @@ public class AgentServiceImpl implements AgentService{
     }
 
     @Override
-    public Page<Agent> findPaginated(int pageno, int pagesize) {
-        Pageable pageable= PageRequest.of(pageno-1,pagesize);
+    public Page<Agent> findPaginated(int pageno, int pagesize,String sortField,String sortDirection) {
+        Sort sort=sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name())?Sort.by(sortField).ascending():Sort.by(sortField).descending();
+        Pageable pageable= PageRequest.of(pageno-1,pagesize,sort);
         return this.agentRepository.findAll(pageable);
     }
 

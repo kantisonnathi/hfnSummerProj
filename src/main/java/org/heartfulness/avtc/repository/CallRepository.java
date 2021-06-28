@@ -12,7 +12,9 @@ import java.util.Optional;
 
 public interface CallRepository extends JpaRepository<Call, Long> {
 
-    Page<Call> findAllByAgent(Agent agent, Pageable pageable);
+    Page<Call> findAllPaginatedByAgent(Agent agent, Pageable pageable);
+
+    List<Call> findAllByAgent(Agent agent);
 
     @NotNull
     Optional<Call> findById(@NotNull Long id);

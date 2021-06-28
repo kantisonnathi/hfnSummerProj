@@ -2,22 +2,23 @@ package org.heartfulness.avtc.service;
 
 import org.heartfulness.avtc.model.Agent;
 import org.heartfulness.avtc.model.Call;
+import org.heartfulness.avtc.model.Team;
+import org.heartfulness.avtc.repository.AgentRepository;
 import org.heartfulness.avtc.repository.CallRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class CallServiceImpl implements CallService {
 
     @Autowired
     private CallRepository callRepository;
+
+    @Autowired
+    private AgentRepository agentRepository;
 
     @Override
     public List<Call> getAllCalls() {
@@ -46,7 +47,7 @@ public class CallServiceImpl implements CallService {
         Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
                 Sort.by(sortField).descending();
         Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
-        return this.callRepository.findAllByAgent(agent, pageable);
+        return this.callRepository.findAllPaginatedByAgent(agent, pageable);
     }
 
     @Override
@@ -62,6 +63,29 @@ public class CallServiceImpl implements CallService {
     public Call findByUid(String uid) {
         Optional<Call> call = this.callRepository.findByUid(uid);
         return call.orElse(null);
+    }
+
+    @Override
+    public Page<Call> findAllByTeam(Team team, int pageNo, int pageSize, String sortField, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
+                Sort.by(sortField).descending();
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
+        List<Call> calls = new ArrayList<>();
+        Set<Agent> agents = this.agentRepository.findAgentsByTeamEquals(team);
+        for (Agent agent : agents) {
+            calls.addAll(this.callRepository.findAllByAgent(agent));
+        }
+        Page<Call> ret = toPage(calls, pageable);
+        return ret;
+    }
+
+
+    private Page<Call> toPage(List<Call> list, Pageable pageable) {
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), list.size());
+        if(start > list.size())
+            return new PageImpl<Call>(new ArrayList<>(), pageable, list.size());
+        return new PageImpl<Call>(list.subList(start, end), pageable, list.size());
     }
 
 }

@@ -213,4 +213,32 @@ public class AgentController {
         return "calls/viewCallsAgent";
     }
 
+    @GetMapping("/team/{teamid}/viewAllCalls")
+    public String viewAllTeamCalls(@PathVariable("teamid") Long teamId, ModelMap modelMap) {
+        Team team = this.teamRepository.findById(teamId);
+        return findPaginatedByTeam(1, "id", "asc", team, modelMap);
+    }
+
+    @GetMapping("/teamPage/{pageno}")
+    public String findPaginatedByTeam(@PathVariable("pageno") Integer pageNo,
+                                      @RequestParam("sortField") String sortField,
+                                      @RequestParam("sortDir") String sortDir, Team team, ModelMap modelMap) {
+        int pageSize = 10;
+
+        Page<Call> page = callService.findAllByTeam(team, pageNo, pageSize, sortField, sortDir);
+
+        List<Call> listCalls = page.getContent();
+
+        modelMap.put("currentPage", pageNo);
+        modelMap.put("totalPages", page.getTotalPages());
+        modelMap.put("totalItems", page.getTotalElements());
+
+        modelMap.put("sortField", sortField);
+        modelMap.put("sortDir", sortDir);
+        modelMap.put("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
+        modelMap.put("listCalls", listCalls);
+        return "calls/viewTeamCalls";
+    }
+
 }

@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Map;
+import java.util.TreeMap;
+
 
 @Controller
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -91,6 +94,15 @@ public class MainController {
         cookieUtils.deleteCookie("session");
         cookieUtils.deleteCookie("authenticated");
         return "main/login-redirect";
+    }
+
+    @GetMapping("/dashboard")
+    public String getDashboard(ModelMap modelMap) {
+        Map<String, Integer> map = new TreeMap<>();
+        map.put("Missed calls", 5);
+        map.put("Accepted calls", 4);
+        modelMap.put("chartData", map);
+        return "main/dashboard";
     }
 
 

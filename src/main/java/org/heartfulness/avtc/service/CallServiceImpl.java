@@ -18,7 +18,7 @@ public class CallServiceImpl implements CallService {
     private CallRepository callRepository;
 
     @Autowired
-    private AgentRepository agentRepository;
+    private AgentService agentService;
 
     @Override
     public List<Call> getAllCalls() {
@@ -71,7 +71,7 @@ public class CallServiceImpl implements CallService {
                 Sort.by(sortField).descending();
         Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
         List<Call> calls = new ArrayList<>();
-        Set<Agent> agents = this.agentRepository.findAgentsByTeamEquals(team);
+        Set<Agent> agents = this.agentService.findAgentsByTeamEquals(team);
         for (Agent agent : agents) {
             calls.addAll(this.callRepository.findAllByAgent(agent));
         }

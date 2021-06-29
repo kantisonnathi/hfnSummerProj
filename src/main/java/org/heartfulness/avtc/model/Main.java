@@ -1,5 +1,6 @@
 package org.heartfulness.avtc.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.sql.Date;
 
@@ -14,6 +15,7 @@ public class Main extends BaseEntity {
 
     private Integer numberOfTeams;
 
+    @Column(unique = true)
     private Date date;
 
     public Date getDate() {

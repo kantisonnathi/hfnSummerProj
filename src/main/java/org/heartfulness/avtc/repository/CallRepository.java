@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,5 +21,7 @@ public interface CallRepository extends JpaRepository<Call, Long> {
     Optional<Call> findById(@NotNull Long id);
 
     Optional<Call> findByUid(String uid);
+
+    Integer countAllByDate(Date date);
 
 }

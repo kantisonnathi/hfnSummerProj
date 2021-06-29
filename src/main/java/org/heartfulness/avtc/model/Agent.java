@@ -22,23 +22,26 @@ public class Agent extends BaseEntity {
     @Column(name = "name")
     private String name; //mandatory
 
-    @Column(name = "missed")
-    private Integer missed;
+    @Column(name = "missed_now")
+    private Integer missedNow;
 
-    public Integer getMissed() {
-        return missed;
+    @Column(name = "missed_today")
+    private Integer missedToday;
+
+    public Integer getMissedNow() {
+        return missedNow;
     }
 
-    public void setMissed(Integer missed) {
-        this.missed = missed;
+    public void setMissedNow(Integer missedNow) {
+        this.missedNow = missedNow;
     }
 
-    public void addMissed() {
-        if (this.missed == null) {
-            missed = 1;
-        } else {
-            missed++;
-        }
+    public Integer getMissedToday() {
+        return missedToday;
+    }
+
+    public void setMissedToday(Integer missedToday) {
+        this.missedToday = missedToday;
     }
 
     @Column(name = "certified")
@@ -56,11 +59,11 @@ public class Agent extends BaseEntity {
     private Timestamp timestamp;
 
     @Column(name="gender")
-
     private char gender;
 
     @Column(name="level",length =1)
     private int level;
+
     @Column(name = "endTime")
     private Time Time;
 

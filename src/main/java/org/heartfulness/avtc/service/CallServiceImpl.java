@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.*;
 
 @Service
@@ -75,8 +76,7 @@ public class CallServiceImpl implements CallService {
         for (Agent agent : agents) {
             calls.addAll(this.callRepository.findAllByAgent(agent));
         }
-        Page<Call> ret = toPage(calls, pageable);
-        return ret;
+        return toPage(calls, pageable);
     }
 
 
@@ -86,6 +86,11 @@ public class CallServiceImpl implements CallService {
         if(start > list.size())
             return new PageImpl<Call>(new ArrayList<>(), pageable, list.size());
         return new PageImpl<Call>(list.subList(start, end), pageable, list.size());
+    }
+
+    @Override
+    public Integer countCallsInADay(Date date) {
+        return this.callRepository.countAllByDate(date);
     }
 
 }

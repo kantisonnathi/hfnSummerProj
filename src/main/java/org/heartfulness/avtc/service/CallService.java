@@ -5,6 +5,7 @@ import org.heartfulness.avtc.model.Call;
 import org.heartfulness.avtc.model.Team;
 import org.springframework.data.domain.Page;
 
+import java.sql.Date;
 import java.util.List;
 
 public interface CallService {
@@ -22,5 +23,7 @@ public interface CallService {
     Call findByUid(String uid);
 
     Page<Call> findAllByTeam(Team team, int pageNo, int pageSize, String sortField, String sortDirection);
+
+    Integer countCallsInADay(Date date);
 
 }

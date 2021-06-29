@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -37,7 +39,7 @@ public class NodeController {
 
     private final CallRepository callRepository;
 
-    private final LoggerRepository loggerRepository;
+    private final MainRepository mainRepository;
 
     private final DepartmentRepository departmentRepository;
 
@@ -47,13 +49,14 @@ public class NodeController {
     private AgentService agentService;
 
     public NodeController(AgentRepository agentRepository, CallerRepository callerRepository, LanguageRepository languageRepository,
-                          ServiceRepository serviceRepository, CallRepository callRepository, LoggerRepository loggerRepository, DepartmentRepository departmentRepository) {
+                          ServiceRepository serviceRepository, CallRepository callRepository, MainRepository mainRepository, DepartmentRepository departmentRepository) {
         this.agentRepository = agentRepository;
         this.callerRepository = callerRepository;
         this.languageRepository = languageRepository;
         this.serviceRepository = serviceRepository;
         this.callRepository = callRepository;
-        this.loggerRepository = loggerRepository;
+        this.mainRepository = mainRepository;
+
         this.departmentRepository = departmentRepository;
     }
 
@@ -148,6 +151,9 @@ public class NodeController {
     @Produces(MediaType.APPLICATION_JSON)
     public ResponseEntity<?> inCallWebHook(@RequestParam("myoperator") String jsonString) {
 
+        LocalDate date = LocalDate.now();
+        Main main = this.mainRepository.findByDate(Date.valueOf(date));
+
         System.out.println("\n\n\n" + jsonString + "\n\n\n");
 
         for (int i = 0; i < jsonString.length(); i++) {
@@ -165,6 +171,7 @@ public class NodeController {
         InCallNode inCallNode = gson.fromJson(jsonString, InCallNode.class);
         Caller caller = this.callerRepository.findByContactNumber("+91" + inCallNode.getClid().strip());
         if (caller == null) {
+            //increase the number of global callers.
             caller = new Caller();
             caller.setContactNumber("+91" + inCallNode.getClid());
             caller = this.callerRepository.save(caller);
@@ -182,7 +189,6 @@ public class NodeController {
                 caller.addCall(call);
                 call.setStatus(CallStatus.CONNECTED_TO_IVR);
                 this.callerRepository.save(caller);
-                /*call = this.callRepository.save(call);*/
                 break;
             case 2:
                 //call finished
@@ -228,6 +234,7 @@ public class NodeController {
                         currAgent.setLeasedBy(null);
                         currAgent.setStatus(AgentStatus.OFFLINE);
                         currAgent.setTimestamp(timestamp);
+                        currAgent.setMissed(0);
                         Logger log = new Logger();
                         log.setAgent(currAgent);
                         log.setLogEvent(LogEvent.FORCED_OFFLINE);

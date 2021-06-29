@@ -2,6 +2,7 @@ package org.heartfulness.avtc.model;
 
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.Set;
 
 @Entity
@@ -42,6 +43,9 @@ public class Call extends BaseEntity {
     @Column(name="duration")
     private String duration;
 
+    @Column(name = "date")
+    private Date date;
+
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Caller.class)
     @JoinColumn(name = "caller_id")
     private Caller caller;
@@ -58,6 +62,14 @@ public class Call extends BaseEntity {
 
     @OneToMany(mappedBy = "leasedBy", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Agent> leasing;
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
     public CallCategory getCategory() {
         return category;

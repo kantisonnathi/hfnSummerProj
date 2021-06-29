@@ -214,6 +214,11 @@ public class AgentController {
    {
        return findPaginated(1,"name","asc",model);
    }
+   @GetMapping("/viewTeam")
+   public String viewAgentsinTeam(Model model)
+   {
+       return findPaginated(1,"name","asc",model);
+   }
     @GetMapping("/pageAgent/{pageNo}")
     public String findPaginatedByAgent(@PathVariable("pageNo") Integer pageNo,
                                 @RequestParam("sortField") String sortField,

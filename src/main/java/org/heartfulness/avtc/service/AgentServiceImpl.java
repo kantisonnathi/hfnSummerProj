@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.*;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -73,7 +75,7 @@ public class AgentServiceImpl implements AgentService{
     }
 
     @Override
-    public Set<Agent> findAgentsByTeamEquals(Team team) {
+    public List<Agent> findAgentsByTeamEquals(Team team) {
         return this.agentRepository.findAgentsByTeamEquals(team);
     }
 
@@ -84,6 +86,20 @@ public class AgentServiceImpl implements AgentService{
         return this.agentRepository.findAll(pageable);
     }
 
+    @Override
+    public Page<Agent> findByTeam( Team team, int pageno, int pagesize, String sortField, String sortDirection) {
+        Sort sort=sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name())?Sort.by(sortField).ascending():Sort.by(sortField).descending();
+        Pageable pageable= PageRequest.of(pageno-1,pagesize,sort);
+        List<Agent> agents= this.agentRepository.findAgentsByTeamEquals(team);
+        return toPage(agents, pageable);
+    }
+    private Page<Agent> toPage(List<Agent> list, Pageable pageable) {
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), list.size());
+        if(start > list.size())
+            return new PageImpl<Agent>(new ArrayList<>(), pageable, list.size());
+        return new PageImpl<Agent>(list.subList(start, end), pageable, list.size());
+    }
     @Override
     public List<Agent> findAllByLeasedByAndStatus(Call call, AgentStatus status) {
         return this.agentRepository.findAllByLeasedByAndStatus(call,status);

@@ -17,7 +17,8 @@ public interface AgentService {
     List<Agent> findByTimeNotNull();
     List<Agent> findAgentsByDepartmentsInAndStatusEquals(Set<Department> departments, AgentStatus status);
     List<Agent> findAgentByDepartments(Department departments);
-    Set<Agent> findAgentsByTeamEquals(Team team);
+    List<Agent> findAgentsByTeamEquals(Team team);
     Page<Agent> findPaginated(int pageno, int pagesize,String sortField,String sortDirection);
+    Page<Agent> findByTeam(Team team,int pageno,int pagesize,String sortField,String sortDirection);
     List<Agent> findAllByLeasedByAndStatus(Call call, AgentStatus status);
 }

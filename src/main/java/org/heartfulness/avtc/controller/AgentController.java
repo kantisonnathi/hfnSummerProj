@@ -108,7 +108,7 @@ public class AgentController {
 
     @GetMapping("/success")
     public String getMainPage(ModelMap modelMap) {
-        Agent agent = agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
+        Agent agent = agentService.findBycontactNumber("+919550563765");
         modelMap.put("agent", agent);
         CategoryCreationDTO categoryCreationDTO=new CategoryCreationDTO();
         List<Call> calls = this.callService.getAllCalls();
@@ -209,6 +209,22 @@ public class AgentController {
        model.addAttribute("reverseSortDir",sortDir.equals("asc")?"desc":"asc");
        return "agents/viewAgents";
     }
+    @GetMapping("/AgentTeam/{pageNo}")
+    public String findPaginatedByteam(@PathVariable(value = "pageNo") int pageNo,@RequestParam("sortField") String sortField,@RequestParam("sortDir") String sortDir ,Model model){
+        int pageSize=10;
+        Agent agent=this.agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
+        Team team=this.teamRepository.findByAgentsEquals(agent);
+        Page<Agent> page= agentService.findByTeam(team,pageNo,pageSize,sortField,sortDir);
+        List<Agent> agentList=page.getContent();
+        model.addAttribute("currentPage",pageNo);
+        model.addAttribute("totalPages",page.getTotalPages());
+        model.addAttribute("totalItems",page.getTotalElements());
+        model.addAttribute("listAgent",agentList);
+        model.addAttribute("sortField",sortField);
+        model.addAttribute("sortDir",sortDir);
+        model.addAttribute("reverseSortDir",sortDir.equals("asc")?"desc":"asc");
+        return "agents/viewAgents";
+    }
    @GetMapping("/viewAllAgents")
    public String viewAllagents(Model model)
    {
@@ -217,8 +233,9 @@ public class AgentController {
    @GetMapping("/viewTeam")
    public String viewAgentsinTeam(Model model)
    {
-       return findPaginated(1,"name","asc",model);
+       return findPaginatedByteam(1,"name","asc", model);
    }
+
     @GetMapping("/pageAgent/{pageNo}")
     public String findPaginatedByAgent(@PathVariable("pageNo") Integer pageNo,
                                 @RequestParam("sortField") String sortField,

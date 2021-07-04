@@ -2,12 +2,10 @@ package org.heartfulness.avtc.Scheduler;
 
 import org.heartfulness.avtc.Comparator.sortByLog;
 import org.heartfulness.avtc.model.Agent;
-import org.heartfulness.avtc.model.LogEvent;
+import org.heartfulness.avtc.model.enums.LogEvent;
 import org.heartfulness.avtc.model.Logger;
 import org.heartfulness.avtc.repository.AgentRepository;
 import org.heartfulness.avtc.repository.LoggerRepository;
-import org.heartfulness.avtc.security.auth.SecurityService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;

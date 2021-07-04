@@ -1,6 +1,7 @@
 package org.heartfulness.avtc.service;
 
 import org.heartfulness.avtc.model.*;
+import org.heartfulness.avtc.model.enums.AgentStatus;
 import org.heartfulness.avtc.repository.AgentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;

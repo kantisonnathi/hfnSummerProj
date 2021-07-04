@@ -1,4 +1,4 @@
-package org.heartfulness.avtc.model;
+package org.heartfulness.avtc.model.enums;
 
 public enum CallerAgeGroup {
     AGES_0_TO_14,

@@ -1,8 +1,9 @@
 package org.heartfulness.avtc.model;
 
+import org.heartfulness.avtc.model.enums.LogEvent;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Set;
 
 @Entity
 @Table(name = "agent_activity_log")

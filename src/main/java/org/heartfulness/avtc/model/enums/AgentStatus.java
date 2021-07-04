@@ -1,4 +1,4 @@
-package org.heartfulness.avtc.model;
+package org.heartfulness.avtc.model.enums;
 
 public enum AgentStatus {
     ONLINE,

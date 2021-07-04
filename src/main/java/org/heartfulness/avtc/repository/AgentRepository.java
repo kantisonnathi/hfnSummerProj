@@ -1,7 +1,7 @@
 package org.heartfulness.avtc.repository;
 
-import com.google.api.gax.paging.Page;
 import org.heartfulness.avtc.model.*;
+import org.heartfulness.avtc.model.enums.AgentStatus;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

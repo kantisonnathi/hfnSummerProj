@@ -1,6 +1,9 @@
 package org.heartfulness.avtc.model;
 
 
+import org.heartfulness.avtc.model.enums.CallCategory;
+import org.heartfulness.avtc.model.enums.CallStatus;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Set;

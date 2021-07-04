@@ -6,6 +6,8 @@ import org.heartfulness.avtc.Comparator.SortByTimeStamp;
 import org.heartfulness.avtc.config.NodeConfiguration;
 import org.heartfulness.avtc.model.*;
 import org.heartfulness.avtc.model.AfterCallClasses.AfterCallNode;
+import org.heartfulness.avtc.model.enums.AgentStatus;
+import org.heartfulness.avtc.model.enums.CallStatus;
 import org.heartfulness.avtc.repository.*;
 import org.heartfulness.avtc.service.AgentService;
 import org.heartfulness.avtc.service.CallService;

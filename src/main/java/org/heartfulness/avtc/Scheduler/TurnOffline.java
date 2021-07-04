@@ -1,11 +1,11 @@
 package org.heartfulness.avtc.Scheduler;
 
 import org.heartfulness.avtc.model.*;
+import org.heartfulness.avtc.model.enums.AgentStatus;
+import org.heartfulness.avtc.model.enums.LogEvent;
 import org.heartfulness.avtc.repository.AgentRepository;
 import org.heartfulness.avtc.repository.LoggerRepository;
 import org.heartfulness.avtc.repository.ScheduleRepository;
-import org.heartfulness.avtc.security.auth.SecurityService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -49,7 +49,7 @@ public class TurnOffline {
           long elapsed = d2.getTime() - d1.getTime();
           if(elapsed<=0)
           {
-                 if(agent.getStatus()==AgentStatus.ONLINE) {
+                 if(agent.getStatus()== AgentStatus.ONLINE) {
                      agent.setStatus(AgentStatus.OFFLINE);
                      agent.setTime(null);
                      agentRepository.save(agent);

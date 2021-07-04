@@ -1,7 +1,7 @@
 package org.heartfulness.avtc.controller;
 
 import org.heartfulness.avtc.model.Agent;
-import org.heartfulness.avtc.model.AgentRole;
+import org.heartfulness.avtc.model.enums.AgentRole;
 import org.heartfulness.avtc.model.Caller;
 import org.heartfulness.avtc.model.Team;
 import org.heartfulness.avtc.repository.AgentRepository;
@@ -15,9 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/admin")

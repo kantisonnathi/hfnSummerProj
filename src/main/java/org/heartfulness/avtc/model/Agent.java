@@ -2,15 +2,14 @@ package org.heartfulness.avtc.model;
 
 
 
-import com.google.api.client.util.DateTime;
+import org.heartfulness.avtc.model.enums.AgentRole;
+import org.heartfulness.avtc.model.enums.AgentStatus;
 
 import javax.persistence.*;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.sql.Time;
 
 @Entity
 @Table(name = "agent")

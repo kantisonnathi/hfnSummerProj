@@ -4,7 +4,7 @@ package org.heartfulness.avtc.controller;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import org.heartfulness.avtc.model.Agent;
-import org.heartfulness.avtc.model.LogEvent;
+import org.heartfulness.avtc.model.enums.LogEvent;
 import org.heartfulness.avtc.model.Logger;
 import org.heartfulness.avtc.repository.AgentRepository;
 import org.heartfulness.avtc.repository.LoggerRepository;

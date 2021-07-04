@@ -1,5 +1,8 @@
 package org.heartfulness.avtc.model;
 
+import org.heartfulness.avtc.model.enums.CallerAgeGroup;
+import org.heartfulness.avtc.model.enums.CallerCategory;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;

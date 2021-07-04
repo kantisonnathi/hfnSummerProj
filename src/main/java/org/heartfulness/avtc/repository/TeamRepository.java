@@ -15,5 +15,6 @@ public interface TeamRepository extends Repository<Team, Long> {
     Team save(Team team);
 
     Team findTeamByAgentsIn(List<Agent> agents);
+    Team findByAgentsEquals(Agent agent);
 
 }

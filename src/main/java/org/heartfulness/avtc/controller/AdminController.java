@@ -71,7 +71,7 @@ public class AdminController {
             //not authorized to view this page.
             return "main/error";
         }
-        Set<Agent> agents = this.agentRepository.findAgentsByTeamEquals(null);
+        List<Agent> agents = this.agentRepository.findAgentsByTeamEquals(null);
         modelMap.put("unassignedAgents", agents);
         return "team/unassignedAgents";
 
@@ -157,7 +157,7 @@ public class AdminController {
             //not authorized
             return "main/error";
         }
-        Set<Agent> unassignedAgents = this.agentRepository.findAgentsByTeamEquals(null);
+        List<Agent> unassignedAgents = this.agentRepository.findAgentsByTeamEquals(null);
         modelMap.put("team", this.teamRepository.findById(teamID));
         modelMap.put("unassignedAgents", unassignedAgents);
         return "team/chooseAgent";

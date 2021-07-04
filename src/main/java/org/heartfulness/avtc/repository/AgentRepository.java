@@ -18,9 +18,8 @@ public interface AgentRepository extends JpaRepository<Agent,Long> {
     List<Agent> findAllByTimeNotNull();
     List<Agent> findAgentsByDepartmentsInAndStatusEquals(Set<Department> departments, AgentStatus status);
     List<Agent> findAgentByDepartments(Department departments);
-    Set<Agent> findAgentsByTeamEquals(Team team);
+    List<Agent> findAgentsByTeamEquals(Team team);
     List<Agent> findAllByLeasedByAndStatus(Call call, AgentStatus status);
-
     @NotNull
     List<Agent> findAll();
 

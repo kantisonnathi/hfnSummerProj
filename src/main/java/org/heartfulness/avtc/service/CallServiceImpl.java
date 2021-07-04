@@ -72,7 +72,7 @@ public class CallServiceImpl implements CallService {
                 Sort.by(sortField).descending();
         Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
         List<Call> calls = new ArrayList<>();
-        Set<Agent> agents = this.agentService.findAgentsByTeamEquals(team);
+        List<Agent> agents = this.agentService.findAgentsByTeamEquals(team);
         for (Agent agent : agents) {
             calls.addAll(this.callRepository.findAllByAgent(agent));
         }

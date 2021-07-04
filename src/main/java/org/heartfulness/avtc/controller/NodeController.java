@@ -229,19 +229,19 @@ public class NodeController {
                 List<Agent> missedAgents = this.agentRepository.findAllByLeasedByAndStatus(call, AgentStatus.DIALING);
                 for (Agent currAgent : missedAgents) {
                     currAgent.setLeasedBy(null);
-                    currAgent.setMissedNow();
-                    if (currAgent.getMissedNow() >= 3) {
+                 //   currAgent.addMissed();
+                   /* if (currAgent.getMissed() >= 3) {
                         currAgent.setLeasedBy(null);
                         currAgent.setStatus(AgentStatus.OFFLINE);
                         currAgent.setTimestamp(timestamp);
-                        currAgent.setMissedNow(0);
+                        currAgent.setMissed(0);
                         Logger log = new Logger();
                         log.setAgent(currAgent);
                         log.setLogEvent(LogEvent.FORCED_OFFLINE);
                     } else {
                         currAgent.setStatus(AgentStatus.ONLINE);
                         currAgent.setTimestamp(timestamp);
-                    }
+                    }*/
                     this.agentRepository.save(agent);
                 }
                 this.callRepository.save(call);

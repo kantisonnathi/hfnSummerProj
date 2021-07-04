@@ -2,18 +2,18 @@ package org.heartfulness.avtc.controller;
 
 import org.heartfulness.avtc.model.Agent;
 import org.heartfulness.avtc.model.AgentRole;
+import org.heartfulness.avtc.model.Caller;
 import org.heartfulness.avtc.model.Team;
 import org.heartfulness.avtc.repository.AgentRepository;
 import org.heartfulness.avtc.repository.TeamRepository;
 import org.heartfulness.avtc.security.auth.SecurityService;
 import org.heartfulness.avtc.service.AgentService;
+import org.heartfulness.avtc.service.CallerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,8 +29,14 @@ public class AdminController {
     private final AgentRepository agentRepository;
 
     private final TeamRepository teamRepository;
- @Autowired
+
+    @Autowired
     AgentService agentService;
+
+    @Autowired
+    CallerService callerService;
+
+
     public AdminController(AgentRepository agentRepository, TeamRepository teamRepository) {
         this.agentRepository = agentRepository;
         this.teamRepository = teamRepository;
@@ -70,7 +76,7 @@ public class AdminController {
         return "team/unassignedAgents";
 
     }
-    
+
     @GetMapping("/newTeam/{agentID}")
     public String makeNewTeam(@PathVariable("agentID") Long agentID) {
         Agent loggedInAgent = this.agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
@@ -87,7 +93,7 @@ public class AdminController {
         this.agentRepository.save(currAgent);
         return "redirect:/admin/team/" + team.getId();
     }
-    
+
     @GetMapping("/team/{id}")
     public String showIndividualTeam(@PathVariable("id") Long teamID, ModelMap modelMap) {
 
@@ -95,8 +101,8 @@ public class AdminController {
 
         Agent loggedAgent = this.agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
         if (loggedAgent.getRole().equals(AgentRole.TEAM_LEAD) && loggedAgent.getTeam().getId().equals(team.getId())){
-                modelMap.put("team", team);
-                return "team/viewSingle";
+            modelMap.put("team", team);
+            return "team/viewSingle";
         }
         if (!loggedAgent.getRole().equals(AgentRole.ADMIN)) {
             //not authorized
@@ -177,5 +183,37 @@ public class AdminController {
         this.teamRepository.save(currentTeam);
 
         return "redirect:/admin/team/" + teamid;
+    }
+
+    @GetMapping("/caller/all")
+    public String displayAllCallers(ModelMap modelMap) {
+        Agent loggedAgent = this.agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
+        if (!loggedAgent.getRole().equals(AgentRole.ADMIN) && !loggedAgent.getRole().equals(AgentRole.TEAM_LEAD)) {
+            //not authorized
+            return "main/error";
+        }
+        return findPaginatedCallers(1, "name", "asc", modelMap);
+    }
+
+    @GetMapping("/callerpg/{pgno}")
+    public String findPaginatedCallers(@PathVariable("pgno") int pageNo,
+                   @RequestParam("sortField") String sortField,
+                   @RequestParam("sortDir") String sortDir,
+                   ModelMap model) {
+        int pageSize = 5;
+
+        Page<Caller> page = callerService.findAllPaginatedCallers(pageNo, pageSize, sortField, sortDir);
+        List<Caller> listEmployees = page.getContent();
+
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
+        model.addAttribute("listEmployees", listEmployees);
+        return "caller/viewCallers";
     }
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.ws.rs.Path;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class CallerController {
@@ -30,8 +31,8 @@ public class CallerController {
 
     @GetMapping("/callerDetails/{callerId}")
     public String getCallerEditForm(@PathVariable("callerId") Long callerId, ModelMap modelMap) {
-        Caller caller = this.callerRepository.findById(callerId);
-        modelMap.put("caller", caller);
+        Optional<Caller> caller = this.callerRepository.findById(callerId);
+        modelMap.put("caller", caller.get());
         return "main/callerDetails";
     }
 
@@ -42,8 +43,4 @@ public class CallerController {
         this.callerRepository.save(caller);
         return "redirect:/success";
     }
-
-
-
-
 }

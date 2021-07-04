@@ -229,12 +229,12 @@ public class NodeController {
                 List<Agent> missedAgents = this.agentRepository.findAllByLeasedByAndStatus(call, AgentStatus.DIALING);
                 for (Agent currAgent : missedAgents) {
                     currAgent.setLeasedBy(null);
-                    currAgent.addMissed();
-                    if (currAgent.getMissed() >= 3) {
+                    currAgent.setMissedNow();
+                    if (currAgent.getMissedNow() >= 3) {
                         currAgent.setLeasedBy(null);
                         currAgent.setStatus(AgentStatus.OFFLINE);
                         currAgent.setTimestamp(timestamp);
-                        currAgent.setMissed(0);
+                        currAgent.setMissedNow(0);
                         Logger log = new Logger();
                         log.setAgent(currAgent);
                         log.setLogEvent(LogEvent.FORCED_OFFLINE);

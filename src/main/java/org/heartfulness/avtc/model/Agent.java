@@ -32,8 +32,13 @@ public class Agent extends BaseEntity {
         return missedNow;
     }
 
-    public void setMissedNow(Integer missedNow) {
-        this.missedNow = missedNow;
+    public void setMissedNow() {
+        this.missedNow++;
+        this.missedToday++;
+    }
+
+    public void setMissedNow(Integer i) {
+        this.missedNow = i;
     }
 
     public Integer getMissedToday() {

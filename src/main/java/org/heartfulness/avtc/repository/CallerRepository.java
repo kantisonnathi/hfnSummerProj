@@ -1,13 +1,15 @@
 package org.heartfulness.avtc.repository;
 
 import org.heartfulness.avtc.model.Caller;
-import org.springframework.data.repository.Repository;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CallerRepository extends Repository<Caller, Long> {
+import java.util.Optional;
 
-    Caller save(Caller caller);
+public interface CallerRepository extends JpaRepository<Caller, Long> {
 
-    Caller findById(Long id);
+    @NotNull
+    Optional<Caller> findById(@NotNull Long id);
 
     Caller findByContactNumber(String contactNumber);
 

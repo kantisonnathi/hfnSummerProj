@@ -91,9 +91,8 @@ public class Agent extends BaseEntity {
     @OneToMany(mappedBy = "agent", fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Call> calls;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Team.class)
-    @JoinColumn(name = "team_id")
-    private Team team;
+    @ManyToMany(fetch = FetchType.EAGER, targetEntity = Team.class)
+    private Set<Team> teams;
 
     @OneToOne(mappedBy = "manager")
     private Team teamManaged;
@@ -158,12 +157,26 @@ public class Agent extends BaseEntity {
         this.role = role;
     }
 
-    public Team getTeam() {
-        return team;
+    public Set<Team> getTeam() {
+        return teams;
     }
 
-    public void setTeam(Team team) {
-        this.team = team;
+    public void setTeam(Set<Team> teams) {
+        this.teams = teams;
+    }
+
+    public void addTeam(Team team) {
+        if (this.teams == null) {
+            teams = new HashSet<>();
+        }
+        teams.add(team);
+    }
+
+    public void removeTeam(Team team) {
+        if (teams == null) {
+            teams = new HashSet<>();
+        }
+        teams.remove(team);
     }
 
     public Team getTeamManaged() {

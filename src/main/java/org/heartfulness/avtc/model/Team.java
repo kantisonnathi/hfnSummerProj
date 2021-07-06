@@ -14,7 +14,7 @@ public class Team extends BaseEntity{
     @JoinColumn(name = "manager_id", referencedColumnName = "id")
     private Agent manager;
 
-    @OneToMany(mappedBy = "team",fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+    @ManyToMany(mappedBy = "teams",fetch=FetchType.EAGER,cascade=CascadeType.ALL)
     private Set<Agent> agents;
 
     public Agent getManager() {
@@ -40,7 +40,7 @@ public class Team extends BaseEntity{
         if (agent.getTeam() != null) {
             throw new Exception("agent already has team");
         } else {
-            agent.setTeam(this);
+            agent.addTeam(this);
             this.agents.add(agent);
         }
     }

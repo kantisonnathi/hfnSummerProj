@@ -77,7 +77,7 @@ public class AgentServiceImpl implements AgentService{
 
     @Override
     public List<Agent> findAgentsByTeamEquals(Team team) {
-        return this.agentRepository.findAgentsByTeamEquals(team);
+        return this.agentRepository.findAgentsByTeams(team);
     }
 
     @Override
@@ -91,9 +91,10 @@ public class AgentServiceImpl implements AgentService{
     public Page<Agent> findByTeam( Team team, int pageno, int pagesize, String sortField, String sortDirection) {
         Sort sort=sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name())?Sort.by(sortField).ascending():Sort.by(sortField).descending();
         Pageable pageable= PageRequest.of(pageno-1,pagesize,sort);
-        List<Agent> agents= this.agentRepository.findAgentsByTeamEquals(team);
+        List<Agent> agents= this.agentRepository.findAgentsByTeams(team);
         return toPage(agents, pageable);
     }
+
     private Page<Agent> toPage(List<Agent> list, Pageable pageable) {
         int start = (int) pageable.getOffset();
         int end = Math.min((start + pageable.getPageSize()), list.size());

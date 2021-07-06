@@ -69,7 +69,7 @@ public class AdminController {
             //not authorized to view this page.
             return "main/error";
         }
-        List<Agent> agents = this.agentRepository.findAgentsByTeamEquals(null);
+        List<Agent> agents = this.agentRepository.findAgentsWithNoTeam();
         modelMap.put("unassignedAgents", agents);
         return "team/unassignedAgents";
 
@@ -85,14 +85,14 @@ public class AdminController {
         Agent currAgent = this.agentService.findById(agentID);
         Team team = new Team();
         team.setManager(currAgent);
-        currAgent.setTeam(team);
+        currAgent.addTeam(team);
         currAgent.setRole(AgentRole.TEAM_LEAD);
         team = this.teamRepository.save(team);
         this.agentRepository.save(currAgent);
         return "redirect:/admin/team/" + team.getId();
     }
 
-    @GetMapping("/team/{id}")
+    /*@GetMapping("/team/{id}")
     public String showIndividualTeam(@PathVariable("id") Long teamID, ModelMap modelMap) {
 
         Team team = this.teamRepository.findById(teamID);
@@ -108,7 +108,7 @@ public class AdminController {
         }
         modelMap.put("team", team);
         return "team/viewSingle";
-    }
+    }*/
 
     @GetMapping("/team/{teamid}/makeLead/{agentId}")
     public String makeAdmin(@PathVariable("teamid") Long teamid, @PathVariable("agentId") Long agentID) {
@@ -155,7 +155,7 @@ public class AdminController {
             //not authorized
             return "main/error";
         }
-        List<Agent> unassignedAgents = this.agentRepository.findAgentsByTeamEquals(null);
+        List<Agent> unassignedAgents = this.agentRepository.findAgentsWithNoTeam();
         modelMap.put("team", this.teamRepository.findById(teamID));
         modelMap.put("unassignedAgents", unassignedAgents);
         return "team/chooseAgent";

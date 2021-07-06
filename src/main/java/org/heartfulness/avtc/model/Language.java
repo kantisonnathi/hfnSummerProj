@@ -15,6 +15,9 @@ public class Language extends BaseEntity {
     @ManyToMany(mappedBy = "languages")
     private Set<Caller> callers;
 
+    @OneToMany(mappedBy = "language", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Team> teams;
+
     public String getName() {
         return name;
     }

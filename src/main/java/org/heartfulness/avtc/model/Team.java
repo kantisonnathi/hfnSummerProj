@@ -1,6 +1,7 @@
 package org.heartfulness.avtc.model;
 
 import javax.persistence.*;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -16,6 +17,37 @@ public class Team extends BaseEntity{
 
     @ManyToMany(mappedBy = "teams",fetch=FetchType.EAGER,cascade=CascadeType.ALL)
     private Set<Agent> agents;
+
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Language.class)
+    private Language language;
+
+    private Time startTime;
+
+    private Time endTime;
+
+    public Time getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Time startTime) {
+        this.startTime = startTime;
+    }
+
+    public Time getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Time endTime) {
+        this.endTime = endTime;
+    }
+
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
+    }
 
     public Agent getManager() {
         return manager;

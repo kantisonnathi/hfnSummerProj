@@ -9,11 +9,37 @@ INSERT INTO hfn.department (id, language_id, service_id) VALUES (2, 1, 2);
 INSERT INTO hfn.department (id, language_id, service_id) VALUES (3, 2, 1);
 INSERT INTO hfn.department (id, language_id, service_id) VALUES (4, 2, 2);
 
+INSERT INTO hfn.agent (id, end_time, certified, contact_number, gender, level, missed_now, missed_today, name, role, status, timestamp, leased_by) VALUES (1, null, true, '+917338897712', 'F', 1, null, null, 'Kanti Sonnathi', 'AGENT', null, null, null);
+INSERT INTO hfn.agent (id, end_time, certified, contact_number, gender, level, missed_now, missed_today, name, role, status, timestamp, leased_by) VALUES (2, null, true, '+919900213110', 'M', 3, null, null, 'Venkat Ramana Sonnathi', 'ADMIN', null, null, null);
+INSERT INTO hfn.agent (id, end_time, certified, contact_number, gender, level, missed_now, missed_today, name, role, status, timestamp, leased_by) VALUES (3, null, true, '+917338897713', 'F', 2, null, null, 'Varam Sonnathi', 'TEAM_LEAD', null, null, null);
+
+INSERT INTO hfn.team (id, end_time, start_time, language_id, manager_id) VALUES (1, null, null, null, 3);
+
+INSERT INTO hfn.agent_teams (agents_id, teams_id) VALUES (1, 1);
+INSERT INTO hfn.agent_teams (agents_id, teams_id) VALUES (3, 1);
 
 
-INSERT INTO hfn.agent (id, certified, contact_number, gender, level, name, role, callStatus, timestamp, team_id) VALUES (1, true, '+919900213110', 'M', 3, 'Venkat Sonnathi', 'ADMIN', 1, null, null);
-INSERT INTO hfn.agent (id, certified, contact_number, gender, level, name, role, callStatus, timestamp, team_id) VALUES (2, true, '+917338897712', 'F', 3, 'Kanti Sonnathi', 'TEAM_LEAD', 1, '2021-06-17 19:44:16', null);
-INSERT INTO hfn.agent (id, certified, contact_number, gender, level, name, role, callStatus, timestamp, team_id) VALUES (3, true, '+917338897713', 'F', 2, 'Varam Sonnathi', 'AGENT', 1, null, null);
-
-
-INSERT INTO hfn.team (id, manager_id) VALUES (1, 2);
+INSERT INTO hfn.time_slot (id, end_time, start_time) VALUES (1, '09:00:00', '08:00:00');
+INSERT INTO hfn.time_slot (id, end_time, start_time) VALUES (2, '10:00:00', '09:00:00');
+INSERT INTO hfn.time_slot (id, end_time, start_time) VALUES (3, '11:00:00', '10:00:00');
+INSERT INTO hfn.time_slot (id, end_time, start_time) VALUES (4, '12:00:00', '11:00:00');
+INSERT INTO hfn.time_slot (id, end_time, start_time) VALUES (5, '13:00:00', '12:00:00');
+INSERT INTO hfn.time_slot (id, end_time, start_time) VALUES (6, '14:00:00', '13:00:00');
+INSERT INTO hfn.time_slot (id, end_time, start_time) VALUES (7, '15:00:00', '14:00:00');
+INSERT INTO hfn.time_slot (id, end_time, start_time) VALUES (8, '16:00:00', '15:00:00');
+INSERT INTO hfn.time_slot (id, end_time, start_time) VALUES (9, '17:00:00', '16:00:00');
+INSERT INTO hfn.time_slot (id, end_time, start_time) VALUES (10, '18:00:00', '17:00:00');
+INSERT INTO hfn.time_slot (id, end_time, start_time) VALUES (11, '19:00:00', '18:00:00');
+INSERT INTO hfn.time_slot (id, end_time, start_time) VALUES (12, '20:00:00', '19:00:00');
+INSERT INTO hfn.time_slot (id, end_time, start_time) VALUES (13, '21:00:00', '20:00:00');
+INSERT INTO hfn.time_slot (id, end_time, start_time) VALUES (14, '22:00:00', '21:00:00');
+INSERT INTO hfn.time_slot (id, end_time, start_time) VALUES (15, '23:00:00', '22:00:00');
+INSERT INTO hfn.time_slot (id, end_time, start_time) VALUES (16, '00:00:00', '23:00:00');
+INSERT INTO hfn.time_slot (id, end_time, start_time) VALUES (17, '01:00:00', '00:00:00');
+INSERT INTO hfn.time_slot (id, end_time, start_time) VALUES (18, '02:00:00', '01:00:00');
+INSERT INTO hfn.time_slot (id, end_time, start_time) VALUES (19, '03:00:00', '02:00:00');
+INSERT INTO hfn.time_slot (id, end_time, start_time) VALUES (20, '04:00:00', '03:00:00');
+INSERT INTO hfn.time_slot (id, end_time, start_time) VALUES (21, '05:00:00', '04:00:00');
+INSERT INTO hfn.time_slot (id, end_time, start_time) VALUES (22, '06:00:00', '05:00:00');
+INSERT INTO hfn.time_slot (id, end_time, start_time) VALUES (23, '07:00:00', '06:00:00');
+INSERT INTO hfn.time_slot (id, end_time, start_time) VALUES (24, '08:00:00', '07:00:00');

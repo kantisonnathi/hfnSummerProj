@@ -3,6 +3,7 @@ package org.heartfulness.avtc.controller;
 import lombok.SneakyThrows;
 import net.minidev.json.JSONObject;
 import org.heartfulness.avtc.config.NodeConfiguration;
+import org.heartfulness.avtc.form.SlotForm;
 import org.heartfulness.avtc.model.*;
 import org.heartfulness.avtc.model.AfterCallClasses.CategoryCreationDTO;
 import org.heartfulness.avtc.model.enums.AgentStatus;
@@ -23,6 +24,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.Produces;
+import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -52,6 +54,9 @@ public class AgentController {
     @Autowired
     private ScheduleExceptionRepository scheduleExceptionRepository;
 
+    @Autowired
+    private TimeSlotRepository timeSlotRepository;
+
     private final AgentRepository agentRepository;
     private final CallRepository callRepository;
     private final TeamRepository teamRepository;
@@ -68,7 +73,6 @@ public class AgentController {
     @ModelAttribute
     public Agent loggedInAgent() {
         return this.agentService.findBycontactNumber(this.securityService.getUser().getPhoneNumber());
-        //return null;
     }
 
 
@@ -94,27 +98,6 @@ public class AgentController {
         return "main/error";
     }
 
-
-
-    @PostMapping("/check")
-    @ResponseBody
-    @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-    public ResponseEntity<?> createSessionCookie(@RequestBody String contactNumber) {
-        List<JSONObject> entities = new ArrayList<JSONObject>();
-        JSONObject entity = new JSONObject();
-        Agent agent = this.agentService.findBycontactNumber(contactNumber);
-        if (agent == null) {
-            entity.put("phoneNumber", "failure");
-        } else {
-            if (agent.getCertified()) {
-                entity.put("phoneNumber", "success");
-            } else {
-                entity.put("phoneNumber", "failure");
-            }
-        }
-        entities.add(entity);
-        return new ResponseEntity<Object>(entities, HttpStatus.OK);
-    }
 
     @GetMapping("/success")
     public String getMainPage(ModelMap modelMap, Agent currentAgent) {
@@ -149,29 +132,35 @@ public class AgentController {
 
     @GetMapping("/scheduleException/new")
     public String addNewScheduleException(ModelMap modelMap, Agent currentAgent) {
-        Other other = new Other();
-        modelMap.put("other", other);
+        SlotForm slot = new SlotForm();
+        modelMap.put("slot", slot);
         modelMap.put("role", currentAgent.getRole().toString());
         return "schedule/agent_new_exception";
     }
 
     @SneakyThrows
     @PostMapping("/scheduleException/new")
-    public String acceptException(Other other, Agent loggedInAgent) {
+    public String acceptException(SlotForm slotForm, Agent loggedInAgent) {
         ScheduleException scheduleException = new ScheduleException();
         scheduleException.setAgent(loggedInAgent);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        LocalTime startTime = LocalTime.parse(other.getStartTime(), formatter);
-        Time start = Time.valueOf(startTime);
-        LocalTime endTime = LocalTime.parse(other.getEndtime(), formatter);
-        Time end = Time.valueOf(endTime);
-        scheduleException.setStartTime(start);
-        scheduleException.setEndTime(end);
-        SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
-        java.util.Date date = sdf1.parse(other.getDate());
-        java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());
-        scheduleException.setDate(sqlStartDate);
+        TimeSlot timeSlot = this.timeSlotRepository.getById(Long.parseLong(slotForm.getSlotID()));
+        scheduleException.setSlot(timeSlot);
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate dateForm = LocalDate.parse(slotForm.getDate(), dateFormatter);
+        Date date = Date.valueOf(dateForm);
+        scheduleException.setDate(date);
         this.scheduleExceptionRepository.save(scheduleException);
+        if (slotForm.getNumberOfRepeats() != null) {
+            for (int i = 0; i < slotForm.getNumberOfRepeats(); i++) {
+                dateForm = dateForm.plusDays(7);
+                date = Date.valueOf(dateForm);
+                ScheduleException scheduleException1 = new ScheduleException();
+                scheduleException1.setDate(date);
+                scheduleException1.setAgent(loggedInAgent);
+                scheduleException1.setSlot(timeSlot);
+                this.scheduleExceptionRepository.save(scheduleException1);
+            }
+        }
         return "redirect:/success";
     }
 

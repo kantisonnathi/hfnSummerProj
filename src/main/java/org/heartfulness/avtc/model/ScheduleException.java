@@ -12,18 +12,17 @@ public class ScheduleException extends BaseEntity {
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Agent.class)
     private Agent agent;
 
-    private Time startTime;
-
-    private Time endTime;
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = TimeSlot.class)
+    private TimeSlot slot;
 
     private Date date;
 
-    public Time getEndTime() {
-        return endTime;
+    public TimeSlot getSlot() {
+        return slot;
     }
 
-    public void setEndTime(Time endTime) {
-        this.endTime = endTime;
+    public void setSlot(TimeSlot slot) {
+        this.slot = slot;
     }
 
     public Date getDate() {
@@ -32,14 +31,6 @@ public class ScheduleException extends BaseEntity {
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    public Time getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(Time startTime) {
-        this.startTime = startTime;
     }
 
     public Agent getAgent() {

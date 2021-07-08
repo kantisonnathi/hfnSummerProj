@@ -43,18 +43,49 @@
 
 <br><br>
 
-<h2>Create a new Schedule Exception:</h2>
-<br>
 <div class="content-section">
-    <form method="post" th:action="@{/scheduleException/new}" th:object="${other}">
-        <label for="startTime">Start time:</label>
-        <input type="time" id="startTime" th:field="*{startTime}">
-        <label for="endTime">End time:</label>
-        <input type="time" id="endTime" th:field="*{endtime}">
-        <label for="date">Date:</label>
-        <input type="date" id="date" th:field="*{date}">
-        <button type="submit">Submit</button>
-    </form>
+    <h2>Create a new Schedule Exception:</h2>
+    <br>
+    <div class="content-section">
+        <form method="post" th:action="@{/scheduleException/new}" th:object="${slot}">
+            <br>
+            <label for="date">Date</label>
+            <input type="date" id="date" th:field="*{date}">
+            <br><br>
+            <label for="slot">Time Slot</label>
+            <select id="slot" th:field="*{slotID}">
+                <option class="dropdown-item" value="1">8am - 9am</option>
+                <option class="dropdown-item" value="2">9am - 10am</option>
+                <option class="dropdown-item" value="3">10am - 11am</option>
+                <option class="dropdown-item" value="4">11am - 12pm</option>
+                <option class="dropdown-item" value="5">12pm - 1pm</option>
+                <option class="dropdown-item" value="6">1pm - 2pm</option>
+                <option class="dropdown-item" value="7">2pm - 3pm</option>
+                <option class="dropdown-item" value="8">3pm - 4pm</option>
+                <option class="dropdown-item" value="9">4pm - 5pm</option>
+                <option class="dropdown-item" value="10">5pm - 6pm</option>
+                <option class="dropdown-item" value="11">6pm - 7pm</option>
+                <option class="dropdown-item" value="12">7pm - 8pm</option>
+                <option class="dropdown-item" value="13">8pm - 9pm</option>
+                <option class="dropdown-item" value="14">9pm - 10pm</option>
+                <option class="dropdown-item" value="15">10pm - 11pm</option>
+                <option class="dropdown-item" value="16">11pm - 12am</option>
+                <option class="dropdown-item" value="17">12am - 1am</option>
+                <option class="dropdown-item" value="18">1am - 2am</option>
+                <option class="dropdown-item" value="19">2am - 3am</option>
+                <option class="dropdown-item" value="20">3am - 4am</option>
+                <option class="dropdown-item" value="21">4am - 5am</option>
+                <option class="dropdown-item" value="22">5am - 6am</option>
+                <option class="dropdown-item" value="23">6am - 7am</option>
+                <option class="dropdown-item" value="24">7am - 8am</option>
+            </select>
+            <br><br>
+            <label for="number_of_repeats">Number of Repeats</label>
+            <input type="number" id="number_of_repeats" th:field="*{numberOfRepeats}">
+            <br><br>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
 </div>
 
 

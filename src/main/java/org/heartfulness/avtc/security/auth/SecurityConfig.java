@@ -73,7 +73,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests().antMatchers("/main").permitAll().antMatchers("/css/**").permitAll()
                 .antMatchers("/inputNode").permitAll()
                 .antMatchers("/inCall").permitAll()
-                .antMatchers("/afterCall").permitAll();
+                .antMatchers("/afterCall").permitAll()
+                .antMatchers("/check").permitAll();
+
 //                .antMatchers(restSecProps.getAllowedPublicApis().toArray(String[]::new)).permitAll();
              //   .antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest().authenticated().and()
                // .addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

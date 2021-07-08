@@ -1,5 +1,6 @@
 package org.heartfulness.avtc.controller;
 
+import lombok.SneakyThrows;
 import net.minidev.json.JSONObject;
 import org.heartfulness.avtc.config.NodeConfiguration;
 import org.heartfulness.avtc.model.*;
@@ -13,6 +14,7 @@ import org.heartfulness.avtc.service.AgentService;
 import org.heartfulness.avtc.service.CallService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.format.datetime.standard.Jsr310DateTimeFormatAnnotationFormatterFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,8 @@ import javax.ws.rs.Produces;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -41,21 +45,30 @@ public class AgentController {
 
     @Autowired
     private CallService callService;
-   @Autowired
-   private AgentService agentService;
+
+    @Autowired
+    private AgentService agentService;
+
+    @Autowired
+    private ScheduleExceptionRepository scheduleExceptionRepository;
 
     private final AgentRepository agentRepository;
     private final CallRepository callRepository;
     private final TeamRepository teamRepository;
     private final LoggerRepository loggerRepository;
-    private final ScheduleRepository scheduleRepository;
 
-    public AgentController(AgentRepository agentRepository, CallRepository callRepository, TeamRepository teamRepository, LoggerRepository loggerRepository, ScheduleRepository scheduleRepository) {
+    public AgentController(AgentRepository agentRepository, CallRepository callRepository, TeamRepository teamRepository, LoggerRepository loggerRepository) {
         this.agentRepository = agentRepository;
         this.callRepository = callRepository;
         this.teamRepository = teamRepository;
         this.loggerRepository = loggerRepository;
-        this.scheduleRepository = scheduleRepository;
+    }
+
+
+    @ModelAttribute
+    public Agent loggedInAgent() {
+        return this.agentService.findBycontactNumber(this.securityService.getUser().getPhoneNumber());
+        //return null;
     }
 
 
@@ -104,9 +117,9 @@ public class AgentController {
     }
 
     @GetMapping("/success")
-    public String getMainPage(ModelMap modelMap) {
-        Agent agent = agentService.findBycontactNumber("+919550563765");
-        modelMap.put("agent", agent);
+    public String getMainPage(ModelMap modelMap, Agent currentAgent) {
+        //Agent agent = agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
+        modelMap.put("agent", currentAgent);
         CategoryCreationDTO categoryCreationDTO=new CategoryCreationDTO();
         List<Call> calls = this.callService.getAllCalls();
         // parse through calls and keep unsaved ones at the top
@@ -128,26 +141,45 @@ public class AgentController {
         categoryCreationDTO.setCallList(calls);
 
         Other other = new Other();
-        /*for(int i = 0; i < calls.size(); i++) {
-            calls.get(i).setCategory(CallCategory.ADJUSTMENT_DISORDERS);
-            categoryCreationDTO.addCall(calls.get(i));
-        }*/
-        modelMap.put("role", agent.getRole().toString());
+        modelMap.put("role", currentAgent.getRole().toString());
         modelMap.put("other",other);
-       // schedule.get(0).setId(1L);
         modelMap.put("calls",categoryCreationDTO);
-        //agent is validated
-        //    List<Call> calls = this.callRepository.findAllByAgent(agent);
-        //  modelMap.put("calls",calls);
         return "main/success";
-
-        // return "main/success";
     }
+
+    @GetMapping("/scheduleException/new")
+    public String addNewScheduleException(ModelMap modelMap, Agent currentAgent) {
+        Other other = new Other();
+        modelMap.put("other", other);
+        modelMap.put("role", currentAgent.getRole().toString());
+        return "schedule/agent_new_exception";
+    }
+
+    @SneakyThrows
+    @PostMapping("/scheduleException/new")
+    public String acceptException(Other other, Agent loggedInAgent) {
+        ScheduleException scheduleException = new ScheduleException();
+        scheduleException.setAgent(loggedInAgent);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        LocalTime startTime = LocalTime.parse(other.getStartTime(), formatter);
+        Time start = Time.valueOf(startTime);
+        LocalTime endTime = LocalTime.parse(other.getEndtime(), formatter);
+        Time end = Time.valueOf(endTime);
+        scheduleException.setStartTime(start);
+        scheduleException.setEndTime(end);
+        SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
+        java.util.Date date = sdf1.parse(other.getDate());
+        java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());
+        scheduleException.setDate(sqlStartDate);
+        this.scheduleExceptionRepository.save(scheduleException);
+        return "redirect:/success";
+    }
+
 
     @PostMapping("/schedule")
     public String getTime(@ModelAttribute("other") Other other) throws ParseException {
         LocalTime t= LocalTime.now();
-       // Time time=Time.valueOf(t);
+        // Time time=Time.valueOf(t);
         String x=other.getEndtime();
         Agent agent=agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
 
@@ -162,8 +194,7 @@ public class AgentController {
     }
 
     @GetMapping("/team/view")
-    public String viewTeam(ModelMap modelMap) {
-        Agent loggedInAgent =agentService.findBycontactNumber(securityService.getUser().getPhoneNumber()) ;
+    public String viewTeam(ModelMap modelMap, Agent loggedInAgent) {
         List<Agent> agents = new ArrayList<>();
         agents.add(loggedInAgent);
         Team team = this.teamRepository.findTeamByAgentsIn(agents);
@@ -171,6 +202,7 @@ public class AgentController {
             return "redirect:/success";
         }
         modelMap.put("team", team);
+        modelMap.put("role", loggedInAgent.getRole().toString());
         return "main/viewTeam";
     }
 
@@ -192,20 +224,22 @@ public class AgentController {
         Agent agent = this.agentService.findById(agentId);
         return findPaginatedByAgent(1, "id", "asc", agent, modelMap);
     }
+
     @GetMapping("/Agentpage/{pageNo}")
     public String findPaginated(@PathVariable(value = "pageNo") int pageNo,@RequestParam("sortField") String sortField,@RequestParam("sortDir") String sortDir ,Model model){
         int pageSize=10;
         Page<Agent> page= agentService.findPaginated(pageNo,pageSize,sortField,sortDir);
-       List<Agent> agentList=page.getContent();
-       model.addAttribute("currentPage",pageNo);
-       model.addAttribute("totalPages",page.getTotalPages());
-       model.addAttribute("totalItems",page.getTotalElements());
-       model.addAttribute("listAgent",agentList);
-       model.addAttribute("sortField",sortField);
-       model.addAttribute("sortDir",sortDir);
-       model.addAttribute("reverseSortDir",sortDir.equals("asc")?"desc":"asc");
-       return "agents/viewAgents";
+        List<Agent> agentList=page.getContent();
+        model.addAttribute("currentPage",pageNo);
+        model.addAttribute("totalPages",page.getTotalPages());
+        model.addAttribute("totalItems",page.getTotalElements());
+        model.addAttribute("listAgent",agentList);
+        model.addAttribute("sortField",sortField);
+        model.addAttribute("sortDir",sortDir);
+        model.addAttribute("reverseSortDir",sortDir.equals("asc")?"desc":"asc");
+        return "agents/viewAgents";
     }
+
     @GetMapping("/AgentTeam/{pageNo}")
     public String findPaginatedByteam(@PathVariable(value = "pageNo") int pageNo,@RequestParam("sortField") String sortField,@RequestParam("sortDir") String sortDir ,Model model){
         int pageSize=10;
@@ -222,21 +256,23 @@ public class AgentController {
         model.addAttribute("reverseSortDir",sortDir.equals("asc")?"desc":"asc");
         return "agents/viewAgents";
     }
-   @GetMapping("/viewAllAgents")
-   public String viewAllagents(Model model)
-   {
-       return findPaginated(1,"name","asc",model);
-   }
-   @GetMapping("/viewTeam")
-   public String viewAgentsinTeam(Model model)
-   {
-       return findPaginatedByteam(1,"name","asc", model);
-   }
+
+    @GetMapping("/viewAllAgents")
+    public String viewAllagents(Model model)
+    {
+        return findPaginated(1,"name","asc",model);
+    }
+
+    @GetMapping("/viewTeam")
+    public String viewAgentsinTeam(Model model)
+    {
+        return findPaginatedByteam(1,"name","asc", model);
+    }
 
     @GetMapping("/pageAgent/{pageNo}")
     public String findPaginatedByAgent(@PathVariable("pageNo") Integer pageNo,
-                                @RequestParam("sortField") String sortField,
-                                @RequestParam("sortDir") String sortDir, Agent agent, ModelMap modelMap) {
+                                       @RequestParam("sortField") String sortField,
+                                       @RequestParam("sortDir") String sortDir, Agent agent, ModelMap modelMap) {
         int pageSize = 10;
 
         Page<Call> page = callService.findAllByAgent(agent, pageNo, pageSize, sortField, sortDir);

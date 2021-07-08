@@ -27,27 +27,6 @@ public class Agent extends BaseEntity {
     @Column(name = "missed_today")
     private Integer missedToday;
 
-    public Integer getMissedNow() {
-        return missedNow;
-    }
-
-    public void setMissedNow() {
-        this.missedNow++;
-        this.missedToday++;
-    }
-
-    public void setMissedNow(Integer i) {
-        this.missedNow = i;
-    }
-
-    public Integer getMissedToday() {
-        return missedToday;
-    }
-
-    public void setMissedToday(Integer missedToday) {
-        this.missedToday = missedToday;
-    }
-
     @Column(name = "certified")
     private Boolean certified;
 
@@ -100,6 +79,25 @@ public class Agent extends BaseEntity {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "leased_by")
     private Call leasedBy;
+
+    @OneToMany(mappedBy = "agent", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<ScheduleException> scheduleExceptions;
+
+    public Set<Team> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(Set<Team> teams) {
+        this.teams = teams;
+    }
+
+    public Set<ScheduleException> getScheduleExceptions() {
+        return scheduleExceptions;
+    }
+
+    public void setScheduleExceptions(Set<ScheduleException> scheduleExceptions) {
+        this.scheduleExceptions = scheduleExceptions;
+    }
 
     public Call getLeasedBy() {
         return leasedBy;
@@ -271,5 +269,25 @@ public class Agent extends BaseEntity {
         this.schedules = schedules;
     }
 
+    public Integer getMissedNow() {
+        return missedNow;
+    }
+
+    public void setMissedNow() {
+        this.missedNow++;
+        this.missedToday++;
+    }
+
+    public void setMissedNow(Integer i) {
+        this.missedNow = i;
+    }
+
+    public Integer getMissedToday() {
+        return missedToday;
+    }
+
+    public void setMissedToday(Integer missedToday) {
+        this.missedToday = missedToday;
+    }
 }
 

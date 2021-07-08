@@ -132,7 +132,7 @@
                 xhttp.onload = function() {
                     //console.log("done");
                 }
-                xhttp.open("POST","/private/sessionLogin");  //here is where the cookie is set
+                xhttp.open("POST","/private/sessionLogin",false);  //here is where the cookie is set
                 //console.log(idToken);
                 xhttp.setRequestHeader("Content-type", "application/json");
                 xhttp.send(idToken);

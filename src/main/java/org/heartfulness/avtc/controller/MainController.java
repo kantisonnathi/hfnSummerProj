@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -67,7 +68,7 @@ public class MainController {
     @PostMapping("/main")
     public String postMain(Agent agent) {
         //String phoneNumber = principal.getName();
-        Agent agent1 = this.agentService.findBycontactNumber("+919550563765");
+        Agent agent1 = this.agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
         if (agent1 == null) {
             return "main/error";
         }
@@ -95,6 +96,7 @@ public class MainController {
         logger.setLogEvent(LogEvent.MANUAL_LOGOUT);
         this.loggerRepository.save(logger);
         cookieUtils.deleteCookie("session");
+        cookieUtils.deleteCookie("");
         cookieUtils.deleteCookie("authenticated");
         return "main/login-redirect";
     }

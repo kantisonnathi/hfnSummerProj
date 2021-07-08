@@ -40,9 +40,13 @@ public class AdminController {
         this.teamRepository = teamRepository;
     }
 
+    @ModelAttribute
+    public Agent getLoggedInAgent() {
+        return this.agentService.findBycontactNumber(this.securityService.getUser().getPhoneNumber());
+    }
+
     @GetMapping("/lead/team/view")
-    public String teamLeadView() {
-        Agent loggedInAgent = this.agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
+    public String teamLeadView(Agent loggedInAgent) {
         if (!loggedInAgent.getRole().equals(AgentRole.TEAM_LEAD)) {
             //not authorized to view this page.
             return "main/error";
@@ -51,8 +55,7 @@ public class AdminController {
     }
 
     @GetMapping("/teams/all")
-    public String showAllTeams(ModelMap modelMap) {
-        Agent loggedInAgent = this.agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
+    public String showAllTeams(ModelMap modelMap, Agent loggedInAgent) {
         if (!loggedInAgent.getRole().equals(AgentRole.ADMIN)) {
             //not authorized to view this page.
             return "main/error";
@@ -63,8 +66,7 @@ public class AdminController {
     }
 
     @GetMapping("/unassignedAgents")
-    public String showAllUnassignedAgents(ModelMap modelMap) {
-        Agent loggedInAgent = this.agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
+    public String showAllUnassignedAgents(ModelMap modelMap, Agent loggedInAgent) {
         if (!loggedInAgent.getRole().equals(AgentRole.ADMIN)) {
             //not authorized to view this page.
             return "main/error";
@@ -76,8 +78,7 @@ public class AdminController {
     }
 
     @GetMapping("/newTeam/{agentID}")
-    public String makeNewTeam(@PathVariable("agentID") Long agentID) {
-        Agent loggedInAgent = this.agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
+    public String makeNewTeam(@PathVariable("agentID") Long agentID, Agent loggedInAgent) {
         if (!loggedInAgent.getRole().equals(AgentRole.ADMIN)) {
             //not authorized to view this page.
             return "main/error";
@@ -111,8 +112,7 @@ public class AdminController {
     }*/
 
     @GetMapping("/team/{teamid}/makeLead/{agentId}")
-    public String makeAdmin(@PathVariable("teamid") Long teamid, @PathVariable("agentId") Long agentID) {
-        Agent loggedAgent = this.agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
+    public String makeAdmin(@PathVariable("teamid") Long teamid, @PathVariable("agentId") Long agentID, Agent loggedAgent) {
         if (!loggedAgent.getRole().equals(AgentRole.ADMIN)) {
             //not authorized
             return "main/error";
@@ -133,8 +133,7 @@ public class AdminController {
     }
 
     @GetMapping("/team/{teamid}/remove/{agentID}")
-    public String removeAgentFromTeam(@PathVariable("teamid") Long teamid, @PathVariable("agentID") Long agentid) {
-        Agent loggedAgent = this.agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
+    public String removeAgentFromTeam(@PathVariable("teamid") Long teamid, @PathVariable("agentID") Long agentid , Agent loggedAgent) {
         if (!loggedAgent.getRole().equals(AgentRole.ADMIN)) {
             //not authorized
             return "main/error";
@@ -149,8 +148,7 @@ public class AdminController {
     }
 
     @GetMapping("/team/{teamid}/addAgent")
-    public String addAgentsList(@PathVariable("teamid") Long teamID, ModelMap modelMap) {
-        Agent loggedAgent = this.agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
+    public String addAgentsList(@PathVariable("teamid") Long teamID, ModelMap modelMap, Agent loggedAgent) {
         if (!loggedAgent.getRole().equals(AgentRole.ADMIN)) {
             //not authorized
             return "main/error";
@@ -162,8 +160,7 @@ public class AdminController {
     }
 
     @GetMapping("/team/{teamid}/add/{agentid}")
-    public String addAgentToTeam(@PathVariable("teamid") Long teamid, @PathVariable("agentid") Long agentID) {
-        Agent loggedAgent = this.agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
+    public String addAgentToTeam(@PathVariable("teamid") Long teamid, @PathVariable("agentid") Long agentID, Agent loggedAgent) {
         if (!loggedAgent.getRole().equals(AgentRole.ADMIN)) {
             //not authorized
             return "main/error";
@@ -184,8 +181,7 @@ public class AdminController {
     }
 
     @GetMapping("/caller/all")
-    public String displayAllCallers(ModelMap modelMap) {
-        Agent loggedAgent = this.agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
+    public String displayAllCallers(ModelMap modelMap, Agent loggedAgent) {
         if (!loggedAgent.getRole().equals(AgentRole.ADMIN) && !loggedAgent.getRole().equals(AgentRole.TEAM_LEAD)) {
             //not authorized
             return "main/error";

@@ -1,12 +1,29 @@
 package org.heartfulness.avtc.model;
 
-import java.util.List;
-
 public class Other {
     private String languages;
     private String services;
     private String endtime;
+    private String date;
     private Long id;
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    private String startTime;
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
 
     public String getEndtime() {
         return endtime;

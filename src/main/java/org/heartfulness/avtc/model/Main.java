@@ -2,59 +2,33 @@ package org.heartfulness.avtc.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.sql.Date;
 
 @Entity
-public class Main extends BaseEntity {
+public class Main {
 
-    private Integer totalNumberOfCalls;
+    private String id;
+    private Integer totalNumber;
+    /*
+    * for calls - total number of calls
+    * for agents - total number of agents
+    * for callers - total number of callers
+    * for teams - total number of teams*/
+    private Integer totalMissed;
+    /*
+    * calls - total amount of missed calls
+    * agents - total amount of calls missed by that agent in total
+    * callers - total amount of calls missed from this caller
+    * teams - total amount of calls missed by this team*/
 
-    private Integer missedCalls;
 
-    private Integer numberOfAgents;
-
-    private Integer numberOfTeams;
-
-    @Column(unique = true)
-    private Date date;
-
-    public Date getDate() {
-        return date;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public Integer getTotalNumberOfCalls() {
-        return totalNumberOfCalls;
-    }
-
-    public void setTotalNumberOfCalls(Integer totalNumberOfCalls) {
-        this.totalNumberOfCalls = totalNumberOfCalls;
-    }
-
-    public Integer getMissedCalls() {
-        return missedCalls;
-    }
-
-    public void setMissedCalls(Integer missedCalls) {
-        this.missedCalls = missedCalls;
-    }
-
-    public Integer getNumberOfAgents() {
-        return numberOfAgents;
-    }
-
-    public void setNumberOfAgents(Integer numberOfAgents) {
-        this.numberOfAgents = numberOfAgents;
-    }
-
-    public Integer getNumberOfTeams() {
-        return numberOfTeams;
-    }
-
-    public void setNumberOfTeams(Integer numberOfTeams) {
-        this.numberOfTeams = numberOfTeams;
+    @Id
+    public String getId() {
+        return id;
     }
 }

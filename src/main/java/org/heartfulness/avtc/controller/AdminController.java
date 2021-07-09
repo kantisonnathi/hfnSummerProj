@@ -21,23 +21,27 @@ import java.util.List;
 @RequestMapping("/admin")
 public class AdminController {
 
-    @Autowired
-    private SecurityService securityService;
+    //TODO: write code to add a new agent into the system
+    //TODO: add code to make an agent inactive (certified = false)
+    //TODO: add new department (adding new services and languages)
+
+    private final SecurityService securityService;
 
     private final AgentRepository agentRepository;
 
     private final TeamRepository teamRepository;
 
-    @Autowired
-    AgentService agentService;
+    private final AgentService agentService;
+
+    private final CallerService callerService;
 
     @Autowired
-    CallerService callerService;
-
-
-    public AdminController(AgentRepository agentRepository, TeamRepository teamRepository) {
+    public AdminController(SecurityService securityService, AgentRepository agentRepository, TeamRepository teamRepository, AgentService agentService, CallerService callerService) {
+        this.securityService = securityService;
         this.agentRepository = agentRepository;
         this.teamRepository = teamRepository;
+        this.agentService = agentService;
+        this.callerService = callerService;
     }
 
     @ModelAttribute
@@ -47,10 +51,7 @@ public class AdminController {
 
     @GetMapping("/lead/team/view")
     public String teamLeadView(Agent loggedInAgent) {
-        if (!loggedInAgent.getRole().equals(AgentRole.TEAM_LEAD)) {
-            //not authorized to view this page.
-            return "main/error";
-        }
+        //not authorized to view this page.
         return "main/error";
     }
 
@@ -93,6 +94,7 @@ public class AdminController {
         return "redirect:/admin/team/" + team.getId();
     }
 
+    //TODO: rewrite this code
     /*@GetMapping("/team/{id}")
     public String showIndividualTeam(@PathVariable("id") Long teamID, ModelMap modelMap) {
 

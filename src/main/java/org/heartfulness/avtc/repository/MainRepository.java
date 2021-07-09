@@ -6,7 +6,6 @@ import org.springframework.data.repository.Repository;
 
 import java.sql.Date;
 
-public interface MainRepository extends Repository<Main, Long> {
+public interface MainRepository extends JpaRepository<Main, String> {
 
-    Main findByDate(Date date);
 }

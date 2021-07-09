@@ -21,11 +21,8 @@ public class Agent extends BaseEntity {
     @Column(name = "name")
     private String name; //mandatory
 
-    @Column(name = "missed_now")
-    private Integer missedNow;
-
-    @Column(name = "missed_today")
-    private Integer missedToday;
+    @Column(name = "missed")
+    private Integer missed;
 
     @Column(name = "certified")
     private Boolean certified;
@@ -269,25 +266,16 @@ public class Agent extends BaseEntity {
         this.schedules = schedules;
     }
 
-    public Integer getMissedNow() {
-        return missedNow;
+    public Integer getMissed() {
+        return missed;
     }
 
-    public void setMissedNow() {
-        this.missedNow++;
-        this.missedToday++;
+    public void setMissed(Integer missed) {
+        this.missed = missed;
     }
 
-    public void setMissedNow(Integer i) {
-        this.missedNow = i;
-    }
-
-    public Integer getMissedToday() {
-        return missedToday;
-    }
-
-    public void setMissedToday(Integer missedToday) {
-        this.missedToday = missedToday;
+    public void addMissed() {
+        this.missed++;
     }
 }
 

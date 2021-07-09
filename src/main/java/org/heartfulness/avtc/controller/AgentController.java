@@ -1,8 +1,6 @@
 package org.heartfulness.avtc.controller;
 
 import lombok.SneakyThrows;
-import net.minidev.json.JSONObject;
-import org.heartfulness.avtc.config.NodeConfiguration;
 import org.heartfulness.avtc.form.SlotForm;
 import org.heartfulness.avtc.model.*;
 import org.heartfulness.avtc.model.AfterCallClasses.CategoryCreationDTO;
@@ -15,20 +13,14 @@ import org.heartfulness.avtc.service.AgentService;
 import org.heartfulness.avtc.service.CallService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.format.datetime.standard.Jsr310DateTimeFormatAnnotationFormatterFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import javax.ws.rs.Produces;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -39,36 +31,36 @@ import java.util.*;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class AgentController {
 
-    @Autowired
-    SecurityService securityService;
+    private final SecurityService securityService;
 
-    @Autowired
-    NodeConfiguration nodeConfiguration;
+    private final CallService callService;
 
-    @Autowired
-    private CallService callService;
+    private final AgentService agentService;
 
-    @Autowired
-    private AgentService agentService;
+    private final ScheduleExceptionRepository scheduleExceptionRepository;
 
-    @Autowired
-    private ScheduleExceptionRepository scheduleExceptionRepository;
-
-    @Autowired
-    private TimeSlotRepository timeSlotRepository;
+    private final TimeSlotRepository timeSlotRepository;
 
     private final AgentRepository agentRepository;
+
     private final CallRepository callRepository;
+
     private final TeamRepository teamRepository;
+
     private final LoggerRepository loggerRepository;
 
-    public AgentController(AgentRepository agentRepository, CallRepository callRepository, TeamRepository teamRepository, LoggerRepository loggerRepository) {
+    @Autowired
+    public AgentController(SecurityService securityService, CallService callService, AgentService agentService, ScheduleExceptionRepository scheduleExceptionRepository, TimeSlotRepository timeSlotRepository, AgentRepository agentRepository, CallRepository callRepository, TeamRepository teamRepository, LoggerRepository loggerRepository) {
+        this.securityService = securityService;
+        this.callService = callService;
+        this.agentService = agentService;
+        this.scheduleExceptionRepository = scheduleExceptionRepository;
+        this.timeSlotRepository = timeSlotRepository;
         this.agentRepository = agentRepository;
         this.callRepository = callRepository;
         this.teamRepository = teamRepository;
         this.loggerRepository = loggerRepository;
     }
-
 
     @ModelAttribute
     public Agent loggedInAgent() {
@@ -80,8 +72,7 @@ public class AgentController {
     public String markStatus(@PathVariable("status") String status) {
         Agent agent = agentService.findBycontactNumber(this.securityService.getUser().getPhoneNumber());
         LocalDateTime localDateTime = LocalDateTime.now();
-        Logger logger=new Logger();
-        HashMap<Integer, Character> m = new HashMap<>();
+        Logger logger = new Logger();
         logger.setAgent(agent);
         Timestamp timestamp = Timestamp.valueOf(localDateTime);
         logger.setTimestamp(timestamp);
@@ -101,7 +92,6 @@ public class AgentController {
 
     @GetMapping("/success")
     public String getMainPage(ModelMap modelMap, Agent currentAgent) {
-        //Agent agent = agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
         modelMap.put("agent", currentAgent);
         CategoryCreationDTO categoryCreationDTO=new CategoryCreationDTO();
         List<Call> calls = this.callService.getAllCalls();
@@ -122,7 +112,6 @@ public class AgentController {
         calls.addAll(unsavedCalls);
         calls.addAll(saved);
         categoryCreationDTO.setCallList(calls);
-
         Other other = new Other();
         modelMap.put("role", currentAgent.getRole().toString());
         modelMap.put("other",other);
@@ -166,14 +155,9 @@ public class AgentController {
 
 
     @PostMapping("/schedule")
-    public String getTime(@ModelAttribute("other") Other other) throws ParseException {
-        LocalTime t= LocalTime.now();
-        // Time time=Time.valueOf(t);
-        String x=other.getEndtime();
+    public String getTime(@ModelAttribute("other") Other other) {
+                String x=other.getEndtime();
         Agent agent=agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
-
-        System.out.println(x);
-
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         LocalTime endtime = LocalTime.parse(x, formatter);
         Time end=Time.valueOf(endtime);
@@ -197,7 +181,6 @@ public class AgentController {
 
     @PostMapping("/editCall")
     public String addDescription(@ModelAttribute("calls") CategoryCreationDTO categoryCreationDTO) {
-
         List<Call> calls = categoryCreationDTO.getCallList();
         for (Call call : calls) {
             Call add = callRepository.findById(call.getId()).get();
@@ -266,11 +249,9 @@ public class AgentController {
 
         Page<Call> page = callService.findAllByAgent(agent, pageNo, pageSize, sortField, sortDir);
         List<Call> listCalls = page.getContent();
-
         modelMap.put("currentPage", pageNo);
         modelMap.put("totalPages", page.getTotalPages());
         modelMap.put("totalItems", page.getTotalElements());
-
         modelMap.put("sortField", sortField);
         modelMap.put("sortDir", sortDir);
         modelMap.put("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
@@ -290,19 +271,14 @@ public class AgentController {
                                       @RequestParam("sortField") String sortField,
                                       @RequestParam("sortDir") String sortDir, Team team, ModelMap modelMap) {
         int pageSize = 10;
-
         Page<Call> page = callService.findAllByTeam(team, pageNo, pageSize, sortField, sortDir);
-
         List<Call> listCalls = page.getContent();
-
         modelMap.put("currentPage", pageNo);
         modelMap.put("totalPages", page.getTotalPages());
         modelMap.put("totalItems", page.getTotalElements());
-
         modelMap.put("sortField", sortField);
         modelMap.put("sortDir", sortDir);
         modelMap.put("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-
         modelMap.put("listCalls", listCalls);
         return "calls/viewTeamCalls";
     }

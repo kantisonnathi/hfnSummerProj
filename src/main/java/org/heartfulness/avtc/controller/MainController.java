@@ -23,7 +23,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Produces;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +34,7 @@ import java.util.TreeMap;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class MainController {
 
+    //TODO: put all of these classes in an autowired constructor
     @Autowired
     private SecurityService securityService;
 
@@ -43,6 +43,7 @@ public class MainController {
 
     @Autowired
     CookieUtils cookieUtils;
+
     @Autowired
     AgentService agentService;
 

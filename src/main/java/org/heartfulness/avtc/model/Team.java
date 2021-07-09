@@ -22,6 +22,7 @@ public class Team extends BaseEntity{
     private Language language;
 
     private Time startTime;
+    //TODO: make this time slot instead of start time and end time
 
     private Time endTime;
 

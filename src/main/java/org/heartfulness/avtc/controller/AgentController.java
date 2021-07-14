@@ -197,21 +197,6 @@ public class AgentController {
         return findPaginatedByAgent(1, "id", "asc", agent, modelMap);
     }
 
-    @GetMapping("/Agentpage/{pageNo}")
-    public String findPaginated(@PathVariable(value = "pageNo") int pageNo,@RequestParam("sortField") String sortField,@RequestParam("sortDir") String sortDir ,Model model){
-        int pageSize=10;
-        Page<Agent> page= agentService.findPaginated(pageNo,pageSize,sortField,sortDir);
-        List<Agent> agentList=page.getContent();
-        model.addAttribute("currentPage",pageNo);
-        model.addAttribute("totalPages",page.getTotalPages());
-        model.addAttribute("totalItems",page.getTotalElements());
-        model.addAttribute("listAgent",agentList);
-        model.addAttribute("sortField",sortField);
-        model.addAttribute("sortDir",sortDir);
-        model.addAttribute("reverseSortDir",sortDir.equals("asc")?"desc":"asc");
-        return "agents/viewAgents";
-    }
-
     @GetMapping("/AgentTeam/{pageNo}")
     public String findPaginatedByteam(@PathVariable(value = "pageNo") int pageNo,@RequestParam("sortField") String sortField,@RequestParam("sortDir") String sortDir ,Model model){
         int pageSize=10;
@@ -227,12 +212,6 @@ public class AgentController {
         model.addAttribute("sortDir",sortDir);
         model.addAttribute("reverseSortDir",sortDir.equals("asc")?"desc":"asc");
         return "agents/viewAgents";
-    }
-
-    @GetMapping("/viewAllAgents")
-    public String viewAllagents(Model model)
-    {
-        return findPaginated(1,"name","asc",model);
     }
 
     @GetMapping("/viewTeam")

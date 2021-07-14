@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add new Agent</title>
+    <link rel="stylesheet" th:href="@{/static/css/layout.html}">
+</head>
+<body>
+<div th:if="${role == 'AGENT'}">
+    <nav>
+        <div class="topnav">
+            <a th:href="@{/team/view}">View My Team</a>
+            <a th:href="@{/scheduleException/new}">Add new Exception</a>
+            <a th:href="@{/addDetails}">Edit my details</a>
+            <a th:href="@{/private/sessionLogout}">Log Out</a>
+        </div>
+    </nav>
+</div>
+<div th:if="${role == 'TEAM_LEAD'}">
+    <nav>
+        <div class="topnav">
+            <a th:href="@{/lead/team/view}">View My Team</a> <!-- make this -->
+            <a th:href="@{/addDetails}">Edit My Details</a>
+            <a th:href="@{/private/sessionLogout}">Log Out</a>
+        </div>
+    </nav>
+</div>
+<div th:if="${role == 'ADMIN'}">
+    <nav>
+        <div class="topnav">
+            <a th:href="@{/admin/teams/all}">View all teams</a>
+            <a th:href="@{/admin/unassignedAgents}">View Unassigned Agents</a>
+            <a th:href="@{/addDetails}">Edit my details</a>
+            <a th:href="@{/addLangandServ}">Add Languages and Services</a>
+            <a th:href="@{/private/sessionLogout}">Log Out</a>
+        </div>
+    </nav>
+</div>
+<form th:object="${agent}" method="post">
+    <input type="hidden" th:field="*{id}">
+    <label for="name">Name: </label>
+    <input id="name" type="text" th:field="*{name}">
+    <label for="gender">Gender: </label>
+    <select id="gender" th:field="*{gender}">
+        <option th:value="F">Female</option>
+        <option th:value="M">Male</option>
+        <option th:value="O">Other</option>
+    </select>
+    <label for="level">Level: </label>
+    <input id="level" type="number" th:field="*{level}">
+    <label for="contact_number">Contact number</label>
+    <input id="contact_number" type="text" th:field="*{contactNumber}">
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>

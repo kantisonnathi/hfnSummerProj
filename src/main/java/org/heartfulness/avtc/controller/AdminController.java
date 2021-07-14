@@ -12,6 +12,7 @@ import org.heartfulness.avtc.service.CallerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,8 +22,7 @@ import java.util.List;
 @RequestMapping("/admin")
 public class AdminController {
 
-    //TODO: write code to add a new agent into the system
-    //TODO: add code to make an agent inactive (certified = false)
+    //TODO: rewrite code for showing a particular team
     //TODO: add new department (adding new services and languages)
 
     private final SecurityService securityService;
@@ -212,4 +212,59 @@ public class AdminController {
         model.addAttribute("listEmployees", listEmployees);
         return "caller/viewCallers";
     }
+
+    @GetMapping("/agents/all")
+    public String viewAllagents(Model model)
+    {
+        return findPaginated(1,"name","asc",model);
+    }
+
+    @GetMapping("/Agentpage/{pageNo}")
+    public String findPaginated(@PathVariable(value = "pageNo") int pageNo,@RequestParam("sortField") String sortField,@RequestParam("sortDir") String sortDir ,Model model){
+        int pageSize=10;
+        Page<Agent> page= agentService.findPaginated(pageNo,pageSize,sortField,sortDir);
+        List<Agent> agentList=page.getContent();
+        model.addAttribute("currentPage",pageNo);
+        model.addAttribute("totalPages",page.getTotalPages());
+        model.addAttribute("totalItems",page.getTotalElements());
+        model.addAttribute("listAgent",agentList);
+        model.addAttribute("sortField",sortField);
+        model.addAttribute("sortDir",sortDir);
+        model.addAttribute("reverseSortDir",sortDir.equals("asc")?"desc":"asc");
+        model.addAttribute("role", AgentRole.ADMIN.toString());
+        return "agents/viewAgents";
+    }
+
+    @GetMapping("/agent/new")
+    public String addNewAgent(ModelMap modelMap) {
+        Agent agent = new Agent();
+        modelMap.put("agent", agent);
+        modelMap.put("role", AgentRole.ADMIN.toString());
+        return "agents/newAgentForm";
+    }
+
+    @PostMapping(value = "/agent/new")
+    public String savingNewAgent(Agent agent) {
+        agent.setMissed(0);
+        agent.setRole(AgentRole.AGENT);
+        this.agentRepository.save(agent);
+        return "redirect:/admin/agents/all";
+    }
+
+    @GetMapping("/{agentID}/inactive")
+    public String markAgentInactive(@PathVariable("agentID") Long agentID) {
+        Agent agent = this.agentService.findById(agentID);
+        agent.setCertified(false);
+        this.agentRepository.save(agent);
+        return "redirect:/admin/agents/all";
+    }
+
+    @GetMapping("/{agentID}/active")
+    public String markAgentActive(@PathVariable("agentID") Long agentID) {
+        Agent agent = this.agentService.findById(agentID);
+        agent.setCertified(true);
+        this.agentRepository.save(agent);
+        return "redirect:/admin/agents/all";
+    }
+
 }

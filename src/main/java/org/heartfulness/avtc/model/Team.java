@@ -21,25 +21,22 @@ public class Team extends BaseEntity{
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Language.class)
     private Language language;
 
-    private Time startTime;
-    //TODO: make this time slot instead of start time and end time
+    @ManyToMany(mappedBy = "teams", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<TimeSlot> timeSlots;
 
-    private Time endTime;
-
-    public Time getStartTime() {
-        return startTime;
+    public void addTimeSlot(TimeSlot timeSlot) {
+        if (this.timeSlots == null) {
+            this.timeSlots = new HashSet<>();
+        }
+        this.timeSlots.add(timeSlot);
     }
 
-    public void setStartTime(Time startTime) {
-        this.startTime = startTime;
+    public Set<TimeSlot> getTimeSlots() {
+        return timeSlots;
     }
 
-    public Time getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Time endTime) {
-        this.endTime = endTime;
+    public void setTimeSlots(Set<TimeSlot> timeSlots) {
+        this.timeSlots = timeSlots;
     }
 
     public Language getLanguage() {

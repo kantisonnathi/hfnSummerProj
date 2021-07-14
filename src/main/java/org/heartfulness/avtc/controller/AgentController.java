@@ -32,21 +32,13 @@ import java.util.*;
 public class AgentController {
 
     private final SecurityService securityService;
-
     private final CallService callService;
-
     private final AgentService agentService;
-
     private final ScheduleExceptionRepository scheduleExceptionRepository;
-
     private final TimeSlotRepository timeSlotRepository;
-
     private final AgentRepository agentRepository;
-
     private final CallRepository callRepository;
-
     private final TeamRepository teamRepository;
-
     private final LoggerRepository loggerRepository;
 
     @Autowired
@@ -198,7 +190,9 @@ public class AgentController {
     }
 
     @GetMapping("/AgentTeam/{pageNo}")
-    public String findPaginatedByteam(@PathVariable(value = "pageNo") int pageNo,@RequestParam("sortField") String sortField,@RequestParam("sortDir") String sortDir ,Model model){
+    public String findPaginatedByteam(@PathVariable(value = "pageNo") int pageNo,
+                                      @RequestParam("sortField") String sortField,
+                                      @RequestParam("sortDir") String sortDir ,Model model){
         int pageSize=10;
         Agent agent=this.agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
         Team team=this.teamRepository.findByAgentsEquals(agent);
@@ -215,8 +209,7 @@ public class AgentController {
     }
 
     @GetMapping("/viewTeam")
-    public String viewAgentsinTeam(Model model)
-    {
+    public String viewAgentsinTeam(Model model) {
         return findPaginatedByteam(1,"name","asc", model);
     }
 
@@ -225,7 +218,6 @@ public class AgentController {
                                        @RequestParam("sortField") String sortField,
                                        @RequestParam("sortDir") String sortDir, Agent agent, ModelMap modelMap) {
         int pageSize = 10;
-
         Page<Call> page = callService.findAllByAgent(agent, pageNo, pageSize, sortField, sortDir);
         List<Call> listCalls = page.getContent();
         modelMap.put("currentPage", pageNo);

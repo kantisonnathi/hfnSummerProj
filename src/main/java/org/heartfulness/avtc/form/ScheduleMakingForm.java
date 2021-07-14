@@ -1,21 +1,34 @@
 package org.heartfulness.avtc.form;
 
 import org.heartfulness.avtc.model.Agent;
+import org.heartfulness.avtc.model.Team;
+import org.heartfulness.avtc.model.TimeSlot;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class ScheduleMakingForm {
 
     private Agent agent;
 
-    private ScheduleMakingFormHelper scheduleMakingFormHelper;
+    private Set<ScheduleTimeSlot> scheduleTimeSlots;
 
-    public ScheduleMakingForm(Agent agent) {
-        this.agent = agent;
-        this.scheduleMakingFormHelper = new ScheduleMakingFormHelper();
+    public ScheduleMakingForm(Team team) {
+        Agent manager = team.getManager();
+        this.agent = manager;
+        Set<TimeSlot> slots = team.getTimeSlots();
+        for (TimeSlot slot : slots) {
+            ScheduleTimeSlot scheduleTimeSlot = new ScheduleTimeSlot();
+            scheduleTimeSlot.setTimeSlot(slot.getStartTime().toLocalTime().getHour());
+            this.scheduleTimeSlots.add(scheduleTimeSlot);
+        }
+    }
+
+    public void addScheduleTimeSlot(ScheduleTimeSlot scheduleTimeSlot) {
+        if (this.scheduleTimeSlots == null) {
+            this.scheduleTimeSlots = new HashSet<>();
+        }
+        scheduleTimeSlots.add(scheduleTimeSlot);
     }
 
     public Agent getAgent() {
@@ -26,11 +39,11 @@ public class ScheduleMakingForm {
         this.agent = agent;
     }
 
-    public ScheduleMakingFormHelper getScheduleMakingFormHelper() {
-        return scheduleMakingFormHelper;
+    public Set<ScheduleTimeSlot> getScheduleTimeSlots() {
+        return scheduleTimeSlots;
     }
 
-    public void setScheduleMakingFormHelper(ScheduleMakingFormHelper scheduleMakingFormHelper) {
-        this.scheduleMakingFormHelper = scheduleMakingFormHelper;
+    public void setScheduleTimeSlots(Set<ScheduleTimeSlot> scheduleTimeSlots) {
+        this.scheduleTimeSlots = scheduleTimeSlots;
     }
 }

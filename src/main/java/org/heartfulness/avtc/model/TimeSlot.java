@@ -15,6 +15,24 @@ public class TimeSlot extends BaseEntity {
     @OneToMany(mappedBy = "slot", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<ScheduleException> scheduleExceptions;
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Team> teams;
+
+    public void addTeam(Team team) {
+        if (this.teams == null) {
+            this.teams = new HashSet<>();
+        }
+        teams.add(team);
+    }
+
+    public Set<Team> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(Set<Team> teams) {
+        this.teams = teams;
+    }
+
     public void addScheduleException(ScheduleException scheduleException) {
         if (this.scheduleExceptions == null) {
             scheduleExceptions = new HashSet<>();

@@ -7,7 +7,6 @@ import org.heartfulness.avtc.repository.LanguageRepository;
 import org.heartfulness.avtc.repository.ServiceRepository;
 import org.heartfulness.avtc.security.auth.SecurityService;
 import org.heartfulness.avtc.service.AgentService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,22 +15,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 
 @Controller
 public class DepartmentController {
-    @Autowired
-    SecurityService securityService;
-    @Autowired
-    AgentService agentService;
 
+    private final SecurityService securityService;
+    private final AgentService agentService;
     private final LanguageRepository languageRepository;
     private final ServiceRepository serviceRepository;
     private final AgentRepository agentRepository;
     private final DepartmentRepository departmentRepository;
 
-    public DepartmentController(LanguageRepository languageRepository, ServiceRepository serviceRepository, AgentRepository agentRepository, DepartmentRepository departmentRepository) {
+    public DepartmentController(SecurityService securityService, AgentService agentService, LanguageRepository languageRepository, ServiceRepository serviceRepository, AgentRepository agentRepository, DepartmentRepository departmentRepository) {
+        this.securityService = securityService;
+        this.agentService = agentService;
         this.languageRepository = languageRepository;
         this.serviceRepository = serviceRepository;
         this.agentRepository = agentRepository;
@@ -39,8 +37,7 @@ public class DepartmentController {
     }
 
     @GetMapping("/addDetails")
-    public String getDetails(ModelMap modelMap)
-    {
+    public String getDetails(ModelMap modelMap) {
         List<Language> languages=languageRepository.findAll();
         List<Service> services=serviceRepository.findAll();
        List<Department> departments=departmentRepository.findAll();
@@ -61,12 +58,10 @@ public class DepartmentController {
         modelMap.put("agent",agent);
         modelMap.put("others",others);
         return "main/NewDetails";
-    } //GetMapping working for dept
-
+    }
 
     @PostMapping("/addDetails")
-    public String afterDetails(@ModelAttribute("agent") Agent agent)
-    {
+    public String afterDetails(@ModelAttribute("agent") Agent agent) {
          Agent newAgent= agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
          newAgent.setGender(agent.getGender());
          newAgent.setName(agent.getName());
@@ -84,8 +79,7 @@ public class DepartmentController {
 
 
     @GetMapping("/addLangandServ")
-    public String addLanguage(ModelMap modelMap)
-    {
+    public String addLanguage(ModelMap modelMap) {
         Department department=new Department();
         modelMap.put("department",department);
         return "main/addLang";
@@ -93,8 +87,7 @@ public class DepartmentController {
 
 
     @PostMapping("/addLangandServ")
-    public String newDept(@ModelAttribute("department") Department department)
-    {
+    public String newDept(@ModelAttribute("department") Department department) {
         if(!department.getService().getName().equals(""))
         {
             serviceRepository.save(department.getService());

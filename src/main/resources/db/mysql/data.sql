@@ -9,11 +9,11 @@ INSERT INTO hfn.department (id, language_id, service_id) VALUES (2, 1, 2);
 INSERT INTO hfn.department (id, language_id, service_id) VALUES (3, 2, 1);
 INSERT INTO hfn.department (id, language_id, service_id) VALUES (4, 2, 2);
 
-INSERT INTO hfn.agent (id, end_time, certified, contact_number, gender, level, missed_now, missed_today, name, role, status, timestamp, leased_by) VALUES (1, null, true, '+917338897712', 'F', 1, null, null, 'Kanti Sonnathi', 'AGENT', null, null, null);
-INSERT INTO hfn.agent (id, end_time, certified, contact_number, gender, level, missed_now, missed_today, name, role, status, timestamp, leased_by) VALUES (2, null, true, '+919900213110', 'M', 3, null, null, 'Venkat Ramana Sonnathi', 'ADMIN', null, null, null);
-INSERT INTO hfn.agent (id, end_time, certified, contact_number, gender, level, missed_now, missed_today, name, role, status, timestamp, leased_by) VALUES (3, null, true, '+917338897713', 'F', 2, null, null, 'Varam Sonnathi', 'TEAM_LEAD', null, null, null);
+INSERT INTO hfn.agent (id, end_time, certified, contact_number, gender, level, missed, name, role, status, timestamp, leased_by) VALUES (1, null, true, '+917338897712', 'F', 1, null, 'Kanti Sonnathi', 'AGENT', null, null, null);
+INSERT INTO hfn.agent (id, end_time, certified, contact_number, gender, level, missed, name, role, status, timestamp, leased_by) VALUES (2, null, true, '+919900213110', 'M', 3, null, 'Venkat Ramana Sonnathi', 'ADMIN', null, null, null);
+INSERT INTO hfn.agent (id, end_time, certified, contact_number, gender, level, missed, name, role, status, timestamp, leased_by) VALUES (3, null, true, '+917338897713', 'F', 2, null, 'Varam Sonnathi', 'TEAM_LEAD', null, null, null);
 
-INSERT INTO hfn.team (id, end_time, start_time, language_id, manager_id) VALUES (1, null, null, null, 3);
+INSERT INTO hfn.team (id, language_id, manager_id) VALUES (1, 1, 3);
 
 INSERT INTO hfn.agent_teams (agents_id, teams_id) VALUES (1, 1);
 INSERT INTO hfn.agent_teams (agents_id, teams_id) VALUES (3, 1);

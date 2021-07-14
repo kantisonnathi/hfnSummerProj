@@ -20,6 +20,10 @@ import java.util.Optional;
 @Controller
 public class CallerController {
 
+    //TODO: add all autowired attributes to constructor.
+    //TODO: let agent see all the callers he/she has talked to before
+    //TODO: let team leader see all callers that team has spoken to
+
     @Autowired
     private CallService callService;
 

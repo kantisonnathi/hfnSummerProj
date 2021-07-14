@@ -24,6 +24,9 @@ public class AdminController {
 
     //TODO: rewrite code for showing a particular team
     //TODO: add new department (adding new services and languages)
+    //TODO: write code to create teams based on time slot(s) and language
+    //TODO: remove code that makes new team based on new team lead
+    //TODO: show a list of all the teams that an agent is part of when agent selects view team
 
     private final SecurityService securityService;
 
@@ -90,7 +93,7 @@ public class AdminController {
         currAgent.addTeam(team);
         currAgent.setRole(AgentRole.TEAM_LEAD);
         team = this.teamRepository.save(team);
-        this.agentRepository.save(currAgent);
+        this.agentService.saveAgent(currAgent);
         return "redirect:/admin/team/" + team.getId();
     }
 
@@ -126,8 +129,8 @@ public class AdminController {
         oldManager.setRole(AgentRole.AGENT);
         currentTeam.setManager(newManager);
         this.teamRepository.save(currentTeam);
-        this.agentRepository.save(oldManager);
-        this.agentRepository.save(newManager);
+        this.agentService.saveAgent(oldManager);
+        this.agentService.saveAgent(newManager);
         if (loggedAgent.getRole() == AgentRole.AGENT) {
             return "redirect:/team/view";
         }
@@ -144,7 +147,7 @@ public class AdminController {
         Agent currentAgent = this.agentService.findById(agentid);
         currentTeam.removeAgent(currentAgent);
         this.teamRepository.save(currentTeam);
-        this.agentRepository.save(currentAgent);
+        this.agentService.saveAgent(currentAgent);
 
         return "redirect:/admin/team/" + teamid;
     }
@@ -176,7 +179,7 @@ public class AdminController {
             return "main/error";
         }
 
-        this.agentRepository.save(currentAgent);
+        this.agentService.saveAgent(currentAgent);
         this.teamRepository.save(currentTeam);
 
         return "redirect:/admin/team/" + teamid;

@@ -15,9 +15,11 @@ import java.util.List;
 @Controller
 public class CallController {
 
-    @Autowired
-    private CallService callService;
+    private final CallService callService;
 
+    public CallController(CallService callService) {
+        this.callService = callService;
+    }
 
     @GetMapping("/viewAllCalls")
     public String getAllCalls(ModelMap modelMap) {

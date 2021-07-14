@@ -44,64 +44,8 @@
     <form th:object="${form}" method="post" action="#">
         <table class="table table-bordered">
             <thead>
-            <tr>
-                <th>Agent Name</th>
-                <th>8am - 9am</th>
-                <th>9am - 10am</th>
-                <th>10am - 10am</th>
-                <th>11am - 12pm</th>
-                <th>12pm - 1pm</th>
-                <th>1pm - 2pm</th>
-                <th>2pm - 3pm</th>
-                <th>3pm - 4pm</th>
-                <th>4pm - 5pm</th>
-                <th>5pm - 6pm</th>
-                <th>6pm - 7pm</th>
-                <th>7pm - 8pm</th>
-                <th>8pm - 9pm</th>
-                <th>9pm - 10pm</th>
-                <th>10pm - 11pm</th>
-                <th>11pm - 12am</th>
-                <th>12am - 1am</th>
-                <th>1am - 2am</th>
-                <th>2am - 3am</th>
-                <th>3am - 4am</th>
-                <th>4am - 5am</th>
-                <th>5am - 6am</th>
-                <th>6am - 7am</th>
-                <th>7am - 8am</th>
-                <th>Set schedule</th>
-            </tr>
+
             </thead>
-            <tbody>
-                <tr th:each="form, itemStat : *{list}">
-                    <td th:text="*{list[__${itemStat.index}__].agent.name}"><input type="hidden" th:field="*{list[__${itemStat.index}__].agent.id}"></td>
-                    <td><input type="checkbox" th:field="*{list[__${itemStat.index}__].scheduleMakingFormHelper.is8am}"></td>
-                    <td><input type="checkbox" th:field="*{list[__${itemStat.index}__].scheduleMakingFormHelper.is9am}"></td>
-                    <td><input type="checkbox" th:field="*{list[__${itemStat.index}__].scheduleMakingFormHelper.is10am}"></td>
-                    <td><input type="checkbox" th:field="*{list[__${itemStat.index}__].scheduleMakingFormHelper.is11am}"></td>
-                    <td><input type="checkbox" th:field="*{list[__${itemStat.index}__].scheduleMakingFormHelper.is12pm}"></td>
-                    <td><input type="checkbox" th:field="*{list[__${itemStat.index}__].scheduleMakingFormHelper.is1pm}"></td>
-                    <td><input type="checkbox" th:field="*{list[__${itemStat.index}__].scheduleMakingFormHelper.is2pm}"></td>
-                    <td><input type="checkbox" th:field="*{list[__${itemStat.index}__].scheduleMakingFormHelper.is3pm}"></td>
-                    <td><input type="checkbox" th:field="*{list[__${itemStat.index}__].scheduleMakingFormHelper.is4pm}"></td>
-                    <td><input type="checkbox" th:field="*{list[__${itemStat.index}__].scheduleMakingFormHelper.is5pm}"></td>
-                    <td><input type="checkbox" th:field="*{list[__${itemStat.index}__].scheduleMakingFormHelper.is6pm}"></td>
-                    <td><input type="checkbox" th:field="*{list[__${itemStat.index}__].scheduleMakingFormHelper.is7pm}"></td>
-                    <td><input type="checkbox" th:field="*{list[__${itemStat.index}__].scheduleMakingFormHelper.is8pm}"></td>
-                    <td><input type="checkbox" th:field="*{list[__${itemStat.index}__].scheduleMakingFormHelper.is9pm}"></td>
-                    <td><input type="checkbox" th:field="*{list[__${itemStat.index}__].scheduleMakingFormHelper.is10pm}"></td>
-                    <td><input type="checkbox" th:field="*{list[__${itemStat.index}__].scheduleMakingFormHelper.is11pm}"></td>
-                    <td><input type="checkbox" th:field="*{list[__${itemStat.index}__].scheduleMakingFormHelper.is12am}"></td>
-                    <td><input type="checkbox" th:field="*{list[__${itemStat.index}__].scheduleMakingFormHelper.is1am}"></td>
-                    <td><input type="checkbox" th:field="*{list[__${itemStat.index}__].scheduleMakingFormHelper.is2am}"></td>
-                    <td><input type="checkbox" th:field="*{list[__${itemStat.index}__].scheduleMakingFormHelper.is3am}"></td>
-                    <td><input type="checkbox" th:field="*{list[__${itemStat.index}__].scheduleMakingFormHelper.is4am}"></td>
-                    <td><input type="checkbox" th:field="*{list[__${itemStat.index}__].scheduleMakingFormHelper.is5am}"></td>
-                    <td><input type="checkbox" th:field="*{list[__${itemStat.index}__].scheduleMakingFormHelper.is6am}"></td>
-                    <td><input type="checkbox" th:field="*{list[__${itemStat.index}__].scheduleMakingFormHelper.is7am}"></td>
-                </tr>
-            </tbody>
         </table>
         <input type="submit" id="submitButton" th:value="Save">
     </form>

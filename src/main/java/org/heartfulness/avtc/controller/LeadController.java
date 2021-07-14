@@ -1,8 +1,8 @@
 package org.heartfulness.avtc.controller;
 
 import org.heartfulness.avtc.form.ScheduleMakingForm;
-import org.heartfulness.avtc.form.ScheduleTopForm;
 import org.heartfulness.avtc.model.Agent;
+import org.heartfulness.avtc.model.Team;
 import org.heartfulness.avtc.repository.AgentRepository;
 import org.heartfulness.avtc.repository.TimeSlotRepository;
 import org.heartfulness.avtc.security.auth.SecurityService;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -46,23 +45,16 @@ public class LeadController {
     }
 
     @GetMapping("/schedule/make")
-    public String makeSchedule(ModelMap modelMap) {
-        List<ScheduleMakingForm> forms = new ArrayList<>();
-        List<Agent> agents = this.agentRepository.findAll();
-        for (Agent agent : agents) {
-            ScheduleMakingForm scheduleMakingForm = new ScheduleMakingForm(agent);
-            forms.add(scheduleMakingForm);
-        }
-        ScheduleTopForm form = new ScheduleTopForm();
-        form.setList(forms);
-        modelMap.put("form", form);
+    public String makeSchedule(Agent loggedInAgent, ModelMap modelMap) {
+        Team team = loggedInAgent.getTeamManaged();
+        ScheduleMakingForm scheduleMakingForm = new ScheduleMakingForm(team);
         modelMap.put("role", "TEAM_LEAD");
         return "schedule/makeSchedule";
     }
 
     @PostMapping("/schedule/make")
-    public String setSchedule(ScheduleTopForm topForm) {
-        System.out.println(topForm); //figure out why this isn't working later
+    public String setSchedule() {
+
         return "redirect:/success";
     }
 }

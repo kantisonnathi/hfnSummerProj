@@ -15,7 +15,6 @@ import org.heartfulness.avtc.security.auth.models.SecurityProperties;
 import org.heartfulness.avtc.security.auth.models.User;
 import org.heartfulness.avtc.security.utils.CookieUtils;
 import org.heartfulness.avtc.service.AgentService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -35,27 +34,24 @@ import java.util.TreeMap;
 public class MainController {
 
     //TODO: put all of these classes in an autowired constructor
-    @Autowired
-    private SecurityService securityService;
 
-    @Autowired
-    SecurityProperties secProps;
+    private final SecurityService securityService;
 
-    @Autowired
-    CookieUtils cookieUtils;
+    private final SecurityProperties secProps;
 
-    @Autowired
-    AgentService agentService;
+    private final CookieUtils cookieUtils;
 
-    private final AgentRepository agentRepository;
+    private final AgentService agentService;
 
     private final LoggerRepository loggerRepository;
 
-    public MainController(AgentRepository agentRepository, LoggerRepository loggerRepository) {
-        this.agentRepository = agentRepository;
+    public MainController(SecurityService securityService, SecurityProperties secProps, CookieUtils cookieUtils, AgentService agentService, AgentRepository agentRepository, LoggerRepository loggerRepository) {
+        this.securityService = securityService;
+        this.secProps = secProps;
+        this.cookieUtils = cookieUtils;
+        this.agentService = agentService;
         this.loggerRepository = loggerRepository;
     }
-
 
     @GetMapping("/")
     public String getlogin(ModelMap modelMap) {

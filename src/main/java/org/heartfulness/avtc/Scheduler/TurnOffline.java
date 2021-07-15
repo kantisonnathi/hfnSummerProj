@@ -45,13 +45,13 @@ public class TurnOffline {
 
         for(Agent agent: agents)
       {
-          Date d2 = sdf.parse(String.valueOf(agent.getTime()));
+          Date d2 = sdf.parse(String.valueOf(agent.getEndTime()));
           long elapsed = d2.getTime() - d1.getTime();
           if(elapsed<=0)
           {
                  if(agent.getStatus()== AgentStatus.ONLINE) {
                      agent.setStatus(AgentStatus.OFFLINE);
-                     agent.setTime(null);
+                     agent.setEndTime(null);
                      agentRepository.save(agent);
                      Logger logger = new Logger();
                      LocalDateTime localDateTime = LocalDateTime.now();

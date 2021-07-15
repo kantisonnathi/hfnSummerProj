@@ -102,6 +102,7 @@ public class AgentServiceImpl implements AgentService{
             return new PageImpl<Agent>(new ArrayList<>(), pageable, list.size());
         return new PageImpl<Agent>(list.subList(start, end), pageable, list.size());
     }
+
     @Override
     public List<Agent> findAllByLeasedByAndStatus(Call call, AgentStatus status) {
         return this.agentRepository.findAllByLeasedByAndStatus(call,status);

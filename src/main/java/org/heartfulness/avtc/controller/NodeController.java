@@ -17,9 +17,7 @@ public class NodeController {
 
 
     private final InputNodeService inputNodeService;
-
     private final InCallService inCallService;
-
     private final AfterCallService afterCallService;
 
     public NodeController(InputNodeService inputNodeService, InCallService inCallService, AfterCallService afterCallService) {

@@ -2,6 +2,7 @@ package org.heartfulness.avtc.repository;
 
 import org.heartfulness.avtc.model.Agent;
 import org.heartfulness.avtc.model.Team;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 
 import java.util.List;
@@ -15,6 +16,10 @@ public interface TeamRepository extends Repository<Team, Long> {
     Team save(Team team);
 
     Team findTeamByAgentsIn(List<Agent> agents);
+
+    @Query(value = "select * from team where manager_id=?", nativeQuery = true)
+    Team findTeamManagedBy(Agent agent);
+
     Team findByAgentsEquals(Agent agent);
 
 }

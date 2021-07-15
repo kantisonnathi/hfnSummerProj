@@ -11,7 +11,7 @@ import java.util.Set;
 @Table(name = "team")
 public class Team extends BaseEntity{
 
-    @OneToOne(cascade = CascadeType.DETACH)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "manager_id", referencedColumnName = "id")
     private Agent manager;
 

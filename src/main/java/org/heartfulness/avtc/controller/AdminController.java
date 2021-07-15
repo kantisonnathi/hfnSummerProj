@@ -22,20 +22,17 @@ import java.util.List;
 @RequestMapping("/admin")
 public class AdminController {
 
-    //TODO: rewrite code for showing a particular team
+    //TODO: rewrite code for adding agent to team
+    //TODO: test all team related functionality, figure out what to rewrite
     //TODO: add new department (adding new services and languages)
     //TODO: write code to create teams based on time slot(s) and language
     //TODO: remove code that makes new team based on new team lead
     //TODO: show a list of all the teams that an agent is part of when agent selects view team
 
     private final SecurityService securityService;
-
     private final AgentRepository agentRepository;
-
     private final TeamRepository teamRepository;
-
     private final AgentService agentService;
-
     private final CallerService callerService;
 
     @Autowired
@@ -50,12 +47,6 @@ public class AdminController {
     @ModelAttribute
     public Agent getLoggedInAgent() {
         return this.agentService.findBycontactNumber(this.securityService.getUser().getPhoneNumber());
-    }
-
-    @GetMapping("/lead/team/view")
-    public String teamLeadView(Agent loggedInAgent) {
-        //not authorized to view this page.
-        return "main/error";
     }
 
     @GetMapping("/teams/all")
@@ -98,13 +89,13 @@ public class AdminController {
     }
 
     //TODO: rewrite this code
-    /*@GetMapping("/team/{id}")
+    @GetMapping("/team/{id}")
     public String showIndividualTeam(@PathVariable("id") Long teamID, ModelMap modelMap) {
 
         Team team = this.teamRepository.findById(teamID);
 
         Agent loggedAgent = this.agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
-        if (loggedAgent.getRole().equals(AgentRole.TEAM_LEAD) && loggedAgent.getTeam().getId().equals(team.getId())){
+        if (loggedAgent.getRole().equals(AgentRole.TEAM_LEAD) && loggedAgent.getTeamManaged().getId().equals(team.getId())){
             modelMap.put("team", team);
             return "team/viewSingle";
         }
@@ -114,7 +105,7 @@ public class AdminController {
         }
         modelMap.put("team", team);
         return "team/viewSingle";
-    }*/
+    }
 
     @GetMapping("/team/{teamid}/makeLead/{agentId}")
     public String makeAdmin(@PathVariable("teamid") Long teamid, @PathVariable("agentId") Long agentID, Agent loggedAgent) {

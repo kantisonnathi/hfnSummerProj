@@ -44,15 +44,15 @@ public class Agent extends BaseEntity {
     @Column(name="level",length =1)
     private int level;
 
-    @Column(name = "endTime")
-    private Time Time;
+    @Column(name = "end_time")
+    private Time endTime;
 
-    public java.sql.Time getTime() {
-        return Time;
+    public java.sql.Time getEndTime() {
+        return endTime;
     }
 
-    public void setTime(java.sql.Time time) {
-        Time = time;
+    public void setEndTime(java.sql.Time endTime) {
+        this.endTime = endTime;
     }
 
     @ManyToMany(fetch=FetchType.EAGER,cascade = CascadeType.ALL)
@@ -70,7 +70,7 @@ public class Agent extends BaseEntity {
     @ManyToMany(fetch = FetchType.EAGER, targetEntity = Team.class)
     private Set<Team> teams;
 
-    @OneToOne(mappedBy = "manager")
+    @OneToOne(mappedBy = "manager", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Team teamManaged;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

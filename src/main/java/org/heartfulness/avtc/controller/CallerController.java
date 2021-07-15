@@ -20,18 +20,17 @@ import java.util.Optional;
 @Controller
 public class CallerController {
 
-    //TODO: add all autowired attributes to constructor.
     //TODO: let agent see all the callers he/she has talked to before
     //TODO: let team leader see all callers that team has spoken to
 
-    @Autowired
-    private CallService callService;
-
+    private final CallService callService;
     private final CallerRepository callerRepository;
 
-    public CallerController(CallerRepository callerRepository) {
+    public CallerController(CallService callService, CallerRepository callerRepository) {
+        this.callService = callService;
         this.callerRepository = callerRepository;
     }
+
 
     @GetMapping("/callerDetails/{callerId}")
     public String getCallerEditForm(@PathVariable("callerId") Long callerId, ModelMap modelMap) {

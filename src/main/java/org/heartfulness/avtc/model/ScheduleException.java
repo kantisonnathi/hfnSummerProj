@@ -16,7 +16,17 @@ public class ScheduleException extends BaseEntity {
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = TimeSlot.class)
     private TimeSlot slot;
 
+    private Boolean accepted;
+
     private Date date;
+
+    public Boolean getAccepted() {
+        return accepted;
+    }
+
+    public void setAccepted(Boolean accepted) {
+        this.accepted = accepted;
+    }
 
     public TimeSlot getSlot() {
         return slot;

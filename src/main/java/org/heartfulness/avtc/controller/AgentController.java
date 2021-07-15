@@ -139,6 +139,7 @@ public class AgentController {
                 scheduleException1.setDate(date);
                 scheduleException1.setAgent(loggedInAgent);
                 scheduleException1.setSlot(timeSlot);
+                scheduleException1.setAccepted(false);
                 this.scheduleExceptionRepository.save(scheduleException1);
             }
         }
@@ -153,7 +154,7 @@ public class AgentController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         LocalTime endtime = LocalTime.parse(x, formatter);
         Time end=Time.valueOf(endtime);
-        agent.setTime(end);
+        agent.setEndTime(end);
         agentRepository.save(agent);
         return "redirect:/success";
     }

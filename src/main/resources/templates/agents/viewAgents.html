@@ -41,64 +41,64 @@
     </nav>
 </div>
 <div class="content-section">
-<h1>All Agents</h1>
-<table border="1" class="table table-striped table-responsive-md">
-    <thead>
-    <tr>
-        <th><a th:href="@{'/Agentpage/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir}}">
-            Agent Name</a></th>
-        <th><a th:href="@{'/Agentpage/' + ${currentPage} + '?sortField=contactNumber&sortDir=' + ${reverseSortDir}}">
-            Agent Contact number</a></th>
-        <th>  <a th:href="@{'/Agentpage/' + ${currentPage} + '?sortField=level&sortDir=' + ${reverseSortDir}}">
-            Agent level</a></th>
-        <th> <a th:href="@{'/Agentpage/' + ${currentPage} + '?sortField=status&sortDir=' + ${reverseSortDir}}">
-            Agent status</a></th>
-        <th>Certification</th>
-        <th>Activites</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="agent: ${listAgent}">
-        <td th:text="${agent.name}"></td>
-        <td th:text="${agent.contactNumber}"></td>
-        <td th:text="${agent.level}"></td>
-        <td th:text="${agent.status}"></td>
-        <td>
-            <span th:if="${agent.certified}">Certified</span>
-            <span th:unless="${agent.certified}">Not certified</span>
-        </td>
-        <td>
+    <h1>All Agents</h1>
+    <table border="1" class="table table-striped table-responsive-md">
+        <thead>
+        <tr>
+            <th><a th:href="@{'/Agentpage/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir}}">
+                Agent Name</a></th>
+            <th><a th:href="@{'/Agentpage/' + ${currentPage} + '?sortField=contactNumber&sortDir=' + ${reverseSortDir}}">
+                Agent Contact number</a></th>
+            <th>  <a th:href="@{'/Agentpage/' + ${currentPage} + '?sortField=level&sortDir=' + ${reverseSortDir}}">
+                Agent level</a></th>
+            <th> <a th:href="@{'/Agentpage/' + ${currentPage} + '?sortField=status&sortDir=' + ${reverseSortDir}}">
+                Agent status</a></th>
+            <th>Certification</th>
+            <th>Activites</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="agent: ${listAgent}">
+            <td th:text="${agent.name}"></td>
+            <td th:text="${agent.contactNumber}"></td>
+            <td th:text="${agent.level}"></td>
+            <td th:text="${agent.status}"></td>
+            <td>
+                <span th:if="${agent.certified}">Certified</span>
+                <span th:unless="${agent.certified}">Not certified</span>
+            </td>
+            <td>
             <span th:if="${agent.certified}">
                 <a th:href="@{/admin/__${agent.id}__/inactive}">Mark Agent Inactive</a>
             </span>
-            <span th:unless="${agent.certified}">
+                <span th:unless="${agent.certified}">
                 <a th:href="@{/admin/__${agent.id}__/active}">Mark Agent Active</a>
             </span>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<div th:if="${totalPages>1}">
-    <div class="row col-sm-10" >
-        <div class="col-sm-2">
-            Total Rows:[[${totalItems}]]
-        </div>
-        <div class="col-sm-1"></div>
-        <span th:each="i:${#numbers.sequence(1,totalPages)}">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:if="${totalPages>1}">
+        <div class="row col-sm-10" >
+            <div class="col-sm-2">
+                Total Rows:[[${totalItems}]]
+            </div>
+            <div class="col-sm-1"></div>
+            <span th:each="i:${#numbers.sequence(1,totalPages)}">
                 <a th:if="${currentPage!=i}"  th:href="@{'/Agentpage/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
                 <span th:unless="${currentPage!=i}">[[${i}]]</span> &nbsp; &nbsp;
             </span>
-        <div class="col-sm-1">
-            <a th:if="${currentPage<totalPages}"  th:href="@{'/Agentpage/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
-            <span th:unless="${currentPage<totalPages}">Next</span>
+            <div class="col-sm-1">
+                <a th:if="${currentPage<totalPages}"  th:href="@{'/Agentpage/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+                <span th:unless="${currentPage<totalPages}">Next</span>
+            </div>
+            <div class="col-sm-1">
+                <a th:if="${currentPage<totalPages}"  th:href="@{'/Agentpage/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+                <span th:unless="${currentPage<totalPages}">Last</span>
+            </div>
         </div>
-        <div class="col-sm-1">
-            <a th:if="${currentPage<totalPages}"  th:href="@{'/Agentpage/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
-            <span th:unless="${currentPage<totalPages}">Last</span>
-        </div>
-    </div>
 
-</div>
+    </div>
     <div>
         <a th:href="@{/admin/agent/new}">Add new Agent</a>
     </div>

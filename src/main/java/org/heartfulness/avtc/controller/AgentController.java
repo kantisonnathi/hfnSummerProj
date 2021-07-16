@@ -11,6 +11,7 @@ import org.heartfulness.avtc.repository.*;
 import org.heartfulness.avtc.security.auth.SecurityService;
 import org.heartfulness.avtc.service.AgentService;
 import org.heartfulness.avtc.service.CallService;
+import org.heartfulness.avtc.service.ScheduleExceptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -34,7 +35,7 @@ public class AgentController {
     private final SecurityService securityService;
     private final CallService callService;
     private final AgentService agentService;
-    private final ScheduleExceptionRepository scheduleExceptionRepository;
+    private final ScheduleExceptionService scheduleExceptionService;
     private final TimeSlotRepository timeSlotRepository;
     private final AgentRepository agentRepository;
     private final CallRepository callRepository;
@@ -42,11 +43,11 @@ public class AgentController {
     private final LoggerRepository loggerRepository;
 
     @Autowired
-    public AgentController(SecurityService securityService, CallService callService, AgentService agentService, ScheduleExceptionRepository scheduleExceptionRepository, TimeSlotRepository timeSlotRepository, AgentRepository agentRepository, CallRepository callRepository, TeamRepository teamRepository, LoggerRepository loggerRepository) {
+    public AgentController(SecurityService securityService, CallService callService, AgentService agentService, ScheduleExceptionService scheduleExceptionService, TimeSlotRepository timeSlotRepository, AgentRepository agentRepository, CallRepository callRepository, TeamRepository teamRepository, LoggerRepository loggerRepository) {
         this.securityService = securityService;
         this.callService = callService;
         this.agentService = agentService;
-        this.scheduleExceptionRepository = scheduleExceptionRepository;
+        this.scheduleExceptionService = scheduleExceptionService;
         this.timeSlotRepository = timeSlotRepository;
         this.agentRepository = agentRepository;
         this.callRepository = callRepository;
@@ -130,7 +131,9 @@ public class AgentController {
         LocalDate dateForm = LocalDate.parse(slotForm.getDate(), dateFormatter);
         Date date = Date.valueOf(dateForm);
         scheduleException.setDate(date);
-        this.scheduleExceptionRepository.save(scheduleException);
+        if (this.scheduleExceptionService.findEqual(scheduleException)) {
+            this.scheduleExceptionService.save(scheduleException);
+        }
         if (slotForm.getNumberOfRepeats() != null) {
             for (int i = 0; i < slotForm.getNumberOfRepeats(); i++) {
                 dateForm = dateForm.plusDays(7);
@@ -140,7 +143,9 @@ public class AgentController {
                 scheduleException1.setAgent(loggedInAgent);
                 scheduleException1.setSlot(timeSlot);
                 scheduleException1.setAccepted(false);
-                this.scheduleExceptionRepository.save(scheduleException1);
+                if (this.scheduleExceptionService.findEqual(scheduleException1)) {
+                    this.scheduleExceptionService.save(scheduleException1);
+                }
             }
         }
         return "redirect:/success";

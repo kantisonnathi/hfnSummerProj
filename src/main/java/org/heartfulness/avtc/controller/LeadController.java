@@ -15,8 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 @RequestMapping("/lead")
@@ -48,27 +47,64 @@ public class LeadController {
 
     @GetMapping("/schedule/make")
     public String makeSchedule(Agent loggedInAgent, ModelMap modelMap) {
-        Team team = loggedInAgent.getTeamManaged();
-        Set<TimeSlot> slots = team.getTimeSlots();
-        TimeSlot timeSlot = new TimeSlot();
-        Agent agent = new Agent();
-        Set<Agent> agents = team.getAgents();
-        modelMap.put("slots", slots);
-        modelMap.put("agents", agents);
-        modelMap.put("role", "TEAM_LEAD");
-        return findPaginatedByTeam(1, "id", "asc", team, modelMap);
+        return findPaginatedByTeam(1, "id", "asc", modelMap, loggedInAgent);
     }
 
     @GetMapping("/schedulePage/{pageno}")
     public String findPaginatedByTeam(@PathVariable("pageno") Integer pageNo,
                                       @RequestParam("sortField") String sortField,
-                                      @RequestParam("sortDir") String sortDir, Team team, ModelMap modelMap) {
+                                      @RequestParam("sortDir") String sortDir, ModelMap modelMap
+                                       ,@ModelAttribute Agent loggedInAgent) {
         int pageSize = 5;
+        Team team = loggedInAgent.getTeamManaged();
         Page<ScheduleException> page = scheduleExceptionService.findAllPaginatedByTeamAndDate(Date.valueOf(LocalDate.now().plusDays(1)),team, pageNo, pageSize, sortField, sortDir);
-        List<ScheduleException> list = page.getContent();
         modelMap.put("currentPage", pageNo);
         modelMap.put("totalPages", page.getTotalPages());
         modelMap.put("totalItems", page.getTotalElements());
+        List<ScheduleException> list = page.getContent();
+        Set<TimeSlot> slotset = team.getTimeSlots();
+        List<TimeSlot> slots = new ArrayList<>(slotset);
+        slots.sort((timeSlot, t1) -> {
+            if (timeSlot.getStartTime().toLocalTime().getHour() > t1.getStartTime().toLocalTime().getHour()) {
+                return 1;
+            } else if (timeSlot.getStartTime().toLocalTime().getHour() == t1.getStartTime().toLocalTime().getHour()) {
+                return 0;
+            }
+            return -1;
+        });
+        Set<Agent> agents = team.getAgents();
+        List<String> headers = new ArrayList<>();
+        headers.add("Agent Name");
+        for (TimeSlot slot : slots) {
+            String header = slot.getStartTime().toLocalTime().getHour() + " - " + slot.getEndTime().toLocalTime().getHour();
+            headers.add(header);
+        }
+        List<Map<String, String>> rows = new ArrayList<>();
+        for (Agent agent : agents) {
+            Map<String, String> map = new HashMap<>();
+            map.put("Agent Name", agent.getName());
+            Set<ScheduleException> scheduleExceptions = agent.getScheduleExceptions();
+            Set<TimeSlot> agentSlots = new HashSet<>();
+            for (ScheduleException s : scheduleExceptions) {
+                if (s.getAccepted()) {
+                    agentSlots.add(s.getSlot());
+                }
+            }
+            for (TimeSlot slot : slots) {
+                String header = slot.getStartTime().toLocalTime().getHour() + " - " + slot.getEndTime().toLocalTime().getHour();
+                if (agentSlots.contains(slot)) {
+                    map.put(header, "assigned");
+                } else {
+                    map.put(header, "free");
+                }
+            }
+            rows.add(map);
+        }
+        modelMap.put("rows", rows);
+        modelMap.put("headers", headers);
+        modelMap.put("slots", slots);
+        modelMap.put("agents", agents);
+        modelMap.put("role", "TEAM_LEAD");
         modelMap.put("sortField", sortField);
         modelMap.put("sortDir", sortDir);
         modelMap.put("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");

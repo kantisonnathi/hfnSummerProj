@@ -41,7 +41,7 @@
 </div>
 
 <div class="content-section" style="text-align: center; padding-left: 100px">
-    <div style="width: 900px; float:left; height:500px; margin:10px">
+    <div style="width: 800px; float:left; margin:10px">
         <table class="table table-striped table-responsive-md">
             <thead>
             <tr>
@@ -79,29 +79,31 @@
             </tr>
             </tbody>
         </table>
-        <div th:if="${totalPages>1}">
-            <div class="row col-sm-10" >
-                <div class="col-sm-2">
-                    Total Rows:[[${totalItems}]]
+        <div th:if = "${totalPages > 1}">
+            <div class = "row col-sm-12">
+                <div class = "col-sm-2">
+                    Total Rows: [[${totalItems}]]
                 </div>
-                <div class="col-sm-1"></div>
-                <span th:each="i:${#numbers.sequence(1,totalPages)}">
-                <a th:if="${currentPage!=i}"  th:href="@{'/schedulePage/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
-                <span th:unless="${currentPage!=i}">[[${i}]]</span> &nbsp; &nbsp;
-            </span>
-                <div class="col-sm-1">
-                    <a th:if="${currentPage<totalPages}"  th:href="@{'/schedulePage/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
-                    <span th:unless="${currentPage<totalPages}">Next</span>
+                <div class = "col-sm-1">
+					<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+						<a th:if="${currentPage != i}" th:href="@{'/lead/schedulePage/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+						<span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
+					</span>
                 </div>
+                <div class = "col-sm-1">
+                    <a th:if="${currentPage < totalPages}" th:href="@{'/lead/schedulePage/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+                    <span th:unless="${currentPage < totalPages}">Next</span>
+                </div>
+
                 <div class="col-sm-1">
-                    <a th:if="${currentPage<totalPages}"  th:href="@{'/schedulePage/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
-                    <span th:unless="${currentPage<totalPages}">Last</span>
+                    <a th:if="${currentPage < totalPages}" th:href="@{'/lead/schedulePage/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+                    <span th:unless="${currentPage < totalPages}">Last</span>
                 </div>
             </div>
         </div>
     </div>
-    <div style="width: 400px; float:left; height:200px; margin:10px" class="content-section">
-        <h2>Add new Schedule event:</h2>
+    <div style="width: 300px; float:left; height:200px; margin:10px" class="content-section">
+        <h4>Add new Schedule event:</h4>
         <form method="post" th:action="@{/lead/schedule/new}" th:object="${scheduleForm}">
             <select th:field="*{agent.id}">
                 <option th:each="curr_agent : ${agents}"
@@ -116,7 +118,18 @@
             <input type="submit" th:value="Save">
         </form>
     </div>
-
+</div>
+<div class="content-section" style="width: 500px; padding-left: 50px">
+    <table class="table-bordered table">
+        <thead>
+            <th th:each="header: ${headers}" class="column-title" th:text="${header}"></th>
+        </thead>
+        <tbody>
+        <tr class="even pointer" th:each="row: ${rows}" id="tablerow">
+            <td th:each="header: ${headers}" th:text="${row.get(header)}"></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

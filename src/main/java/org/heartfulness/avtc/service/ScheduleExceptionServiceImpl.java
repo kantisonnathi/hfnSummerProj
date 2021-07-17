@@ -8,7 +8,6 @@ import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -41,8 +40,8 @@ public class ScheduleExceptionServiceImpl implements ScheduleExceptionService{
         int start = (int) pageable.getOffset();
         int end = Math.min((start + pageable.getPageSize()), list.size());
         if(start > list.size())
-            return new PageImpl<ScheduleException>(new ArrayList<>(), pageable, list.size());
-        return new PageImpl<ScheduleException>(list.subList(start, end), pageable, list.size());
+            return new PageImpl<>(new ArrayList<>(), pageable, list.size());
+        return new PageImpl<>(list.subList(start, end), pageable, list.size());
     }
 
     @Override
@@ -52,6 +51,7 @@ public class ScheduleExceptionServiceImpl implements ScheduleExceptionService{
 
     @Override
     public boolean findEqual(ScheduleException scheduleException) {
+        //returns true if there's no other schedule exception with same date, agent and slot
         ScheduleException sc = this.scheduleExceptionRepository.findByDateAndAgentAndSlot(scheduleException.getDate(), scheduleException.getAgent(), scheduleException.getSlot());
         return sc == null;
     }

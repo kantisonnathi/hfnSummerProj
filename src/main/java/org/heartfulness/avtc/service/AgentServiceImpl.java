@@ -99,13 +99,21 @@ public class AgentServiceImpl implements AgentService{
         int start = (int) pageable.getOffset();
         int end = Math.min((start + pageable.getPageSize()), list.size());
         if(start > list.size())
-            return new PageImpl<Agent>(new ArrayList<>(), pageable, list.size());
-        return new PageImpl<Agent>(list.subList(start, end), pageable, list.size());
+            return new PageImpl<>(new ArrayList<>(), pageable, list.size());
+        return new PageImpl<>(list.subList(start, end), pageable, list.size());
     }
 
     @Override
     public List<Agent> findAllByLeasedByAndStatus(Call call, AgentStatus status) {
         return this.agentRepository.findAllByLeasedByAndStatus(call,status);
+    }
+
+    @Override
+    public Page<Agent> findAgentsWithNoTeam(int pageno, int pagesize, String sortField, String sortDirection) {
+        List<Agent> agents = this.agentRepository.findAgentsWithNoTeam();
+        Sort sort=sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name())?Sort.by(sortField).ascending():Sort.by(sortField).descending();
+        Pageable pageable= PageRequest.of(pageno-1,pagesize,sort);
+        return toPage(agents, pageable);
     }
 
 }

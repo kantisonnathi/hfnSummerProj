@@ -12,6 +12,7 @@ import org.heartfulness.avtc.security.auth.SecurityService;
 import org.heartfulness.avtc.service.AgentService;
 import org.heartfulness.avtc.service.CallService;
 import org.heartfulness.avtc.service.ScheduleExceptionService;
+import org.heartfulness.avtc.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -32,6 +33,8 @@ import java.util.*;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class AgentController {
 
+    //TODO: write code to see schedule
+
     private final SecurityService securityService;
     private final CallService callService;
     private final AgentService agentService;
@@ -39,11 +42,11 @@ public class AgentController {
     private final TimeSlotRepository timeSlotRepository;
     private final AgentRepository agentRepository;
     private final CallRepository callRepository;
-    private final TeamRepository teamRepository;
+    private final TeamService teamService;
     private final LoggerRepository loggerRepository;
 
     @Autowired
-    public AgentController(SecurityService securityService, CallService callService, AgentService agentService, ScheduleExceptionService scheduleExceptionService, TimeSlotRepository timeSlotRepository, AgentRepository agentRepository, CallRepository callRepository, TeamRepository teamRepository, LoggerRepository loggerRepository) {
+    public AgentController(SecurityService securityService, CallService callService, AgentService agentService, ScheduleExceptionService scheduleExceptionService, TimeSlotRepository timeSlotRepository, AgentRepository agentRepository, CallRepository callRepository, TeamService teamService, LoggerRepository loggerRepository) {
         this.securityService = securityService;
         this.callService = callService;
         this.agentService = agentService;
@@ -51,7 +54,7 @@ public class AgentController {
         this.timeSlotRepository = timeSlotRepository;
         this.agentRepository = agentRepository;
         this.callRepository = callRepository;
-        this.teamRepository = teamRepository;
+        this.teamService = teamService;
         this.loggerRepository = loggerRepository;
     }
 
@@ -168,7 +171,7 @@ public class AgentController {
     public String viewTeam(ModelMap modelMap, Agent loggedInAgent) {
         List<Agent> agents = new ArrayList<>();
         agents.add(loggedInAgent);
-        Team team = this.teamRepository.findTeamByAgentsIn(agents);
+        Team team = this.teamService.findTeamByAgentsIn(agents);
         if (team == null) {
             return "redirect:/success";
         }
@@ -201,7 +204,7 @@ public class AgentController {
                                       @RequestParam("sortDir") String sortDir ,Model model){
         int pageSize=10;
         Agent agent=this.agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
-        Team team=this.teamRepository.findByAgentsEquals(agent);
+        Team team=this.teamService.findByAgentsEquals(agent);
         Page<Agent> page= agentService.findByTeam(team,pageNo,pageSize,sortField,sortDir);
         List<Agent> agentList=page.getContent();
         model.addAttribute("currentPage",pageNo);
@@ -239,7 +242,7 @@ public class AgentController {
 
     @GetMapping("/team/{teamid}/viewAllCalls")
     public String viewAllTeamCalls(@PathVariable("teamid") Long teamId, ModelMap modelMap) {
-        Team team = this.teamRepository.findById(teamId);
+        Team team = this.teamService.findById(teamId);
         return findPaginatedByTeam(1, "id", "asc", team, modelMap);
     }
 

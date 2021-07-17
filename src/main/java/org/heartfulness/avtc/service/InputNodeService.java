@@ -32,8 +32,6 @@ public class InputNodeService {
 
     private final CallRepository callRepository;
 
-    private final MainRepository mainRepository;
-
     private final DepartmentRepository departmentRepository;
 
     private final CallService callService;
@@ -41,14 +39,13 @@ public class InputNodeService {
     private final AgentService agentService;
 
     @Autowired
-    public InputNodeService(NodeConfiguration nodeConfiguration, AgentRepository agentRepository, CallerRepository callerRepository, LanguageRepository languageRepository, ServiceRepository serviceRepository, CallRepository callRepository, MainRepository mainRepository, DepartmentRepository departmentRepository, CallService callService, AgentService agentService) {
+    public InputNodeService(NodeConfiguration nodeConfiguration, AgentRepository agentRepository, CallerRepository callerRepository, LanguageRepository languageRepository, ServiceRepository serviceRepository, CallRepository callRepository, DepartmentRepository departmentRepository, CallService callService, AgentService agentService) {
         this.nodeConfiguration = nodeConfiguration;
         this.agentRepository = agentRepository;
         this.callerRepository = callerRepository;
         this.languageRepository = languageRepository;
         this.serviceRepository = serviceRepository;
         this.callRepository = callRepository;
-        this.mainRepository = mainRepository;
         this.departmentRepository = departmentRepository;
         this.callService = callService;
         this.agentService = agentService;

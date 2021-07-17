@@ -9,6 +9,7 @@ import org.heartfulness.avtc.repository.TeamRepository;
 import org.heartfulness.avtc.security.auth.SecurityService;
 import org.heartfulness.avtc.service.AgentService;
 import org.heartfulness.avtc.service.CallerService;
+import org.heartfulness.avtc.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -23,8 +24,9 @@ import java.util.List;
 public class AdminController {
 
     //TODO: rewrite code for adding agent to team
-    //TODO: test all team related functionality, figure out what to rewrite
-    //TODO: add new department (adding new services and languages)
+    //TODO: paginate the unassigned agents
+    //TODO: updating agent information
+    //TODO: remove admin users from unassigned agents
     //TODO: write code to create teams based on time slot(s) and language
     //TODO: remove code that makes new team based on new team lead
     //TODO: show a list of all the teams that an agent is part of when agent selects view team
@@ -34,14 +36,16 @@ public class AdminController {
     private final TeamRepository teamRepository;
     private final AgentService agentService;
     private final CallerService callerService;
+    private final TeamService teamService;
 
     @Autowired
-    public AdminController(SecurityService securityService, AgentRepository agentRepository, TeamRepository teamRepository, AgentService agentService, CallerService callerService) {
+    public AdminController(SecurityService securityService, AgentRepository agentRepository, TeamRepository teamRepository, AgentService agentService, CallerService callerService, TeamService teamService) {
         this.securityService = securityService;
         this.agentRepository = agentRepository;
         this.teamRepository = teamRepository;
         this.agentService = agentService;
         this.callerService = callerService;
+        this.teamService = teamService;
     }
 
     @ModelAttribute
@@ -55,8 +59,27 @@ public class AdminController {
             //not authorized to view this page.
             return "main/error";
         }
-        List<Team> teams = this.teamRepository.findAll();
-        modelMap.put("teams", teams);
+        return viewAllPaginatedTeams(1, "id", "asc", modelMap);
+    }
+
+    @GetMapping("/team/all/{pageno}")
+    public String viewAllPaginatedTeams(@PathVariable("pageno") int pageNo,
+                                        @RequestParam("sortField") String sortField,
+                                        @RequestParam("sortDir") String sortDir,
+                                        ModelMap modelMap) {
+        int pageSize = 10;
+        Page<Team> page = this.teamService.findAllPaginatedTeams(pageNo,pageSize,sortField,sortDir);
+
+        List<Team> listTeams = page.getContent();
+
+        modelMap.put("role", "ADMIN");
+        modelMap.put("currentPage", pageNo);
+        modelMap.put("totalPages", page.getTotalElements());
+        modelMap.put("totalItems", page.getTotalElements());
+        modelMap.put("sortField", sortField);
+        modelMap.put("sortDir", sortDir);
+        modelMap.put("list", listTeams);
+        modelMap.put("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
         return "team/viewTeams";
     }
 
@@ -66,13 +89,30 @@ public class AdminController {
             //not authorized to view this page.
             return "main/error";
         }
-        List<Agent> agents = this.agentRepository.findAgentsWithNoTeam();
-        modelMap.put("unassignedAgents", agents);
-        return "team/unassignedAgents";
-
+        return paginatedUnassigned(1, "id", "asc", modelMap);
     }
 
-    @GetMapping("/newTeam/{agentID}")
+    @GetMapping("/unassigned/{pageno}")
+    public String paginatedUnassigned(@PathVariable("pageno") int pageNo,
+                                     @RequestParam("sortField") String sortField,
+                                     @RequestParam("sortDir") String sortDir,
+                                     ModelMap modelMap) {
+        int pageSize = 10;
+        Page<Agent> unassigned = this.agentService.findAgentsWithNoTeam(pageNo,pageSize,sortField,sortDir);
+        List<Agent> listTeams = unassigned.getContent();
+
+        modelMap.put("role", "ADMIN");
+        modelMap.put("currentPage", pageNo);
+        modelMap.put("totalPages", unassigned.getTotalElements());
+        modelMap.put("totalItems", unassigned.getTotalElements());
+        modelMap.put("sortField", sortField);
+        modelMap.put("sortDir", sortDir);
+        modelMap.put("list", unassigned);
+        modelMap.put("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+        return "agents/viewUnassignedAgents";
+    }
+
+    @GetMapping("/newTeam/{agentID}") //TODO: fix whatever's wrong with this method
     public String makeNewTeam(@PathVariable("agentID") Long agentID, Agent loggedInAgent) {
         if (!loggedInAgent.getRole().equals(AgentRole.ADMIN)) {
             //not authorized to view this page.
@@ -88,11 +128,11 @@ public class AdminController {
         return "redirect:/admin/team/" + team.getId();
     }
 
-    //TODO: rewrite this code
+    //TODO: add details of slots and languages covered by this team + make agents paginated
     @GetMapping("/team/{id}")
     public String showIndividualTeam(@PathVariable("id") Long teamID, ModelMap modelMap) {
 
-        Team team = this.teamRepository.findById(teamID);
+        Team team = this.teamService.findById(teamID);
 
         Agent loggedAgent = this.agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
         if (loggedAgent.getRole().equals(AgentRole.TEAM_LEAD) && loggedAgent.getTeamManaged().getId().equals(team.getId())){
@@ -113,7 +153,7 @@ public class AdminController {
             //not authorized
             return "main/error";
         }
-        Team currentTeam = this.teamRepository.findById(teamid);
+        Team currentTeam = this.teamService.findById(teamid);
         Agent newManager = this.agentService.findById(agentID);
         newManager.setRole(AgentRole.TEAM_LEAD);
         Agent oldManager = currentTeam.getManager();
@@ -134,7 +174,7 @@ public class AdminController {
             //not authorized
             return "main/error";
         }
-        Team currentTeam = this.teamRepository.findById(teamid);
+        Team currentTeam = this.teamService.findById(teamid);
         Agent currentAgent = this.agentService.findById(agentid);
         currentTeam.removeAgent(currentAgent);
         this.teamRepository.save(currentTeam);
@@ -155,13 +195,13 @@ public class AdminController {
         return "team/chooseAgent";
     }
 
-    @GetMapping("/team/{teamid}/add/{agentid}")
+    @GetMapping("/team/{teamid}/add/{agentid}") //TODO: fix this method
     public String addAgentToTeam(@PathVariable("teamid") Long teamid, @PathVariable("agentid") Long agentID, Agent loggedAgent) {
         if (!loggedAgent.getRole().equals(AgentRole.ADMIN)) {
             //not authorized
             return "main/error";
         }
-        Team currentTeam = this.teamRepository.findById(teamid);
+        Team currentTeam = this.teamService.findById(teamid);
         Agent currentAgent = this.agentService.findById(agentID);
 
         try {
@@ -204,6 +244,7 @@ public class AdminController {
         model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 
         model.addAttribute("listEmployees", listEmployees);
+        //TODO: add top nav to view callers html, use same bootstrap for other html paginated
         return "caller/viewCallers";
     }
 
@@ -214,7 +255,9 @@ public class AdminController {
     }
 
     @GetMapping("/Agentpage/{pageNo}")
-    public String findPaginated(@PathVariable(value = "pageNo") int pageNo,@RequestParam("sortField") String sortField,@RequestParam("sortDir") String sortDir ,Model model){
+    public String findPaginated(@PathVariable(value = "pageNo") int pageNo,
+                                @RequestParam("sortField") String sortField,
+                                @RequestParam("sortDir") String sortDir, Model model){
         int pageSize=10;
         Page<Agent> page= agentService.findPaginated(pageNo,pageSize,sortField,sortDir);
         List<Agent> agentList=page.getContent();

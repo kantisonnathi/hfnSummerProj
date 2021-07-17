@@ -2,18 +2,19 @@ package org.heartfulness.avtc.repository;
 
 import org.heartfulness.avtc.model.Agent;
 import org.heartfulness.avtc.model.Team;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
-public interface TeamRepository extends Repository<Team, Long> {
+public interface TeamRepository extends JpaRepository<Team, Long> {
 
     List<Team> findAll();
 
-    Team findById(Long id);
-
-    Team save(Team team);
+    Optional<Team> findById(Long id);
 
     Team findTeamByAgentsIn(List<Agent> agents);
 
@@ -21,5 +22,7 @@ public interface TeamRepository extends Repository<Team, Long> {
     Team findTeamManagedBy(Agent agent);
 
     Team findByAgentsEquals(Agent agent);
+
+    Page<Team> findAll(Pageable pageable);
 
 }

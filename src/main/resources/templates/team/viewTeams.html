@@ -8,8 +8,36 @@
   <title>View All Teams</title>
 </head>
 <body>
-<div>
-  <nav th:replace="fragment/layout :: top-nav-bar-admin"></nav>
+<div th:if="${role == 'AGENT'}">
+  <nav>
+    <div class="topnav">
+      <a th:href="@{/team/view}">View My Team</a>
+      <a th:href="@{/scheduleException/new}">Add new Exception</a>
+      <a th:href="@{/addDetails}">Edit my details</a>
+      <a th:href="@{/private/sessionLogout}">Log Out</a>
+    </div>
+  </nav>
+</div>
+<div th:if="${role == 'TEAM_LEAD'}">
+  <nav>
+    <div class="topnav">
+      <a th:href="@{/lead/team/view}">View My Team</a> <!-- make this -->
+      <a th:href="@{/addDetails}">Edit My Details</a>
+      <a th:href="@{/private/sessionLogout}">Log Out</a>
+    </div>
+  </nav>
+</div>
+<div th:if="${role == 'ADMIN'}">
+  <nav>
+    <div class="topnav">
+      <a th:href="@{/admin/teams/all}">View all teams</a>
+      <a th:href="@{/admin/unassignedAgents}">View Unassigned Agents</a>
+      <a th:href="@{/addDetails}">Edit my details</a>
+      <a th:href="@{/addLangandServ}">Add Languages and Services</a>
+      <a th:href="@{/private/sessionLogout}">Log Out</a>
+      <a th:href="@{/admin/agent/new}">Add New Agent</a>
+    </div>
+  </nav>
 </div>
 
 
@@ -26,14 +54,38 @@
     <tr>
       <th>Team ID</th>
       <th>Team manager</th>
+      <th>Actions</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="team : ${teams}">
-      <td><a th:href="@{/admin/team/__${team.id}__}">Click here to see team details</a> </td>
+    <tr th:each="team : ${list}">
+      <td th:text="${team.id}"></td>
       <td th:text="${team.manager.name}"></td>
+      <td><a th:href="@{/admin/team/__${team.id}__}">Click here to view more details</a></td>
     </tr>
   </table>
+  <div th:if="${totalPages > 1}">
+    <div class="row col-sm-8">
+      <div class="col-sm-2">
+        Total Rows: [[${totalItems}]]
+      </div>
+      <div class="col-sm-1">
+        <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+          <a th:if="${currentPage != i}" th:href="@{'/team/all/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+          <span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
+        </span>
+      </div>
+      <div class = "col-sm-1">
+        <a th:if="${currentPage < totalPages}" th:href="@{'/team/all/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+        <span th:unless="${currentPage < totalPages}">Next</span>
+      </div>
+
+      <div class="col-sm-1">
+        <a th:if="${currentPage < totalPages}" th:href="@{'/team/all/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+        <span th:unless="${currentPage < totalPages}">Last</span>
+      </div>
+    </div>
+</div>
 </div>
 </body>
 </html>

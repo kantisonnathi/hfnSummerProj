@@ -21,22 +21,13 @@ import java.util.*;
 @RequestMapping("/lead")
 public class LeadController {
 
-    //TODO: write code to make a new schedule from the given schedule exceptions.
-    //TODO: write schedule exception service
-
     private final AgentService agentService;
     private final SecurityService securityService;
-    private final TeamRepository teamRepository;
-    private final AgentRepository agentRepository;
-    private final TimeSlotRepository timeSlotRepository;
     private final ScheduleExceptionService scheduleExceptionService;
 
-    public LeadController(AgentRepository agentRepository, AgentService agentService, SecurityService securityService, TeamRepository teamRepository, TimeSlotRepository timeSlotRepository, ScheduleExceptionService scheduleExceptionService) {
+    public LeadController(AgentService agentService, SecurityService securityService, ScheduleExceptionService scheduleExceptionService) {
         this.agentService = agentService;
-        this.agentRepository = agentRepository;
         this.securityService = securityService;
-        this.teamRepository = teamRepository;
-        this.timeSlotRepository = timeSlotRepository;
         this.scheduleExceptionService = scheduleExceptionService;
     }
 
@@ -62,16 +53,8 @@ public class LeadController {
         modelMap.put("totalPages", page.getTotalPages());
         modelMap.put("totalItems", page.getTotalElements());
         List<ScheduleException> list = page.getContent();
-        Set<TimeSlot> slotset = team.getTimeSlots();
-        List<TimeSlot> slots = new ArrayList<>(slotset);
-        slots.sort((timeSlot, t1) -> {
-            if (timeSlot.getStartTime().toLocalTime().getHour() > t1.getStartTime().toLocalTime().getHour()) {
-                return 1;
-            } else if (timeSlot.getStartTime().toLocalTime().getHour() == t1.getStartTime().toLocalTime().getHour()) {
-                return 0;
-            }
-            return -1;
-        });
+        List<TimeSlot> slots = new ArrayList<>(team.getTimeSlots());
+        slots.sort(Comparator.comparingInt(timeSlot -> timeSlot.getStartTime().toLocalTime().getHour()));
         Set<Agent> agents = team.getAgents();
         List<String> headers = new ArrayList<>();
         headers.add("Agent Name");

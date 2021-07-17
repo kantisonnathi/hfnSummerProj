@@ -24,7 +24,7 @@ public interface AgentRepository extends JpaRepository<Agent,Long> {
 
     List<Agent> findAgentByDepartments(Department departments);
 
-    @Query(value = "select * from Agent a where a.id not in (select agents_id from agent_teams)", nativeQuery = true)
+    @Query(value = "select * from agent where role != 'ADMIN' and id not in (select agents_id from agent_teams)", nativeQuery = true)
     List<Agent> findAgentsWithNoTeam();
 
     @Query(value="select * from Agent a where a.id in (select at.agents_id from agent_teams at where at.teams_id=?)", nativeQuery = true)

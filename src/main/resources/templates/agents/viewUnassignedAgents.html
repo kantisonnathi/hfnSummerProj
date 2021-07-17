@@ -10,36 +10,7 @@
   <link rel="stylesheet" th:href="@{/static/css/layout.css}">
 </head>
 <body>
-<div th:if="${role == 'AGENT'}">
-  <nav>
-    <div class="topnav">
-      <a th:href="@{/team/view}">View My Team</a>
-      <a th:href="@{/scheduleException/new}">Add new Exception</a>
-      <a th:href="@{/addDetails}">Edit my details</a>
-      <a th:href="@{/private/sessionLogout}">Log Out</a>
-    </div>
-  </nav>
-</div>
-<div th:if="${role == 'TEAM_LEAD'}">
-  <nav>
-    <div class="topnav">
-      <a th:href="@{/lead/team/view}">View My Team</a> <!-- make this -->
-      <a th:href="@{/addDetails}">Edit My Details</a>
-      <a th:href="@{/private/sessionLogout}">Log Out</a>
-    </div>
-  </nav>
-</div>
-<div th:if="${role == 'ADMIN'}">
-  <nav>
-    <div class="topnav">
-      <a th:href="@{/admin/teams/all}">View all teams</a>
-      <a th:href="@{/admin/unassignedAgents}">View Unassigned Agents</a>
-      <a th:href="@{/addDetails}">Edit my details</a>
-      <a th:href="@{/addLangandServ}">Add Languages and Services</a>
-      <a th:href="@{/private/sessionLogout}">Log Out</a>
-    </div>
-  </nav>
-</div>
+<div th:replace="fragment/layout :: top-nav-bar"></div>
 <div class="content-section">
   <h1>All Agents</h1>
   <table border="1" class="table table-striped table-responsive-md">

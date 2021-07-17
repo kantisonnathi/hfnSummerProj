@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -24,6 +25,8 @@ import java.util.List;
 public class AdminController {
 
     //TODO: rewrite code for adding agent to team
+    //TODO: add flash messages wherever required
+    //TODO: add styling for the flash messages
     //TODO: updating agent information
     //TODO: write code to create teams based on time slot(s) and language
     //TODO: remove code that makes new team based on new team lead
@@ -51,10 +54,11 @@ public class AdminController {
     }
 
     @GetMapping("/teams/all")
-    public String showAllTeams(ModelMap modelMap, Agent loggedInAgent) {
+    public String showAllTeams(ModelMap modelMap, Agent loggedInAgent, RedirectAttributes redirectAttributes) {
         if (!loggedInAgent.getRole().equals(AgentRole.ADMIN)) {
             //not authorized to view this page.
-            return "main/error";
+            redirectAttributes.addFlashAttribute("message", "You are not authorized to view this page");
+            return "redirect:/success";
         }
         return viewAllPaginatedTeams(1, "id", "asc", modelMap);
     }
@@ -69,10 +73,10 @@ public class AdminController {
 
         List<Team> listTeams = page.getContent();
 
-        modelMap.put("role", "ADMIN");
         modelMap.put("currentPage", pageNo);
         modelMap.put("totalPages", page.getTotalElements());
         modelMap.put("totalItems", page.getTotalElements());
+        modelMap.put("role", "ADMIN");
         modelMap.put("sortField", sortField);
         modelMap.put("sortDir", sortDir);
         modelMap.put("list", listTeams);

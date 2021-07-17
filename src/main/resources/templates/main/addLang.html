@@ -5,6 +5,8 @@
     <title>Title</title>
 </head>
 <body>
+<div th:replace="fragment/layout :: top-nav-bar"></div>
+
 <form method="post">
     <label>Enter new Language</label>
     <input type="text" name="language" th:field="${department.language.name}">

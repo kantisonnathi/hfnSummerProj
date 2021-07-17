@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.sql.Date;
 import java.sql.Time;
@@ -88,24 +89,7 @@ public class AgentController {
     public String getMainPage(ModelMap modelMap, Agent currentAgent) {
         modelMap.put("agent", currentAgent);
         CategoryCreationDTO categoryCreationDTO=new CategoryCreationDTO();
-        List<Call> calls = this.callService.getAllCalls();
-        // parse through calls and keep unsaved ones at the top
-        List<Call> unsavedCalls = new ArrayList<>();
-        List<Call> saved = new ArrayList<>();
-        for (Call call : calls) {
-            if (call.isSaved()) {
-                saved.add(call);
-            } else {
-                unsavedCalls.add(call);
-            }
-            call.setCategory(CallCategory.ADJUSTMENT_DISORDERS);
-        }
-        Collections.reverse(unsavedCalls);
-        Collections.reverse(saved);
-        calls.clear();
-        calls.addAll(unsavedCalls);
-        calls.addAll(saved);
-        categoryCreationDTO.setCallList(calls);
+        categoryCreationDTO.setCallList(sortingCalls());
         Other other = new Other();
         modelMap.put("role", currentAgent.getRole().toString());
         modelMap.put("other",other);
@@ -215,6 +199,12 @@ public class AgentController {
         return "agents/viewAgents";
     }
 
+    @GetMapping("/test")
+    public String test(RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("message", "This is a test message");
+        return "redirect:/success";
+    }
+
     @GetMapping("/team/agents") //viewing agents in a team
     public String viewAgentsinTeam(Model model) {
         return findPaginatedByteam(1,"name","asc", model);
@@ -238,7 +228,7 @@ public class AgentController {
         return "calls/viewCallsAgent";
     }
 
-    @GetMapping("/team/{teamid}/viewAllCalls")
+    @GetMapping("/team/{teamid}/viewAllCalls") //TODO: rewrite this method. won't work
     public String viewAllTeamCalls(@PathVariable("teamid") Long teamId, ModelMap modelMap) {
         Team team = this.teamService.findById(teamId);
         return findPaginatedByTeam(1, "id", "asc", team, modelMap);
@@ -291,6 +281,29 @@ public class AgentController {
         list.removeIf(s -> !s.getAccepted() || !s.getDate().equals(Date.valueOf(LocalDate.now())));
         modelMap.put("schedules", list);
         return "schedule/viewSelf";
+    }
+
+    private List<Call> sortingCalls() {
+        /*
+        * this method sorts calls so that the the most recent calls are unsaved
+        * */
+        List<Call> calls = this.callService.getAllCalls();
+        List<Call> unsavedCalls = new ArrayList<>();
+        List<Call> saved = new ArrayList<>();
+        for (Call call : calls) {
+            if (call.isSaved()) {
+                saved.add(call);
+            } else {
+                unsavedCalls.add(call);
+            }
+            call.setCategory(CallCategory.ADJUSTMENT_DISORDERS);
+        }
+        Collections.reverse(unsavedCalls);
+        Collections.reverse(saved);
+        calls.clear();
+        calls.addAll(unsavedCalls);
+        calls.addAll(saved);
+        return calls;
     }
 
 }

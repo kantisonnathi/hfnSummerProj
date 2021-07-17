@@ -33,16 +33,12 @@ import java.util.TreeMap;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class MainController {
 
-    //TODO: put all of these classes in an autowired constructor
+    //TODO: make proper config tables.
 
     private final SecurityService securityService;
-
     private final SecurityProperties secProps;
-
     private final CookieUtils cookieUtils;
-
     private final AgentService agentService;
-
     private final LoggerRepository loggerRepository;
 
     public MainController(SecurityService securityService, SecurityProperties secProps, CookieUtils cookieUtils, AgentService agentService, AgentRepository agentRepository, LoggerRepository loggerRepository) {

@@ -22,6 +22,7 @@ public class CallerController {
 
     //TODO: let agent see all the callers he/she has talked to before
     //TODO: let team leader see all callers that team has spoken to
+    //TODO: add call editing to the caller editing form
 
     private final CallService callService;
     private final CallerRepository callerRepository;

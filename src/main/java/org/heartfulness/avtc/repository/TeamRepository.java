@@ -12,8 +12,6 @@ import java.util.Optional;
 
 public interface TeamRepository extends JpaRepository<Team, Long> {
 
-    List<Team> findAll();
-
     Optional<Team> findById(Long id);
 
     Team findTeamByAgentsIn(List<Agent> agents);
@@ -24,5 +22,7 @@ public interface TeamRepository extends JpaRepository<Team, Long> {
     Team findByAgentsEquals(Agent agent);
 
     Page<Team> findAll(Pageable pageable);
+
+    Page<Team> findAllByAgents(Agent agent, Pageable pageable);
 
 }

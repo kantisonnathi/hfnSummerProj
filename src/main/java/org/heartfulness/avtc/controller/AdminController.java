@@ -24,12 +24,9 @@ import java.util.List;
 public class AdminController {
 
     //TODO: rewrite code for adding agent to team
-    //TODO: paginate the unassigned agents
     //TODO: updating agent information
-    //TODO: remove admin users from unassigned agents
     //TODO: write code to create teams based on time slot(s) and language
     //TODO: remove code that makes new team based on new team lead
-    //TODO: show a list of all the teams that an agent is part of when agent selects view team
 
     private final SecurityService securityService;
     private final AgentRepository agentRepository;
@@ -79,6 +76,7 @@ public class AdminController {
         modelMap.put("sortField", sortField);
         modelMap.put("sortDir", sortDir);
         modelMap.put("list", listTeams);
+        modelMap.put("url", "team/all");
         modelMap.put("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
         return "team/viewTeams";
     }

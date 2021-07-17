@@ -16,4 +16,6 @@ public interface TeamService {
 
     Team findByAgentsEquals(Agent agent);
 
+    Page<Team> findAllTeamsUnderAgent(Agent agent, int pageNo, int pageSize, String sortField, String sortDir);
+
 }

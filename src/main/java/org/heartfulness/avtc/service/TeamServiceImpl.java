@@ -41,4 +41,11 @@ public class TeamServiceImpl implements TeamService {
     public Team findByAgentsEquals(Agent agent) {
         return this.teamRepository.findByAgentsEquals(agent);
     }
+
+    @Override
+    public Page<Team> findAllTeamsUnderAgent(Agent agent, int pageNo, int pageSize, String sortField, String sortDir) {
+        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
+        return this.teamRepository.findAllByAgents(agent, pageable);
+    }
 }

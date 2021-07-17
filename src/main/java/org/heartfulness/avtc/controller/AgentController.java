@@ -33,8 +33,6 @@ import java.util.*;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class AgentController {
 
-    //TODO: write code to see schedule
-
     private final SecurityService securityService;
     private final CallService callService;
     private final AgentService agentService;
@@ -217,7 +215,7 @@ public class AgentController {
         return "agents/viewAgents";
     }
 
-    @GetMapping("/viewTeam")
+    @GetMapping("/team/agents") //viewing agents in a team
     public String viewAgentsinTeam(Model model) {
         return findPaginatedByteam(1,"name","asc", model);
     }
@@ -261,6 +259,38 @@ public class AgentController {
         modelMap.put("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
         modelMap.put("listCalls", listCalls);
         return "calls/viewTeamCalls";
+    }
+
+    @GetMapping("/view/team")
+    public String viewAllTeamsForAgent(ModelMap modelMap, Agent loggedInAgent) {
+        return paginated(1, "id", "asc", loggedInAgent, modelMap);
+    }
+
+    @GetMapping("/team/{pageNo}")
+    public String paginated(@PathVariable("pageNo") Integer pageNo,
+                            @RequestParam("sortField") String sortField,
+                            @RequestParam("sortDir") String sortDir, Agent loggedInAgent,ModelMap modelMap) {
+        int pageSize = 10;
+        Page<Team> page = this.teamService.findAllTeamsUnderAgent(loggedInAgent, pageNo, pageSize, sortField, sortDir);
+        List<Team> list = page.getContent();
+        modelMap.put("currentPage", pageNo);
+        modelMap.put("totalPages", page.getTotalPages());
+        modelMap.put("totalItems", page.getTotalElements());
+        modelMap.put("sortField", sortField);
+        modelMap.put("sortDir", sortDir);
+        modelMap.put("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+        modelMap.put("list", list);
+        modelMap.put("url", "team");
+        return "team/viewTeams";
+    }
+
+    @GetMapping("/view/schedule")
+    public String viewSelfSchedule(Agent loggedInAgent, ModelMap modelMap) {
+        //max 24, don't need to paginate
+        Set<ScheduleException> list = loggedInAgent.getScheduleExceptions();
+        list.removeIf(s -> !s.getAccepted() || !s.getDate().equals(Date.valueOf(LocalDate.now())));
+        modelMap.put("schedules", list);
+        return "schedule/viewSelf";
     }
 
 }

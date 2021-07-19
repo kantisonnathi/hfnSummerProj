@@ -24,4 +24,14 @@ public class CallerServiceImpl implements CallerService {
         return this.callerRepository.findAll(pageable);
     }
 
+    @Override
+    public Caller save(Caller caller) {
+        return this.callerRepository.save(caller);
+    }
+
+    @Override
+    public Caller findByID(Long id) {
+        return this.callerRepository.findById(id).orElse(null);
+    }
+
 }

@@ -7,4 +7,8 @@ public interface CallerService {
 
     Page<Caller> findAllPaginatedCallers(int pageNo, int pageSize, String sortField, String sortDirection);
 
+    Caller save(Caller caller);
+
+    Caller findByID(Long id);
+
 }

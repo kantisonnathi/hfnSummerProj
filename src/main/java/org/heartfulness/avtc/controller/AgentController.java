@@ -9,18 +9,15 @@ import org.heartfulness.avtc.model.enums.CallCategory;
 import org.heartfulness.avtc.model.enums.LogEvent;
 import org.heartfulness.avtc.repository.*;
 import org.heartfulness.avtc.security.auth.SecurityService;
-import org.heartfulness.avtc.service.AgentService;
-import org.heartfulness.avtc.service.CallService;
-import org.heartfulness.avtc.service.ScheduleExceptionService;
-import org.heartfulness.avtc.service.TeamService;
+import org.heartfulness.avtc.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -34,6 +31,8 @@ import java.util.*;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class AgentController {
 
+    //TODO: remove all the redundant html pages, add URL attr instead
+
     private final SecurityService securityService;
     private final CallService callService;
     private final AgentService agentService;
@@ -42,10 +41,11 @@ public class AgentController {
     private final AgentRepository agentRepository;
     private final CallRepository callRepository;
     private final TeamService teamService;
+    private final CallerService callerService;
     private final LoggerRepository loggerRepository;
 
     @Autowired
-    public AgentController(SecurityService securityService, CallService callService, AgentService agentService, ScheduleExceptionService scheduleExceptionService, TimeSlotRepository timeSlotRepository, AgentRepository agentRepository, CallRepository callRepository, TeamService teamService, LoggerRepository loggerRepository) {
+    public AgentController(SecurityService securityService, CallService callService, AgentService agentService, ScheduleExceptionService scheduleExceptionService, TimeSlotRepository timeSlotRepository, AgentRepository agentRepository, CallRepository callRepository, TeamService teamService, CallerService callerService, LoggerRepository loggerRepository) {
         this.securityService = securityService;
         this.callService = callService;
         this.agentService = agentService;
@@ -54,6 +54,7 @@ public class AgentController {
         this.agentRepository = agentRepository;
         this.callRepository = callRepository;
         this.teamService = teamService;
+        this.callerService = callerService;
         this.loggerRepository = loggerRepository;
     }
 
@@ -88,12 +89,14 @@ public class AgentController {
     @GetMapping("/success")
     public String getMainPage(ModelMap modelMap, Agent currentAgent) {
         modelMap.put("agent", currentAgent);
-        CategoryCreationDTO categoryCreationDTO=new CategoryCreationDTO();
-        categoryCreationDTO.setCallList(sortingCalls());
+        /*CategoryCreationDTO categoryCreationDTO=new CategoryCreationDTO();
+        categoryCreationDTO.setCallList(sortingCalls());*/
+
         Other other = new Other();
         modelMap.put("role", currentAgent.getRole().toString());
         modelMap.put("other",other);
-        modelMap.put("calls",categoryCreationDTO);
+        //modelMap.put("calls",categoryCreationDTO);
+
         return "main/success";
     }
 
@@ -136,9 +139,33 @@ public class AgentController {
         return "redirect:/success";
     }
 
+    @GetMapping("/call/{callId}/edit")
+    public String editCall(@PathVariable("callId") Long callId, ModelMap modelMap) {
+        Call call = this.callService.findById(callId);
+        Caller caller = call.getCaller();
+        modelMap.put("caller", caller);
+        modelMap.put("call", call);
+        return "main/callDetails";
+    }
+
+    @PostMapping("/call/save")
+    public String saveCall(Call call, RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("message", "Call details have been saved");
+        call.setCaller(this.callerService.findByID(call.getCaller().getId()));
+        this.callService.saveCall(call);
+        return "redirect:/call/" + call.getId() + "/edit";
+    }
+
+    @PostMapping("/{callId}/caller/save")
+    public String saveCaller(Caller caller, RedirectAttributes redirectAttributes, HttpServletRequest httpServletRequest,
+                             @PathVariable("callId") Long callId) {
+        redirectAttributes.addFlashAttribute("message", "Caller details have been saved");
+        this.callerService.save(caller);
+        return "redirect:/call/" + callId + "/edit";
+    }
 
     @PostMapping("/schedule")
-    public String getTime(@ModelAttribute("other") Other other) {
+    public String getTime(@ModelAttribute("other") Other     other) {
                 String x=other.getEndtime();
         Agent agent=agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
@@ -183,19 +210,12 @@ public class AgentController {
     @GetMapping("/AgentTeam/{pageNo}")
     public String findPaginatedByteam(@PathVariable(value = "pageNo") int pageNo,
                                       @RequestParam("sortField") String sortField,
-                                      @RequestParam("sortDir") String sortDir ,Model model){
+                                      @RequestParam("sortDir") String sortDir ,ModelMap model){
         int pageSize=10;
         Agent agent=this.agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
         Team team=this.teamService.findByAgentsEquals(agent);
         Page<Agent> page= agentService.findByTeam(team,pageNo,pageSize,sortField,sortDir);
-        List<Agent> agentList=page.getContent();
-        model.addAttribute("currentPage",pageNo);
-        model.addAttribute("totalPages",page.getTotalPages());
-        model.addAttribute("totalItems",page.getTotalElements());
-        model.addAttribute("listAgent",agentList);
-        model.addAttribute("sortField",sortField);
-        model.addAttribute("sortDir",sortDir);
-        model.addAttribute("reverseSortDir",sortDir.equals("asc")?"desc":"asc");
+        paginatedModelMapPopulation(model, page, pageNo, pageSize, sortDir, sortField);
         return "agents/viewAgents";
     }
 
@@ -206,7 +226,7 @@ public class AgentController {
     }
 
     @GetMapping("/team/agents") //viewing agents in a team
-    public String viewAgentsinTeam(Model model) {
+    public String viewAgentsinTeam(ModelMap model) {
         return findPaginatedByteam(1,"name","asc", model);
     }
 
@@ -216,16 +236,20 @@ public class AgentController {
                                        @RequestParam("sortDir") String sortDir, Agent agent, ModelMap modelMap) {
         int pageSize = 10;
         Page<Call> page = callService.findAllByAgent(agent, pageNo, pageSize, sortField, sortDir);
-        List<Call> listCalls = page.getContent();
+        paginatedModelMapPopulation(modelMap, page, pageNo, pageSize, sortDir, sortField);
+        return "calls/viewCallsAgent";
+    }
+
+    private <T> void paginatedModelMapPopulation(ModelMap modelMap, Page<T> page, int pageNo, int pageSize,
+                                                 String sortDir, String sortField) {
+        List<T> list = page.getContent();
         modelMap.put("currentPage", pageNo);
         modelMap.put("totalPages", page.getTotalPages());
         modelMap.put("totalItems", page.getTotalElements());
         modelMap.put("sortField", sortField);
         modelMap.put("sortDir", sortDir);
         modelMap.put("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-
-        modelMap.put("listCalls", listCalls);
-        return "calls/viewCallsAgent";
+        modelMap.put("list", list);
     }
 
     @GetMapping("/team/{teamid}/viewAllCalls") //TODO: rewrite this method. won't work
@@ -240,14 +264,7 @@ public class AgentController {
                                       @RequestParam("sortDir") String sortDir, Team team, ModelMap modelMap) {
         int pageSize = 10;
         Page<Call> page = callService.findAllByTeam(team, pageNo, pageSize, sortField, sortDir);
-        List<Call> listCalls = page.getContent();
-        modelMap.put("currentPage", pageNo);
-        modelMap.put("totalPages", page.getTotalPages());
-        modelMap.put("totalItems", page.getTotalElements());
-        modelMap.put("sortField", sortField);
-        modelMap.put("sortDir", sortDir);
-        modelMap.put("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-        modelMap.put("listCalls", listCalls);
+        paginatedModelMapPopulation(modelMap, page, pageNo, pageSize, sortDir, sortField);
         return "calls/viewTeamCalls";
     }
 
@@ -262,14 +279,7 @@ public class AgentController {
                             @RequestParam("sortDir") String sortDir, Agent loggedInAgent,ModelMap modelMap) {
         int pageSize = 10;
         Page<Team> page = this.teamService.findAllTeamsUnderAgent(loggedInAgent, pageNo, pageSize, sortField, sortDir);
-        List<Team> list = page.getContent();
-        modelMap.put("currentPage", pageNo);
-        modelMap.put("totalPages", page.getTotalPages());
-        modelMap.put("totalItems", page.getTotalElements());
-        modelMap.put("sortField", sortField);
-        modelMap.put("sortDir", sortDir);
-        modelMap.put("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-        modelMap.put("list", list);
+        paginatedModelMapPopulation(modelMap, page, pageNo, pageSize, sortDir, sortField);
         modelMap.put("url", "team");
         return "team/viewTeams";
     }

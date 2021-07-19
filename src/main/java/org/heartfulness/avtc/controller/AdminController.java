@@ -28,6 +28,7 @@ public class AdminController {
     //TODO: add flash messages wherever required
     //TODO: add styling for the flash messages
     //TODO: updating agent information
+    //TODO: display list of timeslots and language for team
     //TODO: write code to create teams based on time slot(s) and language
     //TODO: remove code that makes new team based on new team lead
 
@@ -48,6 +49,15 @@ public class AdminController {
         this.teamService = teamService;
     }
 
+    private String validation(Agent loggedInAgent, RedirectAttributes redirectAttributes) {
+        if (!loggedInAgent.getRole().equals(AgentRole.ADMIN)) {
+            //not authorized to view this page.
+            redirectAttributes.addFlashAttribute("message", "You are not authorized to view this page!");
+            return "redirect:/success";
+        }
+        return null;
+    }
+
     @ModelAttribute
     public Agent getLoggedInAgent() {
         return this.agentService.findBycontactNumber(this.securityService.getUser().getPhoneNumber());
@@ -55,12 +65,10 @@ public class AdminController {
 
     @GetMapping("/teams/all")
     public String showAllTeams(ModelMap modelMap, Agent loggedInAgent, RedirectAttributes redirectAttributes) {
-        if (!loggedInAgent.getRole().equals(AgentRole.ADMIN)) {
-            //not authorized to view this page.
-            redirectAttributes.addFlashAttribute("message", "You are not authorized to view this page");
-            return "redirect:/success";
+        if (validation(loggedInAgent, redirectAttributes) == null) {
+            return viewAllPaginatedTeams(1, "id", "asc", modelMap);
         }
-        return viewAllPaginatedTeams(1, "id", "asc", modelMap);
+        return validation(loggedInAgent, redirectAttributes);
     }
 
     @GetMapping("/team/all/{pageno}")

@@ -20,7 +20,7 @@ public class Caller extends BaseEntity {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "caller",fetch= FetchType.EAGER,cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "caller", fetch= FetchType.EAGER, cascade=CascadeType.ALL)
     private Set<Call> calls;
 
     @Column(name = "gender")

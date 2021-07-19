@@ -30,7 +30,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="call : ${listCalls}">
+    <tr th:each="call : ${list}">
         <td th:text="${call.id}"></td>
         <td th:text="${call.duration}"></td>
         <td th:text="${call.caller?.name}"></td>

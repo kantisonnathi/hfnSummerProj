@@ -38,7 +38,6 @@ public class CallController {
         modelMap.put("currentPage", pageNo);
         modelMap.put("totalPages", page.getTotalPages());
         modelMap.put("totalItems", page.getTotalElements());
-
         modelMap.put("sortField", sortField);
         modelMap.put("sortDir", sortDir);
         modelMap.put("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");

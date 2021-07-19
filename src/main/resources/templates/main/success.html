@@ -41,14 +41,32 @@
 
 <div style="text-align: center;">
     <div id="calls_display" style="text-align: center;">
-        <form action="#" method="post" th:action="@{/editCall}" th:object="${calls}">
+        <!--<form action="#" method="post" th:action="@{/editCall}" th:object="${calls}">-->
             <fieldset>
                 <p align="right">
                     <button type="submit" >Save changes</button>
 
                     <p>You will automatically be toggled off at:</p>
                 <span th:object="${agent}" th:text="${agent.endTime != null} ?  ${agent.endTime} : 'Please enter a time to be toggled off'">someValue</span>
-                <table style="text-align: center" class="table">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>edit call</th>
+                        <th>edit caller</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="call : ${agent.calls}">
+                        <td>
+                            <a th:href="@{/call/__${call.id}__/edit}">Edit call details</a>
+                        </td>
+                        <td>
+                            <a th:href="@{/callerDetails/__${call.caller.id}__}">Edit Caller</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!--<table style="text-align: center" class="table">
                     <thead>
                     <tr>
                         <th>Call ID</th>
@@ -72,20 +90,17 @@
                             <option  value="ANXIETY_DISORDER">anxiety</option>
                             <option  value="OCD">OCD</option>
                             <option th:value="SERIOUS_MENTAL_ILLNESS"> Serious mental illness</option>
-
                         </select> </td>
                         <td th:text="*{callList[__${itemstat.index}__].agent.name}"></td>
                         <td th:text="*{callList[__${itemstat.index}__].caller.name}"></td>
                         <td><a th:href="@{/callerDetails/__${call.caller.id}__}">Edit Caller</a></td>
                     </tr>
                     </tbody>
-                </table>
+                </table>-->
             </fieldset>
-        </form>
+        <!--</form>-->
     </div>
-    <div th:if="${agent.role} == 'manager'">
-        <a href="/m/display">View All Agent Details</a>
-    </div>
+
 </div>
 </body>
 </html>

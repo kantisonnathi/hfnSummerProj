@@ -32,14 +32,6 @@ public class Call extends BaseEntity {
     @Column(name="uid")
     private String uid;
 
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
-
     @Column(name="saved")
      private boolean saved;
 
@@ -49,7 +41,7 @@ public class Call extends BaseEntity {
     @Column(name = "date")
     private Date date;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Caller.class)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Caller.class)
     @JoinColumn(name = "caller_id")
     private Caller caller;
 
@@ -145,6 +137,14 @@ public class Call extends BaseEntity {
     public void setCaller(Caller caller) {
         caller.addCall(this);
         this.caller = caller;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public Agent getAgent() {

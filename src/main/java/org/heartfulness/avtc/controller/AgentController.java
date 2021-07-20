@@ -59,8 +59,10 @@ public class AgentController {
     }
 
     @ModelAttribute
-    public Agent loggedInAgent() {
-        return this.agentService.findBycontactNumber(this.securityService.getUser().getPhoneNumber());
+    public Agent loggedInAgent(ModelMap modelMap) {
+        Agent agent = this.agentService.findBycontactNumber(this.securityService.getUser().getPhoneNumber());
+        modelMap.put("role", agent.getRole().toString());
+        return agent;
     }
 
 
@@ -120,6 +122,7 @@ public class AgentController {
         Date date = Date.valueOf(dateForm);
         scheduleException.setDate(date);
         if (this.scheduleExceptionService.findEqual(scheduleException)) {
+            scheduleException.setAccepted(false);
             this.scheduleExceptionService.save(scheduleException);
         }
         if (slotForm.getNumberOfRepeats() != null) {

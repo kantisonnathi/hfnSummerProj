@@ -55,7 +55,7 @@ public class LeadController {
         List<ScheduleException> list = page.getContent();
         List<TimeSlot> slots = new ArrayList<>(team.getTimeSlots());
         slots.sort(Comparator.comparingInt(timeSlot -> timeSlot.getStartTime().toLocalTime().getHour()));
-        Set<Agent> agents = team.getAgents();
+        Set<Agent> agentSet = team.getAgents();
         List<String> headers = new ArrayList<>();
         headers.add("Agent Name");
         for (TimeSlot slot : slots) {
@@ -63,13 +63,15 @@ public class LeadController {
             headers.add(header);
         }
         List<Map<String, String>> rows = new ArrayList<>();
+        List<Agent> agents = new ArrayList<>(agentSet);
+        agents.sort((agent, t1) -> (int) (agent.getId() - t1.getId()));
         for (Agent agent : agents) {
             Map<String, String> map = new HashMap<>();
             map.put("Agent Name", agent.getName());
             Set<ScheduleException> scheduleExceptions = agent.getScheduleExceptions();
             Set<TimeSlot> agentSlots = new HashSet<>();
             for (ScheduleException s : scheduleExceptions) {
-                if (s.getAccepted()) {
+                if (s.getAccepted() && s.getDate().equals(Date.valueOf(LocalDate.now().plusDays(1)))) {
                     agentSlots.add(s.getSlot());
                 }
             }

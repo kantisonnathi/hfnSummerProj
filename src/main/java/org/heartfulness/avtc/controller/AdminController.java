@@ -25,12 +25,12 @@ import java.util.List;
 public class AdminController {
 
     //TODO: rewrite code for adding agent to team
-    //TODO: add flash messages wherever required
-    //TODO: add styling for the flash messages
-    //TODO: updating agent information
-    //TODO: display list of timeslots and language for team
-    //TODO: write code to create teams based on time slot(s) and language
-    //TODO: remove code that makes new team based on new team lead
+    //TODO: add flash messages wherever required - sahithi (trying alerts)
+    //TODO: add styling for the flash messages - null
+    //TODO: updating agent information - sahithi
+    //TODO: display list of timeslots and language for team - kanti
+    //TODO: write code to create teams based on time slot(s) and language - kanti
+    //TODO: remove code that makes new team based on new team lead - kanti
 
     private final SecurityService securityService;
     private final AgentRepository agentRepository;
@@ -122,20 +122,15 @@ public class AdminController {
         return "agents/viewUnassignedAgents";
     }
 
-    @GetMapping("/newTeam/{agentID}") //TODO: fix whatever's wrong with this method
-    public String makeNewTeam(@PathVariable("agentID") Long agentID, Agent loggedInAgent) {
+    @GetMapping("/team/new") //TODO: fix whatever's wrong with this method
+    public String makeNewTeam(Agent loggedInAgent) {
         if (!loggedInAgent.getRole().equals(AgentRole.ADMIN)) {
             //not authorized to view this page.
             return "main/error";
         }
-        Agent currAgent = this.agentService.findById(agentID);
         Team team = new Team();
-        team.setManager(currAgent);
-        currAgent.addTeam(team);
-        currAgent.setRole(AgentRole.TEAM_LEAD);
-        team = this.teamRepository.save(team);
-        this.agentService.saveAgent(currAgent);
-        return "redirect:/admin/team/" + team.getId();
+        //needs to choose time slot and languages
+        return "";
     }
 
     //TODO: add details of slots and languages covered by this team + make agents paginated

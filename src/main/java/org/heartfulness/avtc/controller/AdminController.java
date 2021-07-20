@@ -227,7 +227,7 @@ public class AdminController {
         }
 
         this.agentService.saveAgent(currentAgent);
-        this.teamRepository.save(currentTeam);
+       // this.teamRepository.save(currentTeam);
 
         return "redirect:/admin/team/" + teamid;
     }

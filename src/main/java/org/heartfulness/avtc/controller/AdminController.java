@@ -26,13 +26,14 @@ import java.util.Set;
 @RequestMapping("/admin")
 public class AdminController {
 
-    //TODO: rewrite code for adding agent to team
-    //TODO: add flash messages wherever required - sahithi (trying alerts)
+    //TODO: rewrite code for adding agent to team-Sahithi-Done
+    //TODO: add flash messages wherever required - sahithi (trying alerts)-Done
     //TODO: add styling for the flash messages - null
-    //TODO: updating agent information - sahithi
+    //TODO: updating agent information - sahithi-
     //TODO: display list of timeslots and language for team - kanti
     //TODO: write code to create teams based on time slot(s) and language - kanti
     //TODO: remove code that makes new team based on new team lead - kanti
+    //TODO:Debug agent details-Sahithi
 
     private final SecurityService securityService;
     private final AgentRepository agentRepository;

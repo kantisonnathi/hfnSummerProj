@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
@@ -28,11 +28,12 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="agent : ${unassignedAgents}">
+        <tr  th:each="agent : ${unassignedAgents}">
             <td th:text="${agent.id}"></td>
             <td th:text="${agent.name}"></td>
             <td><a th:href="@{/admin/team/__${team.id}__/add/__${agent.id}__}">Add this agent</a> </td>
         </tr>
+        </tbody>
     </table>
 </div>
 

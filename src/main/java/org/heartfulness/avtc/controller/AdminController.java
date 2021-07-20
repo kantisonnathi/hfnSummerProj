@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/admin")
@@ -195,7 +197,13 @@ public class AdminController {
             return "main/error";
         }
         List<Agent> unassignedAgents = this.agentRepository.findAgentsWithNoTeam();
-        modelMap.put("team", this.teamRepository.findById(teamID));
+        Optional<Team> team1=this.teamRepository.findById(teamID);
+       Team team=new Team();
+        if(team1.isPresent())
+        {
+             team=team1.get();
+        }
+        modelMap.put("team", team);
         modelMap.put("unassignedAgents", unassignedAgents);
         return "team/chooseAgent";
     }
@@ -210,7 +218,10 @@ public class AdminController {
         Agent currentAgent = this.agentService.findById(agentID);
 
         try {
+
             currentTeam.addAgent(currentAgent);
+            Set<Team> teamSet=currentAgent.getTeam();
+            currentAgent.setTeam(teamSet);
         } catch (Exception e) {
             return "main/error";
         }

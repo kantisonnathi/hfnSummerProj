@@ -1,7 +1,7 @@
 package org.heartfulness.avtc.model.enums;
 
 public enum AgentRole {
-        AGENT,
-        TEAM_LEAD,
-        ADMIN
+        ROLE_AGENT,
+        ROLE_TEAM_LEAD,
+        ROLE_ADMIN
 }

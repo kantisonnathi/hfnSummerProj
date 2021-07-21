@@ -33,22 +33,22 @@
     </label>
     <p id="callStatus">Status: Offline</p>
 </div>
-<form method="post" style="text-align: center" th:action="@{/schedule}">
-    <label>Enter time to toggle off</label>
-    <input type="time" name="time" th:object="${other}" th:field="*{endtime}">
-    <button type="submit">Set</button>
-</form>
+
 
 <div style="text-align: center;">
     <div id="calls_display" style="text-align: center;">
-        <!--<form action="#" method="post" th:action="@{/editCall}" th:object="${calls}">-->
             <fieldset>
-                <p align="right">
-                    <button type="submit" >Save changes</button>
-
-                    <p>You will automatically be toggled off at:</p>
-                <span th:object="${agent}" th:text="${agent.endTime != null} ?  ${agent.endTime} : 'Please enter a time to be toggled off'">someValue</span>
-                <table>
+                <div th:if="${agent.endTime}">
+                    <p>You will automatically be made offline at: [[${agent.endTime}]]</p>
+                </div>
+                <div th:unless="${agent.endTime}">
+                    <form method="post" style="text-align: center" th:action="@{/schedule}">
+                    <label>Please enter a time to be made offline at: </label>
+                        <input type="time" name="time" th:object="${other}" th:field="*{endtime}">
+                    <button type="submit">Set</button>
+                    </form>
+                </div>
+                <table class="table table-bordered" style="text-align: center">
                     <thead>
                     <tr>
                         <th>edit call</th>

@@ -24,4 +24,5 @@ public interface CallRepository extends JpaRepository<Call, Long> {
 
     Integer countAllByDate(Date date);
 
+
 }

@@ -1,7 +1,7 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="top-nav-bar">
-  <div th:if="${role == 'AGENT'}">
+  <div th:if="${role == 'ROLE_AGENT'}">
     <nav>
       <div class="topnav">
         <a th:href="@{/team/view}">View My Team</a>
@@ -11,7 +11,7 @@
       </div>
     </nav>
   </div>
-  <div th:if="${role == 'TEAM_LEAD'}">
+  <div th:if="${role == 'ROLE_TEAM_LEAD'}">
     <nav>
       <div class="topnav">
         <a th:href="@{/lead/team/view}">View My Team</a> <!-- make this -->
@@ -20,7 +20,7 @@
       </div>
     </nav>
   </div>
-  <div th:if="${role == 'ADMIN'}">
+  <div th:if="${role == 'ROLE_ADMIN'}">
     <nav>
       <div class="topnav">
         <a th:href="@{/admin/teams/all}">View all teams</a>

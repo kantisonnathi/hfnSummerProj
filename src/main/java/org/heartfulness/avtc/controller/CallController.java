@@ -1,8 +1,9 @@
 package org.heartfulness.avtc.controller;
 
+import org.heartfulness.avtc.model.Agent;
 import org.heartfulness.avtc.model.Call;
+import org.heartfulness.avtc.service.AgentService;
 import org.heartfulness.avtc.service.CallService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,12 +17,14 @@ import java.util.List;
 public class CallController {
 
     private final CallService callService;
+    private final AgentService agentService;
 
-    public CallController(CallService callService) {
+    public CallController(CallService callService, AgentService agentService) {
         this.callService = callService;
+        this.agentService = agentService;
     }
 
-    @GetMapping("/viewAllCalls")
+    @GetMapping("/calls/all")
     public String getAllCalls(ModelMap modelMap) {
         return findPaginated(1, "id", "asc", modelMap);
     }
@@ -34,6 +37,7 @@ public class CallController {
 
         Page<Call> page = callService.findPaginated(pageNo, pageSize, sortField, sortDir);
         List<Call> listCalls = page.getContent();
+        modelMap.put("url", "/page/");
 
         modelMap.put("currentPage", pageNo);
         modelMap.put("totalPages", page.getTotalPages());
@@ -45,4 +49,6 @@ public class CallController {
         modelMap.put("listCalls", listCalls);
         return "calls/viewCalls";
     }
+
+
 }

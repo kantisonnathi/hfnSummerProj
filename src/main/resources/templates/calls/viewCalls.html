@@ -16,17 +16,21 @@
   <thead>
   <tr>
     <th>
-      <a th:href="@{'/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${reverseSortDir}}">
+      <a th:href="@{${url} + ${currentPage} + '?sortField=id&sortDir=' + ${reverseSortDir}}">
         Call ID</a>
     </th>
     <th>
-      <a th:href="@{'/page/' + ${currentPage} + '?sortField=duration&sortDir=' + ${reverseSortDir}}">
+      <a th:href="@{${url} + ${currentPage} + '?sortField=duration&sortDir=' + ${reverseSortDir}}">
         Call Duration</a>
     </th>
     <th>
-      <a th:href="@{'/page/' + ${currentPage} + '?sortField=caller&sortDir=' + ${reverseSortDir}}">
+      <a th:href="@{${url} + ${currentPage} + '?sortField=caller&sortDir=' + ${reverseSortDir}}">
         Caller name</a>
     </th>
+    <span th:unless="${url} == '/page/'">
+      <th>Edit call</th>
+      <th>Edit caller</th>
+    </span>
   </tr>
   </thead>
   <tbody>
@@ -34,6 +38,10 @@
     <td th:text="${call.id}"></td>
     <td th:text="${call.duration}"></td>
     <td th:text="${call.caller?.name}"></td>
+    <span th:unless="${url} == '/page/'">
+      <td><a th:href="@{/call/__${call.id}__/edit}">Click here to edit</a></td>
+      <td><a th:href="@{/callerDetails/__${call.caller.id}__}">Click here to edit</a></td>
+    </span>
   </tr>
   </tbody>
 </table>
@@ -45,17 +53,17 @@
     </div>
     <div class = "col-sm-1">
 					<span th:each="i: ${#numbers.sequence(1, totalPages)}">
-						<a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+						<a th:if="${currentPage != i}" th:href="@{'${url}' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
 						<span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
 					</span>
     </div>
     <div class = "col-sm-1">
-      <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+      <a th:if="${currentPage < totalPages}" th:href="@{'${url}' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
       <span th:unless="${currentPage < totalPages}">Next</span>
     </div>
 
     <div class="col-sm-1">
-      <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+      <a th:if="${currentPage < totalPages}" th:href="@{${url} + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
       <span th:unless="${currentPage < totalPages}">Last</span>
     </div>
   </div>

@@ -4,6 +4,7 @@ import lombok.SneakyThrows;
 import org.heartfulness.avtc.form.SlotForm;
 import org.heartfulness.avtc.model.*;
 import org.heartfulness.avtc.model.AfterCallClasses.CategoryCreationDTO;
+import org.heartfulness.avtc.model.enums.AgentRole;
 import org.heartfulness.avtc.model.enums.AgentStatus;
 import org.heartfulness.avtc.model.enums.CallCategory;
 import org.heartfulness.avtc.model.enums.LogEvent;
@@ -204,11 +205,49 @@ public class AgentController {
         return "redirect:/success";
     }
 
-    @GetMapping("/agent/{agentid}/viewAllCalls")
+    @GetMapping("/agent/{agentID}/calls")
+    public String viewAllCallsUnderAgent(@PathVariable("agentID") long agentID, ModelMap modelMap, Agent loggedInAgent,
+                                         RedirectAttributes redirectAttributes) {
+        if (loggedInAgent.getId().equals(agentID) || loggedInAgent.getRole().equals(AgentRole.ROLE_ADMIN)) {
+            return paginatedCallsUnderAgent(1,"id", "asc", agentID, modelMap, loggedInAgent,
+                    redirectAttributes);
+        }
+        redirectAttributes.addFlashAttribute("message", "You are not authorized to view this page!");
+        return "redirect:/success";
+    }
+
+    @GetMapping("/agent/{agentID}/calls/{pgno}")
+    public String paginatedCallsUnderAgent(@PathVariable("pgno") Integer pageNo,
+                                           @RequestParam("sortField") String sortField,
+                                           @RequestParam("sortDir") String sortDir,
+                                           @PathVariable("agentID") Long agentID, ModelMap modelMap, Agent loggedInAgent,
+                                           RedirectAttributes redirectAttributes) {
+        if (loggedInAgent.getId().equals(agentID) || loggedInAgent.getRole().equals(AgentRole.ROLE_ADMIN)) {
+            Agent agent = this.agentService.findById(agentID);
+            int pageSize = 10;
+            Page<Call> calls = this.callService.findAllByAgent(agent, pageNo, pageSize,sortField, sortDir);
+            List<Call> listCalls = calls.getContent();
+            modelMap.put("url", "/agent/" + agent.getId() + "/calls/" + pageNo);
+            modelMap.put("currentPage", pageNo);
+            modelMap.put("totalPages", calls.getTotalPages());
+            modelMap.put("totalItems", calls.getTotalElements());
+            modelMap.put("sortField", sortField);
+            modelMap.put("sortDir", sortDir);
+            modelMap.put("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+            modelMap.put("listCalls", listCalls);
+            return "calls/viewCalls";
+        }
+        redirectAttributes.addFlashAttribute("message", "You are not authorized to view this page!");
+        return "redirect:/success";
+
+
+    }
+
+    /*@GetMapping("/agent/{agentid}/viewAllCalls")
     public String viewAllAgentCalls(@PathVariable("agentid") Long agentId, ModelMap modelMap) {
         Agent agent = this.agentService.findById(agentId);
         return findPaginatedByAgent(1, "id", "asc", agent, modelMap);
-    }
+    }*/
 
     @GetMapping("/AgentTeam/{pageNo}")
     public String findPaginatedByteam(@PathVariable(value = "pageNo") int pageNo,
@@ -233,7 +272,7 @@ public class AgentController {
         return findPaginatedByteam(1,"name","asc", model);
     }
 
-    @GetMapping("/pageAgent/{pageNo}")
+    /*@GetMapping("/pageAgent/{pageNo}")
     public String findPaginatedByAgent(@PathVariable("pageNo") Integer pageNo,
                                        @RequestParam("sortField") String sortField,
                                        @RequestParam("sortDir") String sortDir, Agent agent, ModelMap modelMap) {
@@ -241,7 +280,7 @@ public class AgentController {
         Page<Call> page = callService.findAllByAgent(agent, pageNo, pageSize, sortField, sortDir);
         paginatedModelMapPopulation(modelMap, page, pageNo, pageSize, sortDir, sortField);
         return "calls/viewCallsAgent";
-    }
+    }*/
 
     private <T> void paginatedModelMapPopulation(ModelMap modelMap, Page<T> page, int pageNo, int pageSize,
                                                  String sortDir, String sortField) {

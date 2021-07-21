@@ -48,7 +48,10 @@
                     <button type="submit">Set</button>
                     </form>
                 </div>
-                <table class="table table-bordered" style="text-align: center">
+                <div>
+                    <a th:href="@{/agent/__${agent.id}__/calls}">Click here to view all calls</a>
+                </div>
+                <!--<table class="table table-bordered" style="text-align: center">
                     <thead>
                     <tr>
                         <th>edit call</th>
@@ -65,7 +68,7 @@
                         </td>
                     </tr>
                     </tbody>
-                </table>
+                </table>-->
                 <!--<table style="text-align: center" class="table">
                     <thead>
                     <tr>

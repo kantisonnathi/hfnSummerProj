@@ -36,6 +36,9 @@ public class Team extends BaseEntity{
     }
 
     public void setTimeSlots(Set<TimeSlot> timeSlots) {
+        for (TimeSlot timeSlot : timeSlots) {
+            timeSlot.addTeam(this);
+        }
         this.timeSlots = timeSlots;
     }
 

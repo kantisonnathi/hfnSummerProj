@@ -6,6 +6,7 @@ import org.heartfulness.avtc.model.enums.AgentRole;
 import org.heartfulness.avtc.repository.AgentRepository;
 import org.heartfulness.avtc.repository.LanguageRepository;
 import org.heartfulness.avtc.repository.TeamRepository;
+import org.heartfulness.avtc.repository.TimeSlotRepository;
 import org.heartfulness.avtc.security.auth.SecurityService;
 import org.heartfulness.avtc.service.AgentService;
 import org.heartfulness.avtc.service.CallerService;
@@ -18,10 +19,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -31,13 +30,7 @@ import java.util.Set;
 @RequestMapping("/admin")
 public class AdminController {
 
-    //TODO: rewrite code for adding agent to team-Sahithi-Done
-    //TODO: add flash messages wherever required - sahithi (trying alerts)-Done
-    //TODO: add styling for the flash messages - null
     //TODO: updating agent information - sahithi-
-    //TODO: display list of timeslots and language for team - kanti
-    //TODO: write code to create teams based on time slot(s) and language - kanti
-    //TODO: remove code that makes new team based on new team lead - kanti
     //TODO:Debug agent details-Sahithi
 
     private final SecurityService securityService;
@@ -47,9 +40,10 @@ public class AdminController {
     private final CallerService callerService;
     private final LanguageRepository languageRepository;
     private final TeamService teamService;
+    private final TimeSlotRepository timeSlotRepository;
 
     @Autowired
-    public AdminController(SecurityService securityService, AgentRepository agentRepository, TeamRepository teamRepository, AgentService agentService, CallerService callerService, LanguageRepository languageRepository, TeamService teamService) {
+    public AdminController(SecurityService securityService, AgentRepository agentRepository, TeamRepository teamRepository, AgentService agentService, CallerService callerService, LanguageRepository languageRepository, TeamService teamService, TimeSlotRepository timeSlotRepository) {
         this.securityService = securityService;
         this.agentRepository = agentRepository;
         this.teamRepository = teamRepository;
@@ -57,6 +51,7 @@ public class AdminController {
         this.callerService = callerService;
         this.languageRepository = languageRepository;
         this.teamService = teamService;
+        this.timeSlotRepository = timeSlotRepository;
     }
 
     private String validation(Agent loggedInAgent, RedirectAttributes redirectAttributes) {
@@ -141,10 +136,10 @@ public class AdminController {
         HashSet<TimeSlot> slots = generate(slotsForm);
         Language language = this.languageRepository.findById(Long.parseLong(slotsForm.getLangId())).get();
         Team team = new Team();
-        team.setTimeSlots(slots);
         team.setLanguage(language);
         this.teamRepository.save(team);
-        //TODO: now, set team lead.
+        team.setTimeSlots(slots);
+        this.timeSlotRepository.saveAll(slots);
         return "redirect:/admin/team/" + team.getId();
     }
 
@@ -167,16 +162,15 @@ public class AdminController {
     public String showIndividualTeam(@PathVariable("id") Long teamID, ModelMap modelMap) {
 
         Team team = this.teamService.findById(teamID);
-
         Agent loggedAgent = this.agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
-        if (loggedAgent.getRole().equals(AgentRole.TEAM_LEAD) && loggedAgent.getTeamManaged().getId().equals(team.getId())){
+        /*if (loggedAgent.getRole().equals(AgentRole.TEAM_LEAD) && loggedAgent.getTeamManaged().getId().equals(team.getId())){
             modelMap.put("team", team);
             return "team/viewSingle";
-        }
-        if (!loggedAgent.getRole().equals(AgentRole.ADMIN)) {
+        }*/
+        /*if (!loggedAgent.getRole().equals(AgentRole.ADMIN)) {
             //not authorized
             return "main/error";
-        }
+        }*/
         modelMap.put("team", team);
         return "team/viewSingle";
     }
@@ -191,10 +185,12 @@ public class AdminController {
         Agent newManager = this.agentService.findById(agentID);
         newManager.setRole(AgentRole.TEAM_LEAD);
         Agent oldManager = currentTeam.getManager();
-        oldManager.setRole(AgentRole.AGENT);
+        if (oldManager != null) {
+            oldManager.setRole(AgentRole.AGENT);
+            this.agentService.saveAgent(oldManager);
+        }
         currentTeam.setManager(newManager);
         this.teamRepository.save(currentTeam);
-        this.agentService.saveAgent(oldManager);
         this.agentService.saveAgent(newManager);
         if (loggedAgent.getRole() == AgentRole.AGENT) {
             return "redirect:/team/view";
@@ -349,123 +345,100 @@ public class AdminController {
     private HashSet<TimeSlot> generate(SlotsForm slotsForm) {
         HashSet<TimeSlot> timeSlots = new HashSet<>(); //ik this is inefficient dont come @ me, ill make it efficient later
         if (slotsForm.isIs1am()) {
-            TimeSlot slot = new TimeSlot();
-            slot.setStartTime(Time.valueOf(LocalTime.of(1,0)));
+            Time time = Time.valueOf(LocalTime.of(1,0));
+            TimeSlot slot = this.timeSlotRepository.findByStartTime(time);
             timeSlots.add(slot);
         }
         if (slotsForm.isIs2am()) {
-            TimeSlot slot = new TimeSlot();
-            slot.setStartTime(Time.valueOf(LocalTime.of(2,0)));
+            TimeSlot slot = this.timeSlotRepository.findByStartTime(Time.valueOf(LocalTime.of(2,0)));
             timeSlots.add(slot);
         }
         if (slotsForm.isIs3am()) {
-            TimeSlot slot = new TimeSlot();
-            slot.setStartTime(Time.valueOf(LocalTime.of(3,0)));
+            TimeSlot slot  = this.timeSlotRepository.findByStartTime(Time.valueOf(LocalTime.of(3,0)));
             timeSlots.add(slot);
         }
         if (slotsForm.isIs4am()) {
-            TimeSlot slot = new TimeSlot();
-            slot.setStartTime(Time.valueOf(LocalTime.of(4,0)));
+            TimeSlot slot = this.timeSlotRepository.findByStartTime(Time.valueOf(LocalTime.of(4,0)));
             timeSlots.add(slot);
         }
         if (slotsForm.isIs5am()) {
-            TimeSlot slot = new TimeSlot();
-            slot.setStartTime(Time.valueOf(LocalTime.of(5,0)));
+            TimeSlot slot = this.timeSlotRepository.findByStartTime(Time.valueOf(LocalTime.of(5,0)));
             timeSlots.add(slot);
         }
         if (slotsForm.isIs6am()) {
-            TimeSlot slot = new TimeSlot();
-            slot.setStartTime(Time.valueOf(LocalTime.of(6,0)));
+            TimeSlot slot = this.timeSlotRepository.findByStartTime(Time.valueOf(LocalTime.of(6,0)));
             timeSlots.add(slot);
         }
         if (slotsForm.isIs7am()) {
-            TimeSlot slot = new TimeSlot();
-            slot.setStartTime(Time.valueOf(LocalTime.of(7,0)));
+            TimeSlot slot = this.timeSlotRepository.findByStartTime(Time.valueOf(LocalTime.of(7,0)));
             timeSlots.add(slot);
         }
         if (slotsForm.isIs8am()) {
-            TimeSlot slot = new TimeSlot();
-            slot.setStartTime(Time.valueOf(LocalTime.of(8,0)));
+            TimeSlot slot = this.timeSlotRepository.findByStartTime(Time.valueOf(LocalTime.of(8,0)));
             timeSlots.add(slot);
         }
         if (slotsForm.isIs9am()) {
-            TimeSlot slot = new TimeSlot();
-            slot.setStartTime(Time.valueOf(LocalTime.of(9, 0)));
+            TimeSlot slot = this.timeSlotRepository.findByStartTime(Time.valueOf(LocalTime.of(9, 0)));
             timeSlots.add(slot);
         }
         if (slotsForm.isIs10am()) {
-            TimeSlot slot = new TimeSlot();
-            slot.setStartTime(Time.valueOf(LocalTime.of(10,0)));
+            TimeSlot slot = this.timeSlotRepository.findByStartTime(Time.valueOf(LocalTime.of(10,0)));
             timeSlots.add(slot);
         }
         if (slotsForm.isIs11am()) {
-            TimeSlot slot = new TimeSlot();
-            slot.setStartTime(Time.valueOf(LocalTime.of(11,0)));
+            TimeSlot slot = this.timeSlotRepository.findByStartTime(Time.valueOf(LocalTime.of(11,0)));
             timeSlots.add(slot);
         }
         if (slotsForm.isIs12am()) {
-            TimeSlot slot = new TimeSlot();
-            slot.setStartTime(Time.valueOf(LocalTime.of(0,0)));
+            TimeSlot slot = this.timeSlotRepository.findByStartTime(Time.valueOf(LocalTime.of(0,0)));
             timeSlots.add(slot);
         }
         if (slotsForm.isIs1pm()) {
-            TimeSlot slot = new TimeSlot();
-            slot.setStartTime(Time.valueOf(LocalTime.of(13,0)));
+            TimeSlot slot = this.timeSlotRepository.findByStartTime(Time.valueOf(LocalTime.of(13,0)));
             timeSlots.add(slot);
         }
         if (slotsForm.isIs12pm()) {
-            TimeSlot slot = new TimeSlot();
-            slot.setStartTime(Time.valueOf(LocalTime.of(12,0)));
+            TimeSlot slot = timeSlotRepository.findByStartTime(Time.valueOf(LocalTime.of(12,0)));
             timeSlots.add(slot);
         }
         if (slotsForm.isIs2pm()) {
-            TimeSlot slot = new TimeSlot();
-            slot.setStartTime(Time.valueOf(LocalTime.of(14,0)));
+            TimeSlot slot = this.timeSlotRepository.findByStartTime(Time.valueOf(LocalTime.of(14,0)));
             timeSlots.add(slot);
         }
         if (slotsForm.isIs3pm()) {
-            TimeSlot slot = new TimeSlot();
-            slot.setStartTime(Time.valueOf(LocalTime.of(15,0)));
+            TimeSlot slot = this.timeSlotRepository.findByStartTime(Time.valueOf(LocalTime.of(15,0)));
             timeSlots.add(slot);
         }
         if (slotsForm.isIs4pm()) {
-            TimeSlot slot = new TimeSlot();
-            slot.setStartTime(Time.valueOf(LocalTime.of(16,0)));
+            TimeSlot slot = this.timeSlotRepository.findByStartTime(Time.valueOf(LocalTime.of(16,0)));
             timeSlots.add(slot);
         }
         if (slotsForm.isIs5pm()) {
-            TimeSlot slot = new TimeSlot();
-            slot.setStartTime(Time.valueOf(LocalTime.of(17,0)));
+            TimeSlot slot = this.timeSlotRepository.findByStartTime(Time.valueOf(LocalTime.of(17,0)));
             timeSlots.add(slot);
         }
         if (slotsForm.isIs6pm()) {
-            TimeSlot slot = new TimeSlot();
-            slot.setStartTime(Time.valueOf(LocalTime.of(18,0)));
+            TimeSlot slot = this.timeSlotRepository.findByStartTime(Time.valueOf(LocalTime.of(18,0)));
             timeSlots.add(slot);
         }
         if (slotsForm.isIs7pm()) {
-            TimeSlot slot = new TimeSlot();
-            slot.setStartTime(Time.valueOf(LocalTime.of(19,0)));
+            TimeSlot slot = this.timeSlotRepository.findByStartTime(Time.valueOf(LocalTime.of(19,0)));
             timeSlots.add(slot);
         }
         if (slotsForm.isIs8pm()) {
-            TimeSlot slot = new TimeSlot();
-            slot.setStartTime(Time.valueOf(LocalTime.of(20,0)));
+            TimeSlot slot = this.timeSlotRepository.findByStartTime(Time.valueOf(LocalTime.of(20,0)));
             timeSlots.add(slot);
         }
         if (slotsForm.isIs9pm()) {
-            TimeSlot slot = new TimeSlot();
-            slot.setStartTime(Time.valueOf(LocalTime.of(21,0)));
+            TimeSlot slot = this.timeSlotRepository.findByStartTime(Time.valueOf(LocalTime.of(21,0)));
             timeSlots.add(slot);
         }
         if (slotsForm.isIs10pm()) {
-            TimeSlot slot = new TimeSlot();
-            slot.setStartTime(Time.valueOf(LocalTime.of(22,0)));
+            TimeSlot slot = this.timeSlotRepository.findByStartTime(Time.valueOf(LocalTime.of(22,0)));
             timeSlots.add(slot);
         }
         if (slotsForm.isIs11pm()) {
-            TimeSlot slot = new TimeSlot();
-            slot.setStartTime(Time.valueOf(LocalTime.of(23,0)));
+            TimeSlot slot = this.timeSlotRepository.findByStartTime(Time.valueOf(LocalTime.of(23,0)));
             timeSlots.add(slot);
         }
         return timeSlots;

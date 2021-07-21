@@ -25,6 +25,9 @@
             <th> <a th:href="@{'/Agentpage/' + ${currentPage} + '?sortField=status&sortDir=' + ${reverseSortDir}}">
                 Agent status</a></th>
             <th>Certification</th>
+            <span th:if="${url} == '/admin/team/new'">
+                <th>Make Team Lead</th>
+            </span>
             <th>Activites</th>
         </tr>
         </thead>
@@ -46,6 +49,9 @@
                 <a th:href="@{/admin/__${agent.id}__/active}">Mark Agent Active</a>
             </span>
             </td>
+            <span th:if="${url} == '/admin/team/new'">
+                <td><a th:href="@{/team/__${team.id}__/makeLead/__${id}__}">Make Team Lead</a> </td>
+            </span>
         </tr>
         </tbody>
     </table>

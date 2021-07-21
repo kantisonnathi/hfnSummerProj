@@ -1,10 +1,10 @@
 package org.heartfulness.avtc.controller;
 
-import org.heartfulness.avtc.model.Agent;
+import org.heartfulness.avtc.form.SlotsForm;
+import org.heartfulness.avtc.model.*;
 import org.heartfulness.avtc.model.enums.AgentRole;
-import org.heartfulness.avtc.model.Caller;
-import org.heartfulness.avtc.model.Team;
 import org.heartfulness.avtc.repository.AgentRepository;
+import org.heartfulness.avtc.repository.LanguageRepository;
 import org.heartfulness.avtc.repository.TeamRepository;
 import org.heartfulness.avtc.security.auth.SecurityService;
 import org.heartfulness.avtc.service.AgentService;
@@ -18,6 +18,11 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Controller
@@ -37,15 +42,17 @@ public class AdminController {
     private final TeamRepository teamRepository;
     private final AgentService agentService;
     private final CallerService callerService;
+    private final LanguageRepository languageRepository;
     private final TeamService teamService;
 
     @Autowired
-    public AdminController(SecurityService securityService, AgentRepository agentRepository, TeamRepository teamRepository, AgentService agentService, CallerService callerService, TeamService teamService) {
+    public AdminController(SecurityService securityService, AgentRepository agentRepository, TeamRepository teamRepository, AgentService agentService, CallerService callerService, LanguageRepository languageRepository, TeamService teamService) {
         this.securityService = securityService;
         this.agentRepository = agentRepository;
         this.teamRepository = teamRepository;
         this.agentService = agentService;
         this.callerService = callerService;
+        this.languageRepository = languageRepository;
         this.teamService = teamService;
     }
 
@@ -122,15 +129,34 @@ public class AdminController {
         return "agents/viewUnassignedAgents";
     }
 
-    @GetMapping("/team/new") //TODO: fix whatever's wrong with this method
-    public String makeNewTeam(Agent loggedInAgent) {
+    @PostMapping("/team/new")
+    public String saveNewTeam(Agent loggedInAgent, SlotsForm slotsForm, RedirectAttributes redirectAttributes) {
         if (!loggedInAgent.getRole().equals(AgentRole.ADMIN)) {
             //not authorized to view this page.
             return "main/error";
         }
+        HashSet<TimeSlot> slots = generate(slotsForm);
+        Language language = this.languageRepository.findById(Long.parseLong(slotsForm.getLangId())).get();
         Team team = new Team();
-        //needs to choose time slot and languages
-        return "";
+        team.setTimeSlots(slots);
+        team.setLanguage(language);
+        this.teamRepository.save(team);
+        //TODO: now, set team lead.
+        return "redirect:/admin/team/" + team.getId();
+    }
+
+    @GetMapping("/team/new")
+    public String makeNewTeam(Agent loggedInAgent, ModelMap modelMap) {
+        if (!loggedInAgent.getRole().equals(AgentRole.ADMIN)) {
+            //not authorized to view this page.
+            return "main/error";
+        }
+        SlotsForm slotsForm = new SlotsForm();
+        List<Language> languages = this.languageRepository.findAll();
+        modelMap.put("form", slotsForm);
+        modelMap.put("languages", languages);
+        return "team/newTeam";
+
     }
 
     //TODO: add details of slots and languages covered by this team + make agents paginated
@@ -254,8 +280,7 @@ public class AdminController {
     }
 
     @GetMapping("/agents/all")
-    public String viewAllagents(Model model)
-    {
+    public String viewAllagents(Model model) {
         return findPaginated(1,"name","asc",model);
     }
 
@@ -269,7 +294,7 @@ public class AdminController {
         model.addAttribute("currentPage",pageNo);
         model.addAttribute("totalPages",page.getTotalPages());
         model.addAttribute("totalItems",page.getTotalElements());
-        model.addAttribute("listAgent",agentList);
+        model.addAttribute("list",agentList);
         model.addAttribute("sortField",sortField);
         model.addAttribute("sortDir",sortDir);
         model.addAttribute("reverseSortDir",sortDir.equals("asc")?"desc":"asc");
@@ -307,6 +332,131 @@ public class AdminController {
         agent.setCertified(true);
         this.agentRepository.save(agent);
         return "redirect:/admin/agents/all";
+    }
+
+    private HashSet<TimeSlot> generate(SlotsForm slotsForm) {
+        HashSet<TimeSlot> timeSlots = new HashSet<>(); //ik this is inefficient dont come @ me, ill make it efficient later
+        if (slotsForm.isIs1am()) {
+            TimeSlot slot = new TimeSlot();
+            slot.setStartTime(Time.valueOf(LocalTime.of(1,0)));
+            timeSlots.add(slot);
+        }
+        if (slotsForm.isIs2am()) {
+            TimeSlot slot = new TimeSlot();
+            slot.setStartTime(Time.valueOf(LocalTime.of(2,0)));
+            timeSlots.add(slot);
+        }
+        if (slotsForm.isIs3am()) {
+            TimeSlot slot = new TimeSlot();
+            slot.setStartTime(Time.valueOf(LocalTime.of(3,0)));
+            timeSlots.add(slot);
+        }
+        if (slotsForm.isIs4am()) {
+            TimeSlot slot = new TimeSlot();
+            slot.setStartTime(Time.valueOf(LocalTime.of(4,0)));
+            timeSlots.add(slot);
+        }
+        if (slotsForm.isIs5am()) {
+            TimeSlot slot = new TimeSlot();
+            slot.setStartTime(Time.valueOf(LocalTime.of(5,0)));
+            timeSlots.add(slot);
+        }
+        if (slotsForm.isIs6am()) {
+            TimeSlot slot = new TimeSlot();
+            slot.setStartTime(Time.valueOf(LocalTime.of(6,0)));
+            timeSlots.add(slot);
+        }
+        if (slotsForm.isIs7am()) {
+            TimeSlot slot = new TimeSlot();
+            slot.setStartTime(Time.valueOf(LocalTime.of(7,0)));
+            timeSlots.add(slot);
+        }
+        if (slotsForm.isIs8am()) {
+            TimeSlot slot = new TimeSlot();
+            slot.setStartTime(Time.valueOf(LocalTime.of(8,0)));
+            timeSlots.add(slot);
+        }
+        if (slotsForm.isIs9am()) {
+            TimeSlot slot = new TimeSlot();
+            slot.setStartTime(Time.valueOf(LocalTime.of(9, 0)));
+            timeSlots.add(slot);
+        }
+        if (slotsForm.isIs10am()) {
+            TimeSlot slot = new TimeSlot();
+            slot.setStartTime(Time.valueOf(LocalTime.of(10,0)));
+            timeSlots.add(slot);
+        }
+        if (slotsForm.isIs11am()) {
+            TimeSlot slot = new TimeSlot();
+            slot.setStartTime(Time.valueOf(LocalTime.of(11,0)));
+            timeSlots.add(slot);
+        }
+        if (slotsForm.isIs12am()) {
+            TimeSlot slot = new TimeSlot();
+            slot.setStartTime(Time.valueOf(LocalTime.of(0,0)));
+            timeSlots.add(slot);
+        }
+        if (slotsForm.isIs1pm()) {
+            TimeSlot slot = new TimeSlot();
+            slot.setStartTime(Time.valueOf(LocalTime.of(13,0)));
+            timeSlots.add(slot);
+        }
+        if (slotsForm.isIs12pm()) {
+            TimeSlot slot = new TimeSlot();
+            slot.setStartTime(Time.valueOf(LocalTime.of(12,0)));
+            timeSlots.add(slot);
+        }
+        if (slotsForm.isIs2pm()) {
+            TimeSlot slot = new TimeSlot();
+            slot.setStartTime(Time.valueOf(LocalTime.of(14,0)));
+            timeSlots.add(slot);
+        }
+        if (slotsForm.isIs3pm()) {
+            TimeSlot slot = new TimeSlot();
+            slot.setStartTime(Time.valueOf(LocalTime.of(15,0)));
+            timeSlots.add(slot);
+        }
+        if (slotsForm.isIs4pm()) {
+            TimeSlot slot = new TimeSlot();
+            slot.setStartTime(Time.valueOf(LocalTime.of(16,0)));
+            timeSlots.add(slot);
+        }
+        if (slotsForm.isIs5pm()) {
+            TimeSlot slot = new TimeSlot();
+            slot.setStartTime(Time.valueOf(LocalTime.of(17,0)));
+            timeSlots.add(slot);
+        }
+        if (slotsForm.isIs6pm()) {
+            TimeSlot slot = new TimeSlot();
+            slot.setStartTime(Time.valueOf(LocalTime.of(18,0)));
+            timeSlots.add(slot);
+        }
+        if (slotsForm.isIs7pm()) {
+            TimeSlot slot = new TimeSlot();
+            slot.setStartTime(Time.valueOf(LocalTime.of(19,0)));
+            timeSlots.add(slot);
+        }
+        if (slotsForm.isIs8pm()) {
+            TimeSlot slot = new TimeSlot();
+            slot.setStartTime(Time.valueOf(LocalTime.of(20,0)));
+            timeSlots.add(slot);
+        }
+        if (slotsForm.isIs9pm()) {
+            TimeSlot slot = new TimeSlot();
+            slot.setStartTime(Time.valueOf(LocalTime.of(21,0)));
+            timeSlots.add(slot);
+        }
+        if (slotsForm.isIs10pm()) {
+            TimeSlot slot = new TimeSlot();
+            slot.setStartTime(Time.valueOf(LocalTime.of(22,0)));
+            timeSlots.add(slot);
+        }
+        if (slotsForm.isIs11pm()) {
+            TimeSlot slot = new TimeSlot();
+            slot.setStartTime(Time.valueOf(LocalTime.of(23,0)));
+            timeSlots.add(slot);
+        }
+        return timeSlots;
     }
 
 }

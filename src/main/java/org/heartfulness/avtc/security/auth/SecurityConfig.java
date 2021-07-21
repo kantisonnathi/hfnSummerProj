@@ -76,9 +76,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/afterCall").permitAll()
                 .antMatchers("/check").permitAll()
                 .antMatchers("/admin").hasRole("ADMIN")
-        .antMatchers("/lead").hasRole("TEAM_LEAD")
-        .and().formLogin().defaultSuccessUrl("/success").and().logout().logoutUrl("/private/sessionLogout").logoutSuccessUrl("/main")
-        ;
+        .antMatchers("/lead").hasRole("TEAM_LEAD");
 
 //                .antMatchers(restSecProps.getAllowedPublicApis().toArray(String[]::new)).permitAll();
              //   .antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest().authenticated().and()

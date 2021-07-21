@@ -105,6 +105,10 @@
 </body>
 </html>
 <script th:inline="javascript">
+        let nameJs =/*[[${message}]]*/null
+            if(nameJs!==null) {
+                alert(nameJs);
+            }
 
     let agentStatus = /*[[${agent.status}]]*/null
     console.log(agentStatus);

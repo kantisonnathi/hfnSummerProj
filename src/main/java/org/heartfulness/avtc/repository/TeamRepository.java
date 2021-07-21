@@ -13,7 +13,6 @@ import java.util.Optional;
 public interface TeamRepository extends JpaRepository<Team, Long> {
 
     Optional<Team> findById(Long id);
-
     Team findTeamByAgentsIn(List<Agent> agents);
 
     @Query(value = "select * from team where manager_id=?", nativeQuery = true)

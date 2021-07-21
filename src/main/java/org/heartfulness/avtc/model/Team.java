@@ -67,7 +67,7 @@ public class Team extends BaseEntity{
         if (this.agents == null) {
             this.agents = new HashSet<>();
         }
-        if (agent.getTeam() != null) {
+        if (agent.getTeam().size() != 0) {
             throw new Exception("agent already has team");
         } else {
             agent.addTeam(this);

@@ -12,7 +12,7 @@ public class Language extends BaseEntity {
     @Column(name="name")
     private String name;
 
-    @ManyToMany(mappedBy = "languages")
+    @ManyToMany( fetch= FetchType.EAGER,mappedBy = "languages")
     private Set<Caller> callers;
 
     @OneToMany(mappedBy = "language", fetch = FetchType.EAGER, cascade = CascadeType.ALL)

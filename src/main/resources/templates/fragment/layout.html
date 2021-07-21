@@ -32,11 +32,12 @@
       </div>
     </nav>
   </div>
-  <div th:fragment="flashed-messages">
+
+  <div  th:fragment="flashed-messages">
     <div th:if="${message}">
+
       <p th:text="${message}">
       </p>
     </div>
   </div>
 </div>
-

@@ -24,18 +24,21 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
 
-    //TODO: rewrite code for adding agent to team
-    //TODO: add flash messages wherever required - sahithi (trying alerts)
+    //TODO: rewrite code for adding agent to team-Sahithi-Done
+    //TODO: add flash messages wherever required - sahithi (trying alerts)-Done
     //TODO: add styling for the flash messages - null
-    //TODO: updating agent information - sahithi
+    //TODO: updating agent information - sahithi-
     //TODO: display list of timeslots and language for team - kanti
     //TODO: write code to create teams based on time slot(s) and language - kanti
     //TODO: remove code that makes new team based on new team lead - kanti
+    //TODO:Debug agent details-Sahithi
 
     private final SecurityService securityService;
     private final AgentRepository agentRepository;
@@ -221,7 +224,13 @@ public class AdminController {
             return "main/error";
         }
         List<Agent> unassignedAgents = this.agentRepository.findAgentsWithNoTeam();
-        modelMap.put("team", this.teamRepository.findById(teamID));
+        Optional<Team> team1=this.teamRepository.findById(teamID);
+       Team team=new Team();
+        if(team1.isPresent())
+        {
+             team=team1.get();
+        }
+        modelMap.put("team", team);
         modelMap.put("unassignedAgents", unassignedAgents);
         return "team/chooseAgent";
     }
@@ -236,13 +245,16 @@ public class AdminController {
         Agent currentAgent = this.agentService.findById(agentID);
 
         try {
+
             currentTeam.addAgent(currentAgent);
+            Set<Team> teamSet=currentAgent.getTeam();
+            currentAgent.setTeam(teamSet);
         } catch (Exception e) {
             return "main/error";
         }
 
         this.agentService.saveAgent(currentAgent);
-        this.teamRepository.save(currentTeam);
+       // this.teamRepository.save(currentTeam);
 
         return "redirect:/admin/team/" + teamid;
     }

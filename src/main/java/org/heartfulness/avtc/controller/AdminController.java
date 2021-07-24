@@ -33,6 +33,7 @@ public class AdminController {
 
     //TODO: updating agent information - sahithi-
     //TODO:Debug agent details-Sahithi
+    //TODO: fix add new agent - Kanti
 
     private final SecurityService securityService;
     private final AgentRepository agentRepository;
@@ -68,11 +69,10 @@ public class AdminController {
 
     @ModelAttribute
     public Agent getLoggedInAgent() {
-
         return this.agentService.findBycontactNumber(this.securityService.getUser().getPhoneNumber());
     }
 
-    @GetMapping("/teams/all")
+    @GetMapping("/teams/all") //displays a list of teams
     public String showAllTeams(ModelMap modelMap, Agent loggedInAgent, RedirectAttributes redirectAttributes) {
         if (validation(loggedInAgent, redirectAttributes) == null) {
             return viewAllPaginatedTeams(1, "id", "asc", modelMap);
@@ -126,7 +126,7 @@ public class AdminController {
         modelMap.put("totalItems", unassigned.getTotalElements());
         modelMap.put("sortField", sortField);
         modelMap.put("sortDir", sortDir);
-        modelMap.put("list", unassigned);
+        modelMap.put("list", listTeams);
         modelMap.put("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
         return "agents/viewUnassignedAgents";
     }
@@ -161,7 +161,6 @@ public class AdminController {
 
     }
 
-    //TODO: add details of slots and languages covered by this team + make agents paginated
     @GetMapping("/team/{id}")
     public String showIndividualTeam(@PathVariable("id") Long teamID, ModelMap modelMap) {
 

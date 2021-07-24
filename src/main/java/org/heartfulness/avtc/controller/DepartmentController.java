@@ -12,6 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +62,7 @@ public class DepartmentController {
     }
 
     @PostMapping("/addDetails")
-    public String afterDetails(@ModelAttribute("agent") Agent agent) {
+    public String afterDetails(@ModelAttribute("agent") Agent agent, RedirectAttributes redirectAttributes) {
          Agent newAgent= agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
          newAgent.setGender(agent.getGender());
          newAgent.setName(agent.getName());
@@ -74,7 +75,8 @@ public class DepartmentController {
          }*/
          agentRepository.save(newAgent);
         // return "redirect:/success"; not working?
-        return "main/success";
+        redirectAttributes.addFlashAttribute("message", "Your changes have been saved!");
+        return "redirect:/success";
     }
 
 

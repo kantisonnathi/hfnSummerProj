@@ -75,7 +75,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/inCall").permitAll()
                 .antMatchers("/afterCall").permitAll()
                 .antMatchers("/check").permitAll()
-                .antMatchers("/admin/**").hasRole("ADMIN")
+                /*.antMatchers("/admin/**").hasRole("ADMIN")*/
                 .antMatchers("/lead").hasRole("TEAM_LEAD");
 
 

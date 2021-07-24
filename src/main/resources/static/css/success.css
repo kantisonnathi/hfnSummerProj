@@ -29,8 +29,8 @@
 .slider:before {
     position: absolute;
     content: "";
-    height: 52px;
-    width: 52px;
+    height: 52px; /*//was 52*/
+    width: 52px; /*52*/
     left: 4px;
     bottom: 4px;
     background-color: white;

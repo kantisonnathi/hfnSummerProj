@@ -42,17 +42,12 @@ public class AgentServiceImpl implements AgentService{
 
     @Override
     public Agent findBycontactNumber(String phoneNumber) {
-        Optional<Agent> optional=this.agentRepository.findByContactNumber(phoneNumber);
-       Agent agent=null;
-       if(optional.isPresent())
-       {
+        Optional<Agent> optional = this.agentRepository.findByContactNumber(phoneNumber);
+       Agent agent = null;
+       if(optional.isPresent()) {
            agent= optional.get();
        }
-       else
-       {
-           throw new RuntimeException("Agent not found for number:: "+phoneNumber);
-       }
-        return agent;
+       return agent;
     }
 
     @Override
@@ -82,9 +77,16 @@ public class AgentServiceImpl implements AgentService{
 
     @Override
     public Page<Agent> findPaginated(int pageno, int pagesize,String sortField,String sortDirection) {
-        Sort sort=sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name())?Sort.by(sortField).ascending():Sort.by(sortField).descending();
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name())?Sort.by(sortField).ascending():Sort.by(sortField).descending();
         Pageable pageable= PageRequest.of(pageno-1,pagesize,sort);
         return this.agentRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Agent> findPaginatedMinusAdmin(int pageno, int pagesize, String sortField, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name())?Sort.by(sortField).ascending():Sort.by(sortField).descending();
+        Pageable pageable= PageRequest.of(pageno-1,pagesize,sort);
+        return this.agentRepository.findAllMinusAdmin(pageable);
     }
 
     @Override

@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -70,13 +71,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().configurationSource(corsConfigurationSource()).and().csrf().disable().formLogin().disable()
                 .httpBasic().disable().exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint())
-                .and().authorizeRequests().antMatchers("/main").permitAll().antMatchers("/css/**").permitAll()
+                .and().authorizeRequests()/*.antMatchers("/main").permitAll().*/.antMatchers("/css/**").permitAll()
                 .antMatchers("/inputNode").permitAll()
                 .antMatchers("/inCall").permitAll()
                 .antMatchers("/afterCall").permitAll()
                 .antMatchers("/check").permitAll()
                 /*.antMatchers("/admin/**").hasRole("ADMIN")*/
-                .antMatchers("/lead").hasRole("TEAM_LEAD");
+                .antMatchers("/lead").hasRole("TEAM_LEAD").and()
+        .addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+        ;
 
 
 //                .antMatchers(restSecProps.getAllowedPublicApis().toArray(String[]::new)).permitAll();

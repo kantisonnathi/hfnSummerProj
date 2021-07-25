@@ -6,7 +6,9 @@ import org.heartfulness.avtc.repository.DepartmentRepository;
 import org.heartfulness.avtc.repository.LanguageRepository;
 import org.heartfulness.avtc.repository.ServiceRepository;
 import org.heartfulness.avtc.security.auth.SecurityService;
+import org.heartfulness.avtc.security.auth.models.User;
 import org.heartfulness.avtc.service.AgentService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -81,9 +83,11 @@ public class DepartmentController {
 
 
     @GetMapping("/addLangandServ")
-    public String addLanguage(ModelMap modelMap) {
+    public String addLanguage(ModelMap modelMap, @AuthenticationPrincipal User user) {
+        Agent agent = this.agentService.findBycontactNumber(user.getPhoneNumber());
         Department department=new Department();
         modelMap.put("department",department);
+        modelMap.put("role", agent.getRole().toString());
         return "main/addLang";
     }
 

@@ -66,6 +66,14 @@ public class AgentController {
         return agent;
     }
 
+    @ModelAttribute
+    private String validation(Agent loggedInAgent) {
+        if (loggedInAgent == null) {
+            return "redirect:/main";
+        }
+        return null;
+    }
+
 
     @GetMapping("/mark/{status}")
     public String markStatus(@PathVariable("status") String status) {
@@ -90,13 +98,13 @@ public class AgentController {
 
 
     @GetMapping("/success")
-    public String getMainPage(ModelMap modelMap, Agent currentAgent) {
+    public String getMainPage(@ModelAttribute Agent currentAgent, ModelMap modelMap) {
         modelMap.put("agent", currentAgent);
         /*CategoryCreationDTO categoryCreationDTO=new CategoryCreationDTO();
         categoryCreationDTO.setCallList(sortingCalls());*/
 
         Other other = new Other();
-        modelMap.put("role", currentAgent.getRole().toString());
+        //modelMap.put("role", currentAgent.getRole().toString());
         modelMap.put("other",other);
         //modelMap.put("calls",categoryCreationDTO);
 

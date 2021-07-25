@@ -3,6 +3,8 @@ package org.heartfulness.avtc.repository;
 import org.heartfulness.avtc.model.*;
 import org.heartfulness.avtc.model.enums.AgentStatus;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -24,8 +26,11 @@ public interface AgentRepository extends JpaRepository<Agent,Long> {
 
     List<Agent> findAgentByDepartments(Department departments);
 
-    @Query(value = "select * from agent where role != 'ADMIN' and id not in (select agents_id from agent_teams)", nativeQuery = true)
+    @Query(value = "select * from agent where role != 'ROLE_ADMIN' and id not in (select agents_id from agent_teams)", nativeQuery = true)
     List<Agent> findAgentsWithNoTeam();
+
+    @Query(value = "select * from agent where role != 'ROLE_ADMIN'", nativeQuery = true)
+    Page<Agent> findAllMinusAdmin(Pageable pageable);
 
     @Query(value="select * from Agent a where a.id in (select at.agents_id from agent_teams at where at.teams_id=?)", nativeQuery = true)
     List<Agent> findAgentsByTeams(Team team);

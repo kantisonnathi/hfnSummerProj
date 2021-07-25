@@ -18,8 +18,13 @@ public interface AgentService {
     List<Agent> findAgentsByDepartmentsInAndStatusEquals(Set<Department> departments, AgentStatus status);
     List<Agent> findAgentByDepartments(Department departments);
     List<Agent> findAgentsByTeamEquals(Team team);
+
     Page<Agent> findPaginated(int pageno, int pagesize,String sortField,String sortDirection);
+
+    Page<Agent> findPaginatedMinusAdmin(int pageNo, int pageSize, String sortField, String sortDirection);
+
     Page<Agent> findByTeam(Team team,int pageno,int pagesize,String sortField,String sortDirection);
+
     List<Agent> findAllByLeasedByAndStatus(Call call, AgentStatus status);
 
     Page<Agent> findAgentsWithNoTeam(int pageNo, int pageSize, String sortField, String sortDir);

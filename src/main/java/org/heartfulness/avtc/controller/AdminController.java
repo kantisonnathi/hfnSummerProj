@@ -1,5 +1,6 @@
 package org.heartfulness.avtc.controller;
 
+import org.heartfulness.avtc.form.AgentForm;
 import org.heartfulness.avtc.form.SlotsForm;
 import org.heartfulness.avtc.model.*;
 import org.heartfulness.avtc.model.enums.AgentRole;
@@ -58,18 +59,21 @@ public class AdminController {
         this.callService = callService;
     }
 
+    @ModelAttribute
+    public Agent getLoggedInAgent() {
+        return this.agentService.findBycontactNumber(this.securityService.getUser().getPhoneNumber());
+    }
+
     private String validation(Agent loggedInAgent, RedirectAttributes redirectAttributes) {
+        if (loggedInAgent == null) {
+            return "redirect:/main";
+        }
         if (!loggedInAgent.getRole().equals(AgentRole.ROLE_ADMIN)) {
             //not authorized to view this page.
             redirectAttributes.addFlashAttribute("message", "You are not authorized to view this page!");
             return "redirect:/success";
         }
         return null;
-    }
-
-    @ModelAttribute
-    public Agent getLoggedInAgent() {
-        return this.agentService.findBycontactNumber(this.securityService.getUser().getPhoneNumber());
     }
 
     @GetMapping("/teams/all") //displays a list of teams
@@ -93,11 +97,11 @@ public class AdminController {
         modelMap.put("currentPage", pageNo);
         modelMap.put("totalPages", page.getTotalElements());
         modelMap.put("totalItems", page.getTotalElements());
-        modelMap.put("role", "ADMIN");
+        modelMap.put("role", "ROLE_ADMIN");
         modelMap.put("sortField", sortField);
         modelMap.put("sortDir", sortDir);
         modelMap.put("list", listTeams);
-        modelMap.put("url", "team/all");
+        modelMap.put("url", "/team/all/");
         modelMap.put("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
         return "team/viewTeams";
     }
@@ -300,7 +304,7 @@ public class AdminController {
                                 @RequestParam("sortField") String sortField,
                                 @RequestParam("sortDir") String sortDir, Model model){
         int pageSize=10;
-        Page<Agent> page= agentService.findPaginated(pageNo,pageSize,sortField,sortDir);
+        Page<Agent> page= agentService.findPaginatedMinusAdmin(pageNo,pageSize,sortField,sortDir);
         List<Agent> agentList=page.getContent();
         model.addAttribute("currentPage",pageNo);
         model.addAttribute("totalPages",page.getTotalPages());
@@ -315,14 +319,15 @@ public class AdminController {
 
     @GetMapping("/agent/new")
     public String addNewAgent(ModelMap modelMap) {
-        Agent agent = new Agent();
+        AgentForm agent = new AgentForm();
         modelMap.put("agent", agent);
         modelMap.put("role", AgentRole.ROLE_ADMIN.toString());
         return "agents/newAgentForm";
     }
 
     @PostMapping(value = "/agent/new")
-    public String savingNewAgent(Agent agent) {
+    public String savingNewAgent(AgentForm agentForm) {
+        Agent agent = agentForm.getAgent();
         agent.setMissed(0);
         agent.setRole(AgentRole.ROLE_AGENT);
         this.agentRepository.save(agent);

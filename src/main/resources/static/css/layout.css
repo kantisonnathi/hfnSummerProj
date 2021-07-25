@@ -20,6 +20,7 @@
 /* Change the color of links on hover */
 .topnav a:hover {
     background-color: #7a4d4b;
+    color: white;
 }
 
 #top-banner {
@@ -30,6 +31,8 @@
 }
 
 .content-section {
+    margin-top: 10px;
+    margin-left: 50px;
     background: #ffffff;
     padding: 10px 20px;
     border: 1px solid #dddddd;

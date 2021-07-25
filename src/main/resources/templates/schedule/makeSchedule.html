@@ -43,6 +43,7 @@
                 <td>
                     <span th:if="${exception.accepted}">
                         <a th:href="@{/lead/__${exception.id}__/reject}">Reject</a>
+                        <a th:href="@{/lead/__${exception.id}__/delete}">Delete</a>
                     </span>
                     <span th:unless="${exception.accepted}">
                         <a th:href="@{/lead/__${exception.id}__/accept}">Accept</a>

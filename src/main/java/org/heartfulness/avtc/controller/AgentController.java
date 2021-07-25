@@ -356,7 +356,7 @@ public class AgentController {
             } else {
                 unsavedCalls.add(call);
             }
-            call.setCategory(CallCategory.ADJUSTMENT_DISORDERS);
+           call.setCategory(CallCategory.ADJUSTMENT_DISORDERS);
         }
         Collections.reverse(unsavedCalls);
         Collections.reverse(saved);

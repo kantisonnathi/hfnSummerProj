@@ -61,4 +61,8 @@ public class ScheduleExceptionServiceImpl implements ScheduleExceptionService{
         return this.scheduleExceptionRepository.findById(Id).orElse(null);
     }
 
+    @Override
+    public void delete(Long entityId) {
+        this.scheduleExceptionRepository.delete(entityId);
+    }
 }

@@ -135,4 +135,11 @@ public class LeadController {
         this.scheduleExceptionService.save(scheduleException);
         return "redirect:/lead/schedule/make";
     }
+    @GetMapping("/{exceptionId}/delete")
+    public String deleteException(@PathVariable("exceptionId") Long exceptionId)
+    {
+        ScheduleException scheduleException=this.scheduleExceptionService.findById(exceptionId);
+        this.scheduleExceptionService.delete(scheduleException);
+        return "redirect:/lead/schedule/make";
+    }
 }

@@ -15,5 +15,6 @@ public interface ScheduleExceptionService {
     boolean findEqual(ScheduleException scheduleException);
 
     ScheduleException findById(Long id);
+    void delete(ScheduleException scheduleException);
 
 }

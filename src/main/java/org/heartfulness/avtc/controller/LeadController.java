@@ -10,6 +10,7 @@ import org.heartfulness.avtc.service.AgentService;
 import org.heartfulness.avtc.service.ScheduleExceptionService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -135,11 +136,12 @@ public class LeadController {
         this.scheduleExceptionService.save(scheduleException);
         return "redirect:/lead/schedule/make";
     }
+    @Transactional
     @GetMapping("/{exceptionId}/delete")
     public String deleteException(@PathVariable("exceptionId") Long exceptionId)
     {
         ScheduleException scheduleException=this.scheduleExceptionService.findById(exceptionId);
-        this.scheduleExceptionService.delete(scheduleException);
+        this.scheduleExceptionService.delete(exceptionId); //delete method not working
         return "redirect:/lead/schedule/make";
     }
 }

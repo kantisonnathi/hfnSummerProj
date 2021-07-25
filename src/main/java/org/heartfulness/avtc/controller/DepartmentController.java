@@ -115,6 +115,6 @@ public class DepartmentController {
                 departmentRepository.save(d);
             }
         }
-        return "main/mainpage";// change mappings
+        return "redirect:/success";
     }
 }

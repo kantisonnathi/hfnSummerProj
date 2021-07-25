@@ -62,7 +62,7 @@ public class ScheduleExceptionServiceImpl implements ScheduleExceptionService{
     }
 
     @Override
-    public void delete(ScheduleException scheduleException) {
-        this.scheduleExceptionRepository.delete(scheduleException);
+    public void delete(Long entityId) {
+        this.scheduleExceptionRepository.delete(entityId);
     }
 }

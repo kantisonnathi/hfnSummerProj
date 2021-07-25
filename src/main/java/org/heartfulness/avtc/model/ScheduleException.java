@@ -9,11 +9,11 @@ import java.util.Set;
 @Entity
 public class ScheduleException extends BaseEntity {
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Agent.class,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Agent.class)
     @JoinColumn(name = "agent_id")
     private Agent agent;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = TimeSlot.class,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = TimeSlot.class)
     private TimeSlot slot;
 
     private Boolean accepted;

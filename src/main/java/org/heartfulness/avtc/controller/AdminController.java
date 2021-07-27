@@ -4,11 +4,7 @@ import org.heartfulness.avtc.form.AgentForm;
 import org.heartfulness.avtc.form.SlotsForm;
 import org.heartfulness.avtc.model.*;
 import org.heartfulness.avtc.model.enums.AgentRole;
-import org.heartfulness.avtc.repository.AgentRepository;
-import org.heartfulness.avtc.repository.LanguageRepository;
-import org.heartfulness.avtc.repository.TeamRepository;
-import org.heartfulness.avtc.repository.TimeSlotRepository;
-import org.heartfulness.avtc.security.auth.SecurityService;
+import org.heartfulness.avtc.repository.*;
 import org.heartfulness.avtc.security.auth.models.User;
 import org.heartfulness.avtc.service.AgentService;
 import org.heartfulness.avtc.service.CallService;
@@ -46,9 +42,9 @@ public class AdminController {
     private final TeamService teamService;
     private final TimeSlotRepository timeSlotRepository;
     private final CallService callService;
-
+   private final DepartmentRepository departmentRepository;
     @Autowired
-    public AdminController(AgentRepository agentRepository, TeamRepository teamRepository, AgentService agentService, CallerService callerService, LanguageRepository languageRepository, TeamService teamService, TimeSlotRepository timeSlotRepository, CallService callService) {
+    public AdminController(AgentRepository agentRepository, TeamRepository teamRepository, AgentService agentService, CallerService callerService, LanguageRepository languageRepository, TeamService teamService, TimeSlotRepository timeSlotRepository, CallService callService, DepartmentRepository departmentRepository) {
         this.agentRepository = agentRepository;
         this.teamRepository = teamRepository;
         this.agentService = agentService;
@@ -57,6 +53,7 @@ public class AdminController {
         this.teamService = teamService;
         this.timeSlotRepository = timeSlotRepository;
         this.callService = callService;
+        this.departmentRepository = departmentRepository;
     }
 
     @ModelAttribute
@@ -452,5 +449,11 @@ public class AdminController {
         }
         return timeSlots;
     }
-
+    @GetMapping("/viewDepartments")
+    public String showDepts(ModelMap modelMap)
+    {
+        List<Department> departments=departmentRepository.findAll();
+        modelMap.put("departments",departments);
+        return "agents/viewDepartments";
+    }
 }

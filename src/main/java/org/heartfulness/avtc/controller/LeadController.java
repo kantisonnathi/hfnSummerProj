@@ -2,12 +2,13 @@ package org.heartfulness.avtc.controller;
 
 import org.heartfulness.avtc.form.ScheduleForm;
 import org.heartfulness.avtc.model.*;
+import org.heartfulness.avtc.model.enums.AgentRole;
 import org.heartfulness.avtc.repository.AgentRepository;
 import org.heartfulness.avtc.repository.TeamRepository;
-import org.heartfulness.avtc.repository.TimeSlotRepository;
 import org.heartfulness.avtc.security.auth.SecurityService;
 import org.heartfulness.avtc.service.AgentService;
 import org.heartfulness.avtc.service.ScheduleExceptionService;
+import org.heartfulness.avtc.service.TeamService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,11 +26,17 @@ public class LeadController {
     private final AgentService agentService;
     private final SecurityService securityService;
     private final ScheduleExceptionService scheduleExceptionService;
+    private final AgentRepository agentRepository;
+    private final TeamRepository teamRepository;
+    private final TeamService teamService;
 
-    public LeadController(AgentService agentService, SecurityService securityService, ScheduleExceptionService scheduleExceptionService) {
+    public LeadController(AgentService agentService, SecurityService securityService, ScheduleExceptionService scheduleExceptionService, AgentRepository agentRepository, TeamRepository teamRepository, TeamService teamService) {
         this.agentService = agentService;
         this.securityService = securityService;
         this.scheduleExceptionService = scheduleExceptionService;
+        this.agentRepository = agentRepository;
+        this.teamRepository = teamRepository;
+        this.teamService = teamService;
     }
 
     @ModelAttribute
@@ -143,5 +150,46 @@ public class LeadController {
         ScheduleException scheduleException=this.scheduleExceptionService.findById(exceptionId);
         this.scheduleExceptionService.delete(exceptionId); //delete method not working
         return "redirect:/lead/schedule/make";
+    }
+    @GetMapping("/team/{teamid}/addAgent")
+    public String addAgentsList(@PathVariable("teamid") Long teamID, ModelMap modelMap, Agent loggedAgent) {
+        if (!loggedAgent.getRole().equals(AgentRole.ROLE_TEAM_LEAD)) {
+            //not authorized
+            return "main/error";
+        }
+        List<Agent> unassignedAgents = this.agentRepository.findAgentsWithNoTeam();
+        Optional<Team> team1=this.teamRepository.findById(teamID);
+        Team team=new Team();
+        if(team1.isPresent())
+        {
+            team=team1.get();
+        }
+        modelMap.put("team", team);
+        modelMap.put("unassignedAgents", unassignedAgents);
+        return "team/chooseAgent";
+    }
+
+    @GetMapping("/team/{teamid}/add/{agentid}") //TODO: fix this method
+    public String addAgentToTeam(@PathVariable("teamid") Long teamid, @PathVariable("agentid") Long agentID, Agent loggedAgent) {
+        if (!loggedAgent.getRole().equals(AgentRole.ROLE_TEAM_LEAD)) {
+            //not authorized
+            return "main/error";
+        }
+        Team currentTeam = this.teamService.findById(teamid);
+        Agent currentAgent = this.agentService.findById(agentID);
+
+        try {
+
+            currentTeam.addAgent(currentAgent);
+            Set<Team> teamSet=currentAgent.getTeam();
+            currentAgent.setTeam(teamSet);
+        } catch (Exception e) {
+            return "main/error";
+        }
+
+        this.agentService.saveAgent(currentAgent);
+        // this.teamRepository.save(currentTeam);
+
+        return "redirect:/admin/team/" + teamid;
     }
 }

@@ -16,14 +16,15 @@
         <tr>
             <th>Agent ID</th>
             <th>Agent Name</th>
-            <th>Action</th>
+            <div  th:if="${role=='ADMIN'}"><th>Action</th></div>
         </tr>
         </thead>
         <tbody>
         <tr th:each="agent : ${unassignedAgents}">
             <td th:text="${agent.id}"></td>
             <td th:text="${agent.name}"></td>
-            <td><a th:href="@{/admin/newTeam/__${agent.id}__}">Make team lead</a></td>
+            <div th:if="${role=='ADMIN'}"> <td><a th:href="@{/admin/newTeam/__${agent.id}__}">Make team lead</a></td>></div>
+
         </tr>
     </table>
 </div>

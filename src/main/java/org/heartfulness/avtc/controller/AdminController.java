@@ -9,12 +9,14 @@ import org.heartfulness.avtc.repository.LanguageRepository;
 import org.heartfulness.avtc.repository.TeamRepository;
 import org.heartfulness.avtc.repository.TimeSlotRepository;
 import org.heartfulness.avtc.security.auth.SecurityService;
+import org.heartfulness.avtc.security.auth.models.User;
 import org.heartfulness.avtc.service.AgentService;
 import org.heartfulness.avtc.service.CallService;
 import org.heartfulness.avtc.service.CallerService;
 import org.heartfulness.avtc.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -36,7 +38,6 @@ public class AdminController {
     //TODO:Debug agent details-Sahithi
     //TODO: fix add new agent - Kanti
 
-    private final SecurityService securityService;
     private final AgentRepository agentRepository;
     private final TeamRepository teamRepository;
     private final AgentService agentService;
@@ -47,8 +48,7 @@ public class AdminController {
     private final CallService callService;
 
     @Autowired
-    public AdminController(SecurityService securityService, AgentRepository agentRepository, TeamRepository teamRepository, AgentService agentService, CallerService callerService, LanguageRepository languageRepository, TeamService teamService, TimeSlotRepository timeSlotRepository, CallService callService) {
-        this.securityService = securityService;
+    public AdminController(AgentRepository agentRepository, TeamRepository teamRepository, AgentService agentService, CallerService callerService, LanguageRepository languageRepository, TeamService teamService, TimeSlotRepository timeSlotRepository, CallService callService) {
         this.agentRepository = agentRepository;
         this.teamRepository = teamRepository;
         this.agentService = agentService;
@@ -60,8 +60,10 @@ public class AdminController {
     }
 
     @ModelAttribute
-    public Agent getLoggedInAgent() {
-        return this.agentService.findBycontactNumber(this.securityService.getUser().getPhoneNumber());
+    public Agent getLoggedInAgent(@AuthenticationPrincipal User user, ModelMap modelMap) {
+        Agent loggedInAgent = this.agentService.findBycontactNumber(user.getPhoneNumber());
+        modelMap.put("role", loggedInAgent.getRole().toString());
+        return loggedInAgent;
     }
 
     private String validation(Agent loggedInAgent, RedirectAttributes redirectAttributes) {
@@ -166,10 +168,9 @@ public class AdminController {
     }
 
     @GetMapping("/team/{id}")
-    public String showIndividualTeam(@PathVariable("id") Long teamID, ModelMap modelMap) {
+    public String showIndividualTeam(@PathVariable("id") Long teamID, @ModelAttribute Agent loggedAgent, ModelMap modelMap) {
 
         Team team = this.teamService.findById(teamID);
-        Agent loggedAgent = this.agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
         /*if (loggedAgent.getRole().equals(AgentRole.TEAM_LEAD) && loggedAgent.getTeamManaged().getId().equals(team.getId())){
             modelMap.put("team", team);
             return "team/viewSingle";

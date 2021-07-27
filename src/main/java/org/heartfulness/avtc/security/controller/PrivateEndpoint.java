@@ -60,6 +60,7 @@ public class PrivateEndpoint {
         try {
             String sessionCookie = FirebaseAuth.getInstance().createSessionCookie(idToken, options);
             Cookie cookie = new Cookie("session", sessionCookie);
+            cookie.setDomain(secProps.getCookieProps().getDomain());
             cookie.setSecure(false);
             cookie.setHttpOnly(true);
             cookie.setPath("/");

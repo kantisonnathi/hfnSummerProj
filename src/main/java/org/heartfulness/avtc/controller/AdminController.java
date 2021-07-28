@@ -5,6 +5,7 @@ import org.heartfulness.avtc.form.SlotsForm;
 import org.heartfulness.avtc.model.*;
 import org.heartfulness.avtc.model.enums.AgentRole;
 import org.heartfulness.avtc.repository.*;
+import org.heartfulness.avtc.security.auth.SecurityService;
 import org.heartfulness.avtc.security.auth.models.User;
 import org.heartfulness.avtc.service.AgentService;
 import org.heartfulness.avtc.service.CallService;
@@ -42,9 +43,10 @@ public class AdminController {
     private final TeamService teamService;
     private final TimeSlotRepository timeSlotRepository;
     private final CallService callService;
+    private final SecurityService securityService;
    private final DepartmentRepository departmentRepository;
     @Autowired
-    public AdminController(AgentRepository agentRepository, TeamRepository teamRepository, AgentService agentService, CallerService callerService, LanguageRepository languageRepository, TeamService teamService, TimeSlotRepository timeSlotRepository, CallService callService, DepartmentRepository departmentRepository) {
+    public AdminController(AgentRepository agentRepository, TeamRepository teamRepository, AgentService agentService, CallerService callerService, LanguageRepository languageRepository, TeamService teamService, TimeSlotRepository timeSlotRepository, CallService callService, SecurityService securityService, DepartmentRepository departmentRepository) {
         this.agentRepository = agentRepository;
         this.teamRepository = teamRepository;
         this.agentService = agentService;
@@ -53,6 +55,7 @@ public class AdminController {
         this.teamService = teamService;
         this.timeSlotRepository = timeSlotRepository;
         this.callService = callService;
+        this.securityService = securityService;
         this.departmentRepository = departmentRepository;
     }
 
@@ -76,7 +79,9 @@ public class AdminController {
     }
 
     @GetMapping("/teams/all") //displays a list of teams
-    public String showAllTeams(ModelMap modelMap, @ModelAttribute Agent loggedInAgent, RedirectAttributes redirectAttributes) {
+    public String showAllTeams(ModelMap modelMap, RedirectAttributes redirectAttributes) {
+        Agent loggedInAgent = this.agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
+        modelMap.put("role", loggedInAgent.getRole().toString());
         if (validation(loggedInAgent, redirectAttributes) == null) {
             return viewAllPaginatedTeams(1, "id", "asc", modelMap);
         }
@@ -88,13 +93,15 @@ public class AdminController {
                                         @RequestParam("sortField") String sortField,
                                         @RequestParam("sortDir") String sortDir,
                                         ModelMap modelMap) {
+        Agent loggedInAgent = this.agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
+        modelMap.put("role", loggedInAgent.getRole().toString());
         int pageSize = 10;
         Page<Team> page = this.teamService.findAllPaginatedTeams(pageNo,pageSize,sortField,sortDir);
 
         List<Team> listTeams = page.getContent();
 
         modelMap.put("currentPage", pageNo);
-        modelMap.put("totalPages", page.getTotalElements());
+        modelMap.put("totalPages", page.getTotalPages());
         modelMap.put("totalItems", page.getTotalElements());
         modelMap.put("role", "ROLE_ADMIN");
         modelMap.put("sortField", sortField);
@@ -106,7 +113,7 @@ public class AdminController {
     }
 
     @GetMapping("/unassignedAgents")
-    public String showAllUnassignedAgents(ModelMap modelMap, @ModelAttribute Agent loggedInAgent) {
+    public String showAllUnassignedAgents(ModelMap modelMap) {
         /*if (!loggedInAgent.getRole().equals(AgentRole.ADMIN)) {
             //not authorized to view this page.
             return "main/error";
@@ -120,6 +127,8 @@ public class AdminController {
                                      @RequestParam("sortDir") String sortDir,
                                      ModelMap modelMap) {
         int pageSize = 10;
+        Agent loggedInAgent = this.agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
+        modelMap.put("role", loggedInAgent.getRole().toString());
         Page<Agent> unassigned = this.agentService.findAgentsWithNoTeam(pageNo,pageSize,sortField,sortDir);
         List<Agent> listTeams = unassigned.getContent();
 
@@ -135,7 +144,8 @@ public class AdminController {
     }
 
     @PostMapping("/team/new")
-    public String saveNewTeam(Agent loggedInAgent, SlotsForm slotsForm, RedirectAttributes redirectAttributes) {
+    public String saveNewTeam(SlotsForm slotsForm, RedirectAttributes redirectAttributes) {
+        Agent loggedInAgent = this.agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
         if (!loggedInAgent.getRole().equals(AgentRole.ROLE_ADMIN)) {
             //not authorized to view this page.
             return "main/error";
@@ -151,7 +161,9 @@ public class AdminController {
     }
 
     @GetMapping("/team/new")
-    public String makeNewTeam(@ModelAttribute Agent loggedInAgent, ModelMap modelMap) {
+    public String makeNewTeam(ModelMap modelMap) {
+        Agent loggedInAgent = this.agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
+        modelMap.put("role", loggedInAgent.getRole().toString());
         if (!loggedInAgent.getRole().equals(AgentRole.ROLE_ADMIN)) {
             //not authorized to view this page.
             return "main/error";
@@ -165,8 +177,9 @@ public class AdminController {
     }
 
     @GetMapping("/team/{id}")
-    public String showIndividualTeam(@PathVariable("id") Long teamID, @ModelAttribute Agent loggedAgent, ModelMap modelMap) {
-
+    public String showIndividualTeam(@PathVariable("id") Long teamID,ModelMap modelMap) {
+        Agent loggedInAgent = this.agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
+        modelMap.put("role", loggedInAgent.getRole().toString());
         Team team = this.teamService.findById(teamID);
         /*if (loggedAgent.getRole().equals(AgentRole.TEAM_LEAD) && loggedAgent.getTeamManaged().getId().equals(team.getId())){
             modelMap.put("team", team);
@@ -181,8 +194,9 @@ public class AdminController {
     }
 
     @GetMapping("/team/{teamid}/makeLead/{agentId}")
-    public String makeAdmin(@PathVariable("teamid") Long teamid, @PathVariable("agentId") Long agentID, @ModelAttribute Agent loggedAgent) {
-        if (!loggedAgent.getRole().equals(AgentRole.ROLE_ADMIN)) {
+    public String makeAdmin(@PathVariable("teamid") Long teamid, @PathVariable("agentId") Long agentID) {
+        Agent loggedInAgent = this.agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
+        if (!loggedInAgent.getRole().equals(AgentRole.ROLE_ADMIN)) {
             //not authorized
             return "main/error";
         }
@@ -197,15 +211,16 @@ public class AdminController {
         currentTeam.setManager(newManager);
         this.teamRepository.save(currentTeam);
         this.agentService.saveAgent(newManager);
-        if (loggedAgent.getRole() == AgentRole.ROLE_AGENT) {
+        if (loggedInAgent.getRole() == AgentRole.ROLE_AGENT) {
             return "redirect:/team/view";
         }
         return "redirect:/admin/team/" + teamid;
     }
 
     @GetMapping("/team/{teamid}/remove/{agentID}")
-    public String removeAgentFromTeam(@PathVariable("teamid") Long teamid, @PathVariable("agentID") Long agentid , @ModelAttribute Agent loggedAgent) {
-        if (!loggedAgent.getRole().equals(AgentRole.ROLE_ADMIN)) {
+    public String removeAgentFromTeam(@PathVariable("teamid") Long teamid, @PathVariable("agentID") Long agentid) {
+        Agent loggedInAgent = this.agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
+        if (!loggedInAgent.getRole().equals(AgentRole.ROLE_ADMIN)) {
             //not authorized
             return "main/error";
         }
@@ -219,8 +234,10 @@ public class AdminController {
     }
 
     @GetMapping("/team/{teamid}/addAgent")
-    public String addAgentsList(@PathVariable("teamid") Long teamID, ModelMap modelMap, @ModelAttribute Agent loggedAgent) {
-        if (!loggedAgent.getRole().equals(AgentRole.ROLE_ADMIN)) {
+    public String addAgentsList(@PathVariable("teamid") Long teamID, ModelMap modelMap) {
+        Agent loggedInAgent = this.agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
+        modelMap.put("role", loggedInAgent.getRole().toString());
+        if (!loggedInAgent.getRole().equals(AgentRole.ROLE_ADMIN)) {
             //not authorized
             return "main/error";
         }
@@ -237,8 +254,9 @@ public class AdminController {
     }
 
     @GetMapping("/team/{teamid}/add/{agentid}") //TODO: fix this method
-    public String addAgentToTeam(@PathVariable("teamid") Long teamid, @PathVariable("agentid") Long agentID,@ModelAttribute Agent loggedAgent) {
-        if (!loggedAgent.getRole().equals(AgentRole.ROLE_ADMIN)) {
+    public String addAgentToTeam(@PathVariable("teamid") Long teamid, @PathVariable("agentid") Long agentID) {
+        Agent loggedInAgent = this.agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
+        if (!loggedInAgent.getRole().equals(AgentRole.ROLE_ADMIN)) {
             //not authorized
             return "main/error";
         }
@@ -261,8 +279,10 @@ public class AdminController {
     }
 
     @GetMapping("/caller/all")
-    public String displayAllCallers(ModelMap modelMap, @ModelAttribute Agent loggedAgent) {
-        if (!loggedAgent.getRole().equals(AgentRole.ROLE_ADMIN) && !loggedAgent.getRole().equals(AgentRole.ROLE_TEAM_LEAD)) {
+    public String displayAllCallers(ModelMap modelMap) {
+        Agent loggedInAgent = this.agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
+        modelMap.put("role", loggedInAgent.getRole().toString());
+        if (!loggedInAgent.getRole().equals(AgentRole.ROLE_ADMIN) && !loggedInAgent.getRole().equals(AgentRole.ROLE_TEAM_LEAD)) {
             //not authorized
             return "main/error";
         }
@@ -275,7 +295,8 @@ public class AdminController {
                    @RequestParam("sortDir") String sortDir,
                    ModelMap model) {
         int pageSize = 5;
-
+        Agent loggedInAgent = this.agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
+        model.put("role", loggedInAgent.getRole().toString());
         Page<Caller> page = callerService.findAllPaginatedCallers(pageNo, pageSize, sortField, sortDir);
         List<Caller> listEmployees = page.getContent();
 

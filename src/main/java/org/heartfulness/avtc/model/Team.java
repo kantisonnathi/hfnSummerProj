@@ -24,6 +24,19 @@ public class Team extends BaseEntity{
     @ManyToMany(mappedBy = "teams", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<TimeSlot> timeSlots;
 
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Service.class)
+    private Service service;
+
+    private String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public void addTimeSlot(TimeSlot timeSlot) {
         if (this.timeSlots == null) {
             this.timeSlots = new HashSet<>();
@@ -33,6 +46,14 @@ public class Team extends BaseEntity{
 
     public Set<TimeSlot> getTimeSlots() {
         return timeSlots;
+    }
+
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
     }
 
     public void setTimeSlots(Set<TimeSlot> timeSlots) {

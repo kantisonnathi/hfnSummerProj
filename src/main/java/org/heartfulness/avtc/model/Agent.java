@@ -6,6 +6,7 @@ import org.heartfulness.avtc.model.enums.AgentRole;
 import org.heartfulness.avtc.model.enums.AgentStatus;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.HashSet;
@@ -20,6 +21,81 @@ public class Agent extends BaseEntity {
 
     @Column(name = "name")
     private String name; //mandatory
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name="city")
+    private String city;
+
+    @Column(name="state")
+    private String state;
+
+    @Column(name="pincode")
+    private String pincode;
+
+    @Column(name="dob")
+    private Date DOB;
+
+    @Column(name = "educational_level")
+    private String educationalLevel;
+
+    @Column(name = "acad_degree")
+    private String acadDegree;
+
+    @Column(name="edu_desc")
+    private String eduDesc;
+
+    @Column(name = "occupation")
+    private String occupation;
+
+    @Column(name = "organization")
+    private String organization;
+
+    @Column(name = "designation")
+    private String designation;
+
+    @Column(name="work_exp")
+    private String workExperience;
+
+    @Column(name = "skills")
+    private String skills;
+
+    @Column(name = "comm_service")
+    private String commService;
+
+    @Column(name="psychology_flag")
+    private Boolean psychologyFlag;
+
+    @Column(name = "relevant_exp")
+    private Integer relevantExperience;
+
+    @Column(name="certified_date")
+    private Date certifiedDate;
+
+    @Column(name="last_training_date")
+    private Date lastTrainingDate;
+
+    @Column(name = "trainingScores")
+    private Double trainingScores;
+
+    @Column(name = "performanceRating")
+    private Double performanceRating;
+
+    @Column(name = "escalations")
+    private Integer escalations;
+
+    @Column(name="closures")
+    private Integer closures;
+
+    @Column(name="stat1")
+    private Double stat1;
+
+    @Column(name="stat2")
+    private Double stat2;
+
+    @Column(name="stat3")
+    private Double stat3;
 
     @Column(name = "missed")
     private Integer missed;
@@ -276,6 +352,206 @@ public class Agent extends BaseEntity {
 
     public void addMissed() {
         this.missed++;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getPincode() {
+        return pincode;
+    }
+
+    public void setPincode(String pincode) {
+        this.pincode = pincode;
+    }
+
+    public Date getDOB() {
+        return DOB;
+    }
+
+    public void setDOB(Date DOB) {
+        this.DOB = DOB;
+    }
+
+    public String getEducationalLevel() {
+        return educationalLevel;
+    }
+
+    public void setEducationalLevel(String educationalLevel) {
+        this.educationalLevel = educationalLevel;
+    }
+
+    public String getAcadDegree() {
+        return acadDegree;
+    }
+
+    public void setAcadDegree(String acadDegree) {
+        this.acadDegree = acadDegree;
+    }
+
+    public String getEduDesc() {
+        return eduDesc;
+    }
+
+    public void setEduDesc(String eduDesc) {
+        this.eduDesc = eduDesc;
+    }
+
+    public String getOccupation() {
+        return occupation;
+    }
+
+    public void setOccupation(String occupation) {
+        this.occupation = occupation;
+    }
+
+    public String getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(String organization) {
+        this.organization = organization;
+    }
+
+    public String getDesignation() {
+        return designation;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
+    }
+
+    public String getWorkExperience() {
+        return workExperience;
+    }
+
+    public void setWorkExperience(String workExperience) {
+        this.workExperience = workExperience;
+    }
+
+    public String getSkills() {
+        return skills;
+    }
+
+    public void setSkills(String skills) {
+        this.skills = skills;
+    }
+
+    public String getCommService() {
+        return commService;
+    }
+
+    public void setCommService(String commService) {
+        this.commService = commService;
+    }
+
+    public Boolean getPsychologyFlag() {
+        return psychologyFlag;
+    }
+
+    public void setPsychologyFlag(Boolean psychologyFlag) {
+        this.psychologyFlag = psychologyFlag;
+    }
+
+    public Integer getRelevantExperience() {
+        return relevantExperience;
+    }
+
+    public void setRelevantExperience(Integer relevantExperience) {
+        this.relevantExperience = relevantExperience;
+    }
+
+    public Date getCertifiedDate() {
+        return certifiedDate;
+    }
+
+    public void setCertifiedDate(Date certifiedDate) {
+        this.certifiedDate = certifiedDate;
+    }
+
+    public Date getLastTrainingDate() {
+        return lastTrainingDate;
+    }
+
+    public void setLastTrainingDate(Date lastTrainingDate) {
+        this.lastTrainingDate = lastTrainingDate;
+    }
+
+    public Double getTrainingScores() {
+        return trainingScores;
+    }
+
+    public void setTrainingScores(Double trainingScores) {
+        this.trainingScores = trainingScores;
+    }
+
+    public Double getPerformanceRating() {
+        return performanceRating;
+    }
+
+    public void setPerformanceRating(Double performanceRating) {
+        this.performanceRating = performanceRating;
+    }
+
+    public Integer getEscalations() {
+        return escalations;
+    }
+
+    public void setEscalations(Integer escalations) {
+        this.escalations = escalations;
+    }
+
+    public Integer getClosures() {
+        return closures;
+    }
+
+    public void setClosures(Integer closures) {
+        this.closures = closures;
+    }
+
+    public Double getStat1() {
+        return stat1;
+    }
+
+    public void setStat1(Double stat1) {
+        this.stat1 = stat1;
+    }
+
+    public Double getStat2() {
+        return stat2;
+    }
+
+    public void setStat2(Double stat2) {
+        this.stat2 = stat2;
+    }
+
+    public Double getStat3() {
+        return stat3;
+    }
+
+    public void setStat3(Double stat3) {
+        this.stat3 = stat3;
     }
 }
 

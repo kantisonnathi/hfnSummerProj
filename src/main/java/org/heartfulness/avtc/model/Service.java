@@ -12,6 +12,9 @@ public class Service extends BaseEntity {
     @Column(name="name")
     private String name;
 
+    @OneToMany(mappedBy = "service", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Team> teams;
+
     public Set<Department> getDepartments() {
         return Departments;
     }
@@ -26,5 +29,13 @@ public class Service extends BaseEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Team> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(Set<Team> teams) {
+        this.teams = teams;
     }
 }

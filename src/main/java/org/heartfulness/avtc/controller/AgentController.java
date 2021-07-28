@@ -98,9 +98,11 @@ public class AgentController {
 
 
     @GetMapping("/success")
-    public String getMainPage(@ModelAttribute Agent currentAgent, ModelMap modelMap) {
-        modelMap.put("agent", currentAgent);
-        System.out.println(currentAgent.getId() + "\n\n");
+    public String getMainPage(ModelMap modelMap) {
+        Agent agent = this.agentService.findBycontactNumber(this.securityService.getUser().getPhoneNumber());
+        modelMap.put("role", agent.getRole().toString());
+        modelMap.put("agent", agent);
+        System.out.println(agent.getId() + "\n\n");
         /*CategoryCreationDTO categoryCreationDTO=new CategoryCreationDTO();
         categoryCreationDTO.setCallList(sortingCalls());*/
 
@@ -113,16 +115,18 @@ public class AgentController {
     }
 
     @GetMapping("/scheduleException/new")
-    public String addNewScheduleException(ModelMap modelMap, @ModelAttribute Agent currentAgent) {
+    public String addNewScheduleException(ModelMap modelMap) {
+        Agent agent = this.agentService.findBycontactNumber(this.securityService.getUser().getPhoneNumber());
+        modelMap.put("role", agent.getRole().toString());
         SlotForm slot = new SlotForm();
         modelMap.put("slot", slot);
-        modelMap.put("role", currentAgent.getRole().toString());
         return "schedule/agent_new_exception";
     }
 
     @SneakyThrows
     @PostMapping("/scheduleException/new")
-    public String acceptException(SlotForm slotForm, @ModelAttribute Agent loggedInAgent) {
+    public String acceptException(SlotForm slotForm) {
+        Agent loggedInAgent = this.agentService.findBycontactNumber(this.securityService.getUser().getPhoneNumber());
         ScheduleException scheduleException = new ScheduleException();
         scheduleException.setAgent(loggedInAgent);
         TimeSlot timeSlot = this.timeSlotRepository.getById(Long.parseLong(slotForm.getSlotID()));
@@ -190,7 +194,9 @@ public class AgentController {
     }
 
     @GetMapping("/team/view")
-    public String viewTeam(ModelMap modelMap, @ModelAttribute Agent loggedInAgent) {
+    public String viewTeam(ModelMap modelMap) {
+        Agent loggedInAgent = this.agentService.findBycontactNumber(this.securityService.getUser().getPhoneNumber());
+        modelMap.put("role", loggedInAgent.getRole().toString());
         List<Agent> agents = new ArrayList<>();
         agents.add(loggedInAgent);
         List<Team> teams = this.teamService.findTeamsByAgent(loggedInAgent);
@@ -198,7 +204,6 @@ public class AgentController {
             return "redirect:/success";
         }
         modelMap.put("list", teams);
-        modelMap.put("role", loggedInAgent.getRole().toString());
         return "team/viewTeams";
     }
 
@@ -215,11 +220,12 @@ public class AgentController {
     }
 
     @GetMapping("/agent/{agentID}/calls")
-    public String viewAllCallsUnderAgent(@PathVariable("agentID") long agentID, ModelMap modelMap, Agent loggedInAgent,
+    public String viewAllCallsUnderAgent(@PathVariable("agentID") long agentID, ModelMap modelMap,
                                          RedirectAttributes redirectAttributes) {
-        if (loggedInAgent.getId().equals(agentID) || loggedInAgent.getRole().equals(AgentRole.ROLE_ADMIN)) {
-            return paginatedCallsUnderAgent(1,"id", "asc", agentID, modelMap, loggedInAgent,
-                    redirectAttributes);
+        Agent agent = this.agentService.findBycontactNumber(this.securityService.getUser().getPhoneNumber());
+        modelMap.put("role", agent.getRole().toString());
+        if (agent.getId().equals(agentID) || agent.getRole().equals(AgentRole.ROLE_ADMIN)) {
+            return paginatedCallsUnderAgent(1,"id", "asc", agentID, modelMap, redirectAttributes);
         }
         redirectAttributes.addFlashAttribute("message", "You are not authorized to view this page!");
         return "redirect:/success";
@@ -229,8 +235,10 @@ public class AgentController {
     public String paginatedCallsUnderAgent(@PathVariable("pgno") Integer pageNo,
                                            @RequestParam("sortField") String sortField,
                                            @RequestParam("sortDir") String sortDir,
-                                           @PathVariable("agentID") Long agentID, ModelMap modelMap, Agent loggedInAgent,
+                                           @PathVariable("agentID") Long agentID, ModelMap modelMap,
                                            RedirectAttributes redirectAttributes) {
+        Agent loggedInAgent = this.agentService.findBycontactNumber(this.securityService.getUser().getPhoneNumber());
+        modelMap.put("role", loggedInAgent.getRole().toString());
         if (loggedInAgent.getId().equals(agentID) || loggedInAgent.getRole().equals(AgentRole.ROLE_ADMIN)) {
             Agent agent = this.agentService.findById(agentID);
             int pageSize = 10;
@@ -315,14 +323,18 @@ public class AgentController {
     }
 
     @GetMapping("/view/team")
-    public String viewAllTeamsForAgent(ModelMap modelMap, @ModelAttribute Agent loggedInAgent) {
-        return paginated(1, "id", "asc", loggedInAgent, modelMap);
+    public String viewAllTeamsForAgent(ModelMap modelMap) {
+        Agent agent = this.agentService.findBycontactNumber(this.securityService.getUser().getPhoneNumber());
+        modelMap.put("role", agent.getRole().toString());
+        return paginated(1, "id", "asc", modelMap);
     }
 
     @GetMapping("/team/{pageNo}")
     public String paginated(@PathVariable("pageNo") Integer pageNo,
                             @RequestParam("sortField") String sortField,
-                            @RequestParam("sortDir") String sortDir, @ModelAttribute Agent loggedInAgent,ModelMap modelMap) {
+                            @RequestParam("sortDir") String sortDir, ModelMap modelMap) {
+        Agent loggedInAgent = this.agentService.findBycontactNumber(this.securityService.getUser().getPhoneNumber());
+        modelMap.put("role", loggedInAgent.getRole().toString());
         int pageSize = 10;
         Page<Team> page = this.teamService.findAllTeamsUnderAgent(loggedInAgent, pageNo, pageSize, sortField, sortDir);
         paginatedModelMapPopulation(modelMap, page, pageNo, pageSize, sortDir, sortField);
@@ -331,9 +343,11 @@ public class AgentController {
     }
 
     @GetMapping("/view/schedule")
-    public String viewSelfSchedule(Agent loggedInAgent, ModelMap modelMap) {
+    public String viewSelfSchedule(ModelMap modelMap) {
         //max 24, don't need to paginate
-        Set<ScheduleException> list = loggedInAgent.getScheduleExceptions();
+        Agent agent = this.agentService.findBycontactNumber(this.securityService.getUser().getPhoneNumber());
+        modelMap.put("role", agent.getRole().toString());
+        Set<ScheduleException> list = agent.getScheduleExceptions();
         list.removeIf(s -> !s.getAccepted() || !s.getDate().equals(Date.valueOf(LocalDate.now())));
         modelMap.put("schedules", list);
         return "schedule/viewSelf";

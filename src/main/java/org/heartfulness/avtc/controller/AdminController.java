@@ -102,7 +102,7 @@ public class AdminController {
         modelMap.put("list", listTeams);
         modelMap.put("url", "/team/all/");
         modelMap.put("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-        return "team/viewTeams";
+        return "team/viewTeamsPaginated";
     }
 
     @GetMapping("/unassignedAgents")

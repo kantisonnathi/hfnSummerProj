@@ -100,6 +100,7 @@ public class AgentController {
     @GetMapping("/success")
     public String getMainPage(@ModelAttribute Agent currentAgent, ModelMap modelMap) {
         modelMap.put("agent", currentAgent);
+        System.out.println(currentAgent.getId() + "\n\n");
         /*CategoryCreationDTO categoryCreationDTO=new CategoryCreationDTO();
         categoryCreationDTO.setCallList(sortingCalls());*/
 
@@ -112,7 +113,7 @@ public class AgentController {
     }
 
     @GetMapping("/scheduleException/new")
-    public String addNewScheduleException(ModelMap modelMap, Agent currentAgent) {
+    public String addNewScheduleException(ModelMap modelMap, @ModelAttribute Agent currentAgent) {
         SlotForm slot = new SlotForm();
         modelMap.put("slot", slot);
         modelMap.put("role", currentAgent.getRole().toString());
@@ -177,7 +178,7 @@ public class AgentController {
     }
 
     @PostMapping("/schedule")
-    public String getTime(@ModelAttribute("other") Other     other) {
+    public String getTime(@ModelAttribute("other") Other other) {
                 String x=other.getEndtime();
         Agent agent=agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
@@ -192,13 +193,13 @@ public class AgentController {
     public String viewTeam(ModelMap modelMap, Agent loggedInAgent) {
         List<Agent> agents = new ArrayList<>();
         agents.add(loggedInAgent);
-        Team team = this.teamService.findTeamByAgentsIn(agents);
-        if (team == null) {
+        List<Team> teams = this.teamService.findTeamsByAgent(loggedInAgent);
+        if (teams == null) {
             return "redirect:/success";
         }
-        modelMap.put("team", team);
+        modelMap.put("list", teams);
         modelMap.put("role", loggedInAgent.getRole().toString());
-        return "main/viewTeam";
+        return "main/viewTeams";
     }
 
     @PostMapping("/editCall")

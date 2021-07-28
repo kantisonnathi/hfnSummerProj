@@ -12,7 +12,7 @@ public interface TeamService {
 
     Team findById(Long id);
 
-    Team findTeamByAgentsIn(List<Agent> agents);
+    List<Team> findTeamsByAgent(Agent agent);
 
     Team findByAgentsEquals(Agent agent);
 

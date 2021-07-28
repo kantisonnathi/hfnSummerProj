@@ -67,7 +67,7 @@ public class PrivateEndpoint {
             response.addCookie(cookie);
             Logger log = new Logger();
             log.setLogEvent(LogEvent.LOGIN);
-            log.setAgent(this.agentService.findBycontactNumber(user.getPhoneNumber()));
+            //log.setAgent(this.agentService.findBycontactNumber(user.getPhoneNumber()));
             this.loggerRepository.save(log);
             return new ResponseEntity<>("logged in", HttpStatus.OK);
         } catch (FirebaseAuthException e) {

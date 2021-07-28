@@ -56,7 +56,7 @@ public class DepartmentController {
            others.add(other);
        }
         List<Language> entered=new ArrayList<>();
-        Agent agent=agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
+        Agent agent = agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
 
         modelMap.put("agent",agent);
         modelMap.put("others",others);

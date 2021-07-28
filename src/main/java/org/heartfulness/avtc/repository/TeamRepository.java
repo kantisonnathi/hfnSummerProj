@@ -24,4 +24,6 @@ public interface TeamRepository extends JpaRepository<Team, Long> {
 
     Page<Team> findAllByAgents(Agent agent, Pageable pageable);
 
+    List<Team> findTeamsByAgents(Agent agent);
+
 }

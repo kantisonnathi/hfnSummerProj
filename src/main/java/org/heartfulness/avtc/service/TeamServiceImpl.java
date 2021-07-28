@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -33,8 +34,10 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public Team findTeamByAgentsIn(List<Agent> agents) {
-        return this.teamRepository.findTeamByAgentsIn(agents);
+    public List<Team> findTeamsByAgent(Agent agent) {
+        List<Agent> agents = new ArrayList<>();
+        agents.add(agent);
+        return this.teamRepository.findTeamsByAgents(agent);
     }
 
     @Override

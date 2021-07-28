@@ -76,7 +76,7 @@ public class AdminController {
     }
 
     @GetMapping("/teams/all") //displays a list of teams
-    public String showAllTeams(ModelMap modelMap, Agent loggedInAgent, RedirectAttributes redirectAttributes) {
+    public String showAllTeams(ModelMap modelMap, @ModelAttribute Agent loggedInAgent, RedirectAttributes redirectAttributes) {
         if (validation(loggedInAgent, redirectAttributes) == null) {
             return viewAllPaginatedTeams(1, "id", "asc", modelMap);
         }
@@ -106,7 +106,7 @@ public class AdminController {
     }
 
     @GetMapping("/unassignedAgents")
-    public String showAllUnassignedAgents(ModelMap modelMap, Agent loggedInAgent) {
+    public String showAllUnassignedAgents(ModelMap modelMap, @ModelAttribute Agent loggedInAgent) {
         /*if (!loggedInAgent.getRole().equals(AgentRole.ADMIN)) {
             //not authorized to view this page.
             return "main/error";
@@ -151,7 +151,7 @@ public class AdminController {
     }
 
     @GetMapping("/team/new")
-    public String makeNewTeam(Agent loggedInAgent, ModelMap modelMap) {
+    public String makeNewTeam(@ModelAttribute Agent loggedInAgent, ModelMap modelMap) {
         if (!loggedInAgent.getRole().equals(AgentRole.ROLE_ADMIN)) {
             //not authorized to view this page.
             return "main/error";
@@ -181,7 +181,7 @@ public class AdminController {
     }
 
     @GetMapping("/team/{teamid}/makeLead/{agentId}")
-    public String makeAdmin(@PathVariable("teamid") Long teamid, @PathVariable("agentId") Long agentID, Agent loggedAgent) {
+    public String makeAdmin(@PathVariable("teamid") Long teamid, @PathVariable("agentId") Long agentID, @ModelAttribute Agent loggedAgent) {
         if (!loggedAgent.getRole().equals(AgentRole.ROLE_ADMIN)) {
             //not authorized
             return "main/error";
@@ -204,7 +204,7 @@ public class AdminController {
     }
 
     @GetMapping("/team/{teamid}/remove/{agentID}")
-    public String removeAgentFromTeam(@PathVariable("teamid") Long teamid, @PathVariable("agentID") Long agentid , Agent loggedAgent) {
+    public String removeAgentFromTeam(@PathVariable("teamid") Long teamid, @PathVariable("agentID") Long agentid , @ModelAttribute Agent loggedAgent) {
         if (!loggedAgent.getRole().equals(AgentRole.ROLE_ADMIN)) {
             //not authorized
             return "main/error";
@@ -219,7 +219,7 @@ public class AdminController {
     }
 
     @GetMapping("/team/{teamid}/addAgent")
-    public String addAgentsList(@PathVariable("teamid") Long teamID, ModelMap modelMap, Agent loggedAgent) {
+    public String addAgentsList(@PathVariable("teamid") Long teamID, ModelMap modelMap, @ModelAttribute Agent loggedAgent) {
         if (!loggedAgent.getRole().equals(AgentRole.ROLE_ADMIN)) {
             //not authorized
             return "main/error";
@@ -237,7 +237,7 @@ public class AdminController {
     }
 
     @GetMapping("/team/{teamid}/add/{agentid}") //TODO: fix this method
-    public String addAgentToTeam(@PathVariable("teamid") Long teamid, @PathVariable("agentid") Long agentID, Agent loggedAgent) {
+    public String addAgentToTeam(@PathVariable("teamid") Long teamid, @PathVariable("agentid") Long agentID,@ModelAttribute Agent loggedAgent) {
         if (!loggedAgent.getRole().equals(AgentRole.ROLE_ADMIN)) {
             //not authorized
             return "main/error";
@@ -261,7 +261,7 @@ public class AdminController {
     }
 
     @GetMapping("/caller/all")
-    public String displayAllCallers(ModelMap modelMap, Agent loggedAgent) {
+    public String displayAllCallers(ModelMap modelMap, @ModelAttribute Agent loggedAgent) {
         if (!loggedAgent.getRole().equals(AgentRole.ROLE_ADMIN) && !loggedAgent.getRole().equals(AgentRole.ROLE_TEAM_LEAD)) {
             //not authorized
             return "main/error";
@@ -449,6 +449,8 @@ public class AdminController {
         }
         return timeSlots;
     }
+
+
     @GetMapping("/viewDepartments")
     public String showDepts(ModelMap modelMap)
     {

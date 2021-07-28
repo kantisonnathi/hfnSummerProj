@@ -122,7 +122,7 @@ public class AgentController {
 
     @SneakyThrows
     @PostMapping("/scheduleException/new")
-    public String acceptException(SlotForm slotForm, Agent loggedInAgent) {
+    public String acceptException(SlotForm slotForm, @ModelAttribute Agent loggedInAgent) {
         ScheduleException scheduleException = new ScheduleException();
         scheduleException.setAgent(loggedInAgent);
         TimeSlot timeSlot = this.timeSlotRepository.getById(Long.parseLong(slotForm.getSlotID()));
@@ -170,7 +170,7 @@ public class AgentController {
     }
 
     @PostMapping("/{callId}/caller/save")
-    public String saveCaller(Caller caller, RedirectAttributes redirectAttributes, HttpServletRequest httpServletRequest,
+    public String saveCaller(Caller caller, RedirectAttributes redirectAttributes,
                              @PathVariable("callId") Long callId) {
         redirectAttributes.addFlashAttribute("message", "Caller details have been saved");
         this.callerService.save(caller);
@@ -190,7 +190,7 @@ public class AgentController {
     }
 
     @GetMapping("/team/view")
-    public String viewTeam(ModelMap modelMap, Agent loggedInAgent) {
+    public String viewTeam(ModelMap modelMap, @ModelAttribute Agent loggedInAgent) {
         List<Agent> agents = new ArrayList<>();
         agents.add(loggedInAgent);
         List<Team> teams = this.teamService.findTeamsByAgent(loggedInAgent);
@@ -199,7 +199,7 @@ public class AgentController {
         }
         modelMap.put("list", teams);
         modelMap.put("role", loggedInAgent.getRole().toString());
-        return "main/viewTeams";
+        return "team/viewTeams";
     }
 
     @PostMapping("/editCall")
@@ -258,6 +258,12 @@ public class AgentController {
         return findPaginatedByAgent(1, "id", "asc", agent, modelMap);
     }*/
 
+
+    @GetMapping("/team/agents") //viewing agents in a team
+    public String viewAgentsinTeam(ModelMap model) {
+        return findPaginatedByteam(1,"name","asc", model);
+    }
+
     @GetMapping("/AgentTeam/{pageNo}")
     public String findPaginatedByteam(@PathVariable(value = "pageNo") int pageNo,
                                       @RequestParam("sortField") String sortField,
@@ -268,17 +274,6 @@ public class AgentController {
         Page<Agent> page= agentService.findByTeam(team,pageNo,pageSize,sortField,sortDir);
         paginatedModelMapPopulation(model, page, pageNo, pageSize, sortDir, sortField);
         return "agents/viewAgents";
-    }
-
-    @GetMapping("/test")
-    public String test(RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("message", "This is a test message");
-        return "redirect:/success";
-    }
-
-    @GetMapping("/team/agents") //viewing agents in a team
-    public String viewAgentsinTeam(ModelMap model) {
-        return findPaginatedByteam(1,"name","asc", model);
     }
 
     /*@GetMapping("/pageAgent/{pageNo}")
@@ -303,7 +298,7 @@ public class AgentController {
         modelMap.put("list", list);
     }
 
-    @GetMapping("/team/{teamid}/viewAllCalls") //TODO: rewrite this method. won't work
+    @GetMapping("/team/{teamid}/viewAllCalls")
     public String viewAllTeamCalls(@PathVariable("teamid") Long teamId, ModelMap modelMap) {
         Team team = this.teamService.findById(teamId);
         return findPaginatedByTeam(1, "id", "asc", team, modelMap);
@@ -320,19 +315,19 @@ public class AgentController {
     }
 
     @GetMapping("/view/team")
-    public String viewAllTeamsForAgent(ModelMap modelMap, Agent loggedInAgent) {
+    public String viewAllTeamsForAgent(ModelMap modelMap, @ModelAttribute Agent loggedInAgent) {
         return paginated(1, "id", "asc", loggedInAgent, modelMap);
     }
 
     @GetMapping("/team/{pageNo}")
     public String paginated(@PathVariable("pageNo") Integer pageNo,
                             @RequestParam("sortField") String sortField,
-                            @RequestParam("sortDir") String sortDir, Agent loggedInAgent,ModelMap modelMap) {
+                            @RequestParam("sortDir") String sortDir, @ModelAttribute Agent loggedInAgent,ModelMap modelMap) {
         int pageSize = 10;
         Page<Team> page = this.teamService.findAllTeamsUnderAgent(loggedInAgent, pageNo, pageSize, sortField, sortDir);
         paginatedModelMapPopulation(modelMap, page, pageNo, pageSize, sortDir, sortField);
         modelMap.put("url", "team");
-        return "team/viewTeams";
+        return "team/viewTeamsPaginated";
     }
 
     @GetMapping("/view/schedule")

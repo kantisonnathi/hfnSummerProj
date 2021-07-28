@@ -3,6 +3,8 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link href="../../static/css/layout.html" th:href="@{/css/layout.css}" rel="stylesheet">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
     <title>View All Teams</title>
@@ -29,7 +31,7 @@
         <tbody>
         <tr th:each="team : ${list}">
             <td th:text="${team.id}"></td>
-            <td th:text="${team.manager.name}"></td>
+            <td th:text="${team.manager?.name}"></td>
             <td><a th:href="@{/admin/team/__${team.id}__}">Click here to view more details</a></td>
         </tr>
     </table>

@@ -42,11 +42,12 @@ public class AdminController {
     private final LanguageRepository languageRepository;
     private final TeamService teamService;
     private final TimeSlotRepository timeSlotRepository;
+    private final ServiceRepository serviceRepository;
     private final CallService callService;
     private final SecurityService securityService;
    private final DepartmentRepository departmentRepository;
     @Autowired
-    public AdminController(AgentRepository agentRepository, TeamRepository teamRepository, AgentService agentService, CallerService callerService, LanguageRepository languageRepository, TeamService teamService, TimeSlotRepository timeSlotRepository, CallService callService, SecurityService securityService, DepartmentRepository departmentRepository) {
+    public AdminController(AgentRepository agentRepository, TeamRepository teamRepository, AgentService agentService, CallerService callerService, LanguageRepository languageRepository, TeamService teamService, TimeSlotRepository timeSlotRepository, ServiceRepository serviceRepository, CallService callService, SecurityService securityService, DepartmentRepository departmentRepository) {
         this.agentRepository = agentRepository;
         this.teamRepository = teamRepository;
         this.agentService = agentService;
@@ -54,6 +55,7 @@ public class AdminController {
         this.languageRepository = languageRepository;
         this.teamService = teamService;
         this.timeSlotRepository = timeSlotRepository;
+        this.serviceRepository = serviceRepository;
         this.callService = callService;
         this.securityService = securityService;
         this.departmentRepository = departmentRepository;
@@ -154,6 +156,9 @@ public class AdminController {
         Language language = this.languageRepository.findById(Long.parseLong(slotsForm.getLangId())).get();
         Team team = new Team();
         team.setLanguage(language);
+        Service service = this.serviceRepository.findById(Long.parseLong(slotsForm.getServId())).get();
+        team.setService(service);
+        team.setDescription(slotsForm.getDescription());
         this.teamRepository.save(team);
         team.setTimeSlots(slots);
         this.timeSlotRepository.saveAll(slots);
@@ -170,8 +175,10 @@ public class AdminController {
         }
         SlotsForm slotsForm = new SlotsForm();
         List<Language> languages = this.languageRepository.findAll();
+        List<Service> services = this.serviceRepository.findAll();
         modelMap.put("form", slotsForm);
         modelMap.put("languages", languages);
+        modelMap.put("services", services);
         return "team/newTeam";
 
     }

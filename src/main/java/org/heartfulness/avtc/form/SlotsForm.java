@@ -31,6 +31,25 @@ public class SlotsForm {
 
     private Agent agentId;
 
+    private String servId;
+    private String description;
+
+    public String getServId() {
+        return servId;
+    }
+
+    public void setServId(String servId) {
+        this.servId = servId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Agent getAgentId() {
         return agentId;
     }

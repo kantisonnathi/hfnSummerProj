@@ -53,6 +53,14 @@
                 <div>
                     <a th:href="@{/agent/__${agent.id}__/calls}">Click here to view all calls</a>
                 </div>
+                <div th:if="${role == 'ROLE_ADMIN'}">
+                    <p>Other admin functions:</p>
+                    <a th:href="@{/admin/agents/all}">View All Agents</a>
+                    <a th:href="@{/admin/caller/all}">View All Callers</a>
+                    <a th:href="@{/calls/all}">View All Calls</a>
+                    <a th:href="@{/admin/teams/all}">View All Teams</a>
+                    <a th:href="@{/admin/viewDepartments}">View All Departments</a>
+                </div>
                 <!--<table class="table table-bordered" style="text-align: center">
                     <thead>
                     <tr>
@@ -105,7 +113,6 @@
             </fieldset>
         <!--</form>-->
     </div>
-
 </div>
 </body>
 </html>
@@ -134,12 +141,12 @@
             document.getElementById("callStatus").innerHTML = "Status: Online";
             let xhttp = new XMLHttpRequest(); //creating ajax req
             //console.log(document.getElementById("id"));
-            xhttp.open("GET","http://localhost:8082/mark/online", true);
+            xhttp.open("GET","/mark/online", true);
             xhttp.send();
         } else {
             document.getElementById("callStatus").innerHTML = "Status: Offline";
             let xhttp = new XMLHttpRequest();
-            xhttp.open("GET","http://localhost:8082/mark/offline",true);
+            xhttp.open("GET","/mark/offline",true);
             xhttp.send();
         }
     }

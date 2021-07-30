@@ -65,7 +65,7 @@ public class Agent extends BaseEntity {
     private String commService;
 
     @Column(name="psychology_flag")
-    private Boolean psychologyFlag;
+    private String psychologyFlag;
 
     @Column(name = "relevant_exp")
     private Integer relevantExperience;
@@ -76,10 +76,10 @@ public class Agent extends BaseEntity {
     @Column(name="last_training_date")
     private Date lastTrainingDate;
 
-    @Column(name = "trainingScores")
+    @Column(name = "training_scores")
     private Double trainingScores;
 
-    @Column(name = "performanceRating")
+    @Column(name = "performance_rating")
     private Double performanceRating;
 
     @Column(name = "escalations")
@@ -466,11 +466,11 @@ public class Agent extends BaseEntity {
         this.commService = commService;
     }
 
-    public Boolean getPsychologyFlag() {
+    public String getPsychologyFlag() {
         return psychologyFlag;
     }
 
-    public void setPsychologyFlag(Boolean psychologyFlag) {
+    public void setPsychologyFlag(String psychologyFlag) {
         this.psychologyFlag = psychologyFlag;
     }
 

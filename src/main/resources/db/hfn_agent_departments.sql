@@ -1,0 +1,1 @@
+INSERT INTO hfn.agent_departments (agents_id, departments_id) VALUES (2, 2);

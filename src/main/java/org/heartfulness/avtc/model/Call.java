@@ -51,12 +51,31 @@ public class Call extends BaseEntity {
     @Column(name = "end_time")
     private String endTime;
 
+    public boolean isReviewFlag() {
+        return reviewFlag;
+    }
+
+    public void setReviewFlag(boolean reviewFlag) {
+        this.reviewFlag = reviewFlag;
+    }
+
+    public Boolean getEscalation() {
+        return Escalation;
+    }
+
+    public void setEscalation(Boolean escalation) {
+        Escalation = escalation;
+    }
+
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private CallStatus callStatus;
-
+    @Column(name = "review_flag")
+    private boolean reviewFlag;
     @OneToMany(mappedBy = "leasedBy", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Agent> leasing;
+    @Column("escalation")
+    private Boolean Escalation;
 
     public Date getDate() {
         return date;

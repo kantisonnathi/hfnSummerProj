@@ -27,8 +27,8 @@ public class Caller extends BaseEntity {
     private String email;
     @Column(name = "pincode")
     private String pincode;
-   @Column(name="employment")
-   private String employment;
+    @Column(name="employment")
+    private String employment;
 
 
     @OneToMany(mappedBy = "caller", fetch= FetchType.EAGER, cascade=CascadeType.ALL)
@@ -72,7 +72,7 @@ public class Caller extends BaseEntity {
     @Column(name="attended_Calls")
     private Integer attendedCalls;
     @Column(name = "escalations")
-    private Integer Escalations;
+    private Integer escalations;
     @Column(name="Closures")
     private Integer closures;
     @Column(name="stat_1")
@@ -203,11 +203,11 @@ public class Caller extends BaseEntity {
     }
 
     public Integer getEscalations() {
-        return Escalations;
+        return escalations;
     }
 
     public void setEscalations(Integer escalations) {
-        Escalations = escalations;
+        this.escalations = escalations;
     }
 
     public Integer getClosures() {

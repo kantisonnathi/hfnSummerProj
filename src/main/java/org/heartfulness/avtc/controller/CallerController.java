@@ -1,20 +1,17 @@
 package org.heartfulness.avtc.controller;
 
-import org.heartfulness.avtc.model.Call;
 import org.heartfulness.avtc.model.Caller;
 import org.heartfulness.avtc.repository.CallerRepository;
+import org.heartfulness.avtc.security.auth.models.User;
+import org.heartfulness.avtc.service.AgentService;
 import org.heartfulness.avtc.service.CallService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.ws.rs.Path;
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -25,17 +22,20 @@ public class CallerController {
     //TODO: add call editing to the caller editing form
 
     private final CallService callService;
+    private final AgentService agentService;
     private final CallerRepository callerRepository;
 
-    public CallerController(CallService callService, CallerRepository callerRepository) {
+    public CallerController(CallService callService, AgentService agentService, CallerRepository callerRepository) {
         this.callService = callService;
+        this.agentService = agentService;
         this.callerRepository = callerRepository;
     }
 
 
     @GetMapping("/callerDetails/{callerId}")
-    public String getCallerEditForm(@PathVariable("callerId") Long callerId, ModelMap modelMap) {
+    public String getCallerEditForm(@PathVariable("callerId") Long callerId, ModelMap modelMap, @AuthenticationPrincipal User user) {
         Optional<Caller> caller = this.callerRepository.findById(callerId);
+        modelMap.put("role", this.agentService.findBycontactNumber(user.getPhoneNumber()).getRole().toString());
         modelMap.put("caller", caller.get());
         return "main/callerDetails";
     }
@@ -46,5 +46,13 @@ public class CallerController {
 
         this.callerRepository.save(caller);
         return "redirect:/success";
+    }
+
+    @GetMapping("/caller/{callerId}")
+    public String viewCaller(@PathVariable("callerId") Long callerId, @AuthenticationPrincipal User user, ModelMap modelMap) {
+        Caller caller = this.callerRepository.findById(callerId).get();
+        modelMap.put("caller", caller);
+        modelMap.put("role", this.agentService.findBycontactNumber(user.getPhoneNumber()).getRole().toString());
+        return "caller/viewCaller";
     }
 }

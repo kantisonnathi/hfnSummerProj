@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
+  <link href="../../static/css/layout.html" th:href="@{/css/layout.css}" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
   <title>View All Calls</title>
 </head>
@@ -27,6 +28,7 @@
       <a th:href="@{${url} + ${currentPage} + '?sortField=caller&sortDir=' + ${reverseSortDir}}">
         Caller name</a>
     </th>
+    <th>More Details</th>
     <span th:unless="${url} == '/page/'">
       <th>Edit call</th>
       <th>Edit caller</th>
@@ -38,6 +40,7 @@
     <td th:text="${call.id}"></td>
     <td th:text="${call.duration}"></td>
     <td th:text="${call.caller?.name}"></td>
+    <td><a th:href="@{/call/__${call.id}__}">Click here to view all details</a></td>
     <span th:unless="${url} == '/page/'">
       <td><a th:href="@{/call/__${call.id}__/edit}">Click here to edit</a></td>
       <td><a th:href="@{/callerDetails/__${call.caller.id}__}">Click here to edit</a></td>

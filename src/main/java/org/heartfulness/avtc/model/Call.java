@@ -74,7 +74,8 @@ public class Call extends BaseEntity {
     private boolean reviewFlag;
     @OneToMany(mappedBy = "leasedBy", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Agent> leasing;
-    @Column("escalation")
+
+    @Column(name="escalation")
     private Boolean Escalation;
 
     public Date getDate() {

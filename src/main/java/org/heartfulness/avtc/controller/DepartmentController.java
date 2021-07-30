@@ -59,6 +59,7 @@ public class DepartmentController {
         Agent agent = agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
 
         modelMap.put("agent",agent);
+        modelMap.put("role", agent.getRole().toString());
         modelMap.put("others",others);
         return "main/NewDetails";
     }

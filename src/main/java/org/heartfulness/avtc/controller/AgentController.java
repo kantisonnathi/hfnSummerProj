@@ -353,6 +353,14 @@ public class AgentController {
         return "schedule/viewSelf";
     }
 
+    @GetMapping("/agent/{agentId}")
+    public String showAgentDetails(@PathVariable("agentId") Long agentID, ModelMap modelMap) {
+        Agent agent = this.agentService.findById(agentID);
+        modelMap.put("agent", agent);
+        modelMap.put("role", agent.getRole().toString());
+        return "agents/viewAgent";
+    }
+
     private List<Call> sortingCalls() {
         /*
         * this method sorts calls so that the the most recent calls are unsaved

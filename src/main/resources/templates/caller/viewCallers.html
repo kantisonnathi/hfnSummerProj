@@ -25,6 +25,7 @@
         <a th:href="@{'/callerpg/' + ${currentPage} + '?sortField=contactNumber&sortDir=' + ${reverseSortDir}}">
           Caller contact number</a>
       </th>
+      <th>More Details</th>
       <th> Actions </th>
     </tr>
     </thead>
@@ -32,6 +33,7 @@
     <tr th:each="employee : ${listEmployees}">
       <td th:text="${employee.name}"></td>
       <td th:text="${employee.contactNumber}"></td>
+      <td><a th:href="@{/caller/__${employee.id}__}">Click here for more details</a></td>
     </tr>
     </tbody>
   </table>

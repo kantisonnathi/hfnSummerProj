@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
-@Configuration
+/*@Configuration
 @EnableScheduling
 public class LogOut {
 
@@ -50,3 +50,4 @@ public class LogOut {
         }
     }
 }
+*/

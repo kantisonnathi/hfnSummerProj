@@ -355,6 +355,15 @@ public class AdminController {
     public String savingNewAgent(AgentForm agentForm) {
         Agent agent = agentForm.getAgent();
         agent.setMissed(0);
+        if (agentForm.getDob() != null) {
+            agent.setDOB(agentForm.convertedDOB());
+        }
+        if (agentForm.getCertifiedDate() != null) {
+            agent.setCertifiedDate(agentForm.convertedCertifiedDate());
+        }
+        if (agentForm.getTrainingDate() != null) {
+            agent.setLastTrainingDate(agentForm.convertedTrainingDate());
+        }
         agent.setRole(AgentRole.ROLE_AGENT);
         this.agentRepository.save(agent);
         return "redirect:/admin/agents/all";

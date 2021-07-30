@@ -1,0 +1,1 @@
+INSERT INTO hfn.caller (id, age_group, allottedid, category, contact_number, educational_status, employment_status, gender, level, location, marital_status, name, saved) VALUES (8, 'AGES_0_TO_14', null, 'INDIVIDUALS_WITH_COVID_AFFECTED_FAMILIES', '', null, 'unknown', 'F', 4, '', 'unknown', 'Sreeja Penke', true);

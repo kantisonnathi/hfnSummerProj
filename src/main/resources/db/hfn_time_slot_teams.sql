@@ -1,0 +1,12 @@
+INSERT INTO hfn.time_slot_teams (time_slots_id, teams_id) VALUES (1, 1);
+INSERT INTO hfn.time_slot_teams (time_slots_id, teams_id) VALUES (2, 1);
+INSERT INTO hfn.time_slot_teams (time_slots_id, teams_id) VALUES (3, 1);
+INSERT INTO hfn.time_slot_teams (time_slots_id, teams_id) VALUES (4, 1);
+INSERT INTO hfn.time_slot_teams (time_slots_id, teams_id) VALUES (1, 19);
+INSERT INTO hfn.time_slot_teams (time_slots_id, teams_id) VALUES (2, 19);
+INSERT INTO hfn.time_slot_teams (time_slots_id, teams_id) VALUES (23, 19);
+INSERT INTO hfn.time_slot_teams (time_slots_id, teams_id) VALUES (8, 20);
+INSERT INTO hfn.time_slot_teams (time_slots_id, teams_id) VALUES (9, 20);
+INSERT INTO hfn.time_slot_teams (time_slots_id, teams_id) VALUES (10, 20);
+INSERT INTO hfn.time_slot_teams (time_slots_id, teams_id) VALUES (11, 20);
+INSERT INTO hfn.time_slot_teams (time_slots_id, teams_id) VALUES (12, 20);

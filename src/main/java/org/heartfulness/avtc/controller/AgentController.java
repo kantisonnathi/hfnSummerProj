@@ -75,18 +75,18 @@ public class AgentController {
     }
 
 
-    @GetMapping("/mark/{status}")
-    public String markStatus(@PathVariable("status") String status) {
+    @GetMapping("/mark/{s}")
+    public String markStatus(@PathVariable("s") String s) {
         Agent agent = agentService.findBycontactNumber(this.securityService.getUser().getPhoneNumber());
         LocalDateTime localDateTime = LocalDateTime.now();
         Logger logger = new Logger();
         logger.setAgent(agent);
         Timestamp timestamp = Timestamp.valueOf(localDateTime);
         logger.setTimestamp(timestamp);
-        if (status.equals("online")) {
+        if (s.equals("online")) {
             logger.setLogEvent(LogEvent.TURNED_ONLINE);
             agent.setStatus(AgentStatus.ONLINE);
-        } else if (status.equals("offline")) {
+        } else if (s.equals("offline")) {
             logger.setLogEvent(LogEvent.MANUAL_OFFLINE);
             agent.setStatus(AgentStatus.OFFLINE);
         }

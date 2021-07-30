@@ -3,6 +3,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link href="../../static/css/layout.html" th:href="@{/css/layout.css}" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <title>Title</title>
 </head>
@@ -53,6 +54,8 @@
         </tbody>
     </table>
     <p>Language: [[${team.language.name}]]</p>
+    <p>Service: [[${team.service.name}]]</p>
+    <p>Team description: [[${team.description}]]</p>
 </div>
 
 <div style="text-align: center">

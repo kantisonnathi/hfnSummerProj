@@ -243,7 +243,7 @@ public class AgentController {
             Agent agent = this.agentService.findById(agentID);
             int pageSize = 10;
             Page<Call> calls = this.callService.findAllByAgent(agent, pageNo, pageSize,sortField, sortDir);
-            List<Call> listCalls = calls.getContent();
+            List<Call> listCalls = sortingCalls(calls.getContent());
             modelMap.put("url", "/agent/" + agent.getId() + "/calls/" + pageNo);
             modelMap.put("currentPage", pageNo);
             modelMap.put("totalPages", calls.getTotalPages());
@@ -361,11 +361,11 @@ public class AgentController {
         return "agents/viewAgent";
     }
 
-    private List<Call> sortingCalls() {
+    private List<Call> sortingCalls(List<Call> calls) {
         /*
         * this method sorts calls so that the the most recent calls are unsaved
         * */
-        List<Call> calls = this.callService.getAllCalls();
+
         List<Call> unsavedCalls = new ArrayList<>();
         List<Call> saved = new ArrayList<>();
         for (Call call : calls) {
@@ -378,10 +378,10 @@ public class AgentController {
         }
         Collections.reverse(unsavedCalls);
         Collections.reverse(saved);
-        calls.clear();
-        calls.addAll(unsavedCalls);
-        calls.addAll(saved);
-        return calls;
+        List<Call> answer=new ArrayList<>();
+        answer.addAll(unsavedCalls);
+        answer.addAll(saved);
+        return answer;
     }
 
 }

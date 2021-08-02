@@ -31,11 +31,9 @@
 }
 
 .content-section {
-    margin-top: 10px;
-    margin-left: 50px;
     background: #ffffff;
     padding: 10px 20px;
     border: 1px solid #dddddd;
     border-radius: 3px;
-    margin-bottom: 20px;
+    margin: 10px 50px 20px;
 }

@@ -28,4 +28,6 @@ public interface AgentService {
     List<Agent> findAllByLeasedByAndStatus(Call call, AgentStatus status);
 
     Page<Agent> findAgentsWithNoTeam(int pageNo, int pageSize, String sortField, String sortDir);
+
+    Page<Agent> getAgentsByDepartment(Department department, int pageNo, int pageSize, String sortField, String sortDir);
 }

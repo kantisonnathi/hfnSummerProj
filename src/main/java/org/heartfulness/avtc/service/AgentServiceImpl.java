@@ -118,4 +118,12 @@ public class AgentServiceImpl implements AgentService{
         return toPage(agents, pageable);
     }
 
+    @Override
+    public Page<Agent> getAgentsByDepartment(Department department, int pageNo, int pageSize, String sortField, String sortDir) {
+        List<Agent> agents = this.agentRepository.findAgentByDepartments(department);
+        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name())?Sort.by(sortField).ascending():Sort.by(sortField).descending();
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
+        return toPage(agents, pageable);
+    }
+
 }

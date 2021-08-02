@@ -21,6 +21,9 @@
     <label>Phone number of caller:</label>
     <p th:text="*{contactNumber}"></p>
     <input type="hidden" th:field="*{contactNumber}">
+    <label>Whatsapp Number of caller:</label>
+    <input type="text" th:field="*{whatsappNumber}">
+    <br><br>
     <label>Level(priority) of caller:</label>
     <input type="number" th:field="*{level}">
     <br><br>
@@ -42,6 +45,18 @@
       <option value="AGES_64_AND_ABOVE">Above 64 years old</option>
     </select>
     <br><br>
+    <label>First Language</label>
+    <input type="text" th:field="*{language1}">
+    <br><br>
+    <label>Second language</label>
+    <input type="text" th:field="*{language2}">
+    <br><br>
+    <label>Educational qualifications</label>
+    <input type="test" th:field="educationalStatus">
+    <br><br>
+    <label>Educational Remarks</label>
+    <input type="text" th:field="*{educationalRemarks}">
+    <br><br>
     <label>Employment status:</label>
     <select th:field="*{employmentStatus}" name="employment_status">
       <option th:value="unknown">Unknown</option>
@@ -56,6 +71,9 @@
       <option value="unmarried">Unmarried</option>
     </select>
     <br><br>
+    <label>Marital Remark</label>
+    <input type="text" th:field="*{maritalRemarks}">
+    <br><br>
     <label>Category</label>
     <select th:field="*{category}">
       <option value="INDIVIDUALS_WITH_COVID_AFFECTED_FAMILIES">Individuals with covid affected families</option>
@@ -65,7 +83,16 @@
       <option value="SURVIVORS_OF_TRAUMA">Survivors of trauma</option>
       <option value="INDIVIDUALS_WITH_SUICIDAL_TENDENCIES">Individuals with suicidal tendencies</option>
     </select>
+    <br><br>
+    <label>Additional Remarks</label>
+    <input type="text" th:field="*{additionalRemarks}">
     <button type="submit">Submit Details</button>
+    <br><br>
+    <label>Customer Blocker</label>
+    <select th:field="*{customer_blocked}">
+      <option value="true">True</option>
+      <option value="false">False</option>
+    </select>
   </form>
 </div>
 </body>

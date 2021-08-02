@@ -61,6 +61,7 @@
       <option value="SURVIVORS_OF_TRAUMA">Survivors of trauma</option>
       <option value="INDIVIDUALS_WITH_SUICIDAL_TENDENCIES">Individuals with suicidal tendencies</option>
     </select>
+
     <button type="submit">Submit</button>
   </form>
 </div>
@@ -80,6 +81,16 @@
       <option th:value="ANXIETY_DISORDER">anxiety</option>
       <option th:value="OCD">OCD</option>
       <option th:value="SERIOUS_MENTAL_ILLNESS"> Serious mental illness</option>
+    </select>
+    <label>Escalation</label>
+    <select th:field="*{Escalation}">
+      <option value="true">True</option>
+      <option value="false">False</option>
+    </select>
+    <label>Review status</label>
+    <select th:field="*{reviewFlag}">
+      <option value="true">True</option>
+      <option value="false">False</option>
     </select>
     <button type="submit">Submit</button>
   </form>

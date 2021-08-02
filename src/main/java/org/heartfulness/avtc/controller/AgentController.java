@@ -214,6 +214,8 @@ public class AgentController {
             Call add = callRepository.findById(call.getId()).get();
             add.setDescription(call.getDescription());
             add.setCategory(call.getCategory());
+            add.setEscalation(call.getEscalation());
+            add.setReviewFlag(call.isReviewFlag());
             callRepository.save(add);
         }
         return "redirect:/success";

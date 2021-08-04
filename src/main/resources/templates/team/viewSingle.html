@@ -40,26 +40,28 @@
     </table>
 </div>
 
-<div>
-    <table>
-        <thead>
-        <tr>
-            <th>Slots</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="slot : ${team.timeSlots}">
-            <td th:text="${slot.startTime.toLocalTime().hour} + '-' + ${slot.endTime.toLocalTime().hour}"></td>
-        </tr>
-        </tbody>
-    </table>
+<div class="content-section" style="text-align: center;">
+    <div class="content-section">
+        <table class="table-borderless" style="text-align: center">
+            <thead>
+            <tr>
+                <th>Slots</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="slot : ${team.timeSlots}">
+                <td th:text="${slot.startTime.toLocalTime().hour} + '-' + ${slot.endTime.toLocalTime().hour}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
     <p>Language: [[${team.language.name}]]</p>
     <p>Service: [[${team.service.name}]]</p>
     <p>Team description: [[${team.description}]]</p>
 </div>
 
 <div style="text-align: center">
-    <a th:href="@{/admin/team/__${team.id}__/addAgent}">Add more agents to this team</a>
+    <a th:href="@{/admin/team/__${team.id}__/add}">Add more agents to this team</a>
 </div>
 
 </body>

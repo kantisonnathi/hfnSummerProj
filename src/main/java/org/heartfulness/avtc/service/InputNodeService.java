@@ -75,7 +75,7 @@ public class InputNodeService {
         /*List<Call> calls = this.callRepository.findAllByCallerAndCallStatus(caller, CallStatus.CONNECTED_TO_IVR);
         Call call = calls.get(calls.size()-1);*/
         Call call = this.callService.findByUid(input.getUid());
-        int i =caller.getLevel();
+        int i = caller.getLevel();
         agents=agentRepository.getByStatusandDepartment(x,i);
         agents.sort(new SortByTimeStamp());
 

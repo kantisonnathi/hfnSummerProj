@@ -10,6 +10,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -552,6 +553,14 @@ public class Agent extends BaseEntity {
 
     public void setStat3(Double stat3) {
         this.stat3 = stat3;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Agent)) return false;
+        Agent agent = (Agent) o;
+        return contactNumber.equals(agent.contactNumber);
     }
 }
 

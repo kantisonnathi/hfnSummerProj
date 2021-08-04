@@ -131,18 +131,19 @@ public class AdminController {
 
         Team currentTeam = this.teamService.findById(teamId);
         Department department = this.departmentRepository.findByServiceAndLanguage(currentTeam.getService(), currentTeam.getLanguage());
-        Page<Agent> agents = this.agentService.getAgentsByDepartment(department, pageNo, pageSize, sortField, sortDir);
+        Page<Agent> agents = this.agentService.getEligibleAgentsByTeam(currentTeam, department, pageNo, pageSize, sortField, sortDir);
         String url = "/team/" + teamId + "/add/";
         modelMap.put("url", url);
-        modelMap.put("role", "ADMIN");
+        modelMap.put("role", "ROLE_ADMIN");
         modelMap.put("currentPage", pageNo);
         modelMap.put("totalPages", agents.getTotalPages());
         modelMap.put("totalItems", agents.getTotalElements());
         modelMap.put("sortField", sortField);
         modelMap.put("sortDir", sortDir);
+        modelMap.put("team", currentTeam);
         modelMap.put("list", agents.getContent());
         modelMap.put("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-        return "agents/viewUnassignedAgents";
+        return "agents/viewAgentsPaginated";
     }
 
     @GetMapping("/team/{teamId}/add/agent/{agentId}")
@@ -395,13 +396,13 @@ public class AdminController {
     public String savingNewAgent(AgentForm agentForm) {
         Agent agent = agentForm.getAgent();
         agent.setMissed(0);
-        if (agentForm.getDob() != null) {
+        if (agentForm.getDob() != null && !agentForm.getDob().equals("")) {
             agent.setDOB(agentForm.convertedDOB());
         }
-        if (agentForm.getCertifiedDate() != null) {
+        if (agentForm.getCertifiedDate() != null && !agentForm.getCertifiedDate().equals("")) {
             agent.setCertifiedDate(agentForm.convertedCertifiedDate());
         }
-        if (agentForm.getTrainingDate() != null) {
+        if (agentForm.getTrainingDate() != null && !agentForm.getTrainingDate().equals("")) {
             agent.setLastTrainingDate(agentForm.convertedTrainingDate());
         }
         agent.setRole(AgentRole.ROLE_AGENT);

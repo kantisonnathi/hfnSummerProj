@@ -40,4 +40,7 @@ public interface AgentRepository extends JpaRepository<Agent,Long> {
     @NotNull
     List<Agent> findAll();
 
+    @Query(value = "select * from agent where id in (select agents_id from agent_departments where departments_id=? and agents_id not in (select agents_id from agent_teams where teams_id=?))", nativeQuery = true)
+    List<Agent> findAllByDepartmentsAndNotInTeam(Department department, Team team);
+
 }

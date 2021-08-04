@@ -58,9 +58,9 @@ public class AfterCallService {
         AfterCallNode afterCallNode=gson.fromJson(jsonString,AfterCallNode.class);
         Call call = this.callService.findByUid(afterCallNode.get_pm().get(0).getVl());
         //System.out.println(afterCallNode.get_cl());
-        String a=afterCallNode.get_cl();
-        Caller caller=callerRepository.findByContactNumber(a);
-        call.setCaller(caller);
+        String a = afterCallNode.get_cl();
+        /*Caller caller=callerRepository.findByContactNumber(a);
+        call.setCaller(caller);*/ //caller is already set in the previous methods
         call.setLocation(afterCallNode.get_se());
         call.setUrl(afterCallNode.get_fu());
         call.setDuration(afterCallNode.get_dr());

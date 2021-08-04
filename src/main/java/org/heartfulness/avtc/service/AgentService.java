@@ -30,4 +30,6 @@ public interface AgentService {
     Page<Agent> findAgentsWithNoTeam(int pageNo, int pageSize, String sortField, String sortDir);
 
     Page<Agent> getAgentsByDepartment(Department department, int pageNo, int pageSize, String sortField, String sortDir);
+
+    Page<Agent> getEligibleAgentsByTeam(Team team, Department department, int pageNo, int pageSize, String sortField, String sortDir);
 }

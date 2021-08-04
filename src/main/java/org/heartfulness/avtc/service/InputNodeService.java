@@ -13,9 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class InputNodeService {
@@ -69,17 +67,20 @@ public class InputNodeService {
         }
         Optional<org.heartfulness.avtc.model.Service> currService = this.serviceRepository.findById(Long.valueOf(input.getInput()));
         Department currentDepartment = this.departmentRepository.findByServiceAndLanguage(currService.get(), currLanguage);
-        List<String> number = new ArrayList<>();
+        Set<String> number = new HashSet<>();
         Long x = currentDepartment.getId();
         List<Agent> agents = new ArrayList<>();
         /*List<Call> calls = this.callRepository.findAllByCallerAndCallStatus(caller, CallStatus.CONNECTED_TO_IVR);
         Call call = calls.get(calls.size()-1);*/
         Call call = this.callService.findByUid(input.getUid());
-        int i = caller.getLevel();
+        Integer i = caller.getLevel();
+        if (i == null) {
+            i = 1;
+        }
         agents=agentRepository.getByStatusandDepartment(x,i);
         agents.sort(new SortByTimeStamp());
 
-        for (int j = 0; j < 3&& j<agents.size(); j++) {
+        for (int j = 0; j < 3 && j < agents.size(); j++) {
             Agent tempAgent = agents.get(j);
             tempAgent.setStatus(AgentStatus.QUEUED);
             tempAgent.setLeasedBy(call);
@@ -124,9 +125,9 @@ public class InputNodeService {
         JSONObject entity = new JSONObject();
         entity.put("operation", "dial-numbers");
         JSONObject operationData = new JSONObject();
-        operationData.put("data",number);
+        operationData.put("data", number.toArray());
         operationData.put("dial_method", "serial");
-        operationData.put("anon_uuid","60cd93e244d59476");
+        //operationData.put("anon_uuid","60cd93e244d59476");
         entity.put("operation_data",operationData);
         return new ResponseEntity<Object>(entity, HttpStatus.OK);
 

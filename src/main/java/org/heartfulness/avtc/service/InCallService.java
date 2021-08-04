@@ -47,6 +47,8 @@ public class InCallService {
             //increase the number of global callers.
             caller = new Caller();
             caller.setContactNumber("+91" + inCallNode.getClid());
+            caller.setLevel(1);
+            caller.setSaved(false);
             caller = this.callerRepository.save(caller);
         }
         Call call = this.callService.findByUid(inCallNode.getUid());
@@ -61,6 +63,8 @@ public class InCallService {
                 call.setUid(inCallNode.getUid());
                 caller.addCall(call);
                 call.setStatus(CallStatus.CONNECTED_TO_IVR);
+                call.setSaved(false);
+                call.setReviewFlag(false);
                 this.callerRepository.save(caller);
                 break;
             case 2:

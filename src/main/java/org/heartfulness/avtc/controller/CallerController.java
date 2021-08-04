@@ -45,7 +45,7 @@ public class CallerController {
         caller.setSaved(true);
 
         this.callerRepository.save(caller);
-        return "redirect:/success";
+        return "redirect:/caller/" + caller.getId();
     }
 
     @GetMapping("/caller/{callerId}")

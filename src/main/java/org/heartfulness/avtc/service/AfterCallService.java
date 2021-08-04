@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AfterCallService {
@@ -65,9 +66,15 @@ public class AfterCallService {
         call.setUrl(afterCallNode.get_fu());
         call.setDuration(afterCallNode.get_dr());
         call.setStatus(CallStatus.DISCONNECTED);
-        Agent agent=agentService.findById(call.getAgent().getId());
+        Optional<Agent> agent = agentRepository.findById(call.getAgent().getId());
+        if (agent.isPresent()) {
+            call.setAgent(agent.get());
+        } else {
+            //missed call
+            //get all the agents that are currently getting dialed, mark missed+1
+        }
         //Agent agent=agentRepository.findByContactNumber("+917338897712");//Phone number was not caught during afternode testing
-        call.setAgent(agent);
+
         callRepository.save(call);
     }
 }

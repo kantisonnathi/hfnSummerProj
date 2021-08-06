@@ -6,13 +6,13 @@ import java.util.Set;
 @Entity
 public class Language extends BaseEntity {
 
-    @OneToMany(mappedBy = "language",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "language", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Department> Departments;
 
     @Column(name="name")
     private String name;
 
-    @ManyToMany( fetch= FetchType.EAGER,mappedBy = "languages")
+    @ManyToMany(fetch= FetchType.EAGER, mappedBy = "languages")
     private Set<Caller> callers;
 
     @OneToMany(mappedBy = "language", fetch = FetchType.EAGER, cascade = CascadeType.ALL)

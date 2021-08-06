@@ -124,27 +124,19 @@ public class Agent extends BaseEntity {
     @Column(name = "end_time")
     private Time endTime;
 
-    public java.sql.Time getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(java.sql.Time endTime) {
-        this.endTime = endTime;
-    }
-
-    @ManyToMany(fetch=FetchType.EAGER,cascade = CascadeType.ALL)
+    @ManyToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Department> departments;
 
-    @OneToMany(mappedBy = "agent",fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "agent", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     private Set<Logger> loggerSet;
 
-    @OneToMany(mappedBy = "agent", fetch=FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "agent", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Schedule> schedules;
 
-    @OneToMany(mappedBy = "agent", fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "agent", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Call> calls;
 
-    @ManyToMany(fetch = FetchType.EAGER, targetEntity = Team.class)
+    @ManyToMany(fetch = FetchType.LAZY, targetEntity = Team.class)
     private Set<Team> teams;
 
     @OneToOne(mappedBy = "manager", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -332,13 +324,6 @@ public class Agent extends BaseEntity {
         this.calls = calls;
     }
 
-    public void addCall(Call call) {
-        if (this.calls == null) {
-            calls = new HashSet<>();
-        }
-        calls.add(call);
-    }
-
     public void setSchedules(Set<Schedule> schedules) {
         this.schedules = schedules;
     }
@@ -352,6 +337,9 @@ public class Agent extends BaseEntity {
     }
 
     public void addMissed() {
+        if (this.missed == null) {
+            missed = 0;
+        }
         this.missed++;
     }
 
@@ -553,6 +541,14 @@ public class Agent extends BaseEntity {
 
     public void setStat3(Double stat3) {
         this.stat3 = stat3;
+    }
+
+    public java.sql.Time getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(java.sql.Time endTime) {
+        this.endTime = endTime;
     }
 
     @Override

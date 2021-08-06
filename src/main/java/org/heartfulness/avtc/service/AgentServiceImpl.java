@@ -134,4 +134,9 @@ public class AgentServiceImpl implements AgentService{
         return toPage(agents, pageable);
     }
 
+    @Override
+    public List<Agent> findAgentsByDepartment(Long depID) {
+        return this.agentRepository.findAgentsByDepartmentID(depID);
+    }
+
 }

@@ -49,9 +49,12 @@ public class InputNodeService {
         this.agentService = agentService;
     }
 
+    private Call call;
+
     public ResponseEntity<?> input(@RequestBody InputNode input) {
         System.out.println("Data from my operator: " + input.toString());
-        Caller caller = this.callerRepository.findByContactNumber("+91" + input.getClid());
+        call = this.callService.findByUid(input.getUid()); //this line is taking time
+        Caller caller = call.getCaller();
         if (caller == null) {
             caller = new Caller();
             input.setClid("+91" + input.getClid());
@@ -59,28 +62,31 @@ public class InputNodeService {
             this.callerRepository.save(caller);
         }
         String currNodeID = input.getNode_id();
-        Language currLanguage = null;
+        Long languageID = null;
         if (currNodeID.equals(nodeConfiguration.getEnglishNode())) {
-            currLanguage = this.languageRepository.findByName("English");
+            languageID = 1L;
         } else if (currNodeID.equals(nodeConfiguration.getHindiNode())) {
-            currLanguage = this.languageRepository.findByName("Hindi");
+            languageID = 2L;
         }
-        Optional<org.heartfulness.avtc.model.Service> currService = this.serviceRepository.findById(Long.valueOf(input.getInput()));
-        Department currentDepartment = this.departmentRepository.findByServiceAndLanguage(currService.get(), currLanguage);
-        Set<String> number = new HashSet<>();
-        Long x = currentDepartment.getId();
-        List<Agent> agents = new ArrayList<>();
-        /*List<Call> calls = this.callRepository.findAllByCallerAndCallStatus(caller, CallStatus.CONNECTED_TO_IVR);
-        Call call = calls.get(calls.size()-1);*/
-        Call call = this.callService.findByUid(input.getUid());
+        //Optional<org.heartfulness.avtc.model.Service> currService = this.serviceRepository.findById(Long.valueOf(input.getInput()));
+        //Department currentDepartment = this.departmentRepository.findByServiceAndLanguage(currService.get(), currLanguage);
+        Long servID = Long.valueOf(input.getInput());
+        Long currDepID = this.departmentRepository.findDepartmentByServiceIdAndLanguageId(servID, languageID);
         Integer i = caller.getLevel();
         if (i == null) {
             i = 1;
         }
-        agents=agentRepository.getByStatusandDepartment(x,i);
+        Set<String> number = getEligibleAgents(currDepID, i);
+
+        /*Set<String> number = new HashSet<>();
+        List<Agent> agents;
+        agents=agentRepository.getByStatusandDepartment(currDepID,i);
         agents.sort(new SortByTimeStamp());
 
         for (int j = 0; j < 3 && j < agents.size(); j++) {
+            if (agents.size() == 0) {
+                break;
+            }
             Agent tempAgent = agents.get(j);
             tempAgent.setStatus(AgentStatus.QUEUED);
             tempAgent.setLeasedBy(call);
@@ -88,9 +94,9 @@ public class InputNodeService {
             number.add(agents.get(j).getContactNumber());
         }
 
-        while (number.size() < 3 && i< 3)//i represents level
+        while (number.size() < 3 && i < 3) //i represents level
         {
-            List<Agent> agentsnext=agentRepository.getByStatusandDepartment(x,++i);
+            List<Agent> agentsnext = agentRepository.getByStatusandDepartment(currDepID,++i);
             agentsnext.sort(new SortByTimeStamp());
             for(int j=0;j<3-number.size()&&j<agentsnext.size();j++)
             {
@@ -118,18 +124,50 @@ public class InputNodeService {
                 this.agentRepository.save(tempAgent);
                 number.add(agents.get(j).getContactNumber());
             }
-        }
+        }*/
 
         call.setStatus(CallStatus.AWAITING_CONNECTION_TO_AGENT);
         this.callRepository.save(call);
         JSONObject entity = new JSONObject();
         entity.put("operation", "dial-numbers");
         JSONObject operationData = new JSONObject();
+        System.out.println("numbers being sent: " + number + "\n\n\n\n");
         operationData.put("data", number.toArray());
         operationData.put("dial_method", "serial");
-        //operationData.put("anon_uuid","60cd93e244d59476");
+        String anon_uuid = nodeConfiguration.getAnonymousUUID();
+        operationData.put("anon_uuid", anon_uuid);
         entity.put("operation_data",operationData);
         return new ResponseEntity<Object>(entity, HttpStatus.OK);
 
     }
+
+
+    private Set<String> getEligibleAgents(Long departmentID, Integer level) {
+
+        List<Agent> overAllEligible = this.agentService.findAgentsByDepartment(departmentID);
+        Set<String> returnable = new HashSet<>();
+        while (returnable.size() != 3) {
+            if (level == 4) {
+                break;
+            }
+            iterate(overAllEligible, level++, returnable);
+        }
+        return returnable;
+    }
+
+    private void iterate(List<Agent> all, int level, Set<String> returnable) {
+        for (Agent a : all) {
+            if (a.getLevel() == level && !returnable.contains(a.getContactNumber())) {
+                returnable.add(a.getContactNumber());
+                a.setStatus(AgentStatus.QUEUED);
+                a.setLeasedBy(call);
+                this.agentRepository.save(a);
+                if (returnable.size() == 3) {
+                    return;
+                }
+            }
+        }
+    }
+
+
 }

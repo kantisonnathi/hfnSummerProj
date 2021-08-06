@@ -24,6 +24,7 @@ public interface AgentRepository extends JpaRepository<Agent,Long> {
 
     List<Agent> findAgentsByDepartmentsInAndStatusEquals(Set<Department> departments, AgentStatus status);
 
+    @Query(value = "select * from agent where id in (select agents_id from hfn.agent_departments where departments_id=?)", nativeQuery = true)
     List<Agent> findAgentByDepartments(Department departments);
 
     @Query(value = "select * from agent where role != 'ROLE_ADMIN' and id not in (select agents_id from agent_teams)", nativeQuery = true)
@@ -37,10 +38,17 @@ public interface AgentRepository extends JpaRepository<Agent,Long> {
 
     List<Agent> findAllByLeasedByAndStatus(Call call, AgentStatus status);
 
+    @Query(value = "select * from hfn.agent where id in (select agents_id from hfn.agent_departments where departments_id=?)", nativeQuery = true)
+    List<Agent> findAgentsByDepartmentID(Long depID);
+
     @NotNull
     List<Agent> findAll();
 
     @Query(value = "select * from agent where id in (select agents_id from agent_departments where departments_id=? and agents_id not in (select agents_id from agent_teams where teams_id=?))", nativeQuery = true)
     List<Agent> findAllByDepartmentsAndNotInTeam(Department department, Team team);
 
+    @Query(value = "insert into hfn.agent (id, status, leased_by) values (?, ?, ?)", nativeQuery = true)
+    void saveStatusAndLeased(Long id, Integer status, Long leased);
+
+    Set<Agent> findAgentsByLeasedBy(Call call);
 }

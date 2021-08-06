@@ -11,6 +11,16 @@ public class NodeConfiguration {
 
     private String hindiNode;
 
+    private String anonymousUUID;
+
+    public String getAnonymousUUID() {
+        return anonymousUUID;
+    }
+
+    public void setAnonymousUUID(String anonymousUUID) {
+        this.anonymousUUID = anonymousUUID;
+    }
+
     public String getEnglishNode() {
         return englishNode;
     }

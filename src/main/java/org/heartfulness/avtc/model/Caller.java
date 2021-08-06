@@ -19,17 +19,21 @@ public class Caller extends BaseEntity {
 
     @Column(name = "name")
     private String name;
+
     @Column(name="Whatsapp_No")
     private String whatsappNumber;
+
     @Column(name="Relationship")
     private String relationship;
+
     @Column(name="email")
     private String email;
+
     @Column(name = "pincode")
     private String pincode;
+
     @Column(name="employment")
     private String employment;
-
 
     @OneToMany(mappedBy = "caller", fetch= FetchType.EAGER, cascade=CascadeType.ALL)
     private Set<Call> calls;
@@ -55,53 +59,52 @@ public class Caller extends BaseEntity {
 
     @Column(name = "educational_Qualification")
     private String educationalStatus;
+
     @Column(name="marital_remarks")
     private String maritalRemarks;
+
     @Column(name = "educational_remarks")
     private String educationalRemarks;
+
     @Column(name="saved")
-    private boolean saved;
+    private Boolean saved;
+
     @Column(name="Language1")
     private String language1;
+
     @Column(name = "Language2")
     private String language2;
+
     @Column(name="additional_remarks")
     private String additionalRemarks;
+
     @Column(name="total_calls")
     private Integer totalCalls;
+
     @Column(name="attended_Calls")
     private Integer attendedCalls;
+
     @Column(name = "escalations")
     private Integer escalations;
+
     @Column(name="Closures")
     private Integer closures;
+
     @Column(name="stat_1")
     private Integer stat1;
 
-    public Integer getStat2() {
-        return stat2;
-    }
-
-    public void setStat2(Integer stat2) {
-        this.stat2 = stat2;
-    }
-
-    public Integer getStat3() {
-        return stat3;
-    }
-
-    public void setStat3(Integer stat3) {
-        this.stat3 = stat3;
-    }
-
     @Column(name="stat_2")
     private Integer stat2;
+
     @Column(name="stat_3")
     private Integer stat3;
+
     @Column(name="customer_blocked")
-    Boolean customer_blocked;
+    private Boolean customer_blocked;
+
     @Column(name="history")
-    private String history;//Todo:write code to update from prev call
+    private String history; //Todo:write code to update from prev call
+
     @Column(name = "category")
     @Enumerated(EnumType.STRING)
     private CallerCategory category;
@@ -363,11 +366,11 @@ public class Caller extends BaseEntity {
         calls.add(call);
     }
 
-    public boolean isSaved() {
+    public Boolean isSaved() {
         return saved;
     }
 
-    public void setSaved(boolean saved) {
+    public void setSaved(Boolean saved) {
         this.saved = saved;
     }
 
@@ -375,4 +378,21 @@ public class Caller extends BaseEntity {
     public String toString() {
         return "contact number: " + contactNumber;
     }
+
+    public Integer getStat2() {
+        return stat2;
+    }
+
+    public void setStat2(Integer stat2) {
+        this.stat2 = stat2;
+    }
+
+    public Integer getStat3() {
+        return stat3;
+    }
+
+    public void setStat3(Integer stat3) {
+        this.stat3 = stat3;
+    }
+
 }

@@ -10,13 +10,23 @@ import java.util.Set;
 
 public interface AgentService {
     List<Agent> getAllAgents();
+
     void saveAgent(Agent agent);
+
     Agent findById(Long id);
+
     Agent findBycontactNumber(String phoneNumber);
+
     List<Agent> findByStatusAndDepartment(Long depid,int level);
+
     List<Agent> findByTimeNotNull();
+
     List<Agent> findAgentsByDepartmentsInAndStatusEquals(Set<Department> departments, AgentStatus status);
+
     List<Agent> findAgentByDepartments(Department departments);
+
+    List<Agent> findAgentsByDepartment(Long departmentID);
+
     List<Agent> findAgentsByTeamEquals(Team team);
 
     Page<Agent> findPaginated(int pageno, int pagesize,String sortField,String sortDirection);

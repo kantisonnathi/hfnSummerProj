@@ -66,13 +66,13 @@ public class AfterCallService {
         call.setUrl(afterCallNode.get_fu());
         call.setDuration(afterCallNode.get_dr());
         call.setStatus(CallStatus.DISCONNECTED);
-        Optional<Agent> agent = agentRepository.findById(call.getAgent().getId());
-        if (agent.isPresent()) {
+        //Optional<Agent> agent = agentRepository.findById(call.getAgent().getId());
+        /*if (agent.isPresent()) {
             call.setAgent(agent.get());
         } else {
             //missed call
             //get all the agents that are currently getting dialed, mark missed+1
-        }
+        }*/
         //Agent agent=agentRepository.findByContactNumber("+917338897712");//Phone number was not caught during afternode testing
 
         callRepository.save(call);

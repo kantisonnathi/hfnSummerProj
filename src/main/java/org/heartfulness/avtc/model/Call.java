@@ -33,7 +33,7 @@ public class Call extends BaseEntity {
     private String uid;
 
     @Column(name="saved")
-     private boolean saved;
+    private Boolean saved;
 
     @Column(name="duration")
     private String duration;
@@ -56,20 +56,19 @@ public class Call extends BaseEntity {
     private CallStatus callStatus;
 
     @Column(name = "review_flag")
-    private boolean reviewFlag;
+    private Boolean reviewFlag;
 
-    @OneToMany(mappedBy = "leasedBy", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "leasedBy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Agent> leasing;
 
     @Column(name="escalation")
     private Boolean escalation;
 
-
-    public boolean isReviewFlag() {
+    public Boolean isReviewFlag() {
         return reviewFlag;
     }
 
-    public void setReviewFlag(boolean reviewFlag) {
+    public void setReviewFlag(Boolean reviewFlag) {
         this.reviewFlag = reviewFlag;
     }
 
@@ -137,11 +136,11 @@ public class Call extends BaseEntity {
         this.location = location;
     }
 
-    public boolean isSaved() {
+    public Boolean isSaved() {
         return saved;
     }
 
-    public void setSaved(boolean saved) {
+    public void setSaved(Boolean saved) {
         this.saved = saved;
     }
 
@@ -176,7 +175,6 @@ public class Call extends BaseEntity {
 
     public void setAgent(Agent agent) {
         this.agent = agent;
-        agent.addCall(this);
     }
 
     public String getDescription() {

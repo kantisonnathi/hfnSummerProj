@@ -40,8 +40,10 @@ public class InCallService {
         this.agentService = agentService;
     }
 
+    private InCallNode inCallNode;
+
     public void inCall(String jsonString) {
-        InCallNode inCallNode = processString(jsonString);
+        this.inCallNode = processString(jsonString);
         Caller caller = this.callerRepository.findByContactNumber("+91" + inCallNode.getClid().strip());
         if (caller == null) {
             //increase the number of global callers.
@@ -57,7 +59,8 @@ public class InCallService {
         switch (inCallNode.getCall_state()) {
             case 1:
                 //this means incoming call to server.
-                //which means we need to create a call object and store it.
+                //which means we need to create a call object and s
+                // tore it.
                 call = new Call();
                 call.setCaller(caller);
                 call.setUid(inCallNode.getUid());
@@ -71,38 +74,45 @@ public class InCallService {
                 //call finished
                 call.setStatus(CallStatus.DISCONNECTED);
                 agent = call.getAgent();
+                agent.setLeasedBy(null);
                 agent.setStatus(AgentStatus.ONLINE); //the logger should not be updated here
                 agent.setTimestamp(timestamp);
                 call.setEndTime(inCallNode.getCall_time());
+                Set<Agent> queued = this.agentRepository.findAgentsByLeasedBy(call);
+                //Set<Agent> queued = call.getLeasing();
+                for (Agent a : queued) {
+                    a.setLeasedBy(null);
+                }
                 this.agentRepository.save(agent);
-                call = this.callRepository.save(call);
+                this.callRepository.save(call);
                 break;
             case 5:
                 //dialing agents
-                agent = call.getAgent();
+                // get users from the passed object
+                agent = this.agentRepository.findByContactNumber(getUser()).get();
                 agent.setStatus(AgentStatus.DIALING);
                 agent.setLeasedBy(call);
                 this.agentRepository.save(agent);
                 break;
             case 6:
                 // agent picked up
-                String fullUser = inCallNode.getUsers().get(0);
-                String phoneNumber = fullUser.substring(fullUser.length() - 10, fullUser.length());
+                String phoneNumber = getUser();
                 call.setStatus(CallStatus.CONNECTED_TO_AGENT);
-                agent = this.agentService.findBycontactNumber("+91" + phoneNumber);
+                agent = this.agentService.findBycontactNumber(phoneNumber);
                 if (agent == null) {
                     System.out.println("Agent is null, state 6\n\n\n\n");
                     break;
                 }
                 call.setAgent(agent);
                 agent.setStatus(AgentStatus.IN_CALL);
-                Set<Agent> leasedAgents = call.getLeasing();
+                /*Set<Agent> leasedAgents = call.getLeasing();
                 call.setLeasing(null);
                 for (Agent currAgent : leasedAgents) {
                     currAgent.setLeasedBy(null);
                     currAgent.setStatus(AgentStatus.ONLINE);
                     this.agentRepository.save(currAgent);
-                }
+                }*/ //write method to save agent. on line 109
+                this.agentRepository.save(agent);
                 List<Agent> missedAgents = this.agentRepository.findAllByLeasedByAndStatus(call, AgentStatus.DIALING);
                 for (Agent currAgent : missedAgents) {
                     currAgent.setLeasedBy(null);
@@ -119,14 +129,27 @@ public class InCallService {
                         currAgent.setStatus(AgentStatus.ONLINE);
                         currAgent.setTimestamp(timestamp);
                     }
-                    this.agentRepository.save(agent);
+                    this.agentRepository.save(currAgent);
                 }
+                List<Agent> queuedAgents = this.agentRepository.findAllByLeasedByAndStatus(call, AgentStatus.QUEUED);
+                for (Agent curr : queuedAgents) {
+                    curr.setStatus(AgentStatus.ONLINE);
+                    // not changing the timestamp because queued agents retain their priority
+                    this.agentRepository.save(curr);
+                }
+                //ideally there shouldn't be any more leased agents for this call
                 this.callRepository.save(call);
                 break;
             default:
                 System.out.println("rip");
 
         }
+    }
+
+    public String getUser() {
+        String fullUser = inCallNode.getUsers().get(0);
+        String phoneNumber = fullUser.substring(fullUser.length() - 10);
+        return "+91" + phoneNumber;
     }
 
     public InCallNode processString(String jsonString) {

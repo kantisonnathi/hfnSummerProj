@@ -12,11 +12,11 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
 <div th:replace="fragment/layout :: top-nav-bar"></div>
-
+<br><br>
+<h2 th:text="|Add Details for :${agent.contactNumber}|"></h2>
 <div class="content-section">
 
     <form class="ui form" th:action="@{/addDetails}" method="post" th:object="${agent}">
-        <h2 th:text="|Add Details for :*{contactNumber}|"></h2>
         <label>Name</label>
         <input type="text" name="name" th:field="*{name}">
         <br>
@@ -47,7 +47,7 @@
             </tbody>
             <br>
         </table>
-       <u1>
+       <!--<u1>-->
          <!--   <li th:each="s : ${services}">
                 <div class="ui checkbox">
                     <input type="checkbox" th:object="${other}" th:field="*{services}" th:value="${s.id}">
@@ -55,7 +55,53 @@
                 </div>
             </li>*/-->
             <br>
-        </u1>
+        <!--</u1>-->
+
+        <div>
+            <label for="email">Email:</label>
+            <input id="email" type="email" th:field="*{email}"><br><br>
+            <label for="city">City:</label>
+            <input id="city" type="text" th:field="*{city}"><br><br>
+            <label for="state">State: </label>
+            <input id="state" type="text" th:field="*{state}"><br><br>
+            <label for="pincode">Pincode: </label>
+            <input id="pincode" type="text" th:field="*{pincode}"><br><br>
+            <label for="acadDegree">Academic Degree: </label>
+            <input id="acadDegree" type="text" th:field="*{acadDegree}"><br><br>
+            <div>
+                <label for="desc">Educational Degree Description: </label><br>
+                <br>
+                <textarea th:cols="100" th:field="*{educationalLevel}" id="desc"></textarea>
+            </div><br><br>
+            <label for="occupation">Occupation: </label>
+            <input id="occupation" type="text" th:field="*{occupation}"><br><br>
+            <label for="designation">Designation: </label>
+            <input id="designation" type="text" th:field="*{designation}"><br><br>
+            <div>
+                <label for="workExperience">Work Experience:</label><br>
+                <br>
+                <textarea th:cols="100" th:field="*{workExperience}" id="workExperience"></textarea>
+            </div><br><br>
+            <div>
+                <label for="skills">Skills:</label><br>
+                <br>
+                <textarea th:cols="100" th:field="*{skills}" id="skills"></textarea>
+            </div><br><br>
+            <label for="community_service">Community Service:</label>
+            <select th:field="*{commService}" id="community_service">
+                <option th:value="None">None</option>
+                <option th:value="Some">Some</option>
+                <option th:value="Lot">Lot</option>
+            </select><br><br>
+            <label for="psych">Psychology status: </label>
+            <select th:field="*{psychologyFlag}" id="psych">
+                <option th:value="None">None</option>
+                <option th:value="Practicing">Practicing</option>
+                <option th:value="Training">Training</option>
+            </select><br><br>
+            <label for="relevantExperience">Number of years of relevant experience: </label>
+            <input id="relevantExperience" type="number" th:field="*{relevantExperience}"><br><br>
+        </div>
         <div class="ui checkbox">
             <button class="ui-button" type="submit">Submit</button>
         </div>

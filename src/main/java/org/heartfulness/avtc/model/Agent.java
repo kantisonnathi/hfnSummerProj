@@ -16,6 +16,8 @@ import java.util.Set;
 @Table(name = "agent")
 public class Agent extends BaseEntity {
 
+    private String password;
+
     @Column(name = "contact_number",unique = true,nullable = false)
     private String contactNumber; //mandatory
 
@@ -170,6 +172,14 @@ public class Agent extends BaseEntity {
 
     public void setScheduleExceptions(Set<ScheduleException> scheduleExceptions) {
         this.scheduleExceptions = scheduleExceptions;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Call getLeasedBy() {

@@ -1,3 +1,4 @@
+/*
 package org.heartfulness.avtc.security.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -71,12 +72,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().configurationSource(corsConfigurationSource()).and().csrf().disable().formLogin().disable()
                 .httpBasic().disable().exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint())
-                .and().authorizeRequests()/*.antMatchers("/main").permitAll().*/.antMatchers("/css/**").permitAll()
+                .and().authorizeRequests()*/
+/*.antMatchers("/main").permitAll().*//*
+.antMatchers("/css/**").permitAll()
                 .antMatchers("/inputNode").permitAll()
                 .antMatchers("/inCall").permitAll()
                 .antMatchers("/afterCall").permitAll()
                 .antMatchers("/check").permitAll()
-                /*.antMatchers("/admin/**").hasRole("ADMIN")*/
+                */
+/*.antMatchers("/admin/**").hasRole("ADMIN")*//*
+
                 .antMatchers("/lead").hasRole("TEAM_LEAD").and()
         .addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
         ;
@@ -88,3 +93,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         }
 }
+*/

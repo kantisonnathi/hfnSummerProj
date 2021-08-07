@@ -1,3 +1,4 @@
+/*
 package org.heartfulness.avtc.security.auth;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -104,3 +105,4 @@ public class SecurityFilter extends OncePerRequestFilter {
     }
 
 }
+*/

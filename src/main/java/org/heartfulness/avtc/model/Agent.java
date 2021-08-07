@@ -136,7 +136,7 @@ public class Agent extends BaseEntity {
     @OneToMany(mappedBy = "agent", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Call> calls;
 
-    @ManyToMany(fetch = FetchType.LAZY, targetEntity = Team.class)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Team.class)
     private Set<Team> teams;
 
     @OneToOne(mappedBy = "manager", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

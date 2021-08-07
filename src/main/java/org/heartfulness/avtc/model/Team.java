@@ -15,7 +15,7 @@ public class Team extends BaseEntity{
     @JoinColumn(name = "manager_id", referencedColumnName = "id")
     private Agent manager;
 
-    @ManyToMany(mappedBy = "teams",fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+    @ManyToMany(mappedBy = "teams",fetch=FetchType.EAGER, cascade=CascadeType.ALL)
     private Set<Agent> agents;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Language.class)
@@ -99,7 +99,6 @@ public class Team extends BaseEntity{
         if (this.agents == null) {
             this.agents = new HashSet<>();
         }
-        agent.setTeam(null);
         this.agents.remove(agent);
     }
 

@@ -49,7 +49,7 @@ public class MainController {
         this.loggerRepository = loggerRepository;
     }
 
-    @GetMapping("/")
+    @GetMapping("/login")
     public String getlogin(ModelMap modelMap) {
         return "main/mainpage";
     }

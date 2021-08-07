@@ -55,12 +55,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/success").authenticated()
-                .anyRequest().permitAll()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/success").permitAll()
+                .antMatchers("/perform_login").permitAll()
+                /*.antMatchers("/success").authenticated()*/
+                .anyRequest().authenticated()
                 .and()
-                .formLogin()
+                .formLogin().loginPage("/login").permitAll()
+                .failureUrl("/login?error=true")
+                .loginProcessingUrl("/perform_login")
                 .usernameParameter("contactNumber")
-                .defaultSuccessUrl("/success")
+                .defaultSuccessUrl("/success", true)
                 .permitAll()
                 .and()
                 .logout().logoutSuccessUrl("/").permitAll();

@@ -5,12 +5,12 @@
     <title>Login and signup pagr</title>
 </head>
 <body>
-<form>
+<form th:action="@{/login}">
     <label>Username</label>
     <input type="text" id="username">
     <label>Password</label>
     <input type="password" id="password">
-    <a href="/main">Sign up!</a>
+    <button type="submit">Login!</button>
 </form>
 </body>
 </html>

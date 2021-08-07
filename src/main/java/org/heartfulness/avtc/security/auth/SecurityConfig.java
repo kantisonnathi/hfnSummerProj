@@ -37,6 +37,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     SecurityProperties restSecProps;
 
     @Autowired
+    private CommenceEntryPoint unauthorizedHandler;
+
+    @Autowired
     public SecurityFilter tokenAuthenticationFilter;
 
     @Bean
@@ -69,22 +72,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         http.cors().configurationSource(corsConfigurationSource()).and().csrf().disable().formLogin().disable()
                 .httpBasic().disable().exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint())
-                .and().authorizeRequests()/*.antMatchers("/main").permitAll().*/.antMatchers("/css/**").permitAll()
-                .antMatchers("/inputNode").permitAll()
-                .antMatchers("/inCall").permitAll()
-                .antMatchers("/afterCall").permitAll()
-                .antMatchers("/check").permitAll()
-                /*.antMatchers("/admin/**").hasRole("ADMIN")*/
-                .antMatchers("/lead").hasRole("TEAM_LEAD").and()
-        .addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-        ;
+                .and().authorizeRequests()
+                .antMatchers(restSecProps.getAllowedPublicApis().toArray(String[]::new)).permitAll()
+                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest().authenticated().and()
+                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+                .addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-
-//                .antMatchers(restSecProps.getAllowedPublicApis().toArray(String[]::new)).permitAll();
-             //   .antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest().authenticated().and()
-               // .addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                //.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        }
-}
+            }
+    }

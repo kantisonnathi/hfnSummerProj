@@ -124,7 +124,7 @@ public class Agent extends BaseEntity {
     @Column(name = "end_time")
     private Time endTime;
 
-    @ManyToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Department> departments;
 
     @OneToMany(mappedBy = "agent", fetch=FetchType.LAZY, cascade=CascadeType.ALL)

@@ -64,7 +64,7 @@ public class Call extends BaseEntity {
     @Column(name="escalation")
     private Boolean escalation;
 
-    public Boolean isReviewFlag() {
+    public Boolean getReviewFlag() {
         return reviewFlag;
     }
 

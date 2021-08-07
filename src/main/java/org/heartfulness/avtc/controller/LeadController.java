@@ -169,7 +169,7 @@ public class LeadController {
         return "team/chooseAgent";
     }
 
-    @GetMapping("/team/{teamid}/add/{agentid}") //TODO: fix this method
+    @GetMapping("/team/{teamid}/add/{agentid}")
     public String addAgentToTeam(@PathVariable("teamid") Long teamid, @PathVariable("agentid") Long agentID, Agent loggedAgent) {
         if (!loggedAgent.getRole().equals(AgentRole.ROLE_TEAM_LEAD)) {
             //not authorized

@@ -33,7 +33,6 @@ public class AdminController {
 
     //TODO: updating agent information - sahithi-
     //TODO:Debug agent details-Sahithi
-    //TODO: fix add new agent - Kanti
 
     private final AgentRepository agentRepository;
     private final TeamRepository teamRepository;
@@ -301,7 +300,7 @@ public class AdminController {
         return "team/chooseAgent";
     }*/
 
-    /*@GetMapping("/team/{teamid}/add/{agentid}") //TODO: fix this method
+    /*@GetMapping("/team/{teamid}/add/{agentid}")
     public String addAgentToTeam(@PathVariable("teamid") Long teamid, @PathVariable("agentid") Long agentID) {
         Agent loggedInAgent = this.agentService.findBycontactNumber(securityService.getUser().getPhoneNumber());
         if (!loggedInAgent.getRole().equals(AgentRole.ROLE_ADMIN)) {

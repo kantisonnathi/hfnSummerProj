@@ -22,7 +22,6 @@ import java.util.List;
 @Configuration
 @EnableScheduling
 public class TurnOffline {
-    //TODO: implement this with quartz. or alternatively see if quartz works the same way
 
     private AgentRepository agentRepository;
     private ScheduleRepository scheduleRepository;

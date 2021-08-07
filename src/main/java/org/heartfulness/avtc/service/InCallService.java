@@ -17,9 +17,6 @@ import java.util.Set;
 @Service
 public class InCallService {
 
-    //TODO: rewrite missed call functionality
-    //TODO: test missed call functionality
-    //TODO: extract code into methods
 
     private final AgentRepository agentRepository;
 

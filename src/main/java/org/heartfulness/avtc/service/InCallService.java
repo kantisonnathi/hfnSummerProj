@@ -70,6 +70,7 @@ public class InCallService {
             case 2:
                 //call finished
                 call.setStatus(CallStatus.DISCONNECTED);
+                //agent = this.agentRepository.findByCall(call);
                 agent = call.getAgent();
                 agent.setLeasedBy(null);
                 agent.setStatus(AgentStatus.ONLINE); //the logger should not be updated here

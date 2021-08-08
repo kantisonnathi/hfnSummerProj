@@ -125,6 +125,15 @@ public class InputNodeService {
                 number.add(agents.get(j).getContactNumber());
             }
         }*/
+        if (number.isEmpty()) {
+            JSONObject entity = new JSONObject();
+            call.setStatus(CallStatus.DISCONNECTED);
+            this.callRepository.save(call);
+            entity.put("action", "tts");
+            entity.put("value", "Sorry, there are no community level workers available at this time, please try again " +
+                    "later");
+            return new ResponseEntity<>(entity, HttpStatus.OK);
+        }
 
         call.setStatus(CallStatus.AWAITING_CONNECTION_TO_AGENT);
         this.callRepository.save(call);

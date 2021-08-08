@@ -15,6 +15,6 @@ public interface DepartmentRepository extends CrudRepository<Department, Long> {
     Department findByServiceAndLanguage(Service service, Language language);
     List<Department> findAll();
 
-    @Query(value = "select department.id from hfn.department where service_id=? and language_id=?", nativeQuery = true)
+    @Query(value = "select department.id from department where service_id=? and language_id=?", nativeQuery = true)
     Long findDepartmentByServiceIdAndLanguageId(Long serviceID, Long languageID);
 }

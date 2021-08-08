@@ -10,6 +10,7 @@ import org.heartfulness.avtc.security.auth.models.User;
 import org.heartfulness.avtc.service.AgentService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,6 +22,7 @@ import java.util.List;
 
 
 @Controller
+@Transactional
 public class DepartmentController {
 
     private final SecurityService securityService;

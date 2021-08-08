@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "team")
-public class Team extends BaseEntity{
+public class Team extends BaseEntity {
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "manager_id", referencedColumnName = "id")

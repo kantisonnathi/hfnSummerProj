@@ -14,6 +14,7 @@ import org.heartfulness.avtc.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -28,6 +29,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Controller
+@Transactional
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class AgentController {
 
@@ -210,7 +212,7 @@ public class AgentController {
     public String addDescription(@ModelAttribute("calls") CategoryCreationDTO categoryCreationDTO) {
         List<Call> calls = categoryCreationDTO.getCallList();
         for (Call call : calls) {
-            Call add = callRepository.findById(call.getId()).get();
+            Call add = callService.findById(call.getId());
             add.setDescription(call.getDescription());
             add.setCategory(call.getCategory());
             add.setEscalation(call.getEscalation());

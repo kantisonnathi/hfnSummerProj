@@ -21,6 +21,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.ws.rs.Produces;
 import java.util.ArrayList;
@@ -49,10 +50,10 @@ public class MainController {
         this.loggerRepository = loggerRepository;
     }
 
-    @GetMapping("/")
+   /* @GetMapping("/")
     public String getlogin(ModelMap modelMap) {
         return "main/mainpage";
-    }
+    }*/
 
 
     @GetMapping("/main")
@@ -125,6 +126,13 @@ public class MainController {
         map.put("Accepted calls", 4);
         modelMap.put("chartData", map);
         return "main/dashboard";
+    }
+
+
+    @GetMapping("/unauthorized")
+    public String unauthUser(RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("message", "You are not authorized to view this page!");
+        return "redirect:/success";
     }
 
 

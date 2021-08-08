@@ -9,6 +9,7 @@ import org.heartfulness.avtc.repository.ScheduleRepository;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -20,6 +21,7 @@ import java.util.Date;
 import java.util.List;
 
 @Configuration
+@Transactional
 @EnableScheduling
 public class TurnOffline {
 

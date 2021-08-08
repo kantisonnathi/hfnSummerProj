@@ -20,6 +20,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 @Controller
+@Transactional
 @RequestMapping("/lead")
 public class LeadController {
 

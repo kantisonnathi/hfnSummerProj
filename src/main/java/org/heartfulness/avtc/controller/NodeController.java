@@ -6,6 +6,7 @@ import org.heartfulness.avtc.service.InCallService;
 import org.heartfulness.avtc.service.InputNodeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.Produces;
@@ -13,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import java.io.FileWriter;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
+@Transactional
 @RestController
 public class NodeController {
 

@@ -55,12 +55,12 @@
             </tbody>
         </table>
     </div>
-    <p>Language: [[${team.language.name}]]</p>
-    <p>Service: [[${team.service.name}]]</p>
+    <p>Language: [[${team.language?.name}]]</p>
+    <p>Service: [[${team.service?.name}]]</p>
     <p>Team description: [[${team.description}]]</p>
 </div>
 
-<div style="text-align: center">
+<div style="text-align: center" th:unless="${role == 'ROLE_AGENT'}">
     <a th:href="@{/admin/team/__${team.id}__/add}">Add more agents to this team</a>
 </div>
 

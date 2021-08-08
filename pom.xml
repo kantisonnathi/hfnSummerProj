@@ -16,6 +16,7 @@
     <description>A Voice that Cares</description>
     <properties>
         <java.version>11</java.version>
+        <hypersistence-optimizer.version>2.4.1</hypersistence-optimizer.version>
     </properties>
     <dependencies>
         <dependency>
@@ -131,6 +132,11 @@
             <artifactId>google-services</artifactId>
             <version>3.1.1</version>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.hypersistence</groupId>
+            <artifactId>hypersistence-optimizer</artifactId>
+            <version>${hypersistence-optimizer.version}</version>
         </dependency>
     </dependencies>
 

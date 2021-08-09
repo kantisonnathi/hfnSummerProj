@@ -8,10 +8,10 @@ import java.util.Set;
 public class Department extends BaseEntity{
 
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Service.class)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Service.class)
     private Service service;
 
-    @ManyToOne(fetch = FetchType.LAZY,targetEntity = Language.class)
+    @ManyToOne(fetch = FetchType.EAGER,targetEntity = Language.class)
     private Language language;
 
     @ManyToMany(mappedBy = "departments")

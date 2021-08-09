@@ -25,8 +25,6 @@ import java.sql.Time;
 import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 @Controller
 @Transactional
@@ -372,7 +370,7 @@ public class AdminController {
                                 @RequestParam("sortField") String sortField,
                                 @RequestParam("sortDir") String sortDir, Model model){
         int pageSize=10;
-        Page<Agent> page= agentService.findPaginatedMinusAdmin(pageNo,pageSize,sortField,sortDir);
+        Page<Agent> page= agentService.findPaginatedAgents(pageNo,pageSize,sortField,sortDir);
         List<Agent> agentList=page.getContent();
         model.addAttribute("currentPage",pageNo);
         model.addAttribute("totalPages",page.getTotalPages());
@@ -533,7 +531,7 @@ public class AdminController {
     @GetMapping("/viewDepartments")
     public String showDepts(ModelMap modelMap)
     {
-        List<Department> departments=departmentRepository.findAll();
+        List<Department> departments = departmentRepository.findAll();
         modelMap.put("departments",departments);
         return "agents/viewDepartments";
     }

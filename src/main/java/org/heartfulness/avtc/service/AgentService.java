@@ -31,7 +31,7 @@ public interface AgentService {
 
     Page<Agent> findPaginated(int pageno, int pagesize,String sortField,String sortDirection);
 
-    Page<Agent> findPaginatedMinusAdmin(int pageNo, int pageSize, String sortField, String sortDirection);
+    Page<Agent> findPaginatedAgents(int pageNo, int pageSize, String sortField, String sortDirection);
 
     Page<Agent> findByTeam(Team team,int pageno,int pagesize,String sortField,String sortDirection);
 

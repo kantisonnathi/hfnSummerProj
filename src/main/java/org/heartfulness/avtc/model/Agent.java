@@ -123,7 +123,7 @@ public class Agent extends BaseEntity {
     @Column(name = "end_time")
     private Time endTime;
 
-    @ManyToMany(fetch=FetchType.LAZY, cascade = {
+    @ManyToMany(fetch=FetchType.EAGER, cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })

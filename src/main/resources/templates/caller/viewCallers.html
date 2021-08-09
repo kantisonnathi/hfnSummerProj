@@ -3,6 +3,7 @@
 <head>
   <meta charset="ISO-8859-1">
   <title>View All Callers</title>
+  <link href="../../static/css/layout.html" th:href="@{/css/layout.css}" rel="stylesheet">
 
   <link rel="stylesheet"
         href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -11,6 +12,7 @@
 
 </head>
 <body>
+<div th:replace="fragment/layout :: top-nav-bar"></div>
 
 <div class="container my-2">
   <h1>Callers list</h1>

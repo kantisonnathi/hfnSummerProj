@@ -43,8 +43,8 @@ public class DepartmentController {
 
     @GetMapping("/addDetails")
     public String getDetails(ModelMap modelMap) {
-        List<Language> languages=languageRepository.findAll();
-        List<Service> services=serviceRepository.findAll();
+        /*List<Language> languages=languageRepository.findAll();
+        List<Service> services=serviceRepository.findAll();*/
        List<Department> departments=departmentRepository.findAll();
        List<Other> others=new ArrayList<>();
        for(Department d: departments)

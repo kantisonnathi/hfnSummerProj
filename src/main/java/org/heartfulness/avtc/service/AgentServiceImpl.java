@@ -71,6 +71,13 @@ public class AgentServiceImpl implements AgentService{
     }
 
     @Override
+    public List<Agent> findAgentsByDepartmentAndStatus(Long departmentID, AgentStatus status) {
+        List<Agent> agents = this.agentRepository.findAgentsByDepartmentID(departmentID);
+        agents.removeIf(agent -> agent.getStatus() != status);
+        return agents;
+    }
+
+    @Override
     public List<Agent> findAgentsByTeamEquals(Team team) {
         return this.agentRepository.findAgentsByTeams(team);
     }
@@ -133,10 +140,4 @@ public class AgentServiceImpl implements AgentService{
         Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
         return toPage(agents, pageable);
     }
-
-    @Override
-    public List<Agent> findAgentsByDepartment(Long depID) {
-        return this.agentRepository.findAgentsByDepartmentID(depID);
-    }
-
 }

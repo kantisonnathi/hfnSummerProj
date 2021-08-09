@@ -12,10 +12,10 @@ public class TimeSlot extends BaseEntity {
 
     private Time endTime;
 
-    @OneToMany(mappedBy = "slot", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "slot", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<ScheduleException> scheduleExceptions;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Team> teams;
 
     public void addTeam(Team team) {
@@ -38,6 +38,12 @@ public class TimeSlot extends BaseEntity {
             scheduleExceptions = new HashSet<>();
         }
         this.scheduleExceptions.add(scheduleException);
+    }
+
+    public void removeScheduleException(ScheduleException scheduleException) {
+        if (this.scheduleExceptions != null) {
+            scheduleExceptions.remove(scheduleException);
+        }
     }
 
     public Set<ScheduleException> getScheduleExceptions() {

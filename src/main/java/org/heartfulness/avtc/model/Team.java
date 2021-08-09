@@ -11,20 +11,27 @@ import java.util.Set;
 @Table(name = "team")
 public class Team extends BaseEntity {
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "manager_id", referencedColumnName = "id")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @MapsId
+    @JoinColumn(name="id")
     private Agent manager;
 
-    @ManyToMany(mappedBy = "teams",fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    @ManyToMany(mappedBy = "teams",fetch=FetchType.LAZY, cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
     private Set<Agent> agents;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Language.class)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Language.class)
     private Language language;
 
-    @ManyToMany(mappedBy = "teams", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "teams", fetch = FetchType.LAZY, cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
     private Set<TimeSlot> timeSlots;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Service.class)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Service.class)
     private Service service;
 
     private String description;
@@ -42,6 +49,13 @@ public class Team extends BaseEntity {
             this.timeSlots = new HashSet<>();
         }
         this.timeSlots.add(timeSlot);
+    }
+
+    public void removeTimeSlot(TimeSlot timeSlot) {
+        if (this.timeSlots == null) {
+            return;
+        }
+        this.timeSlots.remove(timeSlot);
     }
 
     public Set<TimeSlot> getTimeSlots() {

@@ -1,3 +1,4 @@
+/*
 package org.heartfulness.avtc.config;
 
 import io.hypersistence.optimizer.HypersistenceOptimizer;
@@ -19,3 +20,4 @@ public class HypersistenceConfiguration {
     }
 
 }
+*/

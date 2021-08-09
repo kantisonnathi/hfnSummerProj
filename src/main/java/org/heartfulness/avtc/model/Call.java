@@ -6,13 +6,14 @@ import org.heartfulness.avtc.model.enums.CallStatus;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "calls")
 public class Call extends BaseEntity {
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Agent.class)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Agent.class)
     @JoinColumn(name = "agent_id")
     private Agent agent;
 
@@ -20,7 +21,7 @@ public class Call extends BaseEntity {
     private String description;
 
     @Column(name = "category")
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private CallCategory category;
 
     @Column(name = "location")
@@ -29,7 +30,7 @@ public class Call extends BaseEntity {
     @Column(name="URL")
     private String url;
 
-    @Column(name="uid")
+    @Column(name="uid", unique = true)
     private String uid;
 
     @Column(name="saved")
@@ -41,7 +42,7 @@ public class Call extends BaseEntity {
     @Column(name = "date")
     private Date date;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Caller.class)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Caller.class)
     @JoinColumn(name = "caller_id")
     private Caller caller;
 
@@ -52,7 +53,7 @@ public class Call extends BaseEntity {
     private String endTime;
 
     @Column(name = "status")
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private CallStatus callStatus;
 
     @Column(name = "review_flag")
@@ -199,6 +200,19 @@ public class Call extends BaseEntity {
 
     public void setCallStatus(CallStatus callStatus) {
         this.callStatus = callStatus;
+    }
+
+    public void addLeasedAgent(Agent agent) {
+        if (this.leasing == null) {
+            leasing = new HashSet<>();
+        }
+        leasing.add(agent);
+    }
+
+    public void removeLeasingAgent(Agent agent) {
+        if (this.leasing != null) {
+            leasing.remove(agent);
+        }
     }
 
 }

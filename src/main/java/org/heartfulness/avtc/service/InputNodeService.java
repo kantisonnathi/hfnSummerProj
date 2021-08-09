@@ -3,10 +3,13 @@ package org.heartfulness.avtc.service;
 import net.minidev.json.JSONObject;
 import org.heartfulness.avtc.Comparator.SortByTimeStamp;
 import org.heartfulness.avtc.config.NodeConfiguration;
+import org.heartfulness.avtc.controller.LoggingController;
 import org.heartfulness.avtc.model.*;
 import org.heartfulness.avtc.model.enums.AgentStatus;
 import org.heartfulness.avtc.model.enums.CallStatus;
 import org.heartfulness.avtc.repository.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +39,8 @@ public class InputNodeService {
 
     private final AgentService agentService;
 
+    Logger logger = LoggerFactory.getLogger(InputNodeService.class);
+
     @Autowired
     public InputNodeService(NodeConfiguration nodeConfiguration, AgentRepository agentRepository, CallerRepository callerRepository, LanguageRepository languageRepository, ServiceRepository serviceRepository, CallRepository callRepository, DepartmentRepository departmentRepository, CallService callService, AgentService agentService) {
         this.nodeConfiguration = nodeConfiguration;
@@ -49,11 +54,9 @@ public class InputNodeService {
         this.agentService = agentService;
     }
 
-    private Call call;
-
     public ResponseEntity<?> input(@RequestBody InputNode input) {
         System.out.println("Data from my operator: " + input.toString());
-        call = this.callService.findByUid(input.getUid()); //this line is taking time
+        Call call = this.callService.findByUid(input.getUid()); //this line is taking time
         Caller caller = call.getCaller();
         if (caller == null) {
             caller = new Caller();
@@ -76,7 +79,7 @@ public class InputNodeService {
         if (i == null) {
             i = 1;
         }
-        Set<String> number = getEligibleAgents(currDepID, i);
+        Set<String> number = getEligibleAgents(currDepID, i, call);
 
         /*Set<String> number = new HashSet<>();
         List<Agent> agents;
@@ -151,20 +154,27 @@ public class InputNodeService {
     }
 
 
-    private Set<String> getEligibleAgents(Long departmentID, Integer level) {
+    private Set<String> getEligibleAgents(Long departmentID, Integer level, Call call) {
 
-        List<Agent> overAllEligible = this.agentService.findAgentsByDepartment(departmentID);
+        List<Agent> overAllEligible = this.agentService.findAgentsByDepartmentAndStatus(departmentID, AgentStatus.ONLINE);
         Set<String> returnable = new HashSet<>();
+        int counter = 0;
         while (returnable.size() != 3) {
             if (level == 4) {
-                break;
+                if (counter < 3) {
+                    level = 1;
+                    continue;
+                } else {
+                    break;
+                }
             }
-            iterate(overAllEligible, level++, returnable);
+            iterate(overAllEligible, level++, returnable, call);
+            counter++;
         }
         return returnable;
     }
 
-    private void iterate(List<Agent> all, int level, Set<String> returnable) {
+    private void iterate(List<Agent> all, int level, Set<String> returnable, Call call) {
         for (Agent a : all) {
             if (a.getLevel() == level && !returnable.contains(a.getContactNumber())) {
                 returnable.add(a.getContactNumber());

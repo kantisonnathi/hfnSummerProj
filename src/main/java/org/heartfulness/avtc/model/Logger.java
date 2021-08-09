@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 @Table(name = "agent_activity_log")
 public class Logger extends BaseEntity {
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Agent.class)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Agent.class)
     @JoinColumn(name = "agent_id")
     private Agent agent;
 

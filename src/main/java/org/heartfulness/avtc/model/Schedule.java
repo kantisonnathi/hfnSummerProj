@@ -16,7 +16,7 @@ public class Schedule extends BaseEntity {
 
     private DateTime endTime;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Agent.class)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Agent.class)
     @JoinColumn(name = "agent_id")
     private Agent agent;
 

@@ -25,7 +25,7 @@ public interface AgentService {
 
     List<Agent> findAgentByDepartments(Department departments);
 
-    List<Agent> findAgentsByDepartment(Long departmentID);
+    List<Agent> findAgentsByDepartmentAndStatus(Long departmentID, AgentStatus status);
 
     List<Agent> findAgentsByTeamEquals(Team team);
 

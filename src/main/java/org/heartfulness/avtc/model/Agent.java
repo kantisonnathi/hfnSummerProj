@@ -10,7 +10,6 @@ import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -105,7 +104,7 @@ public class Agent extends BaseEntity {
     private Boolean certified;
 
     @Column(name = "role")
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private AgentRole role;
 
     @Column(name = "status")
@@ -116,15 +115,18 @@ public class Agent extends BaseEntity {
     private Timestamp timestamp;
 
     @Column(name="gender")
-    private char gender;
+    private Character gender;
 
     @Column(name="level",length =1)
-    private int level;
+    private Integer level;
 
     @Column(name = "end_time")
     private Time endTime;
 
-    @ManyToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch=FetchType.LAZY, cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
     private Set<Department> departments;
 
     @OneToMany(mappedBy = "agent", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
@@ -136,17 +138,20 @@ public class Agent extends BaseEntity {
     @OneToMany(mappedBy = "agent", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Call> calls;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Team.class)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    }, targetEntity = Team.class)
     private Set<Team> teams;
 
-    @OneToOne(mappedBy = "manager", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "manager", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Team teamManaged;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "leased_by")
     private Call leasedBy;
 
-    @OneToMany(mappedBy = "agent", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "agent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<ScheduleException> scheduleExceptions;
 
     public Set<Team> getTeams() {
@@ -189,7 +194,7 @@ public class Agent extends BaseEntity {
         this.level = level;
     }
 
-    public char getGender() {
+    public Character getGender() {
         return gender;
     }
 
@@ -197,7 +202,7 @@ public class Agent extends BaseEntity {
         this.gender = gender;
     }
 
-    public int getLevel() {
+    public Integer getLevel() {
         return level;
     }
 
@@ -549,6 +554,45 @@ public class Agent extends BaseEntity {
 
     public void setEndTime(java.sql.Time endTime) {
         this.endTime = endTime;
+    }
+
+    public void addCall(Call call) {
+        if (this.calls == null) {
+            calls = new HashSet<>();
+        }
+        calls.add(call);
+    }
+
+    public void removeCall(Call call) {
+        if (this.calls != null) {
+            calls.remove(call);
+        }
+    }
+
+    public void addLogger(Logger logger) {
+        if (this.loggerSet == null) {
+            loggerSet = new HashSet<>();
+        }
+        loggerSet.add(logger);
+    }
+
+    public void removeLogger(Logger logger) {
+        if (this.loggerSet != null) {
+            loggerSet.remove(logger);
+        }
+    }
+
+    public void addScheduleException(ScheduleException scheduleException) {
+        if (scheduleExceptions == null) {
+            scheduleExceptions = new HashSet<>();
+        }
+        scheduleExceptions.add(scheduleException);
+    }
+
+    public void removeScheduleException(ScheduleException scheduleException) {
+        if (scheduleExceptions != null) {
+            scheduleExceptions.remove(scheduleException);
+        }
     }
 
     @Override

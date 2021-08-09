@@ -1,26 +1,53 @@
 package org.heartfulness.avtc.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 public class Service extends BaseEntity {
 
-    @OneToMany(mappedBy = "service",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    private Set<Department> Departments;
+    @OneToMany(mappedBy = "service",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private Set<Department> departments;
 
     @Column(name="name")
     private String name;
 
-    @OneToMany(mappedBy = "service", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "service", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Team> teams;
 
+    public void addDepartment(Department department) {
+        if (this.departments == null) {
+            departments = new HashSet<>();
+        }
+        departments.add(department);
+    }
+
+    public void removeDepartment(Department department) {
+        if (this.departments != null) {
+            departments.remove(department);
+        }
+    }
+
+    public void addTeam(Team team) {
+        if (this.teams == null) {
+            teams = new HashSet<>();
+        }
+        teams.add(team);
+    }
+
+    public void removeTeam(Team team) {
+        if (this.teams != null) {
+            teams.remove(team);
+        }
+    }
+
     public Set<Department> getDepartments() {
-        return Departments;
+        return departments;
     }
 
     public void setDepartments(Set<Department> departments) {
-        Departments = departments;
+        this.departments = departments;
     }
 
     public String getName() {

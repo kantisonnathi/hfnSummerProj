@@ -25,7 +25,7 @@ public class AgentServiceImpl implements AgentService{
 
     @Override
     public void saveAgent(Agent agent) {
-       this.agentRepository.save(agent);
+        this.agentRepository.save(agent);
     }
 
     @Override
@@ -43,11 +43,11 @@ public class AgentServiceImpl implements AgentService{
     @Override
     public Agent findBycontactNumber(String phoneNumber) {
         Optional<Agent> optional = this.agentRepository.findByContactNumber(phoneNumber);
-       Agent agent = null;
-       if(optional.isPresent()) {
-           agent= optional.get();
-       }
-       return agent;
+        Agent agent = null;
+        if(optional.isPresent()) {
+            agent= optional.get();
+        }
+        return agent;
     }
 
     @Override

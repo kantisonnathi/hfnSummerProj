@@ -11,16 +11,15 @@ import java.util.Set;
 @Table(name = "team")
 public class Team extends BaseEntity {
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @MapsId
-    @JoinColumn(name="id")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "manager", referencedColumnName = "id")
     private Agent manager;
 
     @ManyToMany(mappedBy = "teams",fetch=FetchType.LAZY, cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })
-    private Set<Agent> agents;
+    private Set<Agent> agents = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Language.class)
     private Language language;
@@ -29,7 +28,7 @@ public class Team extends BaseEntity {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })
-    private Set<TimeSlot> timeSlots;
+    private Set<TimeSlot> timeSlots = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Service.class)
     private Service service;
@@ -45,16 +44,10 @@ public class Team extends BaseEntity {
     }
 
     public void addTimeSlot(TimeSlot timeSlot) {
-        if (this.timeSlots == null) {
-            this.timeSlots = new HashSet<>();
-        }
         this.timeSlots.add(timeSlot);
     }
 
     public void removeTimeSlot(TimeSlot timeSlot) {
-        if (this.timeSlots == null) {
-            return;
-        }
         this.timeSlots.remove(timeSlot);
     }
 
@@ -102,17 +95,11 @@ public class Team extends BaseEntity {
     }
 
     public void addAgent(Agent agent) {
-        if (this.agents == null) {
-            this.agents = new HashSet<>();
-        }
         agent.addTeam(this);
         this.agents.add(agent);
     }
 
     public void removeAgent(Agent agent) {
-        if (this.agents == null) {
-            this.agents = new HashSet<>();
-        }
         this.agents.remove(agent);
     }
 

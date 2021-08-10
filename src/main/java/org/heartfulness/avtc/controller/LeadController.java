@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -46,17 +47,22 @@ public class LeadController {
     }
 
     @GetMapping("/schedule/make")
-    public String makeSchedule(Agent loggedInAgent, ModelMap modelMap) {
-        return findPaginatedByTeam(1, "id", "asc", modelMap, loggedInAgent);
+    public String makeSchedule(Agent loggedInAgent, ModelMap modelMap, RedirectAttributes redirectAttributes) {
+        return findPaginatedByTeam(1, "id", "asc", modelMap, loggedInAgent, redirectAttributes);
     }
 
     @GetMapping("/schedulePage/{pageno}")
     public String findPaginatedByTeam(@PathVariable("pageno") Integer pageNo,
                                       @RequestParam("sortField") String sortField,
                                       @RequestParam("sortDir") String sortDir, ModelMap modelMap
-                                       ,@ModelAttribute Agent loggedInAgent) {
+                                       ,@ModelAttribute Agent loggedInAgent,
+                                      RedirectAttributes redirectAttributes) {
         int pageSize = 5;
         Team team = loggedInAgent.getTeamManaged();
+        if (team == null) {
+            redirectAttributes.addFlashAttribute("message", "Sorry, you are not currently part of a team");
+            return "redirect:/success";
+        }
         Page<ScheduleException> page = scheduleExceptionService.findAllPaginatedByTeamAndDate(Date.valueOf(LocalDate.now().plusDays(1)),team, pageNo, pageSize, sortField, sortDir);
         modelMap.put("currentPage", pageNo);
         modelMap.put("totalPages", page.getTotalPages());

@@ -25,6 +25,7 @@ import java.sql.Time;
 import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @Transactional
@@ -199,9 +200,10 @@ public class AdminController {
         Service service = this.serviceRepository.findById(Long.parseLong(slotsForm.getServId())).get();
         team.setService(service);
         team.setDescription(slotsForm.getDescription());
-        this.teamRepository.save(team);
+        team.setManager(null);
         team.setTimeSlots(slots);
-        this.timeSlotRepository.saveAll(slots);
+        this.teamRepository.save(team);
+        //this.timeSlotRepository.saveAll(slots);
         return "redirect:/admin/team/" + team.getId();
     }
 
@@ -236,6 +238,25 @@ public class AdminController {
             //not authorized
             return "main/error";
         }*/
+        Set<TimeSlot> slots = team.getTimeSlots();
+        int min = 0;
+        int max = 0;
+        for (TimeSlot t : slots) {
+            if (min == 0) {
+                min = t.getStartTime().toLocalTime().getHour();
+                max = t.getEndTime().toLocalTime().getHour();
+            } else {
+                int current = t.getStartTime().toLocalTime().getHour();
+                if (current < min) {
+                    min = current;
+                }
+                current = t.getEndTime().toLocalTime().getHour();
+                if (current > max) {
+                    max = current;
+                }
+            }
+        }
+        modelMap.put("interval", min + " - " + max);
         modelMap.put("team", team);
         return "team/viewSingle";
     }
@@ -395,6 +416,7 @@ public class AdminController {
     public String savingNewAgent(AgentForm agentForm) {
         Agent agent = agentForm.getAgent();
         agent.setMissed(0);
+        agent.setCertified(true);
         if (agentForm.getDob() != null && !agentForm.getDob().equals("")) {
             agent.setDOB(agentForm.convertedDOB());
         }

@@ -21,6 +21,11 @@ public class ScheduleExceptionServiceImpl implements ScheduleExceptionService{
 
     @Override
     public Page<ScheduleException> findAllPaginatedByTeamAndDate(Date date, Team team, int pageno, int pagesize, String sortField, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
+        Pageable pageable = PageRequest.of(pageno-1,pagesize,sort);
+        if (team.getAgents() == null) {
+            return toPage(new ArrayList<ScheduleException>(), pageable);
+        }
         Set<Agent> agents = team.getAgents();
         List<ScheduleException> scheduleExceptions = new ArrayList<>();
         for (Agent agent : agents) {
@@ -31,8 +36,6 @@ public class ScheduleExceptionServiceImpl implements ScheduleExceptionService{
                 }
             }
         }
-        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
-        Pageable pageable = PageRequest.of(pageno-1,pagesize,sort);
         return toPage(scheduleExceptions, pageable);
     }
 

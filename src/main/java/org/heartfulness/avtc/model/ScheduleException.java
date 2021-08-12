@@ -13,7 +13,7 @@ public class ScheduleException extends BaseEntity {
     @JoinColumn(name = "agent_id")
     private Agent agent;
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = TimeSlot.class)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = TimeSlot.class)
     private TimeSlot slot;
 
     private Boolean accepted;

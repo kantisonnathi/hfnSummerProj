@@ -13,7 +13,7 @@ INSERT INTO agent (id, end_time, certified, contact_number, gender, level, misse
 INSERT INTO agent (id, end_time, certified, contact_number, gender, level, missed, name, role, status, timestamp, leased_by) VALUES (2, null, true, '+919900213110', 'M', 3, null, 'Venkat Ramana Sonnathi', 'ROLE_ADMIN', null, null, null);
 INSERT INTO agent (id, end_time, certified, contact_number, gender, level, missed, name, role, status, timestamp, leased_by) VALUES (3, null, true, '+917338897713', 'F', 2, null, 'Varam Sonnathi', 'ROLE_TEAM_LEAD', null, null, null);
 
-INSERT INTO team (id, language_id, manager_id) VALUES (1, 1, 3);
+INSERT INTO team (id, language_id, manager) VALUES (1, 1, 3);
 
 INSERT INTO agent_teams (agents_id, teams_id) VALUES (1, 1);
 INSERT INTO agent_teams (agents_id, teams_id) VALUES (3, 1);

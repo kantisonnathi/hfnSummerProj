@@ -26,16 +26,22 @@
         <tr>
             <th>Agent ID</th>
             <th>Agent Name</th>
-            <th>Action</th>
-            <th>Action</th>
+            <th>Contact Number</th>
+            <div th:unless="${role == 'ROLE_AGENT'}">
+                <th>Action</th>
+                <th>Action</th>
+            </div>
         </tr>
         </thead>
         <tbody>
         <tr th:each="agent : ${team.agents}">
             <td th:text="${agent.id}"></td>
             <td th:text="${agent.name}"></td>
-            <td><a th:href="@{/admin/team/__${team.id}__/remove/__${agent.id}__}">Remove this agent</a> </td>
-            <td><span th:if="${agent.id} != ${team.manager?.id}"><a th:href="@{/admin/team/__${team.id}__/makeLead/__${agent.id}__}">Make team lead</a></span></td>
+            <td th:text="${agent.contactNumber}"></td>
+            <div th:unless="${role == 'ROLE_AGENT'}">
+                <td><a th:href="@{/admin/team/__${team.id}__/remove/__${agent.id}__}">Remove this agent</a> </td>
+                <td><span th:if="${agent.id} != ${team.manager?.id}"><a th:href="@{/admin/team/__${team.id}__/makeLead/__${agent.id}__}">Make team lead</a></span></td>
+            </div>
         </tr>
     </table>
 </div>

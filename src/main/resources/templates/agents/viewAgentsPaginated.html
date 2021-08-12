@@ -85,7 +85,7 @@
     </div>
 
   </div>
-  <div>
+  <div th:if="${role == 'ROLE_ADMIN'}">
     <a th:href="@{/admin/agent/new}">Add new Agent</a>
   </div>
 </div>

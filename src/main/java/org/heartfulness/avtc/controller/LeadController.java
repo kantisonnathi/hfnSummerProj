@@ -104,7 +104,7 @@ public class LeadController {
         modelMap.put("headers", headers);
         modelMap.put("slots", slots);
         modelMap.put("agents", agents);
-        modelMap.put("role", "TEAM_LEAD");
+        modelMap.put("role", AgentRole.ROLE_TEAM_LEAD.toString());
         modelMap.put("sortField", sortField);
         modelMap.put("sortDir", sortDir);
         modelMap.put("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");

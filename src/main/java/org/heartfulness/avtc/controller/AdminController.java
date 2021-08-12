@@ -68,7 +68,7 @@ public class AdminController {
         return loggedInAgent;
     }
 
-    private String validation(Agent loggedInAgent, RedirectAttributes redirectAttributes) {
+    private String validation(@ModelAttribute Agent loggedInAgent, RedirectAttributes redirectAttributes) {
         if (loggedInAgent == null) {
             return "redirect:/main";
         }
@@ -134,7 +134,6 @@ public class AdminController {
         Page<Agent> agents = this.agentService.getEligibleAgentsByTeam(currentTeam, department, pageNo, pageSize, sortField, sortDir);
         String url = "/team/" + teamId + "/add/";
         modelMap.put("url", url);
-        modelMap.put("role", "ROLE_ADMIN");
         modelMap.put("currentPage", pageNo);
         modelMap.put("totalPages", agents.getTotalPages());
         modelMap.put("totalItems", agents.getTotalElements());

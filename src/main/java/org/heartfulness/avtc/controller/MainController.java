@@ -58,6 +58,9 @@ public class MainController {
 
     @GetMapping("/main")
     public String getMain(ModelMap modelMap) {
+        if (this.securityService.getUser() != null) {
+            return "redirect:/success";
+        }
         Agent agent = new Agent();
         modelMap.put("userEntity", agent);
         return "main/phone-num-auth";

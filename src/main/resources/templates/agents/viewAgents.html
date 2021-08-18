@@ -28,6 +28,7 @@
                 Agent status</a></th>
             <th>View More Details</th>
             <th>Certification</th>
+            <th>Active</th>
             <th>Activites</th>
         </tr>
         </thead>
@@ -43,16 +44,17 @@
                 <span th:unless="${agent.certified}">Not certified</span>
             </td>
             <td>
-            <span th:if="${agent.certified}">
-                <a th:href="@{/admin/__${agent.id}__/inactive}">Mark Agent Inactive</a>
-            </span>
-                <span th:unless="${agent.certified}">
-                <a th:href="@{/admin/__${agent.id}__/active}">Mark Agent Active</a>
-            </span>
+                <span th:if="${agent.active}">Active</span>
+                <span th:unless="${agent.active}">Inactive</span>
             </td>
-            <span th:if="${url} == '/admin/team/new'">
-                <td><a th:href="@{/team/__${team.id}__/makeLead/__${id}__}">Make Team Lead</a> </td>
-            </span>
+            <td>
+        <span th:if="${agent.active}">
+          <a th:href="@{/admin/__${agent.id}__/inactive}">Mark Agent Inactive</a>
+        </span>
+                <span th:unless="${agent.active}">
+          <a th:href="@{/admin/__${agent.id}__/active}">Mark Agent Active</a>
+        </span>
+            </td>
         </tr>
         </tbody>
     </table>

@@ -100,12 +100,18 @@ public class Agent extends BaseEntity {
     @Column(name = "missed")
     private Integer missed;
 
+    @Column(name="total_mised")
+    private Integer totalMissed;
+
     @Column(name = "certified")
     private Boolean certified;
 
     @Column(name = "role")
     @Enumerated(EnumType.ORDINAL)
     private AgentRole role;
+
+    @Column(name="active")
+    private Boolean active;
 
     @Column(name = "status")
     @Enumerated(EnumType.ORDINAL)
@@ -168,6 +174,14 @@ public class Agent extends BaseEntity {
 
     public void setScheduleExceptions(Set<ScheduleException> scheduleExceptions) {
         this.scheduleExceptions = scheduleExceptions;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     public Call getLeasedBy() {
@@ -345,7 +359,19 @@ public class Agent extends BaseEntity {
         if (this.missed == null) {
             missed = 0;
         }
+        if (this.totalMissed == null) {
+            totalMissed = 0;
+        }
         this.missed++;
+        this.totalMissed++;
+    }
+
+    public Integer getTotalMissed() {
+        return totalMissed;
+    }
+
+    public void setTotalMissed(Integer totalMissed) {
+        this.totalMissed = totalMissed;
     }
 
     public String getEmail() {

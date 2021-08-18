@@ -430,18 +430,14 @@ public class AdminController {
         return "redirect:/admin/agents/all";
     }
 
-    @GetMapping("/{agentID}/inactive")
-    public String markAgentInactive(@PathVariable("agentID") Long agentID) {
+    @GetMapping("/{agentID}/{status}")
+    public String markAgentInactive(@PathVariable("agentID") Long agentID, @PathVariable("status") String status) {
         Agent agent = this.agentService.findById(agentID);
-        agent.setCertified(false);
-        this.agentRepository.save(agent);
-        return "redirect:/admin/agents/all";
-    }
-
-    @GetMapping("/{agentID}/active")
-    public String markAgentActive(@PathVariable("agentID") Long agentID) {
-        Agent agent = this.agentService.findById(agentID);
-        agent.setCertified(true);
+        if (status.equals("inactive")) {
+            agent.setActive(false);
+        } else if (status.equals("active")) {
+            agent.setActive(true);
+        }
         this.agentRepository.save(agent);
         return "redirect:/admin/agents/all";
     }
@@ -555,5 +551,17 @@ public class AdminController {
         List<Department> departments = departmentRepository.findAll();
         modelMap.put("departments",departments);
         return "agents/viewDepartments";
+    }
+
+    @GetMapping("/team/{teamId}/{status}")
+    public String markTeamStatus(@PathVariable("teamId") Long teamId, @PathVariable("status") String status) {
+        Team team = this.teamService.findById(teamId);
+        if (status.equals("inactive")) {
+            team.setActive(false);
+        } else if (status.equals("active")) {
+            team.setActive(true);
+        }
+        this.teamRepository.save(team);
+        return "redirect:/admin/team/" + team.getId();
     }
 }

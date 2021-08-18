@@ -24,14 +24,36 @@
         <tr>
             <th>Team ID</th>
             <th>Team manager</th>
+            <th>Department</th>
+            <th>Description</th>
+            <th>Active</th>
             <th>Actions</th>
+            <span th:if="${role == 'ROLE_ADMIN'}"><th>Active</th></span>
         </tr>
         </thead>
         <tbody>
         <tr th:each="team : ${list}">
             <td th:text="${team.id}"></td>
             <td th:text="${team.manager?.name}"></td>
+            <td th:text="${team.language?.name + ' ' + team.service?.name}"></td>
+            <td th:text="${team.description}"></td>
+            <span th:if="${team.active}">
+                <td>Active</td>
+            </span>
+            <span th:unless="${team.active}">
+                <td>Inactive</td>
+            </span>
             <td><a th:href="@{/admin/team/__${team.id}__}">Click here to view more details</a></td>
+            <td>
+            <span th:if="${role == 'ROLE_ADMIN'}">
+                <div th:if="${team.active}">
+                    <a th:href="@{/admin/team/__${team.id}__/inactive}">Mark team active</a>
+                 </div>
+                <div th:unless="${team.active}">
+                    <a th:href="@{/admin/team/__${team.id}__/active}">Mark team inactive</a>
+                </div>
+            </span>
+            </td>
         </tr>
     </table>
     <div th:if="${totalPages > 1}">

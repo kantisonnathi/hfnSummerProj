@@ -65,10 +65,22 @@
     <p>Language: [[${team.language?.name}]]</p>
     <p>Service: [[${team.service?.name}]]</p>
     <p>Team description: [[${team.description}]]</p>
+    <span th:if="${team.active}">Team Status: Active</span>
+    <span th:unless="${team.active}">Team Status: Inactive</span>
 </div>
 
 <div style="text-align: center" th:unless="${role == 'ROLE_AGENT'}">
     <a th:href="@{/admin/team/__${team.id}__/add}">Add more agents to this team</a>
+    <br>
+    <div th:if="${team.active}">
+        <a th:href="@{/admin/team/__${team.id}__/inactive}">Mark team inactive</a>
+    </div>
+    <div th:unless="${team.active}">
+        <a th:href="@{/admin/team/__${team.id}__/active}">Mark team active</a>
+    </div>
+</div>
+
+
 </div>
 
 </body>

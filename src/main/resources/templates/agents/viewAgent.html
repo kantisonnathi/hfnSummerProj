@@ -15,6 +15,12 @@
 <div class="content-section">
   <p>Agent name: [[${agent.name}]]</p>
   <p>Contact number: [[${agent.contactNumber}]]</p>
+  <div th:if="${agent.active}">
+    <p>Active Status: Active</p>
+  </div>
+  <div th:unless="${agent.active}">
+    <p>Active Status: Inactive</p>
+  </div>
   <p>Gender: [[${agent.gender}]]</p>
   <p>Priority Level: [[${agent.level}]]</p>
   <p>Email: [[${agent.email}]]</p>

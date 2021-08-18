@@ -1,105 +1,128 @@
-2021-08-12 17:08:04,452 INFO org.hibernate.validator.internal.util.Version [background-preinit] HV000001: Hibernate Validator 6.2.0.Final
-2021-08-12 17:08:04,466 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting AvtcApplication using Java 11.0.10 on DESKTOP-BIBH7GP with PID 24324 (C:\Users\sonna\IdeaProjects\avtc\target\classes started by sonna in C:\Users\sonna\IdeaProjects\avtc)
-2021-08-12 17:08:04,469 DEBUG org.springframework.boot.StartupInfoLogger [restartedMain] Running with Spring Boot v2.5.0, Spring v5.3.7
-2021-08-12 17:08:04,469 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
-2021-08-12 17:08:04,584 INFO org.springframework.boot.logging.DeferredLog [restartedMain] The Class-Path manifest attribute in C:\Users\sonna\.m2\repository\org\glassfish\hk2\hk2\2.6.1\hk2-2.6.1.jar referenced one or more files that do not exist: file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-utils.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/jakarta.annotation-api.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/jakarta.inject.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-api.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/aopalliance-repackaged.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-core.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-locator.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/javassist.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-runlevel.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/class-model.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm-analysis.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm-commons.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm-tree.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm-util.jar
-2021-08-12 17:08:04,585 INFO org.springframework.boot.logging.DeferredLog [restartedMain] The Class-Path manifest attribute in C:\Users\sonna\.m2\repository\io\grpc\grpc-netty-shaded\1.23.0\grpc-netty-shaded-1.23.0.jar referenced one or more files that do not exist: file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/grpc-core-1.23.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/grpc-api-1.23.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/gson-2.7.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/annotations-4.1.1.4.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/perfmark-api-0.17.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/opencensus-contrib-grpc-metrics-0.21.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/opencensus-api-0.21.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/grpc-context-1.23.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/error_prone_annotations-2.3.2.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/jsr305-3.0.2.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/animal-sniffer-annotations-1.17.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/guava-26.0-android.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/checker-compat-qual-2.5.2.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/j2objc-annotations-1.1.jar
-2021-08-12 17:08:04,586 INFO org.springframework.boot.logging.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2021-08-12 17:08:04,587 INFO org.springframework.boot.logging.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2021-08-12 17:08:05,270 WARN org.springframework.core.log.CompositeLog [background-preinit] For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
-2021-08-12 17:08:06,889 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2021-08-12 17:08:07,307 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 387 ms. Found 12 JPA repository interfaces.
-2021-08-12 17:08:08,348 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@626685e0' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2021-08-12 17:08:08,368 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2021-08-12 17:08:09,346 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8082 (http)
-2021-08-12 17:08:09,375 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8082"]
-2021-08-12 17:08:09,377 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
-2021-08-12 17:08:09,378 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.46]
-2021-08-12 17:08:09,839 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
-2021-08-12 17:08:09,840 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 5249 ms
-2021-08-12 17:08:10,381 DEBUG org.springframework.web.filter.GenericFilterBean [restartedMain] Filter 'securityFilter' configured for use
-2021-08-12 17:08:10,818 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
+2021-08-15 15:19:50,235 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting AvtcApplication using Java 11.0.10 on DESKTOP-BIBH7GP with PID 31524 (C:\Users\sonna\IdeaProjects\avtc\target\classes started by sonna in C:\Users\sonna\IdeaProjects\avtc)
+2021-08-15 15:19:50,233 INFO org.hibernate.validator.internal.util.Version [background-preinit] HV000001: Hibernate Validator 6.2.0.Final
+2021-08-15 15:19:50,247 DEBUG org.springframework.boot.StartupInfoLogger [restartedMain] Running with Spring Boot v2.5.0, Spring v5.3.7
+2021-08-15 15:19:50,248 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2021-08-15 15:19:50,409 INFO org.springframework.boot.logging.DeferredLog [restartedMain] The Class-Path manifest attribute in C:\Users\sonna\.m2\repository\org\glassfish\hk2\hk2\2.6.1\hk2-2.6.1.jar referenced one or more files that do not exist: file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-utils.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/jakarta.annotation-api.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/jakarta.inject.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-api.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/aopalliance-repackaged.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-core.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-locator.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/javassist.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-runlevel.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/class-model.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm-analysis.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm-commons.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm-tree.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm-util.jar
+2021-08-15 15:19:50,410 INFO org.springframework.boot.logging.DeferredLog [restartedMain] The Class-Path manifest attribute in C:\Users\sonna\.m2\repository\io\grpc\grpc-netty-shaded\1.23.0\grpc-netty-shaded-1.23.0.jar referenced one or more files that do not exist: file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/grpc-core-1.23.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/grpc-api-1.23.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/gson-2.7.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/annotations-4.1.1.4.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/perfmark-api-0.17.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/opencensus-contrib-grpc-metrics-0.21.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/opencensus-api-0.21.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/grpc-context-1.23.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/error_prone_annotations-2.3.2.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/jsr305-3.0.2.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/animal-sniffer-annotations-1.17.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/guava-26.0-android.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/checker-compat-qual-2.5.2.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/j2objc-annotations-1.1.jar
+2021-08-15 15:19:50,411 INFO org.springframework.boot.logging.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-08-15 15:19:50,412 INFO org.springframework.boot.logging.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-08-15 15:19:51,153 WARN org.springframework.core.log.CompositeLog [background-preinit] For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
+2021-08-15 15:19:53,085 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-15 15:19:53,484 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 373 ms. Found 12 JPA repository interfaces.
+2021-08-15 15:19:54,518 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@316f485a' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-08-15 15:19:54,535 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-08-15 15:19:55,377 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8082 (http)
+2021-08-15 15:19:55,400 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8082"]
+2021-08-15 15:19:55,401 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2021-08-15 15:19:55,401 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.46]
+2021-08-15 15:19:55,655 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2021-08-15 15:19:55,656 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 5241 ms
+2021-08-15 15:19:56,168 DEBUG org.springframework.web.filter.GenericFilterBean [restartedMain] Filter 'securityFilter' configured for use
+2021-08-15 15:19:56,564 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
 	name: default
 	...]
-2021-08-12 17:08:11,009 INFO org.hibernate.Version [restartedMain] HHH000412: Hibernate Core {5.2.17.Final}
-2021-08-12 17:08:11,014 INFO org.hibernate.cfg.Environment [restartedMain] HHH000206: hibernate.properties not found
-2021-08-12 17:08:11,143 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [restartedMain] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
-2021-08-12 17:08:11,600 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Starting...
-2021-08-12 17:08:17,351 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
-2021-08-12 17:08:17,441 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL55Dialect
-2021-08-12 17:08:23,476 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
-2021-08-12 17:08:25,590 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
-2021-08-12 17:08:26,915 INFO org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration [restartedMain] 
+2021-08-15 15:19:56,757 INFO org.hibernate.Version [restartedMain] HHH000412: Hibernate Core {5.2.17.Final}
+2021-08-15 15:19:56,761 INFO org.hibernate.cfg.Environment [restartedMain] HHH000206: hibernate.properties not found
+2021-08-15 15:19:56,870 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [restartedMain] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2021-08-15 15:19:57,247 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2021-08-15 15:20:01,760 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2021-08-15 15:20:01,805 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL55Dialect
+2021-08-15 15:20:04,253 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-15 15:20:05,749 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2021-08-15 15:20:06,827 INFO org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration [restartedMain] 
 
-Using generated security password: 61f72625-5b83-49be-b787-e6ffbd1da9a9
+Using generated security password: f971cf5c-e8ec-43ce-8df6-22d76d31d0c2
 
-2021-08-12 17:08:27,769 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4200b811, org.springframework.security.web.context.SecurityContextPersistenceFilter@4adc6ccc, org.springframework.security.web.header.HeaderWriterFilter@49b2a9e6, org.springframework.web.filter.CorsFilter@142126d9, org.springframework.security.web.authentication.logout.LogoutFilter@4d72b440, org.heartfulness.avtc.security.auth.SecurityFilter@47ac32d1, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@91073cd, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@31b83129, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3c484e50, org.springframework.security.web.session.SessionManagementFilter@4f098c9f, org.springframework.security.web.access.ExceptionTranslationFilter@46d96656, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@16d144d1]
-2021-08-12 17:08:31,544 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
-2021-08-12 17:08:31,605 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8082"]
-2021-08-12 17:08:31,659 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8082 (http) with context path ''
-2021-08-12 17:08:31,698 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started AvtcApplication in 28.195 seconds (JVM running for 38.851)
-2021-08-12 17:08:31,704 INFO org.springframework.boot.availability.ApplicationAvailabilityBean [restartedMain] Application availability state LivenessState changed to CORRECT
-2021-08-12 17:08:31,716 INFO org.springframework.boot.availability.ApplicationAvailabilityBean [restartedMain] Application availability state ReadinessState changed to ACCEPTING_TRAFFIC
-2021-08-12 17:11:11,908 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8082-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
-2021-08-12 17:11:11,908 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8082-exec-1] Initializing Servlet 'dispatcherServlet'
-2021-08-12 17:11:11,912 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8082-exec-1] Completed initialization in 3 ms
-2021-08-12 17:11:11,956 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-1] null
-2021-08-12 17:11:13,938 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-2] null
-2021-08-12 17:11:14,063 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-3] null
-2021-08-12 17:11:14,071 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-4] null
-2021-08-12 17:11:14,228 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-5] null
-2021-08-12 17:11:14,500 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-6] null
-2021-08-12 17:11:22,237 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-9] null
-2021-08-12 17:11:22,443 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-1] null
-2021-08-12 17:11:22,783 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-2] null
-2021-08-12 17:11:30,525 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-5] null
-2021-08-12 17:11:30,536 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-6] null
-2021-08-12 17:11:30,681 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-8] null
-2021-08-12 17:11:30,688 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-7] null
-2021-08-12 17:11:55,868 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-1] null
-2021-08-12 17:12:00,991 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-2] null
-2021-08-12 17:12:04,384 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-3] null
-2021-08-12 17:12:04,425 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-4] null
-2021-08-12 17:12:04,503 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-5] null
-2021-08-12 17:12:04,508 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-6] null
-2021-08-12 17:12:04,641 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-8] null
-2021-08-12 17:12:08,321 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-7] null
-2021-08-12 17:12:08,429 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-9] null
-2021-08-12 17:12:10,677 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-10] null
-2021-08-12 17:12:10,746 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-1] null
-2021-08-12 17:12:10,747 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-2] null
-2021-08-12 17:12:10,823 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-3] null
-2021-08-12 17:12:23,413 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-6] null
-2021-08-12 17:12:23,614 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-8] null
-2021-08-12 17:12:25,843 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-7] null
-2021-08-12 17:12:26,060 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-9] null
-2021-08-12 17:12:30,806 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-10] null
-2021-08-12 17:12:30,919 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-1] null
-2021-08-12 17:12:31,024 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-2] null
-2021-08-12 17:16:12,159 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-4] null
-2021-08-12 17:16:12,229 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-6] null
-2021-08-12 17:16:12,324 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-8] null
-2021-08-12 17:16:18,756 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-7] null
-2021-08-12 17:16:18,818 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-9] null
-2021-08-12 17:16:28,731 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-10] null
-2021-08-12 17:16:28,880 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-1] null
-2021-08-12 17:16:31,183 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-2] null
-2021-08-12 17:16:31,299 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-5] null
-2021-08-12 17:16:33,363 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-3] null
-2021-08-12 17:16:33,494 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-4] null
-2021-08-12 17:17:25,753 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-9] null
-2021-08-12 17:17:25,819 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-10] null
-2021-08-12 17:17:25,824 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-1] null
-2021-08-12 17:17:25,865 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-2] null
-2021-08-12 17:17:27,211 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-5] null
-2021-08-12 17:17:27,327 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-3] null
-2021-08-12 17:17:33,303 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-6] null
-2021-08-12 17:17:33,776 WARN org.apache.juli.logging.DirectJDKLog [http-nio-8082-exec-6] Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [396] milliseconds.
-2021-08-12 17:17:33,801 ERROR org.apache.juli.logging.DirectJDKLog [http-nio-8082-exec-7] Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
-org.springframework.security.web.firewall.RequestRejectedException: The request was rejected because the URL contained a potentially malicious String ";"
-	at org.springframework.security.web.firewall.StrictHttpFirewall.rejectedBlocklistedUrls(StrictHttpFirewall.java:456)
-	at org.springframework.security.web.firewall.StrictHttpFirewall.getFirewalledRequest(StrictHttpFirewall.java:429)
-	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:196)
+2021-08-15 15:20:07,452 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3d90f780, org.springframework.security.web.context.SecurityContextPersistenceFilter@47ac6fe8, org.springframework.security.web.header.HeaderWriterFilter@5855cea0, org.springframework.web.filter.CorsFilter@1cfdb4ff, org.springframework.security.web.authentication.logout.LogoutFilter@652c3db1, org.heartfulness.avtc.security.auth.SecurityFilter@7105417e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@125acea, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5dedd82e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@16b4059b, org.springframework.security.web.session.SessionManagementFilter@6e8086b2, org.springframework.security.web.access.ExceptionTranslationFilter@6ff33c59, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@34dbc116]
+2021-08-15 15:20:10,734 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2021-08-15 15:20:10,846 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8082"]
+2021-08-15 15:20:11,009 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8082 (http) with context path ''
+2021-08-15 15:20:11,080 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started AvtcApplication in 21.99 seconds (JVM running for 29.859)
+2021-08-15 15:20:11,084 INFO org.springframework.boot.availability.ApplicationAvailabilityBean [restartedMain] Application availability state LivenessState changed to CORRECT
+2021-08-15 15:20:11,090 INFO org.springframework.boot.availability.ApplicationAvailabilityBean [restartedMain] Application availability state ReadinessState changed to ACCEPTING_TRAFFIC
+2021-08-15 15:20:23,762 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8082-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-08-15 15:20:23,763 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8082-exec-1] Initializing Servlet 'dispatcherServlet'
+2021-08-15 15:20:23,765 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8082-exec-1] Completed initialization in 2 ms
+2021-08-15 15:20:23,806 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-1] null
+2021-08-15 15:20:24,789 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-3] null
+2021-08-15 15:20:26,176 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-2] null
+2021-08-15 15:20:26,504 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-4] null
+2021-08-15 15:20:27,073 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-5] null
+2021-08-15 15:20:31,712 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-7] null
+2021-08-15 15:20:33,418 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-6] null
+2021-08-15 15:20:35,033 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-9] null
+2021-08-15 15:20:35,144 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-8] null
+2021-08-15 15:20:35,302 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-10] null
+2021-08-15 15:21:01,534 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-1] null
+2021-08-15 15:21:09,211 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-3] null
+2021-08-15 15:21:11,429 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-2] null
+2021-08-15 15:21:16,020 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-4] null
+2021-08-15 15:21:16,053 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-5] null
+2021-08-15 15:21:16,202 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-7] null
+2021-08-15 15:21:16,476 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-6] null
+2021-08-15 15:21:20,599 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-9] null
+2021-08-15 15:21:20,732 ERROR org.thymeleaf.TemplateEngine [http-nio-8082-exec-9] [THYMELEAF][http-nio-8082-exec-9] Exception processing template "team/viewTeamsPaginated": An error happened during template parsing (template: "class path resource [templates/team/viewTeamsPaginated.html]")
+org.thymeleaf.exceptions.TemplateInputException: An error happened during template parsing (template: "class path resource [templates/team/viewTeamsPaginated.html]")
+	at org.thymeleaf.templateparser.markup.AbstractMarkupTemplateParser.parse(AbstractMarkupTemplateParser.java:241)
+	at org.thymeleaf.templateparser.markup.AbstractMarkupTemplateParser.parseStandalone(AbstractMarkupTemplateParser.java:100)
+	at org.thymeleaf.engine.TemplateManager.parseAndProcess(TemplateManager.java:666)
+	at org.thymeleaf.TemplateEngine.process(TemplateEngine.java:1098)
+	at org.thymeleaf.TemplateEngine.process(TemplateEngine.java:1072)
+	at org.thymeleaf.spring5.view.ThymeleafView.renderFragment(ThymeleafView.java:366)
+	at org.thymeleaf.spring5.view.ThymeleafView.render(ThymeleafView.java:190)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1396)
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1141)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1080)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:626)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:113)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:327)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:115)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:81)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:121)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:115)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:126)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:81)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:105)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:149)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.heartfulness.avtc.security.auth.SecurityFilter.doFilterInternal(SecurityFilter.java:58)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:110)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:80)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:211)
 	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:183)
 	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
 	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
@@ -133,183 +156,741 @@ org.springframework.security.web.firewall.RequestRejectedException: The request 
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.base/java.lang.Thread.run(Thread.java:834)
-2021-08-12 17:17:33,811 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-9] null
-2021-08-12 17:17:33,825 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-10] null
-2021-08-12 17:17:33,882 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-1] null
-2021-08-12 17:17:33,884 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-2] null
-2021-08-12 17:17:34,990 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-5] null
-2021-08-12 17:17:35,728 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-3] null
-2021-08-12 17:17:35,825 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-4] null
-2021-08-12 17:17:40,468 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-6] null
-2021-08-12 17:17:40,605 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-8] null
-2021-08-12 17:17:44,985 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-7] null
-2021-08-12 17:17:45,045 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-9] null
-2021-08-12 17:17:45,169 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-10] null
-2021-08-12 17:17:49,368 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-1] null
-2021-08-12 17:17:49,452 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-2] null
-2021-08-12 17:17:50,513 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-5] null
-2021-08-12 17:17:50,599 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-3] null
-2021-08-12 17:17:58,607 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-4] null
-2021-08-12 17:17:58,697 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-6] null
-2021-08-12 17:18:02,054 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-8] null
-2021-08-12 17:18:02,119 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-7] null
-2021-08-12 17:18:05,370 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-9] null
-2021-08-12 17:18:05,448 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-10] null
-2021-08-12 17:18:35,826 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-2] null
-2021-08-12 17:18:35,900 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-5] null
-2021-08-12 17:18:40,172 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-3] null
-2021-08-12 17:18:40,239 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-4] null
-2021-08-12 17:18:40,295 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-6] null
-2021-08-12 17:18:40,298 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-8] null
-2021-08-12 17:18:40,331 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-7] null
-2021-08-12 17:18:52,522 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-1] null
-2021-08-12 17:18:52,626 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-2] null
-2021-08-12 17:18:55,587 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-5] null
-2021-08-12 17:18:55,709 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-3] null
-2021-08-12 17:19:00,790 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-4] null
-2021-08-12 17:19:01,001 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-6] null
-2021-08-12 17:19:03,151 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-8] null
-2021-08-12 17:19:03,199 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-7] null
-2021-08-12 17:19:03,325 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-9] null
-2021-08-12 17:19:28,473 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-10] null
-2021-08-12 17:19:28,576 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-1] null
-2021-08-12 17:19:33,213 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-2] null
-2021-08-12 17:19:33,347 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-5] null
-2021-08-12 17:19:35,035 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-3] null
-2021-08-12 17:19:35,160 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-4] null
-2021-08-12 17:19:40,829 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-6] null
-2021-08-12 17:19:40,945 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-8] null
-2021-08-12 17:19:47,204 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-10] null
-2021-08-12 17:19:47,297 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-1] null
-2021-08-12 17:23:04,462 INFO org.springframework.boot.availability.ApplicationAvailabilityBean [SpringContextShutdownHook] Application availability state ReadinessState changed from ACCEPTING_TRAFFIC to REFUSING_TRAFFIC
-2021-08-12 17:23:46,585 INFO org.hibernate.validator.internal.util.Version [background-preinit] HV000001: Hibernate Validator 6.2.0.Final
-2021-08-12 17:23:46,589 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting AvtcApplication using Java 11.0.10 on DESKTOP-BIBH7GP with PID 32636 (C:\Users\sonna\IdeaProjects\avtc\target\classes started by sonna in C:\Users\sonna\IdeaProjects\avtc)
-2021-08-12 17:23:46,596 DEBUG org.springframework.boot.StartupInfoLogger [restartedMain] Running with Spring Boot v2.5.0, Spring v5.3.7
-2021-08-12 17:23:46,597 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
-2021-08-12 17:23:46,713 INFO org.springframework.boot.logging.DeferredLog [restartedMain] The Class-Path manifest attribute in C:\Users\sonna\.m2\repository\org\glassfish\hk2\hk2\2.6.1\hk2-2.6.1.jar referenced one or more files that do not exist: file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-utils.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/jakarta.annotation-api.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/jakarta.inject.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-api.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/aopalliance-repackaged.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-core.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-locator.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/javassist.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-runlevel.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/class-model.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm-analysis.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm-commons.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm-tree.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm-util.jar
-2021-08-12 17:23:46,714 INFO org.springframework.boot.logging.DeferredLog [restartedMain] The Class-Path manifest attribute in C:\Users\sonna\.m2\repository\io\grpc\grpc-netty-shaded\1.23.0\grpc-netty-shaded-1.23.0.jar referenced one or more files that do not exist: file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/grpc-core-1.23.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/grpc-api-1.23.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/gson-2.7.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/annotations-4.1.1.4.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/perfmark-api-0.17.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/opencensus-contrib-grpc-metrics-0.21.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/opencensus-api-0.21.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/grpc-context-1.23.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/error_prone_annotations-2.3.2.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/jsr305-3.0.2.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/animal-sniffer-annotations-1.17.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/guava-26.0-android.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/checker-compat-qual-2.5.2.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/j2objc-annotations-1.1.jar
-2021-08-12 17:23:46,715 INFO org.springframework.boot.logging.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2021-08-12 17:23:46,716 INFO org.springframework.boot.logging.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2021-08-12 17:23:47,297 WARN org.springframework.core.log.CompositeLog [background-preinit] For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
-2021-08-12 17:23:48,631 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2021-08-12 17:23:48,954 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 304 ms. Found 12 JPA repository interfaces.
-2021-08-12 17:23:49,787 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@164c9048' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2021-08-12 17:23:49,803 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2021-08-12 17:23:50,561 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8082 (http)
-2021-08-12 17:23:50,586 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8082"]
-2021-08-12 17:23:50,587 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
-2021-08-12 17:23:50,588 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.46]
-2021-08-12 17:23:50,911 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
-2021-08-12 17:23:50,912 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 4192 ms
-2021-08-12 17:23:51,395 DEBUG org.springframework.web.filter.GenericFilterBean [restartedMain] Filter 'securityFilter' configured for use
-2021-08-12 17:23:51,785 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
+Caused by: org.attoparser.ParseException: Exception evaluating SpringEL expression: "/admin/team/3/active" (template: "team/viewTeamsPaginated" - line 45, col 24)
+	at org.attoparser.MarkupParser.parseDocument(MarkupParser.java:393)
+	at org.attoparser.MarkupParser.parse(MarkupParser.java:257)
+	at org.thymeleaf.templateparser.markup.AbstractMarkupTemplateParser.parse(AbstractMarkupTemplateParser.java:230)
+	... 92 common frames omitted
+Caused by: org.thymeleaf.exceptions.TemplateProcessingException: Exception evaluating SpringEL expression: "/admin/team/3/active" (template: "team/viewTeamsPaginated" - line 45, col 24)
+	at org.thymeleaf.spring5.expression.SPELVariableExpressionEvaluator.evaluate(SPELVariableExpressionEvaluator.java:292)
+	at org.thymeleaf.standard.expression.VariableExpression.executeVariableExpression(VariableExpression.java:166)
+	at org.thymeleaf.standard.expression.SimpleExpression.executeSimple(SimpleExpression.java:66)
+	at org.thymeleaf.standard.expression.Expression.execute(Expression.java:109)
+	at org.thymeleaf.standard.expression.Expression.execute(Expression.java:138)
+	at org.thymeleaf.standard.processor.AbstractStandardExpressionAttributeTagProcessor.doProcess(AbstractStandardExpressionAttributeTagProcessor.java:144)
+	at org.thymeleaf.processor.element.AbstractAttributeTagProcessor.doProcess(AbstractAttributeTagProcessor.java:74)
+	at org.thymeleaf.processor.element.AbstractElementTagProcessor.process(AbstractElementTagProcessor.java:95)
+	at org.thymeleaf.util.ProcessorConfigurationUtils$ElementTagProcessorWrapper.process(ProcessorConfigurationUtils.java:633)
+	at org.thymeleaf.engine.ProcessorTemplateHandler.handleOpenElement(ProcessorTemplateHandler.java:1314)
+	at org.thymeleaf.engine.OpenElementTag.beHandled(OpenElementTag.java:205)
+	at org.thymeleaf.engine.Model.process(Model.java:282)
+	at org.thymeleaf.engine.Model.process(Model.java:290)
+	at org.thymeleaf.engine.IteratedGatheringModelProcessable.processIterationModel(IteratedGatheringModelProcessable.java:367)
+	at org.thymeleaf.engine.IteratedGatheringModelProcessable.process(IteratedGatheringModelProcessable.java:221)
+	at org.thymeleaf.engine.ProcessorTemplateHandler.handleCloseElement(ProcessorTemplateHandler.java:1640)
+	at org.thymeleaf.engine.TemplateHandlerAdapterMarkupHandler.handleCloseElementEnd(TemplateHandlerAdapterMarkupHandler.java:388)
+	at org.thymeleaf.templateparser.markup.InlinedOutputExpressionMarkupHandler$InlineMarkupAdapterPreProcessorHandler.handleCloseElementEnd(InlinedOutputExpressionMarkupHandler.java:322)
+	at org.thymeleaf.standard.inline.OutputExpressionInlinePreProcessorHandler.handleCloseElementEnd(OutputExpressionInlinePreProcessorHandler.java:220)
+	at org.thymeleaf.templateparser.markup.InlinedOutputExpressionMarkupHandler.handleCloseElementEnd(InlinedOutputExpressionMarkupHandler.java:164)
+	at org.attoparser.HtmlElement.handleCloseElementEnd(HtmlElement.java:169)
+	at org.attoparser.HtmlMarkupHandler.handleCloseElementEnd(HtmlMarkupHandler.java:412)
+	at org.attoparser.MarkupEventProcessorHandler.handleCloseElementEnd(MarkupEventProcessorHandler.java:473)
+	at org.attoparser.ParsingElementMarkupUtil.parseCloseElement(ParsingElementMarkupUtil.java:201)
+	at org.attoparser.MarkupParser.parseBuffer(MarkupParser.java:725)
+	at org.attoparser.MarkupParser.parseDocument(MarkupParser.java:301)
+	... 94 common frames omitted
+Caused by: org.springframework.expression.spel.SpelParseException: Expression [/admin/team/3/active] @0: EL1070E: Problem parsing left operand
+	at org.springframework.expression.spel.standard.InternalSpelExpressionParser.internalException(InternalSpelExpressionParser.java:1041)
+	at org.springframework.expression.spel.standard.InternalSpelExpressionParser.checkLeftOperand(InternalSpelExpressionParser.java:1030)
+	at org.springframework.expression.spel.standard.InternalSpelExpressionParser.checkOperands(InternalSpelExpressionParser.java:1024)
+	at org.springframework.expression.spel.standard.InternalSpelExpressionParser.eatProductExpression(InternalSpelExpressionParser.java:285)
+	at org.springframework.expression.spel.standard.InternalSpelExpressionParser.eatSumExpression(InternalSpelExpressionParser.java:263)
+	at org.springframework.expression.spel.standard.InternalSpelExpressionParser.eatRelationalExpression(InternalSpelExpressionParser.java:218)
+	at org.springframework.expression.spel.standard.InternalSpelExpressionParser.eatLogicalAndExpression(InternalSpelExpressionParser.java:205)
+	at org.springframework.expression.spel.standard.InternalSpelExpressionParser.eatLogicalOrExpression(InternalSpelExpressionParser.java:192)
+	at org.springframework.expression.spel.standard.InternalSpelExpressionParser.eatExpression(InternalSpelExpressionParser.java:153)
+	at org.springframework.expression.spel.standard.InternalSpelExpressionParser.doParseExpression(InternalSpelExpressionParser.java:131)
+	at org.springframework.expression.spel.standard.SpelExpressionParser.doParseExpression(SpelExpressionParser.java:61)
+	at org.springframework.expression.spel.standard.SpelExpressionParser.doParseExpression(SpelExpressionParser.java:33)
+	at org.springframework.expression.common.TemplateAwareExpressionParser.parseExpression(TemplateAwareExpressionParser.java:52)
+	at org.springframework.expression.common.TemplateAwareExpressionParser.parseExpression(TemplateAwareExpressionParser.java:43)
+	at org.thymeleaf.spring5.expression.SPELVariableExpressionEvaluator.getExpression(SPELVariableExpressionEvaluator.java:374)
+	at org.thymeleaf.spring5.expression.SPELVariableExpressionEvaluator.obtainComputedSpelExpression(SPELVariableExpressionEvaluator.java:315)
+	at org.thymeleaf.spring5.expression.SPELVariableExpressionEvaluator.evaluate(SPELVariableExpressionEvaluator.java:182)
+	... 119 common frames omitted
+2021-08-15 15:21:20,739 ERROR org.apache.juli.logging.DirectJDKLog [http-nio-8082-exec-9] Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.thymeleaf.exceptions.TemplateInputException: An error happened during template parsing (template: "class path resource [templates/team/viewTeamsPaginated.html]")] with root cause
+org.springframework.expression.spel.SpelParseException: Expression [/admin/team/3/active] @0: EL1070E: Problem parsing left operand
+	at org.springframework.expression.spel.standard.InternalSpelExpressionParser.internalException(InternalSpelExpressionParser.java:1041)
+	at org.springframework.expression.spel.standard.InternalSpelExpressionParser.checkLeftOperand(InternalSpelExpressionParser.java:1030)
+	at org.springframework.expression.spel.standard.InternalSpelExpressionParser.checkOperands(InternalSpelExpressionParser.java:1024)
+	at org.springframework.expression.spel.standard.InternalSpelExpressionParser.eatProductExpression(InternalSpelExpressionParser.java:285)
+	at org.springframework.expression.spel.standard.InternalSpelExpressionParser.eatSumExpression(InternalSpelExpressionParser.java:263)
+	at org.springframework.expression.spel.standard.InternalSpelExpressionParser.eatRelationalExpression(InternalSpelExpressionParser.java:218)
+	at org.springframework.expression.spel.standard.InternalSpelExpressionParser.eatLogicalAndExpression(InternalSpelExpressionParser.java:205)
+	at org.springframework.expression.spel.standard.InternalSpelExpressionParser.eatLogicalOrExpression(InternalSpelExpressionParser.java:192)
+	at org.springframework.expression.spel.standard.InternalSpelExpressionParser.eatExpression(InternalSpelExpressionParser.java:153)
+	at org.springframework.expression.spel.standard.InternalSpelExpressionParser.doParseExpression(InternalSpelExpressionParser.java:131)
+	at org.springframework.expression.spel.standard.SpelExpressionParser.doParseExpression(SpelExpressionParser.java:61)
+	at org.springframework.expression.spel.standard.SpelExpressionParser.doParseExpression(SpelExpressionParser.java:33)
+	at org.springframework.expression.common.TemplateAwareExpressionParser.parseExpression(TemplateAwareExpressionParser.java:52)
+	at org.springframework.expression.common.TemplateAwareExpressionParser.parseExpression(TemplateAwareExpressionParser.java:43)
+	at org.thymeleaf.spring5.expression.SPELVariableExpressionEvaluator.getExpression(SPELVariableExpressionEvaluator.java:374)
+	at org.thymeleaf.spring5.expression.SPELVariableExpressionEvaluator.obtainComputedSpelExpression(SPELVariableExpressionEvaluator.java:315)
+	at org.thymeleaf.spring5.expression.SPELVariableExpressionEvaluator.evaluate(SPELVariableExpressionEvaluator.java:182)
+	at org.thymeleaf.standard.expression.VariableExpression.executeVariableExpression(VariableExpression.java:166)
+	at org.thymeleaf.standard.expression.SimpleExpression.executeSimple(SimpleExpression.java:66)
+	at org.thymeleaf.standard.expression.Expression.execute(Expression.java:109)
+	at org.thymeleaf.standard.expression.Expression.execute(Expression.java:138)
+	at org.thymeleaf.standard.processor.AbstractStandardExpressionAttributeTagProcessor.doProcess(AbstractStandardExpressionAttributeTagProcessor.java:144)
+	at org.thymeleaf.processor.element.AbstractAttributeTagProcessor.doProcess(AbstractAttributeTagProcessor.java:74)
+	at org.thymeleaf.processor.element.AbstractElementTagProcessor.process(AbstractElementTagProcessor.java:95)
+	at org.thymeleaf.util.ProcessorConfigurationUtils$ElementTagProcessorWrapper.process(ProcessorConfigurationUtils.java:633)
+	at org.thymeleaf.engine.ProcessorTemplateHandler.handleOpenElement(ProcessorTemplateHandler.java:1314)
+	at org.thymeleaf.engine.OpenElementTag.beHandled(OpenElementTag.java:205)
+	at org.thymeleaf.engine.Model.process(Model.java:282)
+	at org.thymeleaf.engine.Model.process(Model.java:290)
+	at org.thymeleaf.engine.IteratedGatheringModelProcessable.processIterationModel(IteratedGatheringModelProcessable.java:367)
+	at org.thymeleaf.engine.IteratedGatheringModelProcessable.process(IteratedGatheringModelProcessable.java:221)
+	at org.thymeleaf.engine.ProcessorTemplateHandler.handleCloseElement(ProcessorTemplateHandler.java:1640)
+	at org.thymeleaf.engine.TemplateHandlerAdapterMarkupHandler.handleCloseElementEnd(TemplateHandlerAdapterMarkupHandler.java:388)
+	at org.thymeleaf.templateparser.markup.InlinedOutputExpressionMarkupHandler$InlineMarkupAdapterPreProcessorHandler.handleCloseElementEnd(InlinedOutputExpressionMarkupHandler.java:322)
+	at org.thymeleaf.standard.inline.OutputExpressionInlinePreProcessorHandler.handleCloseElementEnd(OutputExpressionInlinePreProcessorHandler.java:220)
+	at org.thymeleaf.templateparser.markup.InlinedOutputExpressionMarkupHandler.handleCloseElementEnd(InlinedOutputExpressionMarkupHandler.java:164)
+	at org.attoparser.HtmlElement.handleCloseElementEnd(HtmlElement.java:169)
+	at org.attoparser.HtmlMarkupHandler.handleCloseElementEnd(HtmlMarkupHandler.java:412)
+	at org.attoparser.MarkupEventProcessorHandler.handleCloseElementEnd(MarkupEventProcessorHandler.java:473)
+	at org.attoparser.ParsingElementMarkupUtil.parseCloseElement(ParsingElementMarkupUtil.java:201)
+	at org.attoparser.MarkupParser.parseBuffer(MarkupParser.java:725)
+	at org.attoparser.MarkupParser.parseDocument(MarkupParser.java:301)
+	at org.attoparser.MarkupParser.parse(MarkupParser.java:257)
+	at org.thymeleaf.templateparser.markup.AbstractMarkupTemplateParser.parse(AbstractMarkupTemplateParser.java:230)
+	at org.thymeleaf.templateparser.markup.AbstractMarkupTemplateParser.parseStandalone(AbstractMarkupTemplateParser.java:100)
+	at org.thymeleaf.engine.TemplateManager.parseAndProcess(TemplateManager.java:666)
+	at org.thymeleaf.TemplateEngine.process(TemplateEngine.java:1098)
+	at org.thymeleaf.TemplateEngine.process(TemplateEngine.java:1072)
+	at org.thymeleaf.spring5.view.ThymeleafView.renderFragment(ThymeleafView.java:366)
+	at org.thymeleaf.spring5.view.ThymeleafView.render(ThymeleafView.java:190)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1396)
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1141)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1080)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:626)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:113)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:327)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:115)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:81)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:121)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:115)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:126)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:81)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:105)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:149)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.heartfulness.avtc.security.auth.SecurityFilter.doFilterInternal(SecurityFilter.java:58)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:110)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:80)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:211)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:183)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:893)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1707)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2021-08-15 15:22:15,198 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting AvtcApplication using Java 11.0.10 on DESKTOP-BIBH7GP with PID 20208 (C:\Users\sonna\IdeaProjects\avtc\target\classes started by sonna in C:\Users\sonna\IdeaProjects\avtc)
+2021-08-15 15:22:15,207 DEBUG org.springframework.boot.StartupInfoLogger [restartedMain] Running with Spring Boot v2.5.0, Spring v5.3.7
+2021-08-15 15:22:15,208 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2021-08-15 15:22:15,428 INFO org.springframework.boot.logging.DeferredLog [restartedMain] The Class-Path manifest attribute in C:\Users\sonna\.m2\repository\org\glassfish\hk2\hk2\2.6.1\hk2-2.6.1.jar referenced one or more files that do not exist: file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-utils.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/jakarta.annotation-api.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/jakarta.inject.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-api.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/aopalliance-repackaged.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-core.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-locator.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/javassist.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-runlevel.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/class-model.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm-analysis.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm-commons.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm-tree.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm-util.jar
+2021-08-15 15:22:15,435 INFO org.springframework.boot.logging.DeferredLog [restartedMain] The Class-Path manifest attribute in C:\Users\sonna\.m2\repository\io\grpc\grpc-netty-shaded\1.23.0\grpc-netty-shaded-1.23.0.jar referenced one or more files that do not exist: file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/grpc-core-1.23.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/grpc-api-1.23.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/gson-2.7.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/annotations-4.1.1.4.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/perfmark-api-0.17.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/opencensus-contrib-grpc-metrics-0.21.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/opencensus-api-0.21.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/grpc-context-1.23.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/error_prone_annotations-2.3.2.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/jsr305-3.0.2.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/animal-sniffer-annotations-1.17.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/guava-26.0-android.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/checker-compat-qual-2.5.2.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/j2objc-annotations-1.1.jar
+2021-08-15 15:22:15,437 INFO org.springframework.boot.logging.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-08-15 15:22:15,437 INFO org.springframework.boot.logging.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-08-15 15:22:15,812 INFO org.hibernate.validator.internal.util.Version [background-preinit] HV000001: Hibernate Validator 6.2.0.Final
+2021-08-15 15:22:17,782 WARN org.springframework.core.log.CompositeLog [background-preinit] For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
+2021-08-15 15:22:18,773 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-15 15:22:19,078 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 284 ms. Found 12 JPA repository interfaces.
+2021-08-15 15:22:19,924 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@4c5e6d2e' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-08-15 15:22:19,940 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-08-15 15:22:20,855 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8082 (http)
+2021-08-15 15:22:20,880 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8082"]
+2021-08-15 15:22:20,881 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2021-08-15 15:22:20,881 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.46]
+2021-08-15 15:22:21,198 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2021-08-15 15:22:21,199 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 5733 ms
+2021-08-15 15:22:21,658 DEBUG org.springframework.web.filter.GenericFilterBean [restartedMain] Filter 'securityFilter' configured for use
+2021-08-15 15:22:21,987 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
 	name: default
 	...]
-2021-08-12 17:23:52,018 INFO org.hibernate.Version [restartedMain] HHH000412: Hibernate Core {5.2.17.Final}
-2021-08-12 17:23:52,022 INFO org.hibernate.cfg.Environment [restartedMain] HHH000206: hibernate.properties not found
-2021-08-12 17:23:52,206 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [restartedMain] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
-2021-08-12 17:23:52,584 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Starting...
-2021-08-12 17:23:53,230 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
-2021-08-12 17:23:53,255 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL55Dialect
-2021-08-12 17:23:55,622 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
-2021-08-12 17:23:57,134 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
-2021-08-12 17:23:58,156 INFO org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration [restartedMain] 
+2021-08-15 15:22:22,134 INFO org.hibernate.Version [restartedMain] HHH000412: Hibernate Core {5.2.17.Final}
+2021-08-15 15:22:22,138 INFO org.hibernate.cfg.Environment [restartedMain] HHH000206: hibernate.properties not found
+2021-08-15 15:22:22,228 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [restartedMain] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2021-08-15 15:22:22,578 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2021-08-15 15:22:23,285 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2021-08-15 15:22:23,310 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL55Dialect
+2021-08-15 15:22:25,254 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-15 15:22:28,013 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2021-08-15 15:22:29,778 INFO org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration [restartedMain] 
 
-Using generated security password: bf70e313-b701-4f3e-a962-e463dace3182
+Using generated security password: c0e76130-5def-4fc9-9a23-c98b99d822d8
 
-2021-08-12 17:23:58,662 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4f226217, org.springframework.security.web.context.SecurityContextPersistenceFilter@6adeca7e, org.springframework.security.web.header.HeaderWriterFilter@27d5baa9, org.springframework.web.filter.CorsFilter@221a4eca, org.springframework.security.web.authentication.logout.LogoutFilter@54b1fee4, org.heartfulness.avtc.security.auth.SecurityFilter@c64905c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@301cbc5f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2de672c2, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5402e3a9, org.springframework.security.web.session.SessionManagementFilter@7ba1ed9d, org.springframework.security.web.access.ExceptionTranslationFilter@299020d, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@26c3161e]
-2021-08-12 17:24:01,464 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
-2021-08-12 17:24:01,514 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8082"]
-2021-08-12 17:24:01,555 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8082 (http) with context path ''
-2021-08-12 17:24:01,581 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started AvtcApplication in 15.916 seconds (JVM running for 21.008)
-2021-08-12 17:24:01,585 INFO org.springframework.boot.availability.ApplicationAvailabilityBean [restartedMain] Application availability state LivenessState changed to CORRECT
-2021-08-12 17:24:01,592 INFO org.springframework.boot.availability.ApplicationAvailabilityBean [restartedMain] Application availability state ReadinessState changed to ACCEPTING_TRAFFIC
-2021-08-12 17:25:11,515 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8082-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
-2021-08-12 17:25:11,517 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8082-exec-1] Initializing Servlet 'dispatcherServlet'
-2021-08-12 17:25:11,521 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8082-exec-1] Completed initialization in 4 ms
-2021-08-12 17:25:12,750 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-1] null
-2021-08-12 17:25:15,569 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-2] null
-2021-08-12 17:25:59,786 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-5] null
-2021-08-12 17:26:00,224 WARN org.apache.juli.logging.DirectJDKLog [http-nio-8082-exec-5] Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [418] milliseconds.
-2021-08-12 17:26:00,377 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-6] null
-2021-08-12 17:26:01,702 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-8] null
-2021-08-12 17:26:01,830 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-9] null
-2021-08-12 17:26:34,101 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-1] null
-2021-08-12 17:26:34,285 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-2] null
-2021-08-12 17:26:34,527 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-3] null
-2021-08-12 17:26:36,314 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-6] null
-2021-08-12 17:26:36,453 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-7] null
-2021-08-12 17:26:37,515 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-8] null
-2021-08-12 17:26:37,638 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-9] null
-2021-08-12 17:27:51,193 INFO org.springframework.boot.availability.ApplicationAvailabilityBean [Thread-6] Application availability state ReadinessState changed from ACCEPTING_TRAFFIC to REFUSING_TRAFFIC
-2021-08-12 17:27:51,788 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [Thread-6] Closing JPA EntityManagerFactory for persistence unit 'default'
-2021-08-12 17:27:51,795 INFO com.zaxxer.hikari.HikariDataSource [Thread-6] HikariPool-1 - Shutdown initiated...
-2021-08-12 17:27:51,821 INFO com.zaxxer.hikari.HikariDataSource [Thread-6] HikariPool-1 - Shutdown completed.
-2021-08-12 17:27:52,154 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting AvtcApplication using Java 11.0.10 on DESKTOP-BIBH7GP with PID 32636 (C:\Users\sonna\IdeaProjects\avtc\target\classes started by sonna in C:\Users\sonna\IdeaProjects\avtc)
-2021-08-12 17:27:52,155 DEBUG org.springframework.boot.StartupInfoLogger [restartedMain] Running with Spring Boot v2.5.0, Spring v5.3.7
-2021-08-12 17:27:52,156 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
-2021-08-12 17:27:53,260 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2021-08-12 17:27:53,494 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 233 ms. Found 12 JPA repository interfaces.
-2021-08-12 17:27:53,736 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@39e86b77' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2021-08-12 17:27:53,743 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2021-08-12 17:27:53,930 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8082 (http)
-2021-08-12 17:27:53,931 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8082"]
-2021-08-12 17:27:53,932 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
-2021-08-12 17:27:53,933 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.46]
-2021-08-12 17:27:54,070 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
-2021-08-12 17:27:54,071 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 1898 ms
-2021-08-12 17:27:54,283 DEBUG org.springframework.web.filter.GenericFilterBean [restartedMain] Filter 'securityFilter' configured for use
-2021-08-12 17:27:54,468 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
+2021-08-15 15:22:30,472 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6cdb601e, org.springframework.security.web.context.SecurityContextPersistenceFilter@75c387, org.springframework.security.web.header.HeaderWriterFilter@616011e4, org.springframework.web.filter.CorsFilter@73efd92b, org.springframework.security.web.authentication.logout.LogoutFilter@731f3d3e, org.heartfulness.avtc.security.auth.SecurityFilter@ab9982b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1c3a31d7, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4d998048, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@a563b3c, org.springframework.security.web.session.SessionManagementFilter@41c7361, org.springframework.security.web.access.ExceptionTranslationFilter@4716252b, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@4964608e]
+2021-08-15 15:22:33,709 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2021-08-15 15:22:33,761 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8082"]
+2021-08-15 15:22:33,809 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8082 (http) with context path ''
+2021-08-15 15:22:33,839 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started AvtcApplication in 20.027 seconds (JVM running for 25.205)
+2021-08-15 15:22:33,842 INFO org.springframework.boot.availability.ApplicationAvailabilityBean [restartedMain] Application availability state LivenessState changed to CORRECT
+2021-08-15 15:22:33,850 INFO org.springframework.boot.availability.ApplicationAvailabilityBean [restartedMain] Application availability state ReadinessState changed to ACCEPTING_TRAFFIC
+2021-08-15 15:22:43,584 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8082-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-08-15 15:22:43,585 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8082-exec-1] Initializing Servlet 'dispatcherServlet'
+2021-08-15 15:22:43,588 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8082-exec-1] Completed initialization in 3 ms
+2021-08-15 15:22:43,633 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-1] null
+2021-08-15 15:22:45,418 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-2] null
+2021-08-15 15:22:46,004 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-4] null
+2021-08-15 15:24:40,361 INFO org.hibernate.validator.internal.util.Version [background-preinit] HV000001: Hibernate Validator 6.2.0.Final
+2021-08-15 15:24:40,364 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting AvtcApplication using Java 11.0.10 on DESKTOP-BIBH7GP with PID 31652 (C:\Users\sonna\IdeaProjects\avtc\target\classes started by sonna in C:\Users\sonna\IdeaProjects\avtc)
+2021-08-15 15:24:40,370 DEBUG org.springframework.boot.StartupInfoLogger [restartedMain] Running with Spring Boot v2.5.0, Spring v5.3.7
+2021-08-15 15:24:40,371 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2021-08-15 15:24:40,472 INFO org.springframework.boot.logging.DeferredLog [restartedMain] The Class-Path manifest attribute in C:\Users\sonna\.m2\repository\org\glassfish\hk2\hk2\2.6.1\hk2-2.6.1.jar referenced one or more files that do not exist: file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-utils.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/jakarta.annotation-api.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/jakarta.inject.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-api.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/aopalliance-repackaged.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-core.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-locator.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/javassist.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-runlevel.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/class-model.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm-analysis.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm-commons.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm-tree.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm-util.jar
+2021-08-15 15:24:40,472 INFO org.springframework.boot.logging.DeferredLog [restartedMain] The Class-Path manifest attribute in C:\Users\sonna\.m2\repository\io\grpc\grpc-netty-shaded\1.23.0\grpc-netty-shaded-1.23.0.jar referenced one or more files that do not exist: file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/grpc-core-1.23.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/grpc-api-1.23.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/gson-2.7.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/annotations-4.1.1.4.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/perfmark-api-0.17.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/opencensus-contrib-grpc-metrics-0.21.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/opencensus-api-0.21.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/grpc-context-1.23.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/error_prone_annotations-2.3.2.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/jsr305-3.0.2.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/animal-sniffer-annotations-1.17.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/guava-26.0-android.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/checker-compat-qual-2.5.2.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/j2objc-annotations-1.1.jar
+2021-08-15 15:24:40,473 INFO org.springframework.boot.logging.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-08-15 15:24:40,474 INFO org.springframework.boot.logging.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-08-15 15:24:41,029 WARN org.springframework.core.log.CompositeLog [background-preinit] For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
+2021-08-15 15:24:42,277 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-15 15:24:42,610 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 314 ms. Found 12 JPA repository interfaces.
+2021-08-15 15:24:43,531 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@14dc3482' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-08-15 15:24:43,547 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-08-15 15:24:44,243 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8082 (http)
+2021-08-15 15:24:44,262 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8082"]
+2021-08-15 15:24:44,263 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2021-08-15 15:24:44,264 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.46]
+2021-08-15 15:24:44,552 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2021-08-15 15:24:44,553 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 4077 ms
+2021-08-15 15:24:45,168 DEBUG org.springframework.web.filter.GenericFilterBean [restartedMain] Filter 'securityFilter' configured for use
+2021-08-15 15:24:45,571 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
 	name: default
 	...]
-2021-08-12 17:27:54,585 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-2 - Starting...
-2021-08-12 17:27:54,663 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-2 - Start completed.
-2021-08-12 17:27:54,665 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL55Dialect
-2021-08-12 17:27:55,313 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
-2021-08-12 17:27:56,298 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
-2021-08-12 17:27:56,778 INFO org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration [restartedMain] 
+2021-08-15 15:24:45,818 INFO org.hibernate.Version [restartedMain] HHH000412: Hibernate Core {5.2.17.Final}
+2021-08-15 15:24:45,824 INFO org.hibernate.cfg.Environment [restartedMain] HHH000206: hibernate.properties not found
+2021-08-15 15:24:46,069 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [restartedMain] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2021-08-15 15:24:46,705 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2021-08-15 15:24:48,538 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2021-08-15 15:24:48,580 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL55Dialect
+2021-08-15 15:24:53,702 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-15 15:24:56,027 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2021-08-15 15:24:57,236 INFO org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration [restartedMain] 
 
-Using generated security password: 54d48790-0612-46a5-a5d2-ffed9df560d2
+Using generated security password: c87141a3-0d8c-438f-a7a6-5bf27b7738d5
 
-2021-08-12 17:27:56,846 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@39eacbab, org.springframework.security.web.context.SecurityContextPersistenceFilter@4fbf963b, org.springframework.security.web.header.HeaderWriterFilter@7547057a, org.springframework.web.filter.CorsFilter@297cf431, org.springframework.security.web.authentication.logout.LogoutFilter@54bbc807, org.heartfulness.avtc.security.auth.SecurityFilter@388ac311, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@17bd29af, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5a1c82f7, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3938b4d3, org.springframework.security.web.session.SessionManagementFilter@27f34a9c, org.springframework.security.web.access.ExceptionTranslationFilter@287e049f, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@440d71f8]
-2021-08-12 17:27:57,346 INFO org.springframework.test.context.support.AbstractTestContextBootstrapper [main] Neither @ContextConfiguration nor @ContextHierarchy found for test class [org.heartfulness.avtc.AvtcApplicationTests], using SpringBootContextLoader
-2021-08-12 17:27:57,372 INFO org.springframework.test.context.support.AbstractContextLoader [main] Could not detect default resource locations for test class [org.heartfulness.avtc.AvtcApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
-2021-08-12 17:27:57,377 INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils [main] Could not detect default configuration classes for test class [org.heartfulness.avtc.AvtcApplicationTests]: AvtcApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2021-08-12 17:27:57,874 INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper [main] Found @SpringBootConfiguration org.heartfulness.avtc.AvtcApplication for test class org.heartfulness.avtc.AvtcApplicationTests
-2021-08-12 17:27:58,155 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
-2021-08-12 17:27:58,187 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8082"]
-2021-08-12 17:27:58,195 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8082 (http) with context path ''
-2021-08-12 17:27:58,206 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started AvtcApplication in 6.218 seconds (JVM running for 257.633)
-2021-08-12 17:27:58,209 INFO org.springframework.boot.availability.ApplicationAvailabilityBean [restartedMain] Application availability state LivenessState changed to CORRECT
-2021-08-12 17:27:58,214 INFO org.springframework.boot.devtools.autoconfigure.ConditionEvaluationDeltaLoggingListener [restartedMain] Condition evaluation unchanged
-2021-08-12 17:27:58,215 INFO org.springframework.boot.availability.ApplicationAvailabilityBean [restartedMain] Application availability state ReadinessState changed to ACCEPTING_TRAFFIC
-2021-08-12 17:27:58,228 INFO org.springframework.test.context.support.AbstractTestContextBootstrapper [main] Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener]
-2021-08-12 17:27:58,283 INFO org.springframework.test.context.support.AbstractTestContextBootstrapper [main] Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@78461bc4, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@544630b7, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@64f857e7, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@1095f122, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@58c540cf, org.springframework.test.context.support.DirtiesContextTestExecutionListener@3d6300e8, org.springframework.test.context.transaction.TransactionalTestExecutionListener@1b822fcc, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@24a1c17f, org.springframework.test.context.event.EventPublishingTestExecutionListener@56102e1c, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@73511076, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@7927bd9f, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@532721fd, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@410954b, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@7fb9f71f, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@3b366632, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@51f49060, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@514eedd8]
-2021-08-12 17:27:59,174 INFO org.springframework.boot.StartupInfoLogger [main] Starting AvtcApplicationTests using Java 11.0.10 on DESKTOP-BIBH7GP with PID 32100 (started by sonna in C:\Users\sonna\IdeaProjects\avtc)
-2021-08-12 17:27:59,176 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.5.0, Spring v5.3.7
-2021-08-12 17:27:59,182 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
-2021-08-12 17:27:59,226 INFO org.hibernate.validator.internal.util.Version [background-preinit] HV000001: Hibernate Validator 6.2.0.Final
-2021-08-12 17:28:00,529 WARN org.springframework.core.log.CompositeLog [background-preinit] For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
-2021-08-12 17:28:01,593 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2021-08-12 17:28:01,947 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 322 ms. Found 12 JPA repository interfaces.
-2021-08-12 17:28:03,712 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [main] Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@79627d27' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2021-08-12 17:28:03,820 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [main] Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2021-08-12 17:28:04,428 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [
+2021-08-15 15:24:58,029 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@633ea318, org.springframework.security.web.context.SecurityContextPersistenceFilter@652dcbc9, org.springframework.security.web.header.HeaderWriterFilter@1da9294b, org.springframework.web.filter.CorsFilter@375efc9b, org.springframework.security.web.authentication.logout.LogoutFilter@4072f107, org.heartfulness.avtc.security.auth.SecurityFilter@35f43c8e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4298ea99, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4366583b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7843176c, org.springframework.security.web.session.SessionManagementFilter@4f567e84, org.springframework.security.web.access.ExceptionTranslationFilter@2afeb47a, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@546bb44a]
+2021-08-15 15:25:02,039 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2021-08-15 15:25:02,097 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8082"]
+2021-08-15 15:25:02,142 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8082 (http) with context path ''
+2021-08-15 15:25:02,179 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started AvtcApplication in 22.581 seconds (JVM running for 29.026)
+2021-08-15 15:25:02,185 INFO org.springframework.boot.availability.ApplicationAvailabilityBean [restartedMain] Application availability state LivenessState changed to CORRECT
+2021-08-15 15:25:02,193 INFO org.springframework.boot.availability.ApplicationAvailabilityBean [restartedMain] Application availability state ReadinessState changed to ACCEPTING_TRAFFIC
+2021-08-15 15:25:02,311 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8082-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-08-15 15:25:02,311 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8082-exec-1] Initializing Servlet 'dispatcherServlet'
+2021-08-15 15:25:02,314 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8082-exec-1] Completed initialization in 2 ms
+2021-08-15 15:25:02,358 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-1] null
+2021-08-15 15:25:04,718 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-2] null
+2021-08-15 15:25:05,347 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-3] null
+2021-08-15 15:25:11,960 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-4] null
+2021-08-15 15:25:12,139 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-5] null
+2021-08-15 15:25:37,453 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-6] null
+2021-08-15 15:25:38,008 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-7] null
+2021-08-15 15:25:38,280 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-8] null
+2021-08-15 15:25:43,303 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-9] null
+2021-08-15 15:25:43,490 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-10] null
+2021-08-15 15:25:43,632 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-1] null
+2021-08-15 15:25:45,892 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-2] null
+2021-08-15 15:25:46,107 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-3] null
+2021-08-15 15:25:58,437 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-4] null
+2021-08-15 15:25:58,499 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-5] null
+2021-08-15 15:25:58,638 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-6] null
+2021-08-15 15:26:08,246 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-9] null
+2021-08-15 15:26:08,288 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-10] null
+2021-08-15 15:26:08,417 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-1] null
+2021-08-15 15:30:28,846 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting AvtcApplication using Java 11.0.10 on DESKTOP-BIBH7GP with PID 24420 (C:\Users\sonna\IdeaProjects\avtc\target\classes started by sonna in C:\Users\sonna\IdeaProjects\avtc)
+2021-08-15 15:30:28,855 DEBUG org.springframework.boot.StartupInfoLogger [restartedMain] Running with Spring Boot v2.5.0, Spring v5.3.7
+2021-08-15 15:30:28,856 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2021-08-15 15:30:28,888 INFO org.hibernate.validator.internal.util.Version [background-preinit] HV000001: Hibernate Validator 6.2.0.Final
+2021-08-15 15:30:28,994 INFO org.springframework.boot.logging.DeferredLog [restartedMain] The Class-Path manifest attribute in C:\Users\sonna\.m2\repository\org\glassfish\hk2\hk2\2.6.1\hk2-2.6.1.jar referenced one or more files that do not exist: file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-utils.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/jakarta.annotation-api.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/jakarta.inject.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-api.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/aopalliance-repackaged.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-core.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-locator.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/javassist.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-runlevel.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/class-model.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm-analysis.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm-commons.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm-tree.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm-util.jar
+2021-08-15 15:30:28,995 INFO org.springframework.boot.logging.DeferredLog [restartedMain] The Class-Path manifest attribute in C:\Users\sonna\.m2\repository\io\grpc\grpc-netty-shaded\1.23.0\grpc-netty-shaded-1.23.0.jar referenced one or more files that do not exist: file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/grpc-core-1.23.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/grpc-api-1.23.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/gson-2.7.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/annotations-4.1.1.4.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/perfmark-api-0.17.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/opencensus-contrib-grpc-metrics-0.21.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/opencensus-api-0.21.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/grpc-context-1.23.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/error_prone_annotations-2.3.2.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/jsr305-3.0.2.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/animal-sniffer-annotations-1.17.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/guava-26.0-android.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/checker-compat-qual-2.5.2.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/j2objc-annotations-1.1.jar
+2021-08-15 15:30:28,996 INFO org.springframework.boot.logging.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-08-15 15:30:28,997 INFO org.springframework.boot.logging.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-08-15 15:30:30,010 WARN org.springframework.core.log.CompositeLog [background-preinit] For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
+2021-08-15 15:30:31,430 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-15 15:30:31,709 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 261 ms. Found 12 JPA repository interfaces.
+2021-08-15 15:30:32,539 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@6a29f41d' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-08-15 15:30:32,556 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-08-15 15:30:33,311 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8082 (http)
+2021-08-15 15:30:33,327 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8082"]
+2021-08-15 15:30:33,328 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2021-08-15 15:30:33,329 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.46]
+2021-08-15 15:30:33,627 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2021-08-15 15:30:33,628 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 4627 ms
+2021-08-15 15:30:34,106 DEBUG org.springframework.web.filter.GenericFilterBean [restartedMain] Filter 'securityFilter' configured for use
+2021-08-15 15:30:34,513 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
 	name: default
 	...]
-2021-08-12 17:28:04,709 INFO org.hibernate.Version [main] HHH000412: Hibernate Core {5.2.17.Final}
-2021-08-12 17:28:04,715 INFO org.hibernate.cfg.Environment [main] HHH000206: hibernate.properties not found
-2021-08-12 17:28:04,841 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [main] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
-2021-08-12 17:28:05,199 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
-2021-08-12 17:28:06,862 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
-2021-08-12 17:28:06,914 INFO org.hibernate.dialect.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.MySQL55Dialect
-2021-08-12 17:28:12,717 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
-2021-08-12 17:28:17,231 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [main] HHH000397: Using ASTQueryTranslatorFactory
-2021-08-12 17:28:20,158 INFO org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration [main] 
+2021-08-15 15:30:34,650 INFO org.hibernate.Version [restartedMain] HHH000412: Hibernate Core {5.2.17.Final}
+2021-08-15 15:30:34,654 INFO org.hibernate.cfg.Environment [restartedMain] HHH000206: hibernate.properties not found
+2021-08-15 15:30:34,740 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [restartedMain] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2021-08-15 15:30:35,041 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2021-08-15 15:30:35,642 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2021-08-15 15:30:35,669 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL55Dialect
+2021-08-15 15:30:37,542 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-15 15:30:39,039 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2021-08-15 15:30:40,020 INFO org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration [restartedMain] 
 
-Using generated security password: bea43c54-7ba3-47d9-b3b4-f030dcbddcd8
+Using generated security password: 34244b57-e84b-4314-99d4-c9e89017cc36
 
-2021-08-12 17:28:21,046 INFO org.springframework.security.web.DefaultSecurityFilterChain [main] Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6a3c1b56, org.springframework.security.web.context.SecurityContextPersistenceFilter@363d29dd, org.springframework.security.web.header.HeaderWriterFilter@69ee0861, org.springframework.web.filter.CorsFilter@3b8ce72, org.springframework.security.web.authentication.logout.LogoutFilter@1146e32e, org.heartfulness.avtc.security.auth.SecurityFilter@508abc74, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4138af7, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3c130cb2, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3ce4eb42, org.springframework.security.web.session.SessionManagementFilter@2b370ca9, org.springframework.security.web.access.ExceptionTranslationFilter@376bae20, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@30f54522]
-2021-08-12 17:28:26,418 INFO org.springframework.boot.StartupInfoLogger [main] Started AvtcApplicationTests in 28.012 seconds (JVM running for 31.467)
-2021-08-12 17:28:26,422 INFO org.springframework.boot.availability.ApplicationAvailabilityBean [main] Application availability state LivenessState changed to CORRECT
-2021-08-12 17:28:26,431 INFO org.springframework.boot.availability.ApplicationAvailabilityBean [main] Application availability state ReadinessState changed to ACCEPTING_TRAFFIC
+2021-08-15 15:30:40,498 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@55696d71, org.springframework.security.web.context.SecurityContextPersistenceFilter@4c3151c3, org.springframework.security.web.header.HeaderWriterFilter@63d6fecf, org.springframework.web.filter.CorsFilter@7c9b01f6, org.springframework.security.web.authentication.logout.LogoutFilter@1c6b24b8, org.heartfulness.avtc.security.auth.SecurityFilter@5fe45a42, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@48176eed, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@24764313, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@376f9b22, org.springframework.security.web.session.SessionManagementFilter@2e2d6958, org.springframework.security.web.access.ExceptionTranslationFilter@613c2a45, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@4ee081cb]
+2021-08-15 15:30:43,547 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2021-08-15 15:30:43,613 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8082"]
+2021-08-15 15:30:43,653 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8082 (http) with context path ''
+2021-08-15 15:30:43,684 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started AvtcApplication in 16.164 seconds (JVM running for 22.582)
+2021-08-15 15:30:43,688 INFO org.springframework.boot.availability.ApplicationAvailabilityBean [restartedMain] Application availability state LivenessState changed to CORRECT
+2021-08-15 15:30:43,697 INFO org.springframework.boot.availability.ApplicationAvailabilityBean [restartedMain] Application availability state ReadinessState changed to ACCEPTING_TRAFFIC
+2021-08-15 15:30:46,830 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8082-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-08-15 15:30:46,831 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8082-exec-1] Initializing Servlet 'dispatcherServlet'
+2021-08-15 15:30:46,835 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8082-exec-1] Completed initialization in 3 ms
+2021-08-15 15:30:46,910 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-1] null
+2021-08-15 15:30:48,853 ERROR org.thymeleaf.TemplateEngine [http-nio-8082-exec-1] [THYMELEAF][http-nio-8082-exec-1] Exception processing template "agents/viewAgentsPaginated": An error happened during template parsing (template: "class path resource [templates/agents/viewAgentsPaginated.html]")
+org.thymeleaf.exceptions.TemplateInputException: An error happened during template parsing (template: "class path resource [templates/agents/viewAgentsPaginated.html]")
+	at org.thymeleaf.templateparser.markup.AbstractMarkupTemplateParser.parse(AbstractMarkupTemplateParser.java:241)
+	at org.thymeleaf.templateparser.markup.AbstractMarkupTemplateParser.parseStandalone(AbstractMarkupTemplateParser.java:100)
+	at org.thymeleaf.engine.TemplateManager.parseAndProcess(TemplateManager.java:666)
+	at org.thymeleaf.TemplateEngine.process(TemplateEngine.java:1098)
+	at org.thymeleaf.TemplateEngine.process(TemplateEngine.java:1072)
+	at org.thymeleaf.spring5.view.ThymeleafView.renderFragment(ThymeleafView.java:366)
+	at org.thymeleaf.spring5.view.ThymeleafView.render(ThymeleafView.java:190)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1396)
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1141)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1080)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:626)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:113)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:327)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:115)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:81)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:121)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:115)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:126)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:81)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:105)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:149)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.heartfulness.avtc.security.auth.SecurityFilter.doFilterInternal(SecurityFilter.java:58)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:110)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:80)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:211)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:183)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:893)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1707)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: org.attoparser.ParseException: Exception evaluating SpringEL expression: "team.id" (template: "agents/viewAgentsPaginated" - line 66, col 16)
+	at org.attoparser.MarkupParser.parseDocument(MarkupParser.java:393)
+	at org.attoparser.MarkupParser.parse(MarkupParser.java:257)
+	at org.thymeleaf.templateparser.markup.AbstractMarkupTemplateParser.parse(AbstractMarkupTemplateParser.java:230)
+	... 92 common frames omitted
+Caused by: org.thymeleaf.exceptions.TemplateProcessingException: Exception evaluating SpringEL expression: "team.id" (template: "agents/viewAgentsPaginated" - line 66, col 16)
+	at org.thymeleaf.spring5.expression.SPELVariableExpressionEvaluator.evaluate(SPELVariableExpressionEvaluator.java:292)
+	at org.thymeleaf.standard.expression.VariableExpression.executeVariableExpression(VariableExpression.java:166)
+	at org.thymeleaf.standard.expression.SimpleExpression.executeSimple(SimpleExpression.java:66)
+	at org.thymeleaf.standard.expression.Expression.execute(Expression.java:109)
+	at org.thymeleaf.standard.expression.Expression.execute(Expression.java:138)
+	at org.thymeleaf.standard.expression.StandardExpressionPreprocessor.preprocess(StandardExpressionPreprocessor.java:91)
+	at org.thymeleaf.standard.expression.StandardExpressionParser.parseExpression(StandardExpressionParser.java:120)
+	at org.thymeleaf.standard.expression.StandardExpressionParser.parseExpression(StandardExpressionParser.java:62)
+	at org.thymeleaf.standard.expression.StandardExpressionParser.parseExpression(StandardExpressionParser.java:44)
+	at org.thymeleaf.engine.EngineEventUtils.parseAttributeExpression(EngineEventUtils.java:220)
+	at org.thymeleaf.engine.EngineEventUtils.computeAttributeExpression(EngineEventUtils.java:207)
+	at org.thymeleaf.standard.processor.AbstractStandardExpressionAttributeTagProcessor.doProcess(AbstractStandardExpressionAttributeTagProcessor.java:125)
+	at org.thymeleaf.processor.element.AbstractAttributeTagProcessor.doProcess(AbstractAttributeTagProcessor.java:74)
+	at org.thymeleaf.processor.element.AbstractElementTagProcessor.process(AbstractElementTagProcessor.java:95)
+	at org.thymeleaf.util.ProcessorConfigurationUtils$ElementTagProcessorWrapper.process(ProcessorConfigurationUtils.java:633)
+	at org.thymeleaf.engine.ProcessorTemplateHandler.handleOpenElement(ProcessorTemplateHandler.java:1314)
+	at org.thymeleaf.engine.OpenElementTag.beHandled(OpenElementTag.java:205)
+	at org.thymeleaf.engine.Model.process(Model.java:282)
+	at org.thymeleaf.engine.Model.process(Model.java:290)
+	at org.thymeleaf.engine.IteratedGatheringModelProcessable.processIterationModel(IteratedGatheringModelProcessable.java:367)
+	at org.thymeleaf.engine.IteratedGatheringModelProcessable.process(IteratedGatheringModelProcessable.java:221)
+	at org.thymeleaf.engine.ProcessorTemplateHandler.handleCloseElement(ProcessorTemplateHandler.java:1640)
+	at org.thymeleaf.engine.TemplateHandlerAdapterMarkupHandler.handleCloseElementEnd(TemplateHandlerAdapterMarkupHandler.java:388)
+	at org.thymeleaf.templateparser.markup.InlinedOutputExpressionMarkupHandler$InlineMarkupAdapterPreProcessorHandler.handleCloseElementEnd(InlinedOutputExpressionMarkupHandler.java:322)
+	at org.thymeleaf.standard.inline.OutputExpressionInlinePreProcessorHandler.handleCloseElementEnd(OutputExpressionInlinePreProcessorHandler.java:220)
+	at org.thymeleaf.templateparser.markup.InlinedOutputExpressionMarkupHandler.handleCloseElementEnd(InlinedOutputExpressionMarkupHandler.java:164)
+	at org.attoparser.HtmlElement.handleCloseElementEnd(HtmlElement.java:169)
+	at org.attoparser.HtmlMarkupHandler.handleCloseElementEnd(HtmlMarkupHandler.java:412)
+	at org.attoparser.MarkupEventProcessorHandler.handleCloseElementEnd(MarkupEventProcessorHandler.java:473)
+	at org.attoparser.ParsingElementMarkupUtil.parseCloseElement(ParsingElementMarkupUtil.java:201)
+	at org.attoparser.MarkupParser.parseBuffer(MarkupParser.java:725)
+	at org.attoparser.MarkupParser.parseDocument(MarkupParser.java:301)
+	... 94 common frames omitted
+Caused by: org.springframework.expression.spel.SpelEvaluationException: EL1007E: Property or field 'id' cannot be found on null
+	at org.springframework.expression.spel.ast.PropertyOrFieldReference.readProperty(PropertyOrFieldReference.java:213)
+	at org.springframework.expression.spel.ast.PropertyOrFieldReference.getValueInternal(PropertyOrFieldReference.java:104)
+	at org.springframework.expression.spel.ast.PropertyOrFieldReference.access$000(PropertyOrFieldReference.java:51)
+	at org.springframework.expression.spel.ast.PropertyOrFieldReference$AccessorLValue.getValue(PropertyOrFieldReference.java:406)
+	at org.springframework.expression.spel.ast.CompoundExpression.getValueInternal(CompoundExpression.java:92)
+	at org.springframework.expression.spel.ast.SpelNodeImpl.getValue(SpelNodeImpl.java:112)
+	at org.springframework.expression.spel.standard.SpelExpression.getValue(SpelExpression.java:337)
+	at org.thymeleaf.spring5.expression.SPELVariableExpressionEvaluator.evaluate(SPELVariableExpressionEvaluator.java:265)
+	... 125 common frames omitted
+2021-08-15 15:30:48,873 ERROR org.apache.juli.logging.DirectJDKLog [http-nio-8082-exec-1] Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.thymeleaf.exceptions.TemplateInputException: An error happened during template parsing (template: "class path resource [templates/agents/viewAgentsPaginated.html]")] with root cause
+org.springframework.expression.spel.SpelEvaluationException: EL1007E: Property or field 'id' cannot be found on null
+	at org.springframework.expression.spel.ast.PropertyOrFieldReference.readProperty(PropertyOrFieldReference.java:213)
+	at org.springframework.expression.spel.ast.PropertyOrFieldReference.getValueInternal(PropertyOrFieldReference.java:104)
+	at org.springframework.expression.spel.ast.PropertyOrFieldReference.access$000(PropertyOrFieldReference.java:51)
+	at org.springframework.expression.spel.ast.PropertyOrFieldReference$AccessorLValue.getValue(PropertyOrFieldReference.java:406)
+	at org.springframework.expression.spel.ast.CompoundExpression.getValueInternal(CompoundExpression.java:92)
+	at org.springframework.expression.spel.ast.SpelNodeImpl.getValue(SpelNodeImpl.java:112)
+	at org.springframework.expression.spel.standard.SpelExpression.getValue(SpelExpression.java:337)
+	at org.thymeleaf.spring5.expression.SPELVariableExpressionEvaluator.evaluate(SPELVariableExpressionEvaluator.java:265)
+	at org.thymeleaf.standard.expression.VariableExpression.executeVariableExpression(VariableExpression.java:166)
+	at org.thymeleaf.standard.expression.SimpleExpression.executeSimple(SimpleExpression.java:66)
+	at org.thymeleaf.standard.expression.Expression.execute(Expression.java:109)
+	at org.thymeleaf.standard.expression.Expression.execute(Expression.java:138)
+	at org.thymeleaf.standard.expression.StandardExpressionPreprocessor.preprocess(StandardExpressionPreprocessor.java:91)
+	at org.thymeleaf.standard.expression.StandardExpressionParser.parseExpression(StandardExpressionParser.java:120)
+	at org.thymeleaf.standard.expression.StandardExpressionParser.parseExpression(StandardExpressionParser.java:62)
+	at org.thymeleaf.standard.expression.StandardExpressionParser.parseExpression(StandardExpressionParser.java:44)
+	at org.thymeleaf.engine.EngineEventUtils.parseAttributeExpression(EngineEventUtils.java:220)
+	at org.thymeleaf.engine.EngineEventUtils.computeAttributeExpression(EngineEventUtils.java:207)
+	at org.thymeleaf.standard.processor.AbstractStandardExpressionAttributeTagProcessor.doProcess(AbstractStandardExpressionAttributeTagProcessor.java:125)
+	at org.thymeleaf.processor.element.AbstractAttributeTagProcessor.doProcess(AbstractAttributeTagProcessor.java:74)
+	at org.thymeleaf.processor.element.AbstractElementTagProcessor.process(AbstractElementTagProcessor.java:95)
+	at org.thymeleaf.util.ProcessorConfigurationUtils$ElementTagProcessorWrapper.process(ProcessorConfigurationUtils.java:633)
+	at org.thymeleaf.engine.ProcessorTemplateHandler.handleOpenElement(ProcessorTemplateHandler.java:1314)
+	at org.thymeleaf.engine.OpenElementTag.beHandled(OpenElementTag.java:205)
+	at org.thymeleaf.engine.Model.process(Model.java:282)
+	at org.thymeleaf.engine.Model.process(Model.java:290)
+	at org.thymeleaf.engine.IteratedGatheringModelProcessable.processIterationModel(IteratedGatheringModelProcessable.java:367)
+	at org.thymeleaf.engine.IteratedGatheringModelProcessable.process(IteratedGatheringModelProcessable.java:221)
+	at org.thymeleaf.engine.ProcessorTemplateHandler.handleCloseElement(ProcessorTemplateHandler.java:1640)
+	at org.thymeleaf.engine.TemplateHandlerAdapterMarkupHandler.handleCloseElementEnd(TemplateHandlerAdapterMarkupHandler.java:388)
+	at org.thymeleaf.templateparser.markup.InlinedOutputExpressionMarkupHandler$InlineMarkupAdapterPreProcessorHandler.handleCloseElementEnd(InlinedOutputExpressionMarkupHandler.java:322)
+	at org.thymeleaf.standard.inline.OutputExpressionInlinePreProcessorHandler.handleCloseElementEnd(OutputExpressionInlinePreProcessorHandler.java:220)
+	at org.thymeleaf.templateparser.markup.InlinedOutputExpressionMarkupHandler.handleCloseElementEnd(InlinedOutputExpressionMarkupHandler.java:164)
+	at org.attoparser.HtmlElement.handleCloseElementEnd(HtmlElement.java:169)
+	at org.attoparser.HtmlMarkupHandler.handleCloseElementEnd(HtmlMarkupHandler.java:412)
+	at org.attoparser.MarkupEventProcessorHandler.handleCloseElementEnd(MarkupEventProcessorHandler.java:473)
+	at org.attoparser.ParsingElementMarkupUtil.parseCloseElement(ParsingElementMarkupUtil.java:201)
+	at org.attoparser.MarkupParser.parseBuffer(MarkupParser.java:725)
+	at org.attoparser.MarkupParser.parseDocument(MarkupParser.java:301)
+	at org.attoparser.MarkupParser.parse(MarkupParser.java:257)
+	at org.thymeleaf.templateparser.markup.AbstractMarkupTemplateParser.parse(AbstractMarkupTemplateParser.java:230)
+	at org.thymeleaf.templateparser.markup.AbstractMarkupTemplateParser.parseStandalone(AbstractMarkupTemplateParser.java:100)
+	at org.thymeleaf.engine.TemplateManager.parseAndProcess(TemplateManager.java:666)
+	at org.thymeleaf.TemplateEngine.process(TemplateEngine.java:1098)
+	at org.thymeleaf.TemplateEngine.process(TemplateEngine.java:1072)
+	at org.thymeleaf.spring5.view.ThymeleafView.renderFragment(ThymeleafView.java:366)
+	at org.thymeleaf.spring5.view.ThymeleafView.render(ThymeleafView.java:190)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1396)
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1141)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1080)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:626)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:113)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:327)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:115)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:81)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:121)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:115)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:126)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:81)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:105)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:149)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.heartfulness.avtc.security.auth.SecurityFilter.doFilterInternal(SecurityFilter.java:58)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:110)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:80)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:211)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:183)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:893)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1707)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2021-08-15 15:30:49,581 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-2] null
+2021-08-15 15:34:21,230 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting AvtcApplication using Java 11.0.10 on DESKTOP-BIBH7GP with PID 6816 (C:\Users\sonna\IdeaProjects\avtc\target\classes started by sonna in C:\Users\sonna\IdeaProjects\avtc)
+2021-08-15 15:34:21,233 INFO org.hibernate.validator.internal.util.Version [background-preinit] HV000001: Hibernate Validator 6.2.0.Final
+2021-08-15 15:34:21,237 DEBUG org.springframework.boot.StartupInfoLogger [restartedMain] Running with Spring Boot v2.5.0, Spring v5.3.7
+2021-08-15 15:34:21,238 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2021-08-15 15:34:21,323 INFO org.springframework.boot.logging.DeferredLog [restartedMain] The Class-Path manifest attribute in C:\Users\sonna\.m2\repository\org\glassfish\hk2\hk2\2.6.1\hk2-2.6.1.jar referenced one or more files that do not exist: file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-utils.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/jakarta.annotation-api.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/jakarta.inject.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-api.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/aopalliance-repackaged.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-core.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-locator.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/javassist.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-runlevel.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/class-model.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm-analysis.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm-commons.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm-tree.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm-util.jar
+2021-08-15 15:34:21,324 INFO org.springframework.boot.logging.DeferredLog [restartedMain] The Class-Path manifest attribute in C:\Users\sonna\.m2\repository\io\grpc\grpc-netty-shaded\1.23.0\grpc-netty-shaded-1.23.0.jar referenced one or more files that do not exist: file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/grpc-core-1.23.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/grpc-api-1.23.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/gson-2.7.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/annotations-4.1.1.4.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/perfmark-api-0.17.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/opencensus-contrib-grpc-metrics-0.21.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/opencensus-api-0.21.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/grpc-context-1.23.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/error_prone_annotations-2.3.2.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/jsr305-3.0.2.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/animal-sniffer-annotations-1.17.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/guava-26.0-android.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/checker-compat-qual-2.5.2.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/j2objc-annotations-1.1.jar
+2021-08-15 15:34:21,325 INFO org.springframework.boot.logging.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-08-15 15:34:21,326 INFO org.springframework.boot.logging.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-08-15 15:34:21,863 WARN org.springframework.core.log.CompositeLog [background-preinit] For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
+2021-08-15 15:34:23,045 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-15 15:34:23,349 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 286 ms. Found 12 JPA repository interfaces.
+2021-08-15 15:34:24,188 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@3ce732fa' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-08-15 15:34:24,207 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-08-15 15:34:24,970 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8082 (http)
+2021-08-15 15:34:24,989 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8082"]
+2021-08-15 15:34:24,990 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2021-08-15 15:34:24,991 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.46]
+2021-08-15 15:34:25,305 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2021-08-15 15:34:25,306 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 3977 ms
+2021-08-15 15:34:25,793 DEBUG org.springframework.web.filter.GenericFilterBean [restartedMain] Filter 'securityFilter' configured for use
+2021-08-15 15:34:26,189 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2021-08-15 15:34:26,381 INFO org.hibernate.Version [restartedMain] HHH000412: Hibernate Core {5.2.17.Final}
+2021-08-15 15:34:26,386 INFO org.hibernate.cfg.Environment [restartedMain] HHH000206: hibernate.properties not found
+2021-08-15 15:34:26,481 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [restartedMain] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2021-08-15 15:34:26,804 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2021-08-15 15:34:27,445 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2021-08-15 15:34:27,471 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL55Dialect
+2021-08-15 15:34:29,443 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-15 15:34:30,894 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2021-08-15 15:34:31,900 INFO org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration [restartedMain] 
+
+Using generated security password: fe83db75-840b-4b3e-a54e-48d7c2d261f0
+
+2021-08-15 15:34:32,370 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@39313dc, org.springframework.security.web.context.SecurityContextPersistenceFilter@caab1cb, org.springframework.security.web.header.HeaderWriterFilter@216cf038, org.springframework.web.filter.CorsFilter@6856a675, org.springframework.security.web.authentication.logout.LogoutFilter@589c3dee, org.heartfulness.avtc.security.auth.SecurityFilter@6a0fafd6, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4bbe3fa5, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@579ed8f2, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4d402e1e, org.springframework.security.web.session.SessionManagementFilter@2c8b7007, org.springframework.security.web.access.ExceptionTranslationFilter@39e15557, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@6f051296]
+2021-08-15 15:34:35,315 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2021-08-15 15:34:35,373 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8082"]
+2021-08-15 15:34:35,419 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8082 (http) with context path ''
+2021-08-15 15:34:35,448 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started AvtcApplication in 14.941 seconds (JVM running for 20.2)
+2021-08-15 15:34:35,452 INFO org.springframework.boot.availability.ApplicationAvailabilityBean [restartedMain] Application availability state LivenessState changed to CORRECT
+2021-08-15 15:34:35,459 INFO org.springframework.boot.availability.ApplicationAvailabilityBean [restartedMain] Application availability state ReadinessState changed to ACCEPTING_TRAFFIC
+2021-08-15 15:34:38,591 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8082-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-08-15 15:34:38,592 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8082-exec-1] Initializing Servlet 'dispatcherServlet'
+2021-08-15 15:34:38,596 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8082-exec-1] Completed initialization in 3 ms
+2021-08-15 15:34:38,653 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-1] null
+2021-08-15 15:34:41,061 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-2] null
+2021-08-15 15:34:41,640 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-3] null
+2021-08-15 15:34:45,828 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-4] null
+2021-08-15 15:34:45,937 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-5] null
+2021-08-15 15:34:46,070 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-6] null
+2021-08-15 15:36:18,932 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting AvtcApplication using Java 11.0.10 on DESKTOP-BIBH7GP with PID 26892 (C:\Users\sonna\IdeaProjects\avtc\target\classes started by sonna in C:\Users\sonna\IdeaProjects\avtc)
+2021-08-15 15:36:18,932 INFO org.hibernate.validator.internal.util.Version [background-preinit] HV000001: Hibernate Validator 6.2.0.Final
+2021-08-15 15:36:18,941 DEBUG org.springframework.boot.StartupInfoLogger [restartedMain] Running with Spring Boot v2.5.0, Spring v5.3.7
+2021-08-15 15:36:18,942 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2021-08-15 15:36:19,056 INFO org.springframework.boot.logging.DeferredLog [restartedMain] The Class-Path manifest attribute in C:\Users\sonna\.m2\repository\org\glassfish\hk2\hk2\2.6.1\hk2-2.6.1.jar referenced one or more files that do not exist: file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-utils.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/jakarta.annotation-api.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/jakarta.inject.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-api.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/aopalliance-repackaged.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-core.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-locator.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/javassist.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/hk2-runlevel.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/class-model.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm-analysis.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm-commons.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm-tree.jar,file:/C:/Users/sonna/.m2/repository/org/glassfish/hk2/hk2/2.6.1/asm-util.jar
+2021-08-15 15:36:19,057 INFO org.springframework.boot.logging.DeferredLog [restartedMain] The Class-Path manifest attribute in C:\Users\sonna\.m2\repository\io\grpc\grpc-netty-shaded\1.23.0\grpc-netty-shaded-1.23.0.jar referenced one or more files that do not exist: file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/grpc-core-1.23.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/grpc-api-1.23.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/gson-2.7.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/annotations-4.1.1.4.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/perfmark-api-0.17.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/opencensus-contrib-grpc-metrics-0.21.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/opencensus-api-0.21.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/grpc-context-1.23.0.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/error_prone_annotations-2.3.2.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/jsr305-3.0.2.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/animal-sniffer-annotations-1.17.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/guava-26.0-android.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/checker-compat-qual-2.5.2.jar,file:/C:/Users/sonna/.m2/repository/io/grpc/grpc-netty-shaded/1.23.0/j2objc-annotations-1.1.jar
+2021-08-15 15:36:19,058 INFO org.springframework.boot.logging.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-08-15 15:36:19,059 INFO org.springframework.boot.logging.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-08-15 15:36:19,703 WARN org.springframework.core.log.CompositeLog [background-preinit] For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
+2021-08-15 15:36:21,727 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-15 15:36:22,297 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 537 ms. Found 12 JPA repository interfaces.
+2021-08-15 15:36:23,555 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@2e4a1ddb' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-08-15 15:36:23,584 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-08-15 15:36:24,623 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8082 (http)
+2021-08-15 15:36:24,647 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8082"]
+2021-08-15 15:36:24,649 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2021-08-15 15:36:24,650 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.46]
+2021-08-15 15:36:24,978 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2021-08-15 15:36:24,979 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 5918 ms
+2021-08-15 15:36:25,493 DEBUG org.springframework.web.filter.GenericFilterBean [restartedMain] Filter 'securityFilter' configured for use
+2021-08-15 15:36:25,998 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2021-08-15 15:36:26,269 INFO org.hibernate.Version [restartedMain] HHH000412: Hibernate Core {5.2.17.Final}
+2021-08-15 15:36:26,275 INFO org.hibernate.cfg.Environment [restartedMain] HHH000206: hibernate.properties not found
+2021-08-15 15:36:26,404 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [restartedMain] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2021-08-15 15:36:26,812 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2021-08-15 15:36:27,795 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2021-08-15 15:36:27,835 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL55Dialect
+2021-08-15 15:36:30,597 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-15 15:36:32,271 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2021-08-15 15:36:37,022 INFO org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration [restartedMain] 
+
+Using generated security password: 3d90c1d6-54e7-42d1-901f-efc34277457a
+
+2021-08-15 15:36:37,947 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@555b5682, org.springframework.security.web.context.SecurityContextPersistenceFilter@fb8e66d, org.springframework.security.web.header.HeaderWriterFilter@3909508, org.springframework.web.filter.CorsFilter@d542a31, org.springframework.security.web.authentication.logout.LogoutFilter@533586ff, org.heartfulness.avtc.security.auth.SecurityFilter@682abe93, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@46d25c1d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@50f95f5, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1fbc1fef, org.springframework.security.web.session.SessionManagementFilter@43ec3071, org.springframework.security.web.access.ExceptionTranslationFilter@12feac8a, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@27b1d413]
+2021-08-15 15:36:43,019 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2021-08-15 15:36:43,109 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8082"]
+2021-08-15 15:36:43,162 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8082 (http) with context path ''
+2021-08-15 15:36:43,196 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started AvtcApplication in 25.354 seconds (JVM running for 30.209)
+2021-08-15 15:36:43,200 INFO org.springframework.boot.availability.ApplicationAvailabilityBean [restartedMain] Application availability state LivenessState changed to CORRECT
+2021-08-15 15:36:43,208 INFO org.springframework.boot.availability.ApplicationAvailabilityBean [restartedMain] Application availability state ReadinessState changed to ACCEPTING_TRAFFIC
+2021-08-15 15:36:45,810 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8082-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-08-15 15:36:45,811 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8082-exec-1] Initializing Servlet 'dispatcherServlet'
+2021-08-15 15:36:45,814 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8082-exec-1] Completed initialization in 3 ms
+2021-08-15 15:36:45,872 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-1] null
+2021-08-15 15:36:48,847 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-2] null
+2021-08-15 15:36:49,602 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-4] null
+2021-08-15 15:36:51,609 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-3] null
+2021-08-15 15:36:51,845 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-5] null
+2021-08-15 15:36:52,032 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-6] null
+2021-08-15 15:36:54,930 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-7] null
+2021-08-15 15:36:55,093 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-9] null
+2021-08-15 15:36:59,583 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-8] null
+2021-08-15 15:36:59,685 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-10] null
+2021-08-15 15:36:59,833 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-1] null
+2021-08-15 15:37:03,423 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-2] null
+2021-08-15 15:37:03,565 INFO org.heartfulness.avtc.security.auth.SecurityFilter [http-nio-8082-exec-4] null
+2021-08-15 19:15:05,777 WARN com.zaxxer.hikari.pool.HikariPool$HouseKeeper [HikariPool-1 housekeeper] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=56m6s519ms488µs700ns).
